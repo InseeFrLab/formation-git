@@ -1,0 +1,15 @@
+---
+title: "README"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+
+Références utiles:
+
+[Efficient R Programming](https://csgillespie.github.io/efficientR/)
