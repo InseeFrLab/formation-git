@@ -1,0 +1,13 @@
+---
+title: 'Travail collaboratif avec R: les rudiments'
+author: "Lino Galiana"
+date: "5 mai 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Création d'un projet R
