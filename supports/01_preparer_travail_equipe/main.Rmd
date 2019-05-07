@@ -2,7 +2,8 @@
 title: 'Travail collaboratif avec R: les rudiments'
 author: "Lino Galiana"
 date: "5 mai 2019"
-output: html_document
+output:
+  beamer_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -11,3 +12,34 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Création d'un projet R
+
+## Principe
+
+* Les `projets` sont un outil pour faciliter la collaboration
+    + Pour assurer la reproductibilité du code, le contexte doit être homogène 
+    + Mais aussi mieux s'organiser (collaboration avec soi-même ou les autres) 
+    
+</br></br>
+
+* Un projet bien organisé facilite la vie: 
+    + Centraliser l'ensemble des productions d'un papier: codes, articles, présentations...
+    + Faciliter la compréhension et la reproducibilité d'un travail à partir de 0
+    + Permettre l'interaction entre les fichiers (plusieurs documents codes, R markdown...) et avec les données
+    + Faciliter des évolutions postérieures avec un projet organisé
+    
+</br></br>
+    
+* Ne contient pas que du code `R`:
+    + ensemble des documents (documation incluse) pour permettre la compréhension et l'exécution d'un projet
+
+
+## Principe
+
+* `Rproject`: Associer à chaque projet personnel un contexte
+    + Chaque projet a un contexte: espace de travail, historique de commandes, variables d'environnement...
+    + Projet: pas seulement fichier `.R` mais un ensemble plus global
+    
+![Exemple de RProject (un package)](./pics/01_ExempleRProject.PNG){width=60%} 
+
+
+## Créer un projet R
