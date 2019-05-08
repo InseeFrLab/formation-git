@@ -1,5 +1,6 @@
 ---
-title: 'Travail collaboratif avec R: les rudiments'
+title: 'Développement efficace avec Rstudio'
+subtitle: "Travail collaboratif avec R"
 author: "Lino Galiana"
 date: "5 mai 2019"
 output:
@@ -7,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
 
@@ -39,7 +40,158 @@ knitr::opts_chunk$set(echo = TRUE)
     + Chaque projet a un contexte: espace de travail, historique de commandes, variables d'environnement...
     + Projet: pas seulement fichier `.R` mais un ensemble plus global
     
-![Exemple de RProject (un package)](./pics/01_ExempleRProject.PNG){width=60%} 
+![Exemple de RProject (ici sous forme de package)](./pics/01_ExempleRProject.PNG){width=60%} 
 
 
 ## Créer un projet R
+
+3 possibilités:
+
+![Créer un nouveau projet: `File > New Project`](./pics/02_projectnew.png){width=60%} 
+
+
+## Créer un projet R
+
+1. Dans un nouveau dossier:
+
+    + Pour un projet tout nouveau
+
+![Créer un nouveau projet: `File > New Project`](./pics/02_projectnew.png){width=60%} 
+
+
+## Créer un projet R
+
+2. Dans un dossier existant:
+
+    + Pour commencer à organiser un projet où des documents ont déjà été produits
+
+![Créer un nouveau projet: `File > New Project`](./pics/02_projectnew.png){width=60%} 
+
+
+## Créer un projet R
+
+3. Cloner un projet depuis un dépôt:
+
+    + Pour récupérer depuis un dépôt git distant et se connecter à celui-ci
+    + Nous verrons cela plus tard
+
+![Créer un nouveau projet: `File > New Project`](./pics/02_projectnew.png){width=60%}
+
+
+## Types de projets possibles
+
+* `Rstudio` facilite l'initiatlisation de différents types de projets
+* On peut avoir des projets emboîtés (ex: un projet maître centralisant plusieurs projets dont des packages)
+
+![Différents types de projets](./pics/02_projectnew2.png){width=80%}
+
+## A la création du projet: intégrer `git` ?
+
+* On peut initialiser `git` en même temps que le projet
+    + Ou l'initialiser à tout moment (cf. suite)
+    + Ou initaliser le projet à partir d'un dépôt git existant (plus simple, cf. suite)
+
+![To git or not to git](./pics/02_projectnew3.png){width=80%}
+
+
+## `RProject`: structure
+
+1. Création d'un fichier `.Rproj` dans le dossier principal.
+    + Centralise les options (présentées dans la suite)
+    + Raccourci pour ouvrir le projet
+
+![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization1.png){width=80%}
+
+## `RProject`: structure
+
+2. Création d'un dossier caché (nommé .Rproj.user)
+    + Où sont stockés les fichiers temporaires du projet (scripts sauvegardés automatiquement...)
+    + Automatiquement ignoré par `.Rbuildignore`, `.gitignore`
+
+
+![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization1.png){width=80%}
+
+
+## `RProject`: structure
+
+3. Charge le projet dans `Rstudio` et affiche son nom dans la barre de projets
+
+
+![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization2.png){width=80%}
+    
+
+# Travailler sur un projet
+
+## Ouverture d'un projet
+
+When a project is opened within RStudio the following actions are taken:
+
+* Une nouvelle session `R` est ouverte
+* Le `.Rprofile` du projet (si présent) est chargé
+* Le `.RData` du projet (si présent) est chargé (si les options du projet l'autorisent)
+* Le `.Rhistory` du projet (si présent) est chargé dans le cadre `History` (et permet l'utilisation des boutons haut/bas pour remonter l'histoire des commandes). \hyperlink{label}{\beamerbutton{Exemple de cadre `History`}}
+* Le *working directory* est fixé au niveau du dossier maître du projet
+* Les documents précedemment ouverts sont restaurés dans l'éditeur `Rstudio`
+* Les autres paramètres `RStudio` (e.g. position du curseur, etc.) sont restaurés à leur valeur précédent la fermeture du projet
+
+## A la fermeture du projet
+
+
+* `.RData` et/ou `.Rhistory` sont sauvegardés dans le projet (si les options du projet l'autorisent)
+* Les documents ouverts non sauvegardés sont sauvergardés temporairement
+* Les autres paramètres RStudio sont sauvés
+* La session R associée au projet est arrêtée
+
+
+# Options du projet (`Tools > Project Options...`)
+
+## Options générales 
+
+* `(Default)`: utiliser les options globales
+* *Restore .RData into workspace at startup* —  N'est pas recommandé si les données sont volumineuses (ralentissement du démarrage de la session)
+* *Always save history (even when not saving .RData)* — Ajouter la ligne `.Rhistory` dans le fichier `.gitignore` (si existe) si l'histoire des commandes est conservée
+
+
+![Options générales](./pics/05_options.PNG){width=60%}
+
+## Options `build` (développement package uniquement)
+
+![Exemple d'options pour les packages](./pics/05_options_build.PNG){width=60%}
+
+
+## Options `git` 
+
+![Exemple d'options git](./pics/05_options_git.PNG){width=60%}
+
+
+# Edition de code dans `Rstudio`
+
+## Raccourcis utiles
+
+Avec Edition verticale
+
+## Debuggeur
+
+
+# Addins Rstudio
+
+## Addins
+
+`install.packages('addinslist')`
+
+![Addins Rstudio](./pics/06_addins.PNG){width=60%}
+
+## Addins
+
+
+![Installer facilement de nouveaux addins](./pics/06b_addins.PNG){width=60%}
+
+
+# Annexe
+
+## Rhistory
+
+\hypertarget{label}{\beamerbutton{Exemple de cadre `History`}}
+
+![Créer un nouveau projet: `File > New Project`](./pics/06_addins.PNG){width=100%}
+    
