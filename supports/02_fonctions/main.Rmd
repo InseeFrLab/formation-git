@@ -10,6 +10,17 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+
+
+To understand computations in R, two slogans are helpful:
+
+    Everything that exists is an object.
+    Everything that happens is a function call.
+
+— John Chambers
+
+R, at its heart, is a functional language. This means that it has certain technical properties, but more importantly that it lends itself to a style of problem solving centred on functions. 
+
 # Créer des fonctions
 
 # Documenter des fonctions
@@ -97,3 +108,305 @@ body(f02)
 environment(f02)
 #> <environment: R_GlobalEnv>
 ```
+
+
+While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an anonymous function. This is useful when it’s not worth the effort to figure out a name:
+
+lapply(mtcars, function(x) length(unique(x)))
+Filter(function(x) !is.numeric(x), mtcars)
+integrate(function(x) sin(x) ^ 2, 0, pi)
+
+A final option is to put functions in a list:
+
+funs <- list(
+  half = function(x) x / 2,
+  double = function(x) x * 2
+)
+
+funs$double(10)
+#> [1] 20
+
+In R, you’ll often see functions called closures. This name reflects the fact that R functions capture, or enclose, their environments
+
+In Chapter 2, we discussed assignment, the act of binding a name to a value. Here we’ll discuss scoping, the act of finding the value associated with a name.
+
+The basic rules of scoping are quite intuitive, and you’ve probably already internalised them, even if you never explicitly studied them. For example, what will the following code return, 10 or 20?25
+
+x <- 10
+g01 <- function() {
+  x <- 20
+  x
+}
+
+g01()
+
+In this section, you’ll learn the formal rules of scoping as well as some of its more subtle details. A deeper understanding of scoping will help you to use more advanced functional programming tools, and eventually, even to write tools that translate R code into other languages.
+
+R uses lexical scoping26: it looks up the values of names based on how a function is defined, not how it is called. “Lexical” here is not the English adjective that means relating to words or a vocabulary. It’s a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.
+
+R’s lexical scoping follows four primary rules:
+
+    Name masking
+    Functions versus variables
+    A fresh start
+    Dynamic lookup
+
+
+## Name masking
+
+The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.
+
+```{r}
+x <- 10
+y <- 20
+g02 <- function() {
+  x <- 1
+  y <- 2
+  c(x, y)
+}
+g02()
+```
+
+
+If a name isn’t defined inside a function, R looks one level up.
+
+
+```{r}
+x <- 2
+g03 <- function() {
+  y <- 1
+  c(x, y)
+}
+g03()
+#> [1] 2 1
+
+# And this doesn't change the previous value of y
+y
+#> [1] 20
+```
+
+The same rules apply if a function is defined inside another function. First, R looks inside the current function. Then, it looks where that function was defined (and so on, all the way up to the global environment). Finally, it looks in other loaded packages.
+
+g11 <- function() {
+  if (!exists("a")) {
+    a <- 1
+  } else {
+    a <- a + 1
+  }
+  a
+}
+
+g11()
+g11()
+
+You might be surprised that g11() always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. 
+
+
+#### Dynamic lookup
+
+Lexical scoping determines where, but not when to look for values. R looks for values when the function is run, not when the function is created. Together, these two properties tell us that the output of a function can differ depending on the objects outside the function’s environment:
+
+g12 <- function() x + 1
+x <- 15
+g12()
+#> [1] 16
+
+x <- 20
+g12()
+#> [1] 21
+
+This behaviour can be quite annoying. If you make a spelling mistake in your code, you won’t get an error message when you create the function. And depending on the variables defined in the global environment, you might not even get an error message when you run the function.
+
+To detect this problem, use codetools::findGlobals(). This function lists all the external dependencies (unbound symbols) within a function:
+
+codetools::findGlobals(g12)
+#> [1] "+" "x"
+
+
+### Lazy evaluation
+
+In R, function arguments are lazily evaluated: they’re only evaluated if accessed. For example, this code doesn’t generate an error because x is never used:
+
+h01 <- function(x) {
+  10
+}
+h01(stop("This is an error!"))
+#> [1] 10
+
+This is an important feature because it allows you to do things like include potentially expensive computations in function arguments that will only be evaluated if needed.
+
+Lazy evaluation is powered by a data structure called a promise
+
+
+ promise has three components:
+
+    An expression, like x + y, which gives rise to the delayed computation.
+
+    An environment where the expression should be evaluated, i.e. the environment where the function is called
+    
+
+  A value, which is computed and cached the first time a promise is accessed when the expression is evaluated in the specified environment. This ensures that the promise is evaluated at most once, and is why you only see “Calculating…” printed once in the following example.
+
+double <- function(x) { 
+  message("Calculating...")
+  x * 2
+}
+
+h03 <- function(x) {
+  c(x, x)
+}
+
+h03(double(x))
+#> Calculating...
+#> [1] 40 40
+
+
+Thanks to lazy evaluation, default values can be defined in terms of other arguments, or even in terms of variables defined later in the function:
+
+h04 <- function(x = 1, y = x * 2, z = a + b) {
+  a <- 10
+  b <- 100
+  
+  c(x, y, z)
+}
+
+h04()
+
+
+Many base R functions use this technique, but I don’t recommend it. It makes the code harder to understand: to predict what will be returned, you need to know the exact order in which default arguments are evaluated.
+
+The evaluation environment is slightly different for default and user supplied arguments, as default arguments are evaluated inside the function. This means that seemingly identical calls can yield different results. It’s easiest to see this with an extreme example:
+
+h05 <- function(x = ls()) {
+  a <- 1
+  x
+}
+
+# ls() evaluated inside h05:
+h05()
+#> [1] "a" "x"
+
+# ls() evaluated in global environment:
+h05(ls())
+#> [1] "h05"
+
+To determine if an argument’s value comes from the user or from a default, you can use missing():
+
+
+## Dot ...
+
+There are two primary uses of ...
+
+* If your function takes a function as an argument, you want some way to pass additional arguments to that function. In this example, lapply() uses ... to pass na.rm on to mean():
+
+x <- list(c(1, 3, NA), c(4, NA, 6))
+str(lapply(x, mean, na.rm = TRUE))
+#> List of 2
+#>  $ : num 2
+#>  $ : num 5
+
+* If your function is an S3 generic, you need some way to allow methods to take arbitrary extra arguments. For example, take the print() function. Because there are different options for printing depending on the type of object, there’s no way to pre-specify every possible argument and ... allows individual methods to have different arguments
+
+# Environement
+
+The environment is the data structure that powers scoping. Generally, an environment is similar to a named list, with four important exceptions:
+
+    Every name must be unique.
+
+    The names in an environment are not ordered.
+
+    An environment has a parent.
+
+    Environments are not copied when modified.
+
+The job of an environment is to associate, or bind, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn’t make sense to ask which is the first element in an environment). For that reason, we’ll draw the environment as so:
+
+![](./pics/01_environment.png)
+
+unlike most R objects, when you modify them, you modify them in place, and don’t create a copy. One important implication is that environments can contain themselves.
+
+```{r}
+e1 <- rlang::env(
+  a = FALSE,
+  b = "a",
+  c = 2.3,
+  d = 1:3,
+)
+e1
+rlang::env_print(e1)
+names(e1)
+```
+
+
+The current environment, or current_env() is the environment in which code is currently executing. When you’re experimenting interactively, that’s usually the global environment, or global_env(). The global environment is sometimes called your “workspace”, as it’s where all interactive (i.e. outside of a function) computation takes place.
+
+To compare environments, you need to use identical() and not ==. This is because == is a vectorised operator, and environments are not vectors.
+
+```{r}
+identical(globalenv(), environment())
+```
+
+Every environment has a parent, another environment. In diagrams, the parent is shown as a small pale blue circle and arrow that points to another environment. The parent is what’s used to implement lexical scoping: if a name is not found in an environment, then R will look in its parent (and so on).
+
+```{r}
+rlang::env_parent(e1)
+parent.env(e1)
+```
+
+The ancestors of an environment have an important relationship to <<-. Regular assignment, <-, always creates a variable in the current environment. Super assignment, <<-, never creates a variable in the current environment, but instead modifies an existing variable found in a parent environment.
+
+x <- 0
+f <- function() {
+  x <<- 1
+}
+f()
+x
+
+If <<- doesn’t find an existing variable, it will create one in the global environment. This is usually undesirable, because global variables introduce non-obvious dependencies between functions.
+
+You can get and set elements of an environment with $ and [[ in the same way as a list:
+
+e3 <- env(x = 1, y = 2)
+e3$x
+#> [1] 1
+e3$z <- 3
+e3[["z"]]
+
+## Package environments and the search path
+
+Each package attached by library() or require() becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached31, the parent of that package is the second to last package you attached, …
+
+Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using ::; it is only attached to the search path by library() or require()
+
+![](./pics/searchPath.png)
+
+If you follow all the parents back, you see the order in which every package has been attached. This is known as the search path because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with base::search()
+
+```{r}
+search()
+library(rlang)
+search()
+detach("package:rlang")
+```
+
+Note that when you attach another package with library(), the parent environment of the global environment changes:
+
+![](./pics/searchPath2.png)
+
+The goal of namespaces is to make sure that this does not happen, and that every package works the same way regardless of what packages are attached by the user.
+
+sd() is defined in terms of var(), so you might worry that the result of sd() would be affected by any function called var() either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function versus binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the namespace environment.
+
+    The package environment is the external interface to the package. It’s how you, the R user, find a function in an attached package or with ::. Its parent is determined by search path, i.e. the order in which packages have been attached.
+
+    The namespace environment is the internal interface to the package. The package environment controls how we find the function; the namespace controls how the function finds its variables.
+
+
+Every namespace environment has the same set of ancestors:
+
+    Each namespace has an imports environment that contains bindings to all the functions used by the package. The imports environment is controlled by the package developer with the NAMESPACE file.
+
+    Explicitly importing every base function would be tiresome, so the parent of the imports environment is the base namespace. The base namespace contains the same bindings as the base environment, but it has a different parent.
+
+    The parent of the base namespace is the global environment. This means that if a binding isn’t defined in the imports environment the package will look for it in the usual way. This is usually a bad idea (because it makes code depend on other loaded packages), so R CMD check automatically warns about such code. It is needed primarily for historical reasons, particularly due to how S3 method dispatch works.
+
