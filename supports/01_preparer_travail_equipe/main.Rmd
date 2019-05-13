@@ -177,11 +177,16 @@ Avec Edition verticale
 
 ## Addins
 
-`install.packages('addinslist')`
+* Les `addins` sont des outils pratiques pour gagner du temps dans l'édition du code
+    + Installation simple grâce à addinslist: `install.packages('addinslist')`
+    + Ceux sur `CRAN` sont disponibles pour tous, ceux sur `github` nécessitent d'avoir configuré le proxy 
 
 ![Addins Rstudio](./pics/06_addins.PNG){width=60%}
 
 ## Addins
+
+* Ex: `snippetsaddins`: convertir slash automatiquement pour avoir des chemins valide
+    + *"monchemin/toto/fichier.csv"* -> *"monchemin\\toto\\fichier.csv"*
 
 
 ![Installer facilement de nouveaux addins](./pics/06b_addins.PNG){width=60%}
