@@ -1,0 +1,99 @@
+---
+title: 'Fonctions: bases et plus'
+author: "Lino Galiana"
+date: "13 mai 2019"
+output:
+  html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Créer des fonctions
+
+# Documenter des fonctions
+
+# Noms et valeurs
+
+In R, it is important to understand the distinction between an object and its name.
+
+```{r}
+x <- c(1, 2, 3)
+```
+
+On serait tenté de lire "je crée un objet appelé 'x' contenant les valeurs 1,2 et 3". En réalité, R procède de la manière suivante:
+
+* `R` crée un vecteur de valeurs `c(1, 2, 3)`
+* `R` lie (*binds*) ce vecteur a un nom, ici `x`
+
+Autrement dit, l'objet/la valeur n'a pas de nom ; c'est le nom qui a une valeur. L'opérateur  assignation `<-` crée donc un lien entre un nom et une valeur. Un nom est une référence à une valeur: cela évite que le code ci-dessous
+
+```{r}
+y <- x
+```
+
+crée une copie d'un objet déjà existant (`x`). Ce qu'il fait, c'est créer une référence supplémentaire pour accéder au vecteur `c(1,2,3)`
+
+## Copie
+
+Le code ci-dessous lie `x` à `y` puis modifie `y`:
+```{r}
+x <- c(1, 2, 3)
+y <- x
+
+y[[3]] <- 4
+x
+```
+
+Cela ne modifie pas `x`. Alors que la valeur associée à *y* a changé, l'objet original n'a pas changé. A la place, `R` a créé un nouvel objet. 
+
+Ce comportement est appelé **copy-on-modify**. C'est parce que les objets R sont, en principe, immutables et que, ainsi, les faire évoluer implique de modifier la valeur sous-jacente. 
+
+```{r}
+f <- function(a) {
+  a
+}
+
+x <- c(1,2,3)
+f()
+f(x)
+```
+
+While f() is running, the a inside the function points to the same value as the x does outside the function
+
+
+Functions can be broken down into three components: arguments, body, and environment.
+
+Functions are objects, just as vectors are objects.
+
+## Function components
+
+A function has three parts:
+
+* The formals(), the list of arguments that control how you call the function.
+* The body(), the code inside the function.
+* The environment(), the data structure that determines how the function finds the values associated with the names.
+
+While the formals and body are specified explicitly when you create a function, the environment is specified implicitly, based on where you defined the function. The function environment always exists, but it is only printed when the function isn’t defined in the global environment.
+
+```{r}
+f02 <- function(x, y) {
+  # A comment
+  x + y
+}
+
+formals(f02)
+#> $x
+#> 
+#> 
+#> $y
+
+body(f02)
+#> {
+#>     x + y
+#> }
+
+environment(f02)
+#> <environment: R_GlobalEnv>
+```
