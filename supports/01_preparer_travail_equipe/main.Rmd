@@ -4,26 +4,37 @@ subtitle: "Travail collaboratif avec R"
 author: "Lino Galiana"
 date: "5 mai 2019"
 output:
-  beamer_presentation
+  beamer_presentation:
+    slide_level: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
+## Pourquoi utiliser Rstudio?
 
-# Création d'un projet R
+* `Rstudio` est un éditeur de code (IDE) très complet:
+    + Outils pour écrire et exécuter du code `R`
+    + Extensions pour écrire des documents (`R markdown`)
+    + Possibilité d'exécuter d'autres langages (`Python`,`C++`...)
+    + Brancher à `git`, visualiser du `html`, des `shiny`...
+
+![Fenêtre Rstudio](./pics/00_Rstudio.PNG){width=80%}     
+
+# Utiliser des projets R
 
 ## Principe
 
-* Les `projets` sont un outil pour faciliter la collaboration
-    + Pour assurer la reproductibilité du code, le contexte doit être homogène 
-    + Mais aussi mieux s'organiser (collaboration avec soi-même ou les autres) 
+* Les `projets` sont un outil pour faciliter la collaboration...
+    + Pour faciliter la reproductibilité du code, le contexte doit être homogène 
+
+* ... mais aussi mieux s'organiser lors d'un travail individuel
     
 </br></br>
 
 * Un projet bien organisé facilite la vie: 
-    + Centraliser l'ensemble des productions d'un papier: codes, articles, présentations...
+    + Centraliser l'ensemble des productions d'un projet: codes, articles, présentations, documentation...
     + Faciliter la compréhension et la reproducibilité d'un travail à partir de 0
     + Permettre l'interaction entre les fichiers (plusieurs documents codes, R markdown...) et avec les données
     + Faciliter des évolutions postérieures avec un projet organisé
@@ -63,7 +74,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 2. Dans un dossier existant:
 
-    + Pour commencer à organiser un projet où des documents ont déjà été produits
+    + Commencer à organiser un projet dans lequel des documents ont déjà été produits
 
 ![Créer un nouveau projet: `File > New Project`](./pics/02_projectnew.png){width=60%} 
 
@@ -80,8 +91,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ## Types de projets possibles
 
-* `Rstudio` facilite l'initiatlisation de différents types de projets
-* On peut avoir des projets emboîtés (ex: un projet maître centralisant plusieurs projets dont des packages)
+* `Rstudio` facilite l'initialisation de différents types de projets
+* On peut avoir des projets emboîtés
+    + Ex: un projet maître centralisant plusieurs projets, dont des packages
 
 ![Différents types de projets](./pics/02_projectnew2.png){width=80%}
 
@@ -91,7 +103,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
     + Ou l'initialiser à tout moment (cf. suite)
     + Ou initaliser le projet à partir d'un dépôt git existant (plus simple, cf. suite)
 
-![To git or not to git](./pics/02_projectnew3.png){width=80%}
+![To git or not to git?](./pics/02_projectnew3.png){width=80%}
 
 
 ## `RProject`: structure
@@ -100,16 +112,16 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
     + Centralise les options (présentées dans la suite)
     + Raccourci pour ouvrir le projet
 
-![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization1.png){width=80%}
+![Structure d'un projet R](./pics/03a_project_organization1.png){width=80%}
 
 ## `RProject`: structure
 
-2. Création d'un dossier caché (nommé .Rproj.user)
+2. Création d'un dossier caché (nommé `.Rproj.user`)
     + Où sont stockés les fichiers temporaires du projet (scripts sauvegardés automatiquement...)
     + Automatiquement ignoré par `.Rbuildignore`, `.gitignore`
 
 
-![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization1.png){width=80%}
+![Structure d'un projet R](./pics/03a_project_organization1.png){width=80%}
 
 
 ## `RProject`: structure
@@ -117,14 +129,14 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 3. Charge le projet dans `Rstudio` et affiche son nom dans la barre de projets
 
 
-![Créer un nouveau projet: `File > New Project`](./pics/03a_project_organization2.png){width=80%}
+![Raccourci pour accéder aux derniers projets](./pics/03a_project_organization2.png){width=80%}
     
 
 # Travailler sur un projet
 
-## Ouverture d'un projet
-
-When a project is opened within RStudio the following actions are taken:
+## A l'ouverture d'un projet
+ 
+Lorsqu'on ouvre un `Rproject`:
 
 * Une nouvelle session `R` est ouverte
 * Le `.Rprofile` du projet (si présent) est chargé
@@ -168,9 +180,57 @@ When a project is opened within RStudio the following actions are taken:
 
 ## Raccourcis utiles
 
-Avec Edition verticale
+Utiliser les raccourcis pour les commandes répétitives:
+
+* `Ctrl`+`Enter`: exécuter les lignes sélectionnées 
+* `Tab`: autocomplétion
+* `Ctrl` + `Alt` + `R`: exécuter l'ensemble d'un script
+* `Ctrl` + `I`: réindenter code
+* `Ctrl` + `Shift` + `A`: reformater code
+* `Alt` + `Up/Down`: déplacer une ligne sans faire copier-coller
+* `Ctrl` + `Deplacement souris`: passage en édition verticale (curseur en colonne)
+* `Ctrl` + `Shift` + `M`: insérer pipe `%>%`
+* `Alt`+ `F6`: insérer opérateur assignation `<-`
+
+# Utiliser le debuggeur
 
 ## Debuggeur
+
+* Utiliser des fonctions est une bonne manière d'assurer la reproducibilité du code
+* Comment faire lorsqu'une fonction provoque une erreur ? 
+    + Rstudio propose, parfois, une fenêtre appelée *debuggeur*
+
+![Aperçu du debuggeur](./pics/07_debug1.png){width=60%}
+
+## Utiliser le debuggeur: *"fenêtre environnement"*
+
+* `R`: interagit généralement avec l'*environnement global*
+* Les fonctions exécutent leur code interne dans un environnement séparé
+    + Mode debug: possibilité d'interagir avec cet environnement plutôt que l'environnement global
+    + S'assurer que l'environnement accède bien aux objets désirés (packages, paramètres, dataframe, functions...)
+
+![Exemple](./pics/07_debug2.png){width=50%}
+
+## Traceback
+
+* Montre le chemin suivit par l'exécution de la fonction:
+    + du point départ (première fonction exécutée)
+    + à la dernière fonction exécutée (celle provoquant l'erreur)
+
+* En cliquant sur une fonction, on voit son environnement ainsi que sa place dans le code, si `R` parvient à la determiner
+
+
+![Exemple](./pics/07_debug3.png){width=50%}
+
+## Console
+
+* L'invite de commande de la forme `Browse[1]>` nous montre qu'on est pas dans l'environnement habituel
+* Les commandes sont exécutées dans l'environnement de la fonction. Si la fonction a une variable nommée `x`, taper `x` permettra d'afficher sa valeur
+
+
+* On presse `Enter` pour exécuter des commandes plutôt que `CTRL` + `Enter` en mode debug
+
+![Exemple](./pics/07_debug4.png){width=50%}
 
 
 # Addins Rstudio
@@ -180,16 +240,32 @@ Avec Edition verticale
 * Les `addins` sont des outils pratiques pour gagner du temps dans l'édition du code
     + Installation simple grâce à addinslist: `install.packages('addinslist')`
     + Ceux sur `CRAN` sont disponibles pour tous, ceux sur `github` nécessitent d'avoir configuré le proxy 
+    + Génèrent automatiquement du code ou du texte utile pour les markdown
 
 ![Addins Rstudio](./pics/06_addins.PNG){width=60%}
 
 ## Addins
 
-* Ex: `snippetsaddins`: convertir slash automatiquement pour avoir des chemins valide
-    + *"monchemin/toto/fichier.csv"* -> *"monchemin\\toto\\fichier.csv"*
-
+Avec `addinslist`, on peut installer des addins à partir d'une fenêtre graphique
 
 ![Installer facilement de nouveaux addins](./pics/06b_addins.PNG){width=60%}
+
+<!-----------
+## Un exemple
+
+![](http://rstudio.github.io/rstudioaddins/demo/demo-subset.gif)
+---------> 
+
+## Quelques addins utiles
+
+
+* `snippetsaddins`: convertir slash automatiquement pour avoir des chemins valide
+    + *"monchemin/toto/fichier.csv"* -> *"monchemin\\toto\\fichier.csv"*
+* `ggedit`: aide pour générer un code pour graphiques `ggplot2`
+* `JADD`: en sélectionnant une fonction, on assigne les paramètres par défaut dans l'environnement
+* `questionr`: recodage facilité des variables `factor`
+* `trackmd`: un outil de *track change* pour `markdown`
+
 
 
 # Annexe
