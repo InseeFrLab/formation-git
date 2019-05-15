@@ -12,14 +12,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 
-To understand computations in R, two slogans are helpful:
+> To understand computations in R, two slogans are helpful:
+>
+>  * Everything that exists is an object.
+>  * Everything that happens is a function call.
+>
+> *John Chambers*
 
-    Everything that exists is an object.
-    Everything that happens is a function call.
+`R` est, dans son essence, un langage de programmation fonctionnelle. L'utilisation de fonctions est ainsi la manière privilégiée de développer un programme en `R`: comprendre la manière dont elles fonctionnent, interagissent avec l'environnement de l'utilisateur, est la meilleure manière de développer, par la suite, un programme reproductible. 
 
-— John Chambers
-
-R, at its heart, is a functional language. This means that it has certain technical properties, but more importantly that it lends itself to a style of problem solving centred on functions. 
 
 # Créer des fonctions
 
@@ -67,7 +68,6 @@ f <- function(a) {
 }
 
 x <- c(1,2,3)
-f()
 f(x)
 ```
 
@@ -378,7 +378,7 @@ Each package attached by library() or require() becomes one of the parents of th
 
 Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using ::; it is only attached to the search path by library() or require()
 
-![](./pics/searchPath.png)
+![](./pics/02_searchPath.png)
 
 If you follow all the parents back, you see the order in which every package has been attached. This is known as the search path because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with base::search()
 
@@ -391,7 +391,7 @@ detach("package:rlang")
 
 Note that when you attach another package with library(), the parent environment of the global environment changes:
 
-![](./pics/searchPath2.png)
+![](./pics/02_searchPath2.png)
 
 The goal of namespaces is to make sure that this does not happen, and that every package works the same way regardless of what packages are attached by the user.
 
