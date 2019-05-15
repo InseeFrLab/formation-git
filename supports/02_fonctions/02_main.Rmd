@@ -32,7 +32,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Construire un *workflow* à partir de fonctions est une pratique qui permet de réduire les risques de *bug* (en identifiant mieux leur origine) et, surtout, assure un code plus flexible et reproductible. Cela renvoie au paradigme informatique du *“do not repeat yourself”*.
 
-Popularised by the “pragmatic programmers”, Dave Thomas and Andy Hunt, this principle states:
 
 > “Every piece of knowledge must have a single, unambiguous, authoritative representation within a system”
 >
@@ -211,25 +210,77 @@ Comment faire maintenant si on désire autoriser d'autres valeurs que `-99` ? Il
 
 Notre fonction précédente prenait comme donnée que la valeur pour les valeurs manquantes est `-99`. On peut en faire un paramètre d'une fonction plus générale qui serait de la forme `fix_missing <- function(x, na.value)`. Ecrire cette fonction et l'appliquer à nouveau
 
+<div class="fold s">
 ```{r}
 fix_missing <- function(x, na.value) {
   x[x == na.value] <- NA
   x
 }
+
+fix_missing(x = df,na.value = -99)
+```
+</div>
+
+On peut omettre les noms d'arguments en `R` dans l'appel d'une fonction (`fix_missing(df,-99)` fonctionne). Néanmoins, il s'agit d'une pratique dangereuse qu'il vaut mieux éviter:
+
+* En l'absence du nom des arguments, `R` détermine à quels arguments renvoient `df`, `-99` en fonction de l'ordre. Pour les fonctions à nombreux arguments, on peut facilement inverser deux arguments ce qui provoquera une erreur ou un résultat non conforme à la volonté
+* Un appel de fonctions sans le nom des arguments est plus compliqué à débugger car il faut aller vérifier les arguments dans l'aide ou le code source pour savoir ceux dont il s'agit
+
+Mieux vaut être explicite donc. Avec l'autocomplétion de `Rstudio`, ce n'est pas vraiment plus long à écrire. 
+
+Imaginons maintenant qu'un code supplémentaire de valeur manquante doive être introduit. Supposons, en supplément de `-99`, que les valeurs manquantes sont aussi codées `10`. Comment feriez-vous ?
+
+<div class="fold s">
+```{r}
+fix_missing2 <- function(x, na.value) {
+  x[x %in% na.value] <- NA
+  x
+}
+
+fix_missing2(x = df$d, na.value = c(-99,10))
+
+df2 <- df
+df2[] <- lapply(colnames(df2), function(col) fix_missing2(df2[,col], na.value = c(-99,10)))
+```
+</div>
+
+Il suffit en effet d'une transformation mineure de la fonction `fix_missing2`. Notez que cette fois, dans le `lapply`, on a écrit `df2[,col]` et non `df2[col]`.
+
+Maintenant, on généralise encore une fois le programme. Imaginons, que toutes les variables ne soient pas codées de la même manière. Pour simplifier, réduisons le problème aux variables `a`, `b` et `c`. Imaginons que la variable `a` ait des valeurs 1 à 3 qui sont en fait des codes manquants, la variable `b` des valeurs 4 à 6 qui soient manquantes et la variable `c` des valeurs 7 à 10.
+
+Une manière appropriée de traiter ce problème est de stocker ces formats sous forme de liste. L'argument sera ainsi celui-ci
+
+```{r}
+codes_na <- list("a" = 1:3, "b" = 4:6, "c" = 7:9)
 ```
 
+Dans un premier temps, effectuez ceci avec un `lapply`
 
-The key idea is function composition. Take two simple functions, one which does something to every column and one which fixes missing values, and combine them to fix missing values in every column. Writing simple functions that can be understood in isolation and then composed is a powerful technique.
+<div class="fold s">
+```{r}
+df2 <- df
+df2[names(codes_na)] <- lapply(names(codes_na), function(variable) fix_missing2(df2[,variable], na.value = codes_na[[variable]]))
+df2
+```
+</div>
 
-What if different columns used different codes for missing values? In this case, you could argue that we should just add another argument:
+Maintenant, généralisez en créant une fonction à partir de ce code
+<div class="fold s">
+```{r}
+fix_multiple_missing <- function(data,codes_na){
+  data[names(codes_na)] <- lapply(names(codes_na), function(variable) fix_missing2(data[,variable], na.value = codes_na[[variable]]))
+  return(data)
+}
+
+fix_multiple_missing(df, codes_na = list("a" = 1:3, "b" = 4:6, "c" = 7:9))
+```
+</div>
 
 
-
-
-
-### Closures
+## Closures
 
 Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: a parent level that controls operation and a child level that does the work.
+
 
 # Documenter des fonctions
 

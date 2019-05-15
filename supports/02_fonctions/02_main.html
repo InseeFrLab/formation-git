@@ -255,7 +255,6 @@ div.tocify {
 </blockquote>
 <p><code>R</code> est, dans son essence, un langage de programmation fonctionnelle. L’utilisation de fonctions est ainsi la manière privilégiée de développer un programme en <code>R</code>: comprendre la manière dont elles fonctionnent, interagissent avec l’environnement de l’utilisateur, est la meilleure manière de développer, par la suite, un programme reproductible.</p>
 <p>Construire un <em>workflow</em> à partir de fonctions est une pratique qui permet de réduire les risques de <em>bug</em> (en identifiant mieux leur origine) et, surtout, assure un code plus flexible et reproductible. Cela renvoie au paradigme informatique du <em>“do not repeat yourself”</em>.</p>
-<p>Popularised by the “pragmatic programmers”, Dave Thomas and Andy Hunt, this principle states:</p>
 <blockquote>
 <p>“Every piece of knowledge must have a single, unambiguous, authoritative representation within a system”</p>
 <p>Dave Thomas and Andy Hunt, <em>The Pragmatic Programmer</em></p>
@@ -428,16 +427,76 @@ fix_missing_long(df)</code></pre>
 <div id="fonctions-a-plusieurs-arguments" class="section level2">
 <h2><span class="header-section-number">1.2</span> Fonctions à plusieurs arguments</h2>
 <p>Notre fonction précédente prenait comme donnée que la valeur pour les valeurs manquantes est <code>-99</code>. On peut en faire un paramètre d’une fonction plus générale qui serait de la forme <code>fix_missing &lt;- function(x, na.value)</code>. Ecrire cette fonction et l’appliquer à nouveau</p>
+<div class="fold s">
 <pre class="r"><code>fix_missing &lt;- function(x, na.value) {
   x[x == na.value] &lt;- NA
   x
-}</code></pre>
-<p>The key idea is function composition. Take two simple functions, one which does something to every column and one which fixes missing values, and combine them to fix missing values in every column. Writing simple functions that can be understood in isolation and then composed is a powerful technique.</p>
-<p>What if different columns used different codes for missing values? In this case, you could argue that we should just add another argument:</p>
-<div id="closures" class="section level3">
-<h3><span class="header-section-number">1.2.1</span> Closures</h3>
-<p>Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: a parent level that controls operation and a child level that does the work.</p>
+}
+
+fix_missing(x = df,na.value = -99)</code></pre>
+<pre><code>##    a  b c  d  e f
+## 1  1  6 1  5 NA 1
+## 2 10  4 4 NA  9 3
+## 3  7  9 5  4  1 4
+## 4  2  9 3  8  6 8
+## 5  1 10 5  9  8 6
+## 6  6  2 1  3  8 5</code></pre>
 </div>
+<p>On peut omettre les noms d’arguments en <code>R</code> dans l’appel d’une fonction (<code>fix_missing(df,-99)</code> fonctionne). Néanmoins, il s’agit d’une pratique dangereuse qu’il vaut mieux éviter:</p>
+<ul>
+<li>En l’absence du nom des arguments, <code>R</code> détermine à quels arguments renvoient <code>df</code>, <code>-99</code> en fonction de l’ordre. Pour les fonctions à nombreux arguments, on peut facilement inverser deux arguments ce qui provoquera une erreur ou un résultat non conforme à la volonté</li>
+<li>Un appel de fonctions sans le nom des arguments est plus compliqué à débugger car il faut aller vérifier les arguments dans l’aide ou le code source pour savoir ceux dont il s’agit</li>
+</ul>
+<p>Mieux vaut être explicite donc. Avec l’autocomplétion de <code>Rstudio</code>, ce n’est pas vraiment plus long à écrire.</p>
+<p>Imaginons maintenant qu’un code supplémentaire de valeur manquante doive être introduit. Supposons, en supplément de <code>-99</code>, que les valeurs manquantes sont aussi codées <code>10</code>. Comment feriez-vous ?</p>
+<div class="fold s">
+<pre class="r"><code>fix_missing2 &lt;- function(x, na.value) {
+  x[x %in% na.value] &lt;- NA
+  x
+}
+
+fix_missing2(x = df$d, na.value = c(-99,10))</code></pre>
+<pre><code>## [1]  5 NA  4  8  9  3</code></pre>
+<pre class="r"><code>df2 &lt;- df
+df2[] &lt;- lapply(colnames(df2), function(col) fix_missing2(df2[,col], na.value = c(-99,10)))</code></pre>
+</div>
+<p>Il suffit en effet d’une transformation mineure de la fonction <code>fix_missing2</code>. Notez que cette fois, dans le <code>lapply</code>, on a écrit <code>df2[,col]</code> et non <code>df2[col]</code>.</p>
+<p>Maintenant, on généralise encore une fois le programme. Imaginons, que toutes les variables ne soient pas codées de la même manière. Pour simplifier, réduisons le problème aux variables <code>a</code>, <code>b</code> et <code>c</code>. Imaginons que la variable <code>a</code> ait des valeurs 1 à 3 qui sont en fait des codes manquants, la variable <code>b</code> des valeurs 4 à 6 qui soient manquantes et la variable <code>c</code> des valeurs 7 à 10.</p>
+<p>Une manière appropriée de traiter ce problème est de stocker ces formats sous forme de liste. L’argument sera ainsi celui-ci</p>
+<pre class="r"><code>codes_na &lt;- list(&quot;a&quot; = 1:3, &quot;b&quot; = 4:6, &quot;c&quot; = 7:9)</code></pre>
+<p>Dans un premier temps, effectuez ceci avec un <code>lapply</code></p>
+<div class="fold s">
+<pre class="r"><code>df2 &lt;- df
+df2[names(codes_na)] &lt;- lapply(names(codes_na), function(variable) fix_missing2(df2[,variable], na.value = codes_na[[variable]]))
+df2</code></pre>
+<pre><code>##    a  b c   d   e f
+## 1 NA NA 1   5 -99 1
+## 2 10 NA 4 -99   9 3
+## 3  7  9 5   4   1 4
+## 4 NA  9 3   8   6 8
+## 5 NA 10 5   9   8 6
+## 6  6  2 1   3   8 5</code></pre>
+</div>
+Maintenant, généralisez en créant une fonction à partir de ce code
+<div class="fold s">
+<pre class="r"><code>fix_multiple_missing &lt;- function(data,codes_na){
+  data[names(codes_na)] &lt;- lapply(names(codes_na), function(variable) fix_missing2(data[,variable], na.value = codes_na[[variable]]))
+  return(data)
+}
+
+fix_multiple_missing(df, codes_na = list(&quot;a&quot; = 1:3, &quot;b&quot; = 4:6, &quot;c&quot; = 7:9))</code></pre>
+<pre><code>##    a  b c   d   e f
+## 1 NA NA 1   5 -99 1
+## 2 10 NA 4 -99   9 3
+## 3  7  9 5   4   1 4
+## 4 NA  9 3   8   6 8
+## 5 NA 10 5   9   8 6
+## 6  6  2 1   3   8 5</code></pre>
+</div>
+</div>
+<div id="closures" class="section level2">
+<h2><span class="header-section-number">1.3</span> Closures</h2>
+<p>Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: a parent level that controls operation and a child level that does the work.</p>
 </div>
 </div>
 <div id="documenter-des-fonctions" class="section level1">
@@ -636,9 +695,9 @@ Environments are not copied when modified.</code></pre>
   d = 1:3,
 )
 e1</code></pre>
-<pre><code>## &lt;environment: 0x000000000da3f2a8&gt;</code></pre>
+<pre><code>## &lt;environment: 0x0000000009a399a8&gt;</code></pre>
 <pre class="r"><code>rlang::env_print(e1)</code></pre>
-<pre><code>## &lt;environment: 000000000DA3F2A8&gt;
+<pre><code>## &lt;environment: 0000000009A399A8&gt;
 ## parent: &lt;environment: global&gt;
 ## bindings:
 ##  * a: &lt;lgl&gt;
@@ -724,7 +783,7 @@ Every execution environment is associated with a calling environment, which tell
 <pre><code>## function (x, na.rm = FALSE) 
 ## sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 ##     na.rm = na.rm))
-## &lt;bytecode: 0x000000000993d7b0&gt;
+## &lt;bytecode: 0x000000000d0eb5d0&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <pre class="r"><code>x &lt;- seq_len(10)
 sd(x)</code></pre>
