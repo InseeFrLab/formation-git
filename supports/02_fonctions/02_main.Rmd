@@ -1,5 +1,5 @@
 ---
-title: 'Fonctions: bases et plus'
+title: "Tirer profit des fonctions en `R`"
 author: "Lino Galiana"
 date: "13 mai 2019"
 output:
@@ -11,10 +11,12 @@ output:
     number_sections: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+<script src="../js/hideOutput.js"></script>
 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 > To understand computations in R, two slogans are helpful:
@@ -24,12 +26,182 @@ knitr::opts_chunk$set(echo = FALSE)
 >
 > *John Chambers*
 
+
+ 
 `R` est, dans son essence, un langage de programmation fonctionnelle. L'utilisation de fonctions est ainsi la manière privilégiée de développer un programme en `R`: comprendre la manière dont elles fonctionnent, interagissent avec l'environnement de l'utilisateur, est la meilleure manière de développer, par la suite, un programme reproductible. 
+
+Construire un *workflow* à partir de fonctions est une pratique qui permet de réduire les risques de *bug* (en identifiant mieux leur origine) et, surtout, assure un code plus flexible et reproductible. Cela renvoie au paradigme informatique du *“do not repeat yourself”*.
+
+Popularised by the “pragmatic programmers”, Dave Thomas and Andy Hunt, this principle states:
+
+> “Every piece of knowledge must have a single, unambiguous, authoritative representation within a system”
+>
+> Dave Thomas and Andy Hunt, *The Pragmatic Programmer*
+
+Cette approche nous intéresse particulièrement car elle rend le code plus clair, plus robuste, plus facile à répliquer et à faire évoluer.
+
 
 
 # Créer des fonctions
 
+## Fonctions avec un seul argument
+
+Supposons qu'on ait chargé une base de données qui utilise le code `−99` pour représenter les valeurs manquantes. On désire remplacer l'ensemble des `−99` par des `NA`s.
+
+```{r}
+# On fixe la racine pour être sûr de tous avoir le même dataset
+set.seed(1014)
+
+# On créé un dataframe
+df <- data.frame(replicate(6, sample(c(1:10, -99), 6, rep = TRUE)))
+names(df) <- letters[1:6]
+df
+```
+
+Un premier jet de code pourrait prendre la forme suivante:
+
+```{r}
+df2 <- df
+df2$a[df2$a == -99] <- NA
+df2$b[df2$b == -99] <- NA
+df2$c[df2$c == -99] <- NA
+df2$d[df2$d == -99] <- NA
+df2$e[df2$e == -98] <- NA
+df2$f[df2$g == -99] <- NA
+df2
+```
+
+Quelque chose ne vous choque pas ? Regardez précisément le code et le dataframe (indice: surveillez la colonne `e`)
+
+On a introduit une erreur humaine dans le code, difficile à détecter. La tâche ici est identique entre les colonnes, on a envie de mettre en place une structure générale, qu'on appliquerait *n* fois, qui éviterait ce problème (quitte à avoir une erreur, mieux vaut s'en rendre compte en la faisant systématiquement). 
+
+Construire une fonction est simple en `R` et emboîter ou enchaîner des fonctions également. Cela prend la forme suivante
+```{r, eval = FALSE}
+nom_fonction <- function(arg1,arg2,...,argK){
+  
+  # fait qqch
+  # -----
+  
+  # Retourne resultat
+  return(mon_output)
+}
+```
+
+Pour généraliser le code précédent, on voit qu'il y a une structure commune à toutes nos lignes de la forme `.[. == -99] <- NA`: cela servira de base à notre fonction. 
+
+Ecrivez un exemple de fonction `fix_missing` qui généralise, simplement, ce travail de nettoyage. Elle prendra en entrée x (un vecteur) et retourne ce vecteur avec les valeurs manquantes corrigées
+
+<div class="fold o s">
+```{r}
+fix_missing <- function(x) {
+  x[x == -99] <- NA
+  x
+}
+```
+</div>
+
+On peut l'appliquer avec le code suivant:
+```{r}
+df2 <- df
+df2$a <- fix_missing(df2$a)
+df2$b <- fix_missing(df2$b)
+df2$c <- fix_missing(df2$c)
+df2$d <- fix_missing(df2$d)
+df2$e <- fix_missing(df2$e)
+df2$f <- fix_missing(df2$f)
+df2
+
+# On va comparer au resultat donc on le garde
+df2_good <- df2
+```
+
+C'est mieux (on ne fait plus l'erreur précédente), mais cela n'élimine pas encore toute possibilité d'erreur: il n'est plus possible de taper `-98` au lieu de `-99`, mais il est toujours possible de se tromper dans le nom des variables
+```{r}
+df2 <- df
+# On se trompe à nouveau
+df2$a <- fix_missing(df2$a)
+df2$b <- fix_missing(df2$b)
+df2$c <- fix_missing(df2$c)
+df2$d <- fix_missing(df2$d)
+df2$d <- fix_missing(df2$d)
+df2$f <- fix_missing(df2$e)
+df2
+```
+par exemple, l'erreur typographique ci-dessus reste vicieuse. La prochaine étape est ainsi d'éliminer ce risque d'erreur en combinant deux fonctions (ce qu'on appelle combinaison de fonctions). La première `fix_missing()` sert à régler le problème sur un vecteur. La seconde généralisera ce procédé à toutes les colonnes. Comme `R` est un langage vectoriel, c'est une approche fréquente de construire des fonctions sur des vecteurs et les appliquer ensuite à plusieurs colonnes.
+
+La famille des fonctions `apply` est conçue pour appliquer une même fonction à plusieurs objets. La plus puissante, celle qu'il faut normalement utiliser, est la fonction `lapply` qui permet de stocker le résultat sous forme de liste. Celle-ci est à préférer à la fonction `sapply` qui effectue des conversions de type de données, ce qui peut être dangereux. Un peu plus bas, vous trouverez une approche alternative qui évite le `lapply` mais qui implique d'utiliser le package `reshape2`. Comme `R` est un langage vectoriel, de manière générale, les *dataframes* sous format *long* sont plus maniables que les *dataframes* sous format *wide* lorsqu'on veut leur imposer des opérations vectorielles
+
+`lapply()` est ce qu'on appelle une *fonctionnelle* car elle prend une fonction comme argument. Les dataframes étant en fait des listes, `lapply` s'applique. On a juste besoin d'une petite astuce pour s'assurer que la sortie de la fonction soit bien un *dataframe* et non une liste. A la place d'assigner le résultat sous la forme `df <- lapply(.....)` on va faire `df[] <- lapply(.....)`.
+
+fix_missing <- function(x) {
+  x[x == -99] <- NA
+  x
+}
+df[] <- lapply(df, fix_missing)
+
+
+This code has five advantages over copy and paste:
+
+    It’s more compact.
+
+    If the code for a missing value changes, it only needs to be updated in one place.
+
+    It works for any number of columns. There is no way to accidentally miss a column.
+
+    There is no way to accidentally treat one column differently than another.
+
+    It is easy to generalise this technique to a subset of columns:
+
+    df[1:5] <- lapply(df[1:5], fix_missing)
+
+The key idea is function composition. Take two simple functions, one which does something to every column and one which fixes missing values, and combine them to fix missing values in every column. Writing simple functions that can be understood in isolation and then composed is a powerful technique.
+
+What if different columns used different codes for missing values? In this case, you could argue that we should just add another argument:
+
+fix_missing <- function(x, na.value) {
+  x[x == na.value] <- NA
+  x
+}
+
+
+Il y aurait une manière encore plus intelligente de traiter ce problème évitant d'appliquer la fonction `lapply`. En transformant le format du *dataframe* de *wide* (beaucoup de colonnes) en *long* (beaucoup de lignes), on évite le *lapply*. 
+```{r}
+#' Version alternative du programme évitant une boucle \code{lapply}
+#' 
+#' @param df Dataframe
+#' @return \code{df} avec les valeurs manquantes transformées
+
+fix_missing_long <- function(df){
+  
+  # On transforme les données au format 'long'
+  df2 <- reshape2::melt(df)
+  
+  # On applique la transformation au vecteur de 'valeurs'
+  df2$value <- fix_missing(df2$value)
+  
+  # On utilise une fonction de 'base' pour numéroter les lignes par variable
+  df2$id <- ave(df2$val, df2$variable, FUN = seq_along)
+  
+  # On revient au format 'wide' initial
+  df2 <- reshape2::dcast(df2, id~variable, value.var = "value")[,-1]
+  
+  return(df2)
+}
+
+fix_missing_long(df)
+
+identical(fix_missing_long(df),df2_good)
+# blable
+```
+
+
+### Closures
+
+Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: a parent level that controls operation and a child level that does the work.
+
 # Documenter des fonctions
+
+
 
 # Noms et valeurs
 
@@ -415,3 +587,64 @@ Every namespace environment has the same set of ancestors:
 
     The parent of the base namespace is the global environment. This means that if a binding isn’t defined in the imports environment the package will look for it in the usual way. This is usually a bad idea (because it makes code depend on other loaded packages), so R CMD check automatically warns about such code. It is needed primarily for historical reasons, particularly due to how S3 method dispatch works.
 
+## Function environments
+
+
+Most environments are not created by you with new.env() but are created as a consequence of using functions. This section discusses the four types of environments associated with a function: enclosing, binding, execution, and calling.
+
+The enclosing environment is the environment where the function was created. Every function has one and only one enclosing environment. For the three other types of environment, there may be 0, 1, or many environments associated with each function:
+
+    Binding a function to a name with <- defines a binding environment.
+
+    Calling a function creates an ephemeral execution environment that stores variables created during execution.
+
+    Every execution environment is associated with a calling environment, which tells you where the function was called.
+
+The enclosing environment belongs to the function, and never changes, even if the function is moved to a different environment. The enclosing environment determines how the function finds values; the binding environments determine how we find the function.
+
+The distinction between the binding environment and the enclosing environment is important for package namespaces. Package namespaces keep packages independent. For example, if package A uses the base mean() function, what happens if package B creates its own mean() function? Namespaces ensure that package A continues to use the base mean() function, and that package A is not affected by package B (unless explicitly asked for). 
+
+Namespaces are implemented using environments, taking advantage of the fact that functions don’t have to live in their enclosing environments. For example, take the base function sd(). Its binding and enclosing environments are different:
+
+```{r}
+environment(sd)
+pryr::where("sd")
+```
+
+The definition of sd() uses var(), but if we make our own version of var() it doesn’t affect sd():
+
+```{r}
+sd
+x <- seq_len(10)
+sd(x)
+
+var <- function(x) "I do something really different"
+sd(x)
+var(x)
+```
+
+This works because every package has two environments associated with it: the package environment and the namespace environment. The package environment contains every publicly accessible function, and is placed on the search path. The namespace environment contains all functions (including internal functions), and its parent environment is a special imports environment that contains bindings to all the functions that the package needs. Every exported function in a package is bound into the package environment, but enclosed by the namespace environment. This complicated relationship is illustrated by the following diagram:
+
+![](./pics/03_path.png)
+
+
+When we type var into the console, it’s found first in the global environment. When sd() looks for var() it finds it first in its namespace environment so never looks in the globalenv().
+
+### Execution environments 
+
+g <- function(x) {
+  if (!exists("a", inherits = FALSE)) {
+    message("Defining a")
+    a <- 1
+  } else {
+    a <- a + 1
+  }
+  a
+}
+g(10)
+g(10)
+
+This function returns the same value every time it is called because of the fresh start principle, described in a fresh start. Each time a function is called, a new environment is created to host execution. The parent of the execution environment is the enclosing environment of the function. Once the function has completed, this environment is thrown away.
+
+
+When you create a function inside another function, the enclosing environment of the child function is the execution environment of the parent, and the execution environment is no longer ephemeral.
