@@ -171,6 +171,8 @@ Cette approche de composition de fonctions est très précieuse et explique la g
 
 Il y aurait une autre manière de traiter ce problème évitant d'appliquer la fonction `lapply` mais qui, ici, ne produit pas de résultats plus rapide. En transformant le format du *dataframe* de *wide* (beaucoup de colonnes) en *long* (beaucoup de lignes), on évite le *lapply* et on peut ainsi appliquer la fonction `fix_missing` facilement. 
 
+
+<div class="fold s">
 ```{r}
 #' Version alternative du programme évitant une boucle \code{lapply}
 #' 
@@ -199,6 +201,7 @@ fix_missing_long(df)
 identical(fix_missing_long(df),df2_good)
 
 ```
+</div>
 
 Néanmoins, ici, ce n'est pas la méthode la plus appropriée car le jeu n'en vaut pas la chandelle. C'est une opération couteuse de reformater un *dataframe* et, ici, l'opération vectorielle n'est pas assez complexe pour que la répétition $K$ fois de celle-ci prenne plus de temps que deux formatage de données (*wide* -> *long* -> *wide*)
 
@@ -276,14 +279,158 @@ fix_multiple_missing(df, codes_na = list("a" = 1:3, "b" = 4:6, "c" = 7:9))
 ```
 </div>
 
+<!-----
+TROP COMPLIQUE JE PENSE
 
 ## Closures
+
+
+
+    “An object is data with functions. A closure is a function with data.” — John D. Cook
+
+
+closures are functions that make other functions.
+
+```{r}
+add_x <- function(x) {
+    function(y) { x + y }
+}
+```
+
+Closures enclose access to the environment in which they were created – so you can nest functions within other functions.
 
 Closures get their name because they enclose the environment of the parent function and can access all its variables. This is useful because it allows us to have two levels of parameters: a parent level that controls operation and a child level that does the work.
 
 
+Are you repeating code, but instead of variables or data that’s changing – it’s the function instead? That’s a good case for a closure. Especially as your code gets more complex, closures are a good way of modularising and containing concepts.
+What are the steps for creating a closure?
+
+Building a closure happens in several steps:
+
+    Create the output function you’re aiming for. This function’s input is the same as what you’ll give it when you call it. It will return the final output. Let’s call this the enclosed function.
+    Enclose that function within a constructor function. This constructor’s input will be the parameters by which you’re varying the enclosed function in Step 1. It will output the enclosed function. Let’s call this the enclosing function.
+    Realise you’ve got it all wrong, go back to step 1. Repeat this multiple times. (Ask me how I know..)
+    Next you need to create the enclosed function(s) (the ones from Step 1) by calling the enclosing function (the one from Step 2).
+    Lastly, call and use your enclosed functions.
+
+An example
+
+Say I want to calculate the mean, SD and median of a data set. I could write:
+x <- c(1, 2, 3)
+mean(x)
+median(x)
+sd(x)
+
+stat <- function(stat_name){
+
+function(x){
+stat_name(x)
+}
+
+}
+
+This is made up of two parts: function(x){} which is the enclosed function and stat() which is the enclosing function.
+---->
+
+
 # Documenter des fonctions
 
+Décrire l'objectif d'une fonction, ses arguments (le type d'objet, une petite description de ceux-ci...) est fondamental pour la compréhension d'un programme, de sa structure et de sa finalité.
+
+Le package `roxygen2` facilite la structuration de la documentation d'une fonction (en fait, comme on le verra dans la leçon sur les *packages*, `roxygen` permet de structurer l'ensemble de la documentation d'un package). Une documentation de fonction a une architecture traditionnelle: un titre, des labels pour les paramètres... Les exemples ne manquant pas, par exemple en tapant `?sum`, `?gsub`...
+
+Tout de suite documenter les fonctions sous standard `roxygen` permet d'économiser beaucoup de temps lors du passage d'un ensemble de fonctions en *package*. Même sans passage sous forme de *package*, la documentation `roxygen` rend intelligible l'objet d'une fonction. Pour ce qui est du fonctionnement interne, on peut toujours laisser des commentaires standards à l'intérieur de celle-ci.
+
+Un commentaire `roxygen` prend la forme `#'` et se distingue d'un commentaire standard `#`. Toutes les lignes `roxygen` précédant une fonction sont appelées un bloc. 
+
+Par exemple, une documentation simple prend la forme
+
+```{r}
+#' Add together two numbers.
+#' 
+#' @param x A number.
+#' @param y A number.
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+#' add(10, 1)
+add <- function(x, y) {
+  x + y
+}
+```
+
+Les blocs sont décomposés sous forme de tags `@****`. Le texte avant le premier tag est l'introduction qui se décompose de la manière suivante:
+
+1. La première phrase est le titre de la documentation. C'est cette phrase qu'on retrouve en tapant `help(package = mypackage)` et qu'on retrouve en tête de chaque fichier d'aide `?myfunc`. Cette phrase doit être écrite sur une ligne et ne pas terminer par un point
+
+
+![](./pics/04_help_example.PNG)
+
+2. Le second paragraphe est la section *description*. C'est le premier élément d'une documentation de fonction qui explique de manière succincte l'objet d'une fonction
+
+3. Le troisième paragraphe, s'il a lieu d'être, et les suivants avant le premier tag, constituent la section *details*. C'est une partie plus longue de documentation qui permet d'approfondir l'objet, ou les subtilités, d'une fonction
+
+Toutes les fonctions doivent avoir un titre et une description. Les détails sont optionnels. En supplément du bloc introductif, la plupart des fonctions nécessitent les trois tags `@param`, `@examples` et `@return`.
+
+* `@param name description`: décrit les inputs d'une fonction. Par exemple, `@param data Un dataframe duquel on veut extraire les années`. Il est souvent judicieux d'évoquer le type d'input autorisé (un vecteur numérique, de caractère, un dataframe...). Il est possible de décrire plusieurs *inputs* à la fois en séparant les noms par des virgules: `@param x,y Numeric vectors`. Si la fonction hérite de paramères d'une autre fonction, on peut éviter de réécrire les paramètres concernés en mettant le tag `@inheritParams`
+
+* `@examples`: code d'exemple. Attention, si la fonction documentée est incorporée dans un package, ce code est exécuté. Pour éviter cela, il convient d'encapsuler les exemples dans une commande `\dontrun`, par exemple
+
+```{r, eval = FALSE}
+#' Ma fonction
+#' 
+#' @param df Un dataframe qui n'est pas disponible à tous les utilisateurs de la fonction
+#' @examples \dontrun{
+#'  # Le code n'est pas exécuté
+#'  chaine_traitement <-  my_big_func(df)
+#' }
+
+my_big_func <- function(df){
+  # Plein de calculs
+}
+```
+
+
+* `@return description`: description de l'*output* d'une fonction. Ce n'est pas toujours nécessaire, si la description de la fonction est suffisamment claire
+
+Par exemple, la fonction précédente peut être enrichie
+
+```{r}
+#' Sum of vector elements.
+#'
+#' \code{sum} returns the sum of all the values present in its arguments.
+#'
+#' This is a generic function: methods can be defined for it directly
+#' or via the \code{\link{Summary}} group generic. For this to work properly,
+#' the arguments \code{...} should be unnamed, and dispatch is on the
+#' first argument.
+#'
+#' @param ... Numeric, complex, or logical vectors.
+#' @param na.rm A logical scalar. Should missing values (including NaN)
+#'   be removed?
+#' @return If all inputs are integer and logical, then the output
+#'   will be an integer. If integer overflow
+#'   \url{http://en.wikipedia.org/wiki/Integer_overflow} occurs, the output
+#'   will be NA with a warning. Otherwise it will be a length-one numeric or
+#'   complex vector.
+#'
+#'   Zero-length vectors have sum 0 by definition. See
+#'   \url{http://en.wikipedia.org/wiki/Empty_sum} for more details.
+#' @examples
+#' sum(1:10)
+#' sum(1:5, 6:10)
+#' sum(F, F, F, T, T)
+#'
+#' sum(.Machine$integer.max, 1L)
+#' sum(.Machine$integer.max, 1)
+#'
+#' \dontrun{
+#' sum("a")
+#' }
+sum <- function(..., na.rm = TRUE) {}
+```
+
+On peut ajouter autant de sections que nécessaire à la documentation d'une fonction avec le tag `@section`, par exemple `@section Warning:`
 
 
 # Noms et valeurs
