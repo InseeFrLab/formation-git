@@ -1,5 +1,6 @@
 ---
 title: "Tirer profit des fonctions en `R`"
+subtitle: "Version longue"
 author: "Lino Galiana"
 date: "13 mai 2019"
 output:
@@ -40,8 +41,62 @@ Construire un *workflow* à partir de fonctions est une pratique qui permet de r
 Cette approche nous intéresse particulièrement car elle rend le code plus clair, plus robuste, plus facile à répliquer et à faire évoluer.
 
 
+# Noms et valeurs
+
+Lorsqu'on a un code fonctionnel et qu'on le partage, la source la plus commune d'erreur lorsque quelqu'un d'autre fait tourner ce code est que les environnements ne coïncident pas. Pour assurer un code fonctionnel lors d'un partage, il est important de comprendre la manière dont `R` gère les objets, environnements et dépendances. 
+
+La première distinction importante est celle entre un objet et son nom. A ce stade, vous devriez être habitué à l'assignation
+
+```{r}
+x <- c(1, 2, 3)
+```
+
+On serait tenté de lire "je crée un objet appelé 'x' contenant les valeurs 1,2 et 3". En réalité, R procède de la manière suivante:
+
+* `R` crée un vecteur de valeurs `c(1, 2, 3)`
+* `R` lie (*binds*) ce vecteur a un nom, ici `x`
+
+Autrement dit, l'objet/la valeur n'a pas de nom ; c'est le nom qui a une valeur. L'opérateur  assignation `<-` crée donc un lien entre un nom et une valeur. Un nom est une référence à une valeur: cela évite que le code ci-dessous
+
+```{r}
+y <- x
+```
+
+crée une copie d'un objet déjà existant (`x`). Ce qu'il fait, c'est créer une référence supplémentaire pour accéder au vecteur `c(1,2,3)`
+
+## Copie
+
+Le code ci-dessous lie `x` à `y` puis modifie `y`:
+```{r}
+x <- c(1, 2, 3)
+y <- x
+
+y[[3]] <- 4
+x
+```
+
+Cela ne modifie pas `x`. Alors que la valeur associée à *y* a changé, l'objet original n'a pas changé. A la place, `R` a créé un nouvel objet. 
+
+Ce comportement est appelé **copy-on-modify**. C'est parce que les objets R sont, en principe, immutables et que, ainsi, les faire évoluer implique de modifier la valeur sous-jacente. Parler d'immutabilité à propos des objets `R` peut paraître surprenant puisqu'on peut, *a priori*, ajouter des élements à un objet `R`:
+
+```{r}
+a <- list()
+a[[1]] <- "je remplis ma liste"
+a
+```
+
+En réalité, on a dupliqué temporairement `a` (*copy*) et ensuite associé modifié cet objet avant le ré-assigner au nom `a` '(*modify*). Cette approche rend le langage `R` très flexible en permettant, par exemple, de faire évoluer la classe d'un objet (à partir d'une réassignation)
+```{r}
+a <- c(1,2,3)
+a <- data.frame("a" = a)
+class(a)
+```
+
+
 
 # Créer des fonctions
+
+La fonction est l'objet de base de `R`: tout objet est un appel de fonction. Bien comprendre celles-ci est donc essentiel. 
 
 ## Fonctions avec un seul argument
 
@@ -79,7 +134,7 @@ Construire une fonction est simple en `R` et emboîter ou enchaîner des fonctio
 nom_fonction <- function(arg1,arg2,...,argK){
   
   # fait qqch
-  # -----
+  # ...
   
   # Retourne resultat
   return(mon_output)
@@ -433,41 +488,11 @@ sum <- function(..., na.rm = TRUE) {}
 On peut ajouter autant de sections que nécessaire à la documentation d'une fonction avec le tag `@section`, par exemple `@section Warning:`
 
 
-# Noms et valeurs
+# Fonctions: un peu de formalisme
 
-In R, it is important to understand the distinction between an object and its name.
+---> METTRE CA AILLEURS
 
-```{r}
-x <- c(1, 2, 3)
-```
-
-On serait tenté de lire "je crée un objet appelé 'x' contenant les valeurs 1,2 et 3". En réalité, R procède de la manière suivante:
-
-* `R` crée un vecteur de valeurs `c(1, 2, 3)`
-* `R` lie (*binds*) ce vecteur a un nom, ici `x`
-
-Autrement dit, l'objet/la valeur n'a pas de nom ; c'est le nom qui a une valeur. L'opérateur  assignation `<-` crée donc un lien entre un nom et une valeur. Un nom est une référence à une valeur: cela évite que le code ci-dessous
-
-```{r}
-y <- x
-```
-
-crée une copie d'un objet déjà existant (`x`). Ce qu'il fait, c'est créer une référence supplémentaire pour accéder au vecteur `c(1,2,3)`
-
-## Copie
-
-Le code ci-dessous lie `x` à `y` puis modifie `y`:
-```{r}
-x <- c(1, 2, 3)
-y <- x
-
-y[[3]] <- 4
-x
-```
-
-Cela ne modifie pas `x`. Alors que la valeur associée à *y* a changé, l'objet original n'a pas changé. A la place, `R` a créé un nouvel objet. 
-
-Ce comportement est appelé **copy-on-modify**. C'est parce que les objets R sont, en principe, immutables et que, ainsi, les faire évoluer implique de modifier la valeur sous-jacente. 
+Changing the value of a supplied argument within a function will not affect the value of the variable in the calling frame
 
 ```{r}
 f <- function(a) {
@@ -478,22 +503,18 @@ x <- c(1,2,3)
 f(x)
 ```
 
+
 While f() is running, the a inside the function points to the same value as the x does outside the function
 
 
-Functions can be broken down into three components: arguments, body, and environment.
+Formellement, on peut décomposer une fonction en trois parties:
 
-Functions are objects, just as vectors are objects.
+* Arguments (ex: `formals(lm)`): la liste des arguments qui contrôlent l'appel à une fonction
+* Corps (ex: `body(lm)`): les commandes internes à la fonction
+* Environnement (ex: `environment(lm)`): le contexte qui détermine comment la fonction trouve des valeurs associées aux noms évoqués
 
-## Function components
+Alors que les arguments et le corps de la fonction sont définis explicitement, l'environnement est lui défini implicitement, selon le contexte dans lequel est évoqué la fonction. 
 
-A function has three parts:
-
-* The formals(), the list of arguments that control how you call the function.
-* The body(), the code inside the function.
-* The environment(), the data structure that determines how the function finds the values associated with the names.
-
-While the formals and body are specified explicitly when you create a function, the environment is specified implicitly, based on where you defined the function. The function environment always exists, but it is only printed when the function isn’t defined in the global environment.
 
 ```{r}
 f02 <- function(x, y) {
@@ -502,43 +523,30 @@ f02 <- function(x, y) {
 }
 
 formals(f02)
-#> $x
-#> 
-#> 
-#> $y
 
 body(f02)
-#> {
-#>     x + y
-#> }
 
 environment(f02)
-#> <environment: R_GlobalEnv>
 ```
 
-
-While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an anonymous function. This is useful when it’s not worth the effort to figure out a name:
-
-lapply(mtcars, function(x) length(unique(x)))
-Filter(function(x) !is.numeric(x), mtcars)
-integrate(function(x) sin(x) ^ 2, 0, pi)
-
-A final option is to put functions in a list:
-
+A noter qu'il n'est pas obligatoire d'associer un nom à une fonction: on appelle cela une fonction *anonyme* (équivalent des fonctions *lambda* en `python`). C'est une démarche fréquente dans les commandes `lapply`, par exemple `lapply(mtcars, function(x) length(unique(x)))`.^[Les *closures*, qui sont des listes qui capturent l'environnement d'une fonction, fonctionnent aussi sur ce modèle]
+<!--------
+```{r}
 funs <- list(
   half = function(x) x / 2,
   double = function(x) x * 2
 )
 
 funs$double(10)
-#> [1] 20
+```
+-------> 
 
-In R, you’ll often see functions called closures. This name reflects the fact that R functions capture, or enclose, their environments
+## Portée (*scoping*) d'une fonction
 
-In Chapter 2, we discussed assignment, the act of binding a name to a value. Here we’ll discuss scoping, the act of finding the value associated with a name.
+L'assignation est l'acte d'associer un nom à une valeur. Le *scoping* (portée) est l'acte de trouver une valeur associée à un nom. 
 
-The basic rules of scoping are quite intuitive, and you’ve probably already internalised them, even if you never explicitly studied them. For example, what will the following code return, 10 or 20?25
-
+Par exemple, que va renvoyer le code suivant: 10, 20, 25 ? 
+```{r}
 x <- 10
 g01 <- function() {
   x <- 20
@@ -546,10 +554,18 @@ g01 <- function() {
 }
 
 g01()
+```
 
-In this section, you’ll learn the formal rules of scoping as well as some of its more subtle details. A deeper understanding of scoping will help you to use more advanced functional programming tools, and eventually, even to write tools that translate R code into other languages.
+Une bonne compréhension de la portée des fonctions est essentiel pour écrire des fonctions réplicables. 
 
+
+<!---------
 R uses lexical scoping26: it looks up the values of names based on how a function is defined, not how it is called. “Lexical” here is not the English adjective that means relating to words or a vocabulary. It’s a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.
+----------->
+
+<!----------
+La portée des objets en `R` suit 4 règles primaires:
+
 
 R’s lexical scoping follows four primary rules:
 
@@ -558,11 +574,13 @@ R’s lexical scoping follows four primary rules:
     A fresh start
     Dynamic lookup
 
+---------->
 
-## Name masking
+### Noms masqués
 
-The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.
+Le principe de base de la portée est que les noms définis au sein d'une fonction masquent les noms définis en dehors. Le code suivant montre un exemple de cette régle: que renvoie la fonction suivante?
 
+<div class="fold o">
 ```{r}
 x <- 10
 y <- 20
@@ -573,9 +591,10 @@ g02 <- function() {
 }
 g02()
 ```
+</div>
 
 
-If a name isn’t defined inside a function, R looks one level up.
+Si `R` ne trouve pas un nom dans une fonction, il cherchera celui-ci dans un environnement situé un niveau au-dessus (cf. plus tard)
 
 
 ```{r}
@@ -585,15 +604,16 @@ g03 <- function() {
   c(x, y)
 }
 g03()
-#> [1] 2 1
 
 # And this doesn't change the previous value of y
 y
-#> [1] 20
 ```
 
-The same rules apply if a function is defined inside another function. First, R looks inside the current function. Then, it looks where that function was defined (and so on, all the way up to the global environment). Finally, it looks in other loaded packages.
+Cette règle s'applique de la même manière pour les fonctions emboîtées: `R` cherche d'abord dans l'environnement de la fonction, puis dans celui de la fonction au dessus et ainsi de suite jusqu'à l'environnement global. S'il ne trouve toujours pas le nom recherché (par exemple une fonction `sum`), R finira par chercher dans la liste des packages chargés.   
 
+Un bon exemple de portée d'une fonction est le suivant:
+
+```{r}
 g11 <- function() {
   if (!exists("a")) {
     a <- 1
@@ -605,54 +625,75 @@ g11 <- function() {
 
 g11()
 g11()
+```
 
-You might be surprised that g11() always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent. 
+Pourquoi `g11()` retourne-t-elle toujours la même valeur ? C'est parce que chaque fois qu'une fonction est appelée, un nouvel environnement est créé pour héberger son exécution. Une fonction est donc incapable de connaître les noms qui ont pu être créés par une fonction passée sans `return`. 
 
 
-#### Dynamic lookup
+La portée permet de lier des objets entre eux mais ne permet pas de déterminer quand ce lien prendra place (on parle d'évaluation paresseuse ou *lazy evaluation*: on donne un plan à `R` pour lier les objets, on ne lui dit pas encore quand la commande aura lieu). `R` associera les noms aux valeurs quand la fonction sera exécutée, et pas à sa création. 
 
-Lexical scoping determines where, but not when to look for values. R looks for values when the function is run, not when the function is created. Together, these two properties tell us that the output of a function can differ depending on the objects outside the function’s environment:
+Cela implique que l'output d'une fonction peut différer selon les objets hors de l'environnement de la fonction (ces objets sont parfois appelés variables globales parce qu'ils affectent l'ensemble des fonctions, par opposition aux variables locales qui sont propres à une fonction). 
 
+```{r}
 g12 <- function() x + 1
 x <- 15
 g12()
-#> [1] 16
 
 x <- 20
 g12()
-#> [1] 21
+```
 
-This behaviour can be quite annoying. If you make a spelling mistake in your code, you won’t get an error message when you create the function. And depending on the variables defined in the global environment, you might not even get an error message when you run the function.
+La modification de `x` (variable globale) change donc l'output de la fonction. Une manière de rapidement savoir quelles sont les variables globales qui peuvent avoir un effet sur les résultats est d'utiliser la fonction `codetools::findGlobals()`. Cette fonction liste toutes les dépendances externes appelés dans une fonction 
 
-To detect this problem, use codetools::findGlobals(). This function lists all the external dependencies (unbound symbols) within a function:
-
+```{r}
 codetools::findGlobals(g12)
-#> [1] "+" "x"
+```
 
 
-### Lazy evaluation
+### Promesse et évaluation paresseuse
 
-In R, function arguments are lazily evaluated: they’re only evaluated if accessed. For example, this code doesn’t generate an error because x is never used:
+Comme on l'a dit, les arguments d'une fonction en `R` sont évalués de manière paresseuse: ils ne sont évalués que s'il est nécessaire d'y aller dans le plan qu'on a défini. 
 
+Par exemple, le code suivant ne provoquera pas d'erreur car `x` n'est jamais utilisé:
+
+```{r}
 h01 <- function(x) {
   10
 }
 h01(stop("This is an error!"))
-#> [1] 10
+```
 
-This is an important feature because it allows you to do things like include potentially expensive computations in function arguments that will only be evaluated if needed.
+C'est très pratique car cela permet de créer des fonctions qui peuvent avoir des calculs très différents selon le type d'argument
 
-Lazy evaluation is powered by a data structure called a promise
+Par exemple, créez une fonction `add(x,y)` qui
 
+* si `x` et `y` sont numériques, ajouter `x` et `y`
+* si `x` et `y` sont des caractères, concatène `x` avec `y` ^[Notez qu'en Python, la distinction de type ne devrait pas être nécessaire car la concaténation de *string* passe directement par l'opérateur `+`]
+* si `x` et `y` ne sont pas de même type, on renvoie l'erreur *"'x' et 'y' ne sont pas de même nature"*"
 
- promise has three components:
+```{r, error=TRUE}
+add <- function(x,y){
+  if ((class(x) == "numeric") & (class(y) == "numeric")){
+    x + y
+  } else if ((class(x) == "character") & (class(y) == "character")){
+    paste0(x,y)
+  } else{
+    stop("'x' et 'y' ne sont pas de même nature")
+  }
+}
+add(1,2)
+add("a","b")
+add(1,"b")
+```
 
-    An expression, like x + y, which gives rise to the delayed computation.
+Dans le cadre de l'évaluation paresseuse, ce qui permet à `R` de lier les objets et environnements entre eux est la `promesse`. Elle a trois éléments
 
-    An environment where the expression should be evaluated, i.e. the environment where the function is called
-    
+* Une *expression*, comme `x + y`, qui amènera à de futures calculs
+* Un *environement*, où l'expression sera évaluée, i.e. l'environnement où la fonction est évaluée
+* Une *valeur* qui est calculée et gardée en mémoire au sein de l'environnement (de manière à éviter de faire deux fois le même calcul si le même plan est appelé deux fois dans le même environnement). 
 
-  A value, which is computed and cached the first time a promise is accessed when the expression is evaluated in the specified environment. This ensures that the promise is evaluated at most once, and is why you only see “Calculating…” printed once in the following example.
+<!-----------
+A value, which is computed and cached the first time a promise is accessed when the expression is evaluated in the specified environment. This ensures that the promise is evaluated at most once, and is why you only see “Calculating…” printed once in the following example.
 
 double <- function(x) { 
   message("Calculating...")
@@ -698,8 +739,9 @@ h05(ls())
 #> [1] "h05"
 
 To determine if an argument’s value comes from the user or from a default, you can use missing():
+------------>
 
-
+<!-----------
 ## Dot ...
 
 There are two primary uses of ...
@@ -713,64 +755,89 @@ str(lapply(x, mean, na.rm = TRUE))
 #>  $ : num 5
 
 * If your function is an S3 generic, you need some way to allow methods to take arbitrary extra arguments. For example, take the print() function. Because there are different options for printing depending on the type of object, there’s no way to pre-specify every possible argument and ... allows individual methods to have different arguments
+------>
 
-# Environement
+# Les environnements: encore du formalisme
 
-The environment is the data structure that powers scoping. Generally, an environment is similar to a named list, with four important exceptions:
+L'environnement est la structure qui assure la portée. Un environnement est en fait une liste nommée d'objets avec des règles un peu plus restrictive qu'une liste classique:
 
-    Every name must be unique.
+1. Chaque nom doit être unique
+2. Les noms dans un environnement n'ont pas d'ordre
+3. Un environnement a un *parent* 
+4. La copie d'environnements ne suit pas le principe de *copy-on-modified*
 
-    The names in an environment are not ordered.
-
-    An environment has a parent.
-
-    Environments are not copied when modified.
-
-The job of an environment is to associate, or bind, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn’t make sense to ask which is the first element in an environment). For that reason, we’ll draw the environment as so:
+Un environnement sert à lier un ensemble de noms à un ensemble de valeurs. On peut dessiner un environnement de cette manière:
 
 ![](./pics/01_environment.png)
 
-unlike most R objects, when you modify them, you modify them in place, and don’t create a copy. One important implication is that environments can contain themselves.
+Quelques fonctions du package `rlang` sont dédiées aux environnements. Par exemple, créons un nouvel environnement `e1` contenant 4 objets
 
 ```{r}
 e1 <- rlang::env(
   a = FALSE,
   b = "a",
   c = 2.3,
-  d = 1:3,
+  d = 1:3
 )
 e1
+```
+
+Si on désire connaître les caractéristiques de celui-ci, on peut utiliser la fonction `rlang::env_print`. A noter que la fonction `names` renvoie les noms des objets internes à `e1` de la même manière qu'avec une liste normale
+
+```{r}
 rlang::env_print(e1)
 names(e1)
 ```
 
+On a plusieurs environnements en `R` qui communiquent entre eux avec des relations de hiérarchie. 
 
-The current environment, or current_env() is the environment in which code is currently executing. When you’re experimenting interactively, that’s usually the global environment, or global_env(). The global environment is sometimes called your “workspace”, as it’s where all interactive (i.e. outside of a function) computation takes place.
+Le *current environment* ou environnement d'exécution, qu'on peut afficher avec `rlang::current_env()` est l'environnement dans lequel les commandes sont actuellement exécutées. Quand vous expérimentez avec `R`, l'environnement d'exécution est l'environnement global (`.GlobalEnv`). L'environnement global est l'espace de travail (*workspace*) car c'est là où tous les objets sont stockés. 
 
+Comme toute fonction est appelée avec un nouvel environnement, l'environnement d'exécution se distingue de l'environnement global dès qu'on appelle une fonction. 
+
+```{r}
+print(rlang::current_env())
+
+a <- function() print(rlang::current_env())
+a()
+a()
+```
+
+<!-------
 To compare environments, you need to use identical() and not ==. This is because == is a vectorised operator, and environments are not vectors.
 
 ```{r}
 identical(globalenv(), environment())
 ```
+------>
 
-Every environment has a parent, another environment. In diagrams, the parent is shown as a small pale blue circle and arrow that points to another environment. The parent is what’s used to implement lexical scoping: if a name is not found in an environment, then R will look in its parent (and so on).
+Tout environnement a un *parent*, qui est lui-même un environnement. Le *parent* sert à définir la portée: si un nom n'est pas trouvé dans le *current environment*, `R` cherchera dans son *parent* puis dans le *parent* de celui-ci et ainsi de suite. 
+
+On peut afficher le *parent* d'un environnement avec la fonction `rlang::env_parent` ou la fonction de base `parent.env`:
 
 ```{r}
 rlang::env_parent(e1)
 parent.env(e1)
 ```
 
-The ancestors of an environment have an important relationship to <<-. Regular assignment, <-, always creates a variable in the current environment. Super assignment, <<-, never creates a variable in the current environment, but instead modifies an existing variable found in a parent environment.
+On appelle *ancêtres* l'ensemble des environnements *parents* d'un environnement. Le principe du masquage de nom qu'on a évoqué fait que le nom d'un objet pris en compte par le `current_env` est toujours le premier trouvé dans les environnements ancêtres.
 
+L'assignation traditionnelle, `<-`, crée toujours une variable dans l'environnement actuel. La *super assignation*, `<<-`, ne crée jamais la variable dans l'environnement courant mais, à la place, modifie la variable trouvée dans l'ancêtre le plus récent. 
+
+```{r}
 x <- 0
 f <- function() {
   x <<- 1
+  return(2)
 }
 f()
 x
+```
 
-If <<- doesn’t find an existing variable, it will create one in the global environment. This is usually undesirable, because global variables introduce non-obvious dependencies between functions.
+Si `<<-` ne trouve pas de variable existant sous ce nom, elle sera créée dans l'environnement global. Cela implique de manier `<<-` avec précaution car les variables globales créent des risques de non reproducibilité du code.
 
+
+<!----
 You can get and set elements of an environment with $ and [[ in the same way as a list:
 
 e3 <- env(x = 1, y = 2)
@@ -778,6 +845,7 @@ e3$x
 #> [1] 1
 e3$z <- 3
 e3[["z"]]
+---------->
 
 ## Package environments and the search path
 

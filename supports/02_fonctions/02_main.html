@@ -307,6 +307,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Tirer profit des fonctions en <code>R</code></h1>
+<h3 class="subtitle">Version longue</h3>
 <h4 class="author">Lino Galiana</h4>
 <h4 class="date">13 mai 2019</h4>
 
@@ -329,10 +330,47 @@ div.tocify {
 <p>Dave Thomas and Andy Hunt, <em>The Pragmatic Programmer</em></p>
 </blockquote>
 <p>Cette approche nous intéresse particulièrement car elle rend le code plus clair, plus robuste, plus facile à répliquer et à faire évoluer.</p>
+<div id="noms-et-valeurs" class="section level1">
+<h1><span class="header-section-number">1</span> Noms et valeurs</h1>
+<p>Lorsqu’on a un code fonctionnel et qu’on le partage, la source la plus commune d’erreur lorsque quelqu’un d’autre fait tourner ce code est que les environnements ne coïncident pas. Pour assurer un code fonctionnel lors d’un partage, il est important de comprendre la manière dont <code>R</code> gère les objets, environnements et dépendances.</p>
+<p>La première distinction importante est celle entre un objet et son nom. A ce stade, vous devriez être habitué à l’assignation</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)</code></pre>
+<p>On serait tenté de lire “je crée un objet appelé ‘x’ contenant les valeurs 1,2 et 3”. En réalité, R procède de la manière suivante:</p>
+<ul>
+<li><code>R</code> crée un vecteur de valeurs <code>c(1, 2, 3)</code></li>
+<li><code>R</code> lie (<em>binds</em>) ce vecteur a un nom, ici <code>x</code></li>
+</ul>
+<p>Autrement dit, l’objet/la valeur n’a pas de nom ; c’est le nom qui a une valeur. L’opérateur assignation <code>&lt;-</code> crée donc un lien entre un nom et une valeur. Un nom est une référence à une valeur: cela évite que le code ci-dessous</p>
+<pre class="r"><code>y &lt;- x</code></pre>
+<p>crée une copie d’un objet déjà existant (<code>x</code>). Ce qu’il fait, c’est créer une référence supplémentaire pour accéder au vecteur <code>c(1,2,3)</code></p>
+<div id="copie" class="section level2">
+<h2><span class="header-section-number">1.1</span> Copie</h2>
+<p>Le code ci-dessous lie <code>x</code> à <code>y</code> puis modifie <code>y</code>:</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)
+y &lt;- x
+
+y[[3]] &lt;- 4
+x</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<p>Cela ne modifie pas <code>x</code>. Alors que la valeur associée à <em>y</em> a changé, l’objet original n’a pas changé. A la place, <code>R</code> a créé un nouvel objet.</p>
+<p>Ce comportement est appelé <strong>copy-on-modify</strong>. C’est parce que les objets R sont, en principe, immutables et que, ainsi, les faire évoluer implique de modifier la valeur sous-jacente. Parler d’immutabilité à propos des objets <code>R</code> peut paraître surprenant puisqu’on peut, <em>a priori</em>, ajouter des élements à un objet <code>R</code>:</p>
+<pre class="r"><code>a &lt;- list()
+a[[1]] &lt;- &quot;je remplis ma liste&quot;
+a</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;je remplis ma liste&quot;</code></pre>
+<p>En réalité, on a dupliqué temporairement <code>a</code> (<em>copy</em>) et ensuite associé modifié cet objet avant le ré-assigner au nom <code>a</code> ’(<em>modify</em>). Cette approche rend le langage <code>R</code> très flexible en permettant, par exemple, de faire évoluer la classe d’un objet (à partir d’une réassignation)</p>
+<pre class="r"><code>a &lt;- c(1,2,3)
+a &lt;- data.frame(&quot;a&quot; = a)
+class(a)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+</div>
+</div>
 <div id="creer-des-fonctions" class="section level1">
-<h1><span class="header-section-number">1</span> Créer des fonctions</h1>
+<h1><span class="header-section-number">2</span> Créer des fonctions</h1>
+<p>La fonction est l’objet de base de <code>R</code>: tout objet est un appel de fonction. Bien comprendre celles-ci est donc essentiel.</p>
 <div id="fonctions-avec-un-seul-argument" class="section level2">
-<h2><span class="header-section-number">1.1</span> Fonctions avec un seul argument</h2>
+<h2><span class="header-section-number">2.1</span> Fonctions avec un seul argument</h2>
 <p>Supposons qu’on ait chargé une base de données qui utilise le code <code>−99</code> pour représenter les valeurs manquantes. On désire remplacer l’ensemble des <code>−99</code> par des <code>NA</code>s.</p>
 <pre class="r"><code># On fixe la racine pour être sûr de tous avoir le même dataset
 set.seed(1014)
@@ -370,7 +408,7 @@ df2</code></pre>
 <pre class="r"><code>nom_fonction &lt;- function(arg1,arg2,...,argK){
   
   # fait qqch
-  # -----
+  # ...
   
   # Retourne resultat
   return(mon_output)
@@ -496,7 +534,7 @@ fix_missing_long(df)</code></pre>
 <p>Comment faire maintenant si on désire autoriser d’autres valeurs que <code>-99</code> ? Il faut utiliser une fonction plus générale, avec deux arguments.</p>
 </div>
 <div id="fonctions-a-plusieurs-arguments" class="section level2">
-<h2><span class="header-section-number">1.2</span> Fonctions à plusieurs arguments</h2>
+<h2><span class="header-section-number">2.2</span> Fonctions à plusieurs arguments</h2>
 <p>Notre fonction précédente prenait comme donnée que la valeur pour les valeurs manquantes est <code>-99</code>. On peut en faire un paramètre d’une fonction plus générale qui serait de la forme <code>fix_missing &lt;- function(x, na.value)</code>. Ecrire cette fonction et l’appliquer à nouveau</p>
 <div class="fold s">
 <pre class="r"><code>fix_missing &lt;- function(x, na.value) {
@@ -620,7 +658,7 @@ This is made up of two parts: function(x){} which is the enclosed function and s
 </div>
 </div>
 <div id="documenter-des-fonctions" class="section level1">
-<h1><span class="header-section-number">2</span> Documenter des fonctions</h1>
+<h1><span class="header-section-number">3</span> Documenter des fonctions</h1>
 <p>Décrire l’objectif d’une fonction, ses arguments (le type d’objet, une petite description de ceux-ci…) est fondamental pour la compréhension d’un programme, de sa structure et de sa finalité.</p>
 <p>Le package <code>roxygen2</code> facilite la structuration de la documentation d’une fonction (en fait, comme on le verra dans la leçon sur les <em>packages</em>, <code>roxygen</code> permet de structurer l’ensemble de la documentation d’un package). Une documentation de fonction a une architecture traditionnelle: un titre, des labels pour les paramètres… Les exemples ne manquant pas, par exemple en tapant <code>?sum</code>, <code>?gsub</code>…</p>
 <p>Tout de suite documenter les fonctions sous standard <code>roxygen</code> permet d’économiser beaucoup de temps lors du passage d’un ensemble de fonctions en <em>package</em>. Même sans passage sous forme de <em>package</em>, la documentation <code>roxygen</code> rend intelligible l’objet d’une fonction. Pour ce qui est du fonctionnement interne, on peut toujours laisser des commentaires standards à l’intérieur de celle-ci.</p>
@@ -703,29 +741,10 @@ my_big_func &lt;- function(df){
 sum &lt;- function(..., na.rm = TRUE) {}</code></pre>
 <p>On peut ajouter autant de sections que nécessaire à la documentation d’une fonction avec le tag <code>@section</code>, par exemple <code>@section Warning:</code></p>
 </div>
-<div id="noms-et-valeurs" class="section level1">
-<h1><span class="header-section-number">3</span> Noms et valeurs</h1>
-<p>In R, it is important to understand the distinction between an object and its name.</p>
-<pre class="r"><code>x &lt;- c(1, 2, 3)</code></pre>
-<p>On serait tenté de lire “je crée un objet appelé ‘x’ contenant les valeurs 1,2 et 3”. En réalité, R procède de la manière suivante:</p>
-<ul>
-<li><code>R</code> crée un vecteur de valeurs <code>c(1, 2, 3)</code></li>
-<li><code>R</code> lie (<em>binds</em>) ce vecteur a un nom, ici <code>x</code></li>
-</ul>
-<p>Autrement dit, l’objet/la valeur n’a pas de nom ; c’est le nom qui a une valeur. L’opérateur assignation <code>&lt;-</code> crée donc un lien entre un nom et une valeur. Un nom est une référence à une valeur: cela évite que le code ci-dessous</p>
-<pre class="r"><code>y &lt;- x</code></pre>
-<p>crée une copie d’un objet déjà existant (<code>x</code>). Ce qu’il fait, c’est créer une référence supplémentaire pour accéder au vecteur <code>c(1,2,3)</code></p>
-<div id="copie" class="section level2">
-<h2><span class="header-section-number">3.1</span> Copie</h2>
-<p>Le code ci-dessous lie <code>x</code> à <code>y</code> puis modifie <code>y</code>:</p>
-<pre class="r"><code>x &lt;- c(1, 2, 3)
-y &lt;- x
-
-y[[3]] &lt;- 4
-x</code></pre>
-<pre><code>## [1] 1 2 3</code></pre>
-<p>Cela ne modifie pas <code>x</code>. Alors que la valeur associée à <em>y</em> a changé, l’objet original n’a pas changé. A la place, <code>R</code> a créé un nouvel objet.</p>
-<p>Ce comportement est appelé <strong>copy-on-modify</strong>. C’est parce que les objets R sont, en principe, immutables et que, ainsi, les faire évoluer implique de modifier la valeur sous-jacente.</p>
+<div id="fonctions-un-peu-de-formalisme" class="section level1">
+<h1><span class="header-section-number">4</span> Fonctions: un peu de formalisme</h1>
+<p>—&gt; METTRE CA AILLEURS</p>
+<p>Changing the value of a supplied argument within a function will not affect the value of the variable in the calling frame</p>
 <pre class="r"><code>f &lt;- function(a) {
   a
 }
@@ -734,18 +753,13 @@ x &lt;- c(1,2,3)
 f(x)</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>While f() is running, the a inside the function points to the same value as the x does outside the function</p>
-<p>Functions can be broken down into three components: arguments, body, and environment.</p>
-<p>Functions are objects, just as vectors are objects.</p>
-</div>
-<div id="function-components" class="section level2">
-<h2><span class="header-section-number">3.2</span> Function components</h2>
-<p>A function has three parts:</p>
+<p>Formellement, on peut décomposer une fonction en trois parties:</p>
 <ul>
-<li>The formals(), the list of arguments that control how you call the function.</li>
-<li>The body(), the code inside the function.</li>
-<li>The environment(), the data structure that determines how the function finds the values associated with the names.</li>
+<li>Arguments (ex: <code>formals(lm)</code>): la liste des arguments qui contrôlent l’appel à une fonction</li>
+<li>Corps (ex: <code>body(lm)</code>): les commandes internes à la fonction</li>
+<li>Environnement (ex: <code>environment(lm)</code>): le contexte qui détermine comment la fonction trouve des valeurs associées aux noms évoqués</li>
 </ul>
-<p>While the formals and body are specified explicitly when you create a function, the environment is specified implicitly, based on where you defined the function. The function environment always exists, but it is only printed when the function isn’t defined in the global environment.</p>
+<p>Alors que les arguments et le corps de la fonction sont définis explicitement, l’environnement est lui défini implicitement, selon le contexte dans lequel est évoqué la fonction.</p>
 <pre class="r"><code>f02 &lt;- function(x, y) {
   # A comment
   x + y
@@ -756,43 +770,59 @@ formals(f02)</code></pre>
 ## 
 ## 
 ## $y</code></pre>
-<pre class="r"><code>#&gt; $x
-#&gt; 
-#&gt; 
-#&gt; $y
-
-body(f02)</code></pre>
+<pre class="r"><code>body(f02)</code></pre>
 <pre><code>## {
 ##     x + y
 ## }</code></pre>
-<pre class="r"><code>#&gt; {
-#&gt;     x + y
-#&gt; }
-
-environment(f02)</code></pre>
+<pre class="r"><code>environment(f02)</code></pre>
 <pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
-<pre class="r"><code>#&gt; &lt;environment: R_GlobalEnv&gt;</code></pre>
-<p>While you almost always create a function and then bind it to a name, the binding step is not compulsory. If you choose not to give a function a name, you get an anonymous function. This is useful when it’s not worth the effort to figure out a name:</p>
-<p>lapply(mtcars, function(x) length(unique(x))) Filter(function(x) !is.numeric(x), mtcars) integrate(function(x) sin(x) ^ 2, 0, pi)</p>
-<p>A final option is to put functions in a list:</p>
-<p>funs &lt;- list( half = function(x) x / 2, double = function(x) x * 2 )</p>
-<p>funs$double(10) #&gt; [1] 20</p>
-<p>In R, you’ll often see functions called closures. This name reflects the fact that R functions capture, or enclose, their environments</p>
-<p>In Chapter 2, we discussed assignment, the act of binding a name to a value. Here we’ll discuss scoping, the act of finding the value associated with a name.</p>
-<p>The basic rules of scoping are quite intuitive, and you’ve probably already internalised them, even if you never explicitly studied them. For example, what will the following code return, 10 or 20?25</p>
-<p>x &lt;- 10 g01 &lt;- function() { x &lt;- 20 x }</p>
-<p>g01()</p>
-<p>In this section, you’ll learn the formal rules of scoping as well as some of its more subtle details. A deeper understanding of scoping will help you to use more advanced functional programming tools, and eventually, even to write tools that translate R code into other languages.</p>
-<p>R uses lexical scoping26: it looks up the values of names based on how a function is defined, not how it is called. “Lexical” here is not the English adjective that means relating to words or a vocabulary. It’s a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.</p>
-<p>R’s lexical scoping follows four primary rules:</p>
-<pre><code>Name masking
-Functions versus variables
-A fresh start
-Dynamic lookup</code></pre>
-</div>
-<div id="name-masking" class="section level2">
-<h2><span class="header-section-number">3.3</span> Name masking</h2>
-<p>The basic principle of lexical scoping is that names defined inside a function mask names defined outside a function. This is illustrated in the following example.</p>
+<p>A noter qu’il n’est pas obligatoire d’associer un nom à une fonction: on appelle cela une fonction <em>anonyme</em> (équivalent des fonctions <em>lambda</em> en <code>python</code>). C’est une démarche fréquente dans les commandes <code>lapply</code>, par exemple <code>lapply(mtcars, function(x) length(unique(x)))</code>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <!--------
+
+```r
+funs <- list(
+  half = function(x) x / 2,
+  double = function(x) x * 2
+)
+
+funs$double(10)
+```
+
+```
+## [1] 20
+```
+-------></p>
+<div id="portee-scoping-dune-fonction" class="section level2">
+<h2><span class="header-section-number">4.1</span> Portée (<em>scoping</em>) d’une fonction</h2>
+<p>L’assignation est l’acte d’associer un nom à une valeur. Le <em>scoping</em> (portée) est l’acte de trouver une valeur associée à un nom.</p>
+<p>Par exemple, que va renvoyer le code suivant: 10, 20, 25 ?</p>
+<pre class="r"><code>x &lt;- 10
+g01 &lt;- function() {
+  x &lt;- 20
+  x
+}
+
+g01()</code></pre>
+<pre><code>## [1] 20</code></pre>
+<p>Une bonne compréhension de la portée des fonctions est essentiel pour écrire des fonctions réplicables.</p>
+<!---------
+R uses lexical scoping26: it looks up the values of names based on how a function is defined, not how it is called. “Lexical” here is not the English adjective that means relating to words or a vocabulary. It’s a technical CS term that tells us that the scoping rules use a parse-time, rather than a run-time structure.
+----------->
+<!----------
+La portée des objets en `R` suit 4 règles primaires:
+
+
+R’s lexical scoping follows four primary rules:
+
+    Name masking
+    Functions versus variables
+    A fresh start
+    Dynamic lookup
+
+---------->
+<div id="noms-masques" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Noms masqués</h3>
+<p>Le principe de base de la portée est que les noms définis au sein d’une fonction masquent les noms définis en dehors. Le code suivant montre un exemple de cette régle: que renvoie la fonction suivante?</p>
+<div class="fold o">
 <pre class="r"><code>x &lt;- 10
 y &lt;- 20
 g02 &lt;- function() {
@@ -802,7 +832,8 @@ g02 &lt;- function() {
 }
 g02()</code></pre>
 <pre><code>## [1] 1 2</code></pre>
-<p>If a name isn’t defined inside a function, R looks one level up.</p>
+</div>
+<p>Si <code>R</code> ne trouve pas un nom dans une fonction, il cherchera celui-ci dans un environnement situé un niveau au-dessus (cf. plus tard)</p>
 <pre class="r"><code>x &lt;- 2
 g03 &lt;- function() {
   y &lt;- 1
@@ -810,95 +841,173 @@ g03 &lt;- function() {
 }
 g03()</code></pre>
 <pre><code>## [1] 2 1</code></pre>
-<pre class="r"><code>#&gt; [1] 2 1
-
-# And this doesn't change the previous value of y
+<pre class="r"><code># And this doesn't change the previous value of y
 y</code></pre>
 <pre><code>## [1] 20</code></pre>
-<pre class="r"><code>#&gt; [1] 20</code></pre>
-<p>The same rules apply if a function is defined inside another function. First, R looks inside the current function. Then, it looks where that function was defined (and so on, all the way up to the global environment). Finally, it looks in other loaded packages.</p>
-<p>g11 &lt;- function() { if (!exists(“a”)) { a &lt;- 1 } else { a &lt;- a + 1 } a }</p>
-<p>g11() g11()</p>
-<p>You might be surprised that g11() always returns the same value. This happens because every time a function is called a new environment is created to host its execution. This means that a function has no way to tell what happened the last time it was run; each invocation is completely independent.</p>
-<div id="dynamic-lookup" class="section level4">
-<h4><span class="header-section-number">3.3.0.1</span> Dynamic lookup</h4>
-<p>Lexical scoping determines where, but not when to look for values. R looks for values when the function is run, not when the function is created. Together, these two properties tell us that the output of a function can differ depending on the objects outside the function’s environment:</p>
-<p>g12 &lt;- function() x + 1 x &lt;- 15 g12() #&gt; [1] 16</p>
-<p>x &lt;- 20 g12() #&gt; [1] 21</p>
-<p>This behaviour can be quite annoying. If you make a spelling mistake in your code, you won’t get an error message when you create the function. And depending on the variables defined in the global environment, you might not even get an error message when you run the function.</p>
-<p>To detect this problem, use codetools::findGlobals(). This function lists all the external dependencies (unbound symbols) within a function:</p>
-<p>codetools::findGlobals(g12) #&gt; [1] “+” “x”</p>
-</div>
-<div id="lazy-evaluation" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Lazy evaluation</h3>
-<p>In R, function arguments are lazily evaluated: they’re only evaluated if accessed. For example, this code doesn’t generate an error because x is never used:</p>
-<p>h01 &lt;- function(x) { 10 } h01(stop(“This is an error!”)) #&gt; [1] 10</p>
-<p>This is an important feature because it allows you to do things like include potentially expensive computations in function arguments that will only be evaluated if needed.</p>
-<p>Lazy evaluation is powered by a data structure called a promise</p>
-<p>promise has three components:</p>
-<pre><code>An expression, like x + y, which gives rise to the delayed computation.
+<p>Cette règle s’applique de la même manière pour les fonctions emboîtées: <code>R</code> cherche d’abord dans l’environnement de la fonction, puis dans celui de la fonction au dessus et ainsi de suite jusqu’à l’environnement global. S’il ne trouve toujours pas le nom recherché (par exemple une fonction <code>sum</code>), R finira par chercher dans la liste des packages chargés.</p>
+<p>Un bon exemple de portée d’une fonction est le suivant:</p>
+<pre class="r"><code>g11 &lt;- function() {
+  if (!exists(&quot;a&quot;)) {
+    a &lt;- 1
+  } else {
+    a &lt;- a + 1
+  }
+  a
+}
 
-An environment where the expression should be evaluated, i.e. the environment where the function is called</code></pre>
-<p>A value, which is computed and cached the first time a promise is accessed when the expression is evaluated in the specified environment. This ensures that the promise is evaluated at most once, and is why you only see “Calculating…” printed once in the following example.</p>
-<p>double &lt;- function(x) { message(“Calculating…”) x * 2 }</p>
-<p>h03 &lt;- function(x) { c(x, x) }</p>
-<p>h03(double(x)) #&gt; Calculating… #&gt; [1] 40 40</p>
-<p>Thanks to lazy evaluation, default values can be defined in terms of other arguments, or even in terms of variables defined later in the function:</p>
-<p>h04 &lt;- function(x = 1, y = x * 2, z = a + b) { a &lt;- 10 b &lt;- 100</p>
-<p>c(x, y, z) }</p>
-<p>h04()</p>
-<p>Many base R functions use this technique, but I don’t recommend it. It makes the code harder to understand: to predict what will be returned, you need to know the exact order in which default arguments are evaluated.</p>
-<p>The evaluation environment is slightly different for default and user supplied arguments, as default arguments are evaluated inside the function. This means that seemingly identical calls can yield different results. It’s easiest to see this with an extreme example:</p>
-<p>h05 &lt;- function(x = ls()) { a &lt;- 1 x }</p>
+g11()</code></pre>
+<pre><code>##   a
+## 1 2
+## 2 3
+## 3 4</code></pre>
+<pre class="r"><code>g11()</code></pre>
+<pre><code>##   a
+## 1 2
+## 2 3
+## 3 4</code></pre>
+<p>Pourquoi <code>g11()</code> retourne-t-elle toujours la même valeur ? C’est parce que chaque fois qu’une fonction est appelée, un nouvel environnement est créé pour héberger son exécution. Une fonction est donc incapable de connaître les noms qui ont pu être créés par une fonction passée sans <code>return</code>.</p>
+<p>La portée permet de lier des objets entre eux mais ne permet pas de déterminer quand ce lien prendra place (on parle d’évaluation paresseuse ou <em>lazy evaluation</em>: on donne un plan à <code>R</code> pour lier les objets, on ne lui dit pas encore quand la commande aura lieu). <code>R</code> associera les noms aux valeurs quand la fonction sera exécutée, et pas à sa création.</p>
+<p>Cela implique que l’output d’une fonction peut différer selon les objets hors de l’environnement de la fonction (ces objets sont parfois appelés variables globales parce qu’ils affectent l’ensemble des fonctions, par opposition aux variables locales qui sont propres à une fonction).</p>
+<pre class="r"><code>g12 &lt;- function() x + 1
+x &lt;- 15
+g12()</code></pre>
+<pre><code>## [1] 16</code></pre>
+<pre class="r"><code>x &lt;- 20
+g12()</code></pre>
+<pre><code>## [1] 21</code></pre>
+<p>La modification de <code>x</code> (variable globale) change donc l’output de la fonction. Une manière de rapidement savoir quelles sont les variables globales qui peuvent avoir un effet sur les résultats est d’utiliser la fonction <code>codetools::findGlobals()</code>. Cette fonction liste toutes les dépendances externes appelés dans une fonction</p>
+<pre class="r"><code>codetools::findGlobals(g12)</code></pre>
+<pre><code>## [1] &quot;+&quot; &quot;x&quot;</code></pre>
 </div>
-</div>
-</div>
-<div id="ls-evaluated-inside-h05" class="section level1">
-<h1><span class="header-section-number">4</span> ls() evaluated inside h05:</h1>
-<p>h05() #&gt; [1] “a” “x”</p>
-</div>
-<div id="ls-evaluated-in-global-environment" class="section level1">
-<h1><span class="header-section-number">5</span> ls() evaluated in global environment:</h1>
-<p>h05(ls()) #&gt; [1] “h05”</p>
-<p>To determine if an argument’s value comes from the user or from a default, you can use missing():</p>
-<div id="dot" class="section level2">
-<h2><span class="header-section-number">5.1</span> Dot …</h2>
-<p>There are two primary uses of …</p>
+<div id="promesse-et-evaluation-paresseuse" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Promesse et évaluation paresseuse</h3>
+<p>Comme on l’a dit, les arguments d’une fonction en <code>R</code> sont évalués de manière paresseuse: ils ne sont évalués que s’il est nécessaire d’y aller dans le plan qu’on a défini.</p>
+<p>Par exemple, le code suivant ne provoquera pas d’erreur car <code>x</code> n’est jamais utilisé:</p>
+<pre class="r"><code>h01 &lt;- function(x) {
+  10
+}
+h01(stop(&quot;This is an error!&quot;))</code></pre>
+<pre><code>## [1] 10</code></pre>
+<p>C’est très pratique car cela permet de créer des fonctions qui peuvent avoir des calculs très différents selon le type d’argument</p>
+<p>Par exemple, créez une fonction <code>add(x,y)</code> qui</p>
 <ul>
-<li>If your function takes a function as an argument, you want some way to pass additional arguments to that function. In this example, lapply() uses … to pass na.rm on to mean():</li>
+<li>si <code>x</code> et <code>y</code> sont numériques, ajouter <code>x</code> et <code>y</code></li>
+<li>si <code>x</code> et <code>y</code> sont des caractères, concatène <code>x</code> avec <code>y</code> <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
+<li>si <code>x</code> et <code>y</code> ne sont pas de même type, on renvoie l’erreur <em>“‘x’ et ‘y’ ne sont pas de même nature”</em>&quot;</li>
 </ul>
-<p>x &lt;- list(c(1, 3, NA), c(4, NA, 6)) str(lapply(x, mean, na.rm = TRUE)) #&gt; List of 2 #&gt; $ : num 2 #&gt; $ : num 5</p>
+<pre class="r"><code>add &lt;- function(x,y){
+  if ((class(x) == &quot;numeric&quot;) &amp; (class(y) == &quot;numeric&quot;)){
+    x + y
+  } else if ((class(x) == &quot;character&quot;) &amp; (class(y) == &quot;character&quot;)){
+    paste0(x,y)
+  } else{
+    stop(&quot;'x' et 'y' ne sont pas de même nature&quot;)
+  }
+}
+add(1,2)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>add(&quot;a&quot;,&quot;b&quot;)</code></pre>
+<pre><code>## [1] &quot;ab&quot;</code></pre>
+<pre class="r"><code>add(1,&quot;b&quot;)</code></pre>
+<pre><code>## Error in add(1, &quot;b&quot;): 'x' et 'y' ne sont pas de même nature</code></pre>
+<p>Dans le cadre de l’évaluation paresseuse, ce qui permet à <code>R</code> de lier les objets et environnements entre eux est la <code>promesse</code>. Elle a trois éléments</p>
 <ul>
-<li>If your function is an S3 generic, you need some way to allow methods to take arbitrary extra arguments. For example, take the print() function. Because there are different options for printing depending on the type of object, there’s no way to pre-specify every possible argument and … allows individual methods to have different arguments</li>
+<li>Une <em>expression</em>, comme <code>x + y</code>, qui amènera à de futures calculs</li>
+<li>Un <em>environement</em>, où l’expression sera évaluée, i.e. l’environnement où la fonction est évaluée</li>
+<li>Une <em>valeur</em> qui est calculée et gardée en mémoire au sein de l’environnement (de manière à éviter de faire deux fois le même calcul si le même plan est appelé deux fois dans le même environnement).</li>
 </ul>
+<!-----------
+A value, which is computed and cached the first time a promise is accessed when the expression is evaluated in the specified environment. This ensures that the promise is evaluated at most once, and is why you only see “Calculating…” printed once in the following example.
+
+double <- function(x) { 
+  message("Calculating...")
+  x * 2
+}
+
+h03 <- function(x) {
+  c(x, x)
+}
+
+h03(double(x))
+#> Calculating...
+#> [1] 40 40
+
+
+Thanks to lazy evaluation, default values can be defined in terms of other arguments, or even in terms of variables defined later in the function:
+
+h04 <- function(x = 1, y = x * 2, z = a + b) {
+  a <- 10
+  b <- 100
+  
+  c(x, y, z)
+}
+
+h04()
+
+
+Many base R functions use this technique, but I don’t recommend it. It makes the code harder to understand: to predict what will be returned, you need to know the exact order in which default arguments are evaluated.
+
+The evaluation environment is slightly different for default and user supplied arguments, as default arguments are evaluated inside the function. This means that seemingly identical calls can yield different results. It’s easiest to see this with an extreme example:
+
+h05 <- function(x = ls()) {
+  a <- 1
+  x
+}
+
+# ls() evaluated inside h05:
+h05()
+#> [1] "a" "x"
+
+# ls() evaluated in global environment:
+h05(ls())
+#> [1] "h05"
+
+To determine if an argument’s value comes from the user or from a default, you can use missing():
+------------>
+<!-----------
+## Dot ...
+
+There are two primary uses of ...
+
+* If your function takes a function as an argument, you want some way to pass additional arguments to that function. In this example, lapply() uses ... to pass na.rm on to mean():
+
+x <- list(c(1, 3, NA), c(4, NA, 6))
+str(lapply(x, mean, na.rm = TRUE))
+#> List of 2
+#>  $ : num 2
+#>  $ : num 5
+
+* If your function is an S3 generic, you need some way to allow methods to take arbitrary extra arguments. For example, take the print() function. Because there are different options for printing depending on the type of object, there’s no way to pre-specify every possible argument and ... allows individual methods to have different arguments
+------>
 </div>
 </div>
-<div id="environement" class="section level1">
-<h1><span class="header-section-number">6</span> Environement</h1>
-<p>The environment is the data structure that powers scoping. Generally, an environment is similar to a named list, with four important exceptions:</p>
-<pre><code>Every name must be unique.
-
-The names in an environment are not ordered.
-
-An environment has a parent.
-
-Environments are not copied when modified.</code></pre>
-<p>The job of an environment is to associate, or bind, a set of names to a set of values. You can think of an environment as a bag of names, with no implied order (i.e. it doesn’t make sense to ask which is the first element in an environment). For that reason, we’ll draw the environment as so:</p>
+</div>
+<div id="les-environnements-encore-du-formalisme" class="section level1">
+<h1><span class="header-section-number">5</span> Les environnements: encore du formalisme</h1>
+<p>L’environnement est la structure qui assure la portée. Un environnement est en fait une liste nommée d’objets avec des règles un peu plus restrictive qu’une liste classique:</p>
+<ol style="list-style-type: decimal">
+<li>Chaque nom doit être unique</li>
+<li>Les noms dans un environnement n’ont pas d’ordre</li>
+<li>Un environnement a un <em>parent</em></li>
+<li>La copie d’environnements ne suit pas le principe de <em>copy-on-modified</em></li>
+</ol>
+<p>Un environnement sert à lier un ensemble de noms à un ensemble de valeurs. On peut dessiner un environnement de cette manière:</p>
 <div class="figure">
 <img src="data:image/png;base64,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KgJeGiVpk5vAq5vhbUYAr6RSPyJQL4Fp06ZNmjSJMCQfffQRjYuLiy+88MKLL764ZcuW5lot3xgUKoiACHhFwEujxCuZ1I8IiECqCGzfvv2qq6567LHH3AJ8+umnV1999S233ELWVne9yiIgAiLgLQEZJd7yVG8i4GMCFRUVAwYM+Pzzz0PqUF5efu655+bkxOuIFrJzVYqACIgABPT3RY+BCIjAQQI33HCDsUiOOOKIV155hYkTfLRZzXHit5aVlW3bts1preUbPTciIAKeE5BR4jlSdSgCviSAB8mf/vQnR/Rhw4Z9+OGHY8aMwYkkLy+Pj2+99RY+Ur5UTEKLgAj4h4CWb/xzrySpCCSSwI033lhdXc0IxCB+8MEHmzVr5h6NPTgTJ04k3M6KFSvc9SpnIIFVq1Y988wz+/btY8flqaee6msCZL12nuovv/zy8MMP79mz58knn0zB10rt2LHjPwcOfqOPPPLIr33ta/zrF41klPjlTklOEUggAV4w06dPdwb42c9+1qNHj+DBcnNzr7jiissuu8w5peWbYERpX8Ob+9Zbb33kkUeqqqpQFh8j/xola9as+fWvf/3SSy/x8LtvHFOD559//u233962bVt3vS/K77333iWXXMKsZ8Cv56hRo3BU79+/v/1ayCix/x5JwgYQqNpZVba8rHz1jspNlWSa3Z/XLRFxR7Ozcps0atysUdOipi26FLbs3jKveV4DpLSv6dKlS/l25ciFr2s4AU888cRwp1Sf3gTwJbrrrrv+/Oc/79q1Kw00ffPNN3/4wx9u3bo1WBfsrYcffpj3+ttvv11QUBDcwM6ampoabtD111+/d+/eYAmZDeJbx7///e9vfvObwWetqpFRYtXtkDAxEqhYX1E6o7R05rpNizbVVifCDIkkWHZudlG/og6DO3YY0qGgvW/+irlV2rhxo/kYYaa3c+fOppkKGUKAPVk4G02YMAGv5/RQ+f333z/99NN3797tqMPqxtChQ5kIxBB55513nDkGphzOPPPMV199tXHjxr7Q+v7777/22muNqF26dGFeBAMLRZzfbvRlWmvOnDksUZlmFhZklFh4UyRSAwisn/PFkoeWbP04xDeeBvQSX1PMoI0LNvKz6J732xzdpve43u0H+mxNevPmzYZBt27dTDmg0KRJE1MTMD9s6lUIJrBu3bqOHTsG1/ui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" />
 
 </div>
-<p>unlike most R objects, when you modify them, you modify them in place, and don’t create a copy. One important implication is that environments can contain themselves.</p>
+<p>Quelques fonctions du package <code>rlang</code> sont dédiées aux environnements. Par exemple, créons un nouvel environnement <code>e1</code> contenant 4 objets</p>
 <pre class="r"><code>e1 &lt;- rlang::env(
   a = FALSE,
   b = &quot;a&quot;,
   c = 2.3,
-  d = 1:3,
+  d = 1:3
 )
 e1</code></pre>
-<pre><code>## &lt;environment: 0x000000000c8d47d0&gt;</code></pre>
+<pre><code>## &lt;environment: 0x0000000006f36158&gt;</code></pre>
+<p>Si on désire connaître les caractéristiques de celui-ci, on peut utiliser la fonction <code>rlang::env_print</code>. A noter que la fonction <code>names</code> renvoie les noms des objets internes à <code>e1</code> de la même manière qu’avec une liste normale</p>
 <pre class="r"><code>rlang::env_print(e1)</code></pre>
-<pre><code>## &lt;environment: 000000000C8D47D0&gt;
+<pre><code>## &lt;environment: 0000000006F36158&gt;
 ## parent: &lt;environment: global&gt;
 ## bindings:
 ##  * a: &lt;lgl&gt;
@@ -907,22 +1016,57 @@ e1</code></pre>
 ##  * d: &lt;int&gt;</code></pre>
 <pre class="r"><code>names(e1)</code></pre>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</code></pre>
-<p>The current environment, or current_env() is the environment in which code is currently executing. When you’re experimenting interactively, that’s usually the global environment, or global_env(). The global environment is sometimes called your “workspace”, as it’s where all interactive (i.e. outside of a function) computation takes place.</p>
-<p>To compare environments, you need to use identical() and not ==. This is because == is a vectorised operator, and environments are not vectors.</p>
-<pre class="r"><code>identical(globalenv(), environment())</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<p>Every environment has a parent, another environment. In diagrams, the parent is shown as a small pale blue circle and arrow that points to another environment. The parent is what’s used to implement lexical scoping: if a name is not found in an environment, then R will look in its parent (and so on).</p>
+<p>On a plusieurs environnements en <code>R</code> qui communiquent entre eux avec des relations de hiérarchie.</p>
+<p>Le <em>current environment</em> ou environnement d’exécution, qu’on peut afficher avec <code>rlang::current_env()</code> est l’environnement dans lequel les commandes sont actuellement exécutées. Quand vous expérimentez avec <code>R</code>, l’environnement d’exécution est l’environnement global (<code>.GlobalEnv</code>). L’environnement global est l’espace de travail (<em>workspace</em>) car c’est là où tous les objets sont stockés.</p>
+<p>Comme toute fonction est appelée avec un nouvel environnement, l’environnement d’exécution se distingue de l’environnement global dès qu’on appelle une fonction.</p>
+<pre class="r"><code>print(rlang::current_env())</code></pre>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<pre class="r"><code>a &lt;- function() print(rlang::current_env())
+a()</code></pre>
+<pre><code>## &lt;environment: 0x000000000c1e2dd0&gt;</code></pre>
+<pre class="r"><code>a()</code></pre>
+<pre><code>## &lt;environment: 0x000000000c252368&gt;</code></pre>
+<!-------
+To compare environments, you need to use identical() and not ==. This is because == is a vectorised operator, and environments are not vectors.
+
+
+```r
+identical(globalenv(), environment())
+```
+
+```
+## [1] TRUE
+```
+------>
+<p>Tout environnement a un <em>parent</em>, qui est lui-même un environnement. Le <em>parent</em> sert à définir la portée: si un nom n’est pas trouvé dans le <em>current environment</em>, <code>R</code> cherchera dans son <em>parent</em> puis dans le <em>parent</em> de celui-ci et ainsi de suite.</p>
+<p>On peut afficher le <em>parent</em> d’un environnement avec la fonction <code>rlang::env_parent</code> ou la fonction de base <code>parent.env</code>:</p>
 <pre class="r"><code>rlang::env_parent(e1)</code></pre>
 <pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
 <pre class="r"><code>parent.env(e1)</code></pre>
 <pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
-<p>The ancestors of an environment have an important relationship to &lt;&lt;-. Regular assignment, &lt;-, always creates a variable in the current environment. Super assignment, &lt;&lt;-, never creates a variable in the current environment, but instead modifies an existing variable found in a parent environment.</p>
-<p>x &lt;- 0 f &lt;- function() { x &lt;&lt;- 1 } f() x</p>
-<p>If &lt;&lt;- doesn’t find an existing variable, it will create one in the global environment. This is usually undesirable, because global variables introduce non-obvious dependencies between functions.</p>
-<p>You can get and set elements of an environment with $ and [[ in the same way as a list:</p>
-<p>e3 &lt;- env(x = 1, y = 2) e3<span class="math inline">\(x #&gt; [1] 1 e3\)</span>z &lt;- 3 e3[[“z”]]</p>
+<p>On appelle <em>ancêtres</em> l’ensemble des environnements <em>parents</em> d’un environnement. Le principe du masquage de nom qu’on a évoqué fait que le nom d’un objet pris en compte par le <code>current_env</code> est toujours le premier trouvé dans les environnements ancêtres.</p>
+<p>L’assignation traditionnelle, <code>&lt;-</code>, crée toujours une variable dans l’environnement actuel. La <em>super assignation</em>, <code>&lt;&lt;-</code>, ne crée jamais la variable dans l’environnement courant mais, à la place, modifie la variable trouvée dans l’ancêtre le plus récent.</p>
+<pre class="r"><code>x &lt;- 0
+f &lt;- function() {
+  x &lt;&lt;- 1
+  return(2)
+}
+f()</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Si <code>&lt;&lt;-</code> ne trouve pas de variable existant sous ce nom, elle sera créée dans l’environnement global. Cela implique de manier <code>&lt;&lt;-</code> avec précaution car les variables globales créent des risques de non reproducibilité du code.</p>
+<!----
+You can get and set elements of an environment with $ and [[ in the same way as a list:
+
+e3 <- env(x = 1, y = 2)
+e3$x
+#> [1] 1
+e3$z <- 3
+e3[["z"]]
+---------->
 <div id="package-environments-and-the-search-path" class="section level2">
-<h2><span class="header-section-number">6.1</span> Package environments and the search path</h2>
+<h2><span class="header-section-number">5.1</span> Package environments and the search path</h2>
 <p>Each package attached by library() or require() becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached31, the parent of that package is the second to last package you attached, …</p>
 <p>Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using ::; it is only attached to the search path by library() or require()</p>
 <div class="figure">
@@ -960,7 +1104,7 @@ Explicitly importing every base function would be tiresome, so the parent of the
 The parent of the base namespace is the global environment. This means that if a binding isn’t defined in the imports environment the package will look for it in the usual way. This is usually a bad idea (because it makes code depend on other loaded packages), so R CMD check automatically warns about such code. It is needed primarily for historical reasons, particularly due to how S3 method dispatch works.</code></pre>
 </div>
 <div id="function-environments" class="section level2">
-<h2><span class="header-section-number">6.2</span> Function environments</h2>
+<h2><span class="header-section-number">5.2</span> Function environments</h2>
 <p>Most environments are not created by you with new.env() but are created as a consequence of using functions. This section discusses the four types of environments associated with a function: enclosing, binding, execution, and calling.</p>
 <p>The enclosing environment is the environment where the function was created. Every function has one and only one enclosing environment. For the three other types of environment, there may be 0, 1, or many environments associated with each function:</p>
 <pre><code>Binding a function to a name with &lt;- defines a binding environment.
@@ -984,7 +1128,7 @@ Every execution environment is associated with a calling environment, which tell
 <pre><code>## function (x, na.rm = FALSE) 
 ## sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), 
 ##     na.rm = na.rm))
-## &lt;bytecode: 0x000000000d8536c8&gt;
+## &lt;bytecode: 0x000000000d0dfba8&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <pre class="r"><code>x &lt;- seq_len(10)
 sd(x)</code></pre>
@@ -1001,12 +1145,19 @@ sd(x)</code></pre>
 </div>
 <p>When we type var into the console, it’s found first in the global environment. When sd() looks for var() it finds it first in its namespace environment so never looks in the globalenv().</p>
 <div id="execution-environments" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Execution environments</h3>
+<h3><span class="header-section-number">5.2.1</span> Execution environments</h3>
 <p>g &lt;- function(x) { if (!exists(“a”, inherits = FALSE)) { message(“Defining a”) a &lt;- 1 } else { a &lt;- a + 1 } a } g(10) g(10)</p>
 <p>This function returns the same value every time it is called because of the fresh start principle, described in a fresh start. Each time a function is called, a new environment is created to host execution. The parent of the execution environment is the enclosing environment of the function. Once the function has completed, this environment is thrown away.</p>
 <p>When you create a function inside another function, the enclosing environment of the child function is the execution environment of the parent, and the execution environment is no longer ephemeral.</p>
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Les <em>closures</em>, qui sont des listes qui capturent l’environnement d’une fonction, fonctionnent aussi sur ce modèle<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Notez qu’en Python, la distinction de type ne devrait pas être nécessaire car la concaténation de <em>string</em> passe directement par l’opérateur <code>+</code><a href="#fnref2">↩</a></p></li>
+</ol>
 </div>
 
 
