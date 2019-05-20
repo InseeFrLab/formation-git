@@ -847,28 +847,87 @@ e3$z <- 3
 e3[["z"]]
 ---------->
 
-## Package environments and the search path
+## L'environnement des packages et le chemin de recherche (*search path*)
 
-Each package attached by library() or require() becomes one of the parents of the global environment. The immediate parent of the global environment is the last package you attached31, the parent of that package is the second to last package you attached, …
+Tous les *packages* attachés par la commande `library()` ou `require()` devient un environnement parent de l'environnement global. La parent immédiat de l'environnement global est le dernier environnement attaché, le parent suivant est celui attaché avant, etc. 
 
-Note the difference between attached and loaded. A package is loaded automatically if you access one of its functions using ::; it is only attached to the search path by library() or require()
+Le principe de l'héritage des fonctions s'applique de la même manière qu'expliqué précedemment pour les environnements. Si un nom de fonction n'est pas trouvé dans l'environnement global, `R` va donc chercher ce nom jusqu'au premier parent où ce nom fera référence à un objet. C'est une source commune d'erreur lors d'un partage de code. 
+
+En effet, en cas de conflits entre noms de fonctions, la priorité sera Environnement Global > Dernier package chargé > Avant dernier package chargé > ... Donc, si deux personnes n'ont pas chargé de *package* dans le même ordre, elles peuvent ne pas parvenir à obtenir le même résultat (une erreur vs un output). Un cas typique est la fonction `select`. 
+
+### Enjeu: un exemple
+
+Les *packages* `MASS` et `dplyr` proposent une fonction ayant le même nom mais dont l'objet est différent (la fonction de `dplyr` sélectionne des colonnes, la fonction de `MASS` a vocation à entraîner un modèle *ridge* pour faire de la sélection de variable).
+
+Voyons comment fonctionne le code dans un sens: imaginons que nous ayons d'abord attaché `MASS`, puis `dplyr`
+
+```{r}
+library(MASS)
+library(dplyr)
+
+iris %>% select(Sepal.Length) %>% head()
+```
+
+le code fonctionne bien. On a un indice d'un possible conflit entre noms de fonctions lorsqu'on attache un deuxième *package* quand `R` nous signale qu'un objet est masqué du `package:***`. Détachons d'abord les packages (remettre à jour les *parents* de l'environnement global) 
+
+```{r}
+# On detache les packages du search path pour les charger dans l'ordre inverse
+detach("package:dplyr")
+detach("package:MASS")
+```
+
+Maintenant, attachons les packages dans le sens inverse et essayons de lancer la même commande
+
+```{r, error = TRUE}
+library(dplyr)
+library(MASS)
+iris %>% select(Sepal.Length) %>% head()
+
+detach("package:dplyr")
+detach("package:MASS")
+```
+
+cette fois on a une erreur. Pourquoi ? Parce que la fonction `select` renvoie maintenant à celle du package `MASS` (le dernier chargé). Celle-ci n'admet pas une colonne, source de l'erreur. 
+
+Si on pense régulièrement à nettoyer notre environnement, voire à repartir d'un environnement propre avec la commande `lm(list = ls())`, on ne pense pas nécessairement à nettoyer les *packages* chargés. C'est un vrai enjeu de replicabilité et robustesse du code. La bonne pratique à adopter est de systématiquement écrire les fonctions sous la forme `pkg::function`, par exemple `dplyr::select`. Cela enlève toute ambiguïté à la fonction: `R` sait qu'il est nécessaire d'aller chercher la fonction select dans l'espace de noms (*namespace*) `dplyr`. Quelques soient les packages chargés ou les fonctions dans l'environnement, la commande `dplyr::select` répondra toujours à l'intention du développeur^[Les utilisateurs de `Python` sont plus habitués à ce formalisme qui est appréciable. Les habitués de `Python` devraient reconnaître dans le code suivant une syntaxe habituelle `import numpy as np ; np.array([1, 2, 3])`]. Cette syntaxe, *a priori* plus lourde, rend néanmoins moins ambigu les fonctions utilisées
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+library(MASS)
+iris %>% dplyr::select(Sepal.Length) %>% head()
+
+detach("package:MASS")
+detach("package:dplyr")
+```
+
+Notez la différence entre un package *attaché* et *chargé*:
+
+* Un package est chargé automatiquement dès qu'on accède à une de ses fonctions avec `::`. Le chargement est une dépendance souple: elle n'amène pas le package à devenir un *parent* mais permet quand même de trouver l'aide d'une fonction facilement (une fois que vous avez appelé une fonction `dplyr`, par exemple `dplyr::select`, vous pouvez trouver l'aide de `dplyr::filter` avec tapant `?filter`)
+* Un package est attaché quand on fait `library(pkg)` ou `require(pkg)`. Dans ce cas, `pkg` devient un parent de l'environnement global. En fait, `pkg` est attaché au chemin de recherche (*search path*) de `R`
+
 
 ![](./pics/02_searchPath.png)
 
-If you follow all the parents back, you see the order in which every package has been attached. This is known as the search path because all objects in these environments can be found from the top-level interactive workspace. You can see the names of these environments with base::search()
+En suivant à rebours l'ensemble des environnements parents (le *search path*), on voit l'ordre dans lequel les packages ont été attachés. On peut afficher le nom de tous les environnements présents dans le *search path* avec la fonction `base::search()`
 
 ```{r}
 search()
 library(rlang)
+library(dplyr)
 search()
 detach("package:rlang")
+detach("package:dplyr")
 ```
 
-Note that when you attach another package with library(), the parent environment of the global environment changes:
+Quand vous attachez un nouveau package avec `library()`, l'environnement parent du global environnement change
+
 
 ![](./pics/02_searchPath2.png)
 
-The goal of namespaces is to make sure that this does not happen, and that every package works the same way regardless of what packages are attached by the user.
+## Namespaces
+
+L'objectif des espaces de noms (*namespaces*) est d'assurer que chaque package fonctionne de la même manière quels que soient les autres *packages* attachés par l'utilisateur.
+
 
 sd() is defined in terms of var(), so you might worry that the result of sd() would be affected by any function called var() either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function versus binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the namespace environment.
 
