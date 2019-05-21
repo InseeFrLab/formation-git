@@ -145,6 +145,7 @@ Pour généraliser le code précédent, on voit qu'il y a une structure commune 
 
 Ecrivez un exemple de fonction `fix_missing` qui généralise, simplement, ce travail de nettoyage. Elle prendra en entrée x (un vecteur) et retourne ce vecteur avec les valeurs manquantes corrigées
 
+
 <div class="fold o s">
 ```{r}
 fix_missing <- function(x) {
@@ -929,21 +930,33 @@ Quand vous attachez un nouveau package avec `library()`, l'environnement parent 
 L'objectif des espaces de noms (*namespaces*) est d'assurer que chaque package fonctionne de la même manière quels que soient les autres *packages* attachés par l'utilisateur.
 
 
-sd() is defined in terms of var(), so you might worry that the result of sd() would be affected by any function called var() either in the global environment, or in one of the other attached packages. R avoids this problem by taking advantage of the function versus binding environment described above. Every function in a package is associated with a pair of environments: the package environment, which you learned about earlier, and the namespace environment.
+Prenons un exemple à partir de la fonction `sd()` pour calculer des écarts-types. `sd()` est calculée à partir de la fonction `var()` (variance). `sd` est-elle affectée si une fonction s'appelle `var` dans l'environnement global ou dans les packages attachés ? 
 
-    The package environment is the external interface to the package. It’s how you, the R user, find a function in an attached package or with ::. Its parent is determined by search path, i.e. the order in which packages have been attached.
+`R` évite ce problème en prenant avantage de la différence entre l'environnement d'une fonction et les environnements liés à cette fonction. Chaque fonction intégrée dans un package est associée à deux environnements:
 
-    The namespace environment is the internal interface to the package. The package environment controls how we find the function; the namespace controls how the function finds its variables.
+* environnement du package (*package environment*): interface externe d'un package. C'est la manière dont `R` trouve une fonction dans un package attaché ou avec `::`. Ce package a comme parent le *search path*
+* environnement de l'espace de nom (*namespace environment*): interface interne du package. Il contrôle la manière dont une fonction trouve les objets internes (fonctions, variables...)
+
+Chaque environnement de noms a le même ensemble d'ancêtres:
+
+* Chaque package contient un fichier *NAMESPACE* qui contient le lien entre le package et ses dépendances
+* Parce qu'importer toutes les fonctions de base `R` serait pénible, l'espace de noms des fonctions de base est un parent de tout espace de noms. 
+* Le dernier parent, i.e. le premier dans la lignée des ancêtres, est l'environnement global. Donc, si un package nécessite une variable `myvar` et ne la trouve dans aucun parent, il considérera qu'il s'agit d'une variable globale et donc ira chercher dans l'environnement global.
+
+<!-----------
+```{r, eval = FALSE}
+import(ggplot2)
+import(lest)
+import(scales)
+import(stringr)
+importFrom(Rcpp,evalCpp)
+importFrom(data.table,"%between%")
+importFrom(data.table,melt)
+```
+------>
 
 
-Every namespace environment has the same set of ancestors:
-
-    Each namespace has an imports environment that contains bindings to all the functions used by the package. The imports environment is controlled by the package developer with the NAMESPACE file.
-
-    Explicitly importing every base function would be tiresome, so the parent of the imports environment is the base namespace. The base namespace contains the same bindings as the base environment, but it has a different parent.
-
-    The parent of the base namespace is the global environment. This means that if a binding isn’t defined in the imports environment the package will look for it in the usual way. This is usually a bad idea (because it makes code depend on other loaded packages), so R CMD check automatically warns about such code. It is needed primarily for historical reasons, particularly due to how S3 method dispatch works.
-
+<!--------
 ## Function environments
 
 
@@ -963,15 +976,19 @@ The distinction between the binding environment and the enclosing environment is
 
 Namespaces are implemented using environments, taking advantage of the fact that functions don’t have to live in their enclosing environments. For example, take the base function sd(). Its binding and enclosing environments are different:
 
+----> 
+
+Reprenons l'exemple de `sd`. On peut vérifier l'environnement dans lequel on trouve `sd`:
+
 ```{r}
 environment(sd)
-pryr::where("sd")
+# pryr::where("sd")
+body(sd)
 ```
 
-The definition of sd() uses var(), but if we make our own version of var() it doesn’t affect sd():
+La définition de `sd()` utilise donc `var()`. Qu'arrive-t-il lorsqu'on crée notre propre version de `var` ? 
 
 ```{r}
-sd
 x <- seq_len(10)
 sd(x)
 
@@ -980,28 +997,12 @@ sd(x)
 var(x)
 ```
 
-This works because every package has two environments associated with it: the package environment and the namespace environment. The package environment contains every publicly accessible function, and is placed on the search path. The namespace environment contains all functions (including internal functions), and its parent environment is a special imports environment that contains bindings to all the functions that the package needs. Every exported function in a package is bound into the package environment, but enclosed by the namespace environment. This complicated relationship is illustrated by the following diagram:
+Cela n'affecte pas `sd`. 
 
+<!----
 ![](./pics/03_path.png)
-
 
 When we type var into the console, it’s found first in the global environment. When sd() looks for var() it finds it first in its namespace environment so never looks in the globalenv().
 
-### Execution environments 
+----> 
 
-g <- function(x) {
-  if (!exists("a", inherits = FALSE)) {
-    message("Defining a")
-    a <- 1
-  } else {
-    a <- a + 1
-  }
-  a
-}
-g(10)
-g(10)
-
-This function returns the same value every time it is called because of the fresh start principle, described in a fresh start. Each time a function is called, a new environment is created to host execution. The parent of the execution environment is the enclosing environment of the function. Once the function has completed, this environment is thrown away.
-
-
-When you create a function inside another function, the enclosing environment of the child function is the execution environment of the parent, and the execution environment is no longer ephemeral.
