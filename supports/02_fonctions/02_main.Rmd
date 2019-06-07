@@ -420,7 +420,7 @@ Les blocs sont décomposés sous forme de tags `@****`. Le texte avant le premie
 1. La première phrase est le titre de la documentation. C'est cette phrase qu'on retrouve en tapant `help(package = mypackage)` et qu'on retrouve en tête de chaque fichier d'aide `?myfunc`. Cette phrase doit être écrite sur une ligne et ne pas terminer par un point
 
 
-![](./pics/04_help_example.PNG)
+![](./pics/04_help_example.png)
 
 2. Le second paragraphe est la section *description*. C'est le premier élément d'une documentation de fonction qui explique de manière succincte l'objet d'une fonction
 

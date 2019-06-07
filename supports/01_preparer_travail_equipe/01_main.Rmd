@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 L'interface a l'aspect suivant^[Pour vos yeux fragile, je vous recommande de changer l'aspect de `Rstudio` pour mettre un fond noir, moins violent `r emo::ji("smile")`. Pour changer le fond, on peut utiliser `Tools > Global Options > Appearance`]:
 
-![](./pics/00_Rstudio.PNG){width=100%}     
+![](./pics/00_Rstudio.png){width=100%}     
 
 </br></br>
 
@@ -77,7 +77,7 @@ La philosophie des `Rproject` est d'associer à chaque projet personnel un conte
  
 Par exemple, le package ci-dessous est organisé de manière à ce que les codes (`R`) soient associés à une documentation propre à chaque fonction (`man`) et à une documentation plus globale (`inst`). L'organisation des *packages* sera abordée plus en détail par la suite. Ce package est lui-même inclus dans un projet plus large où il est appelé par des `Rmarkdown` qui me permettent de construire des productions écrites intermédiaires et finales
     
-![Exemple de RProject (ici sous forme de package)](./pics/01_ExempleRProject.PNG)
+![Exemple de RProject (ici sous forme de package)](./pics/01_ExempleRProject.png)
 
 
 ## Créer un projet R
@@ -116,7 +116,7 @@ Les projets sont une forme très malléable d'organisation et s'adaptent ainsi f
 
 Un outil supplémentaire pour assurer la sécurité du code est le contrôle de version. Cela permet de stocker un code, et l'ensemble de ses évolutions, sur un serveur distant. Par exemple, le projet ci-dessous,
 
-![Un exemple de projet sauvegardé](./pics/11_git.PNG){width=100%}
+![Un exemple de projet sauvegardé](./pics/11_git.png){width=100%}
 
 est entreposé sur un dépôt. Il en existe des publics (gitlab,github,framagit) et des dépôts à accès restreints (ex: plateforme innovation). Le principal intérêt de la gestion de version est que, ligne par ligne, on peut suivre les évolutions d'un fichier. En conséquence, plus besoin de stocker `20190513_toto.R` et `20190514_toto.R`: on aura un seul fichier `toto.R` dont on peut suivre les version.
 
@@ -186,7 +186,7 @@ Lorsqu'on ouvre un `Rproject`:
 * *Always save history (even when not saving .RData)* — Ajouter la ligne `.Rhistory` dans le fichier `.gitignore` (si existe) si l'histoire des commandes est conservée
 
 
-![Options générales](./pics/05_options.PNG){width=60%}
+![Options générales](./pics/05_options.png){width=60%}
 
 ## Options `build` (développement package uniquement)
 
@@ -197,13 +197,13 @@ C'est l'endroit où on peut définir les options de compilation du *package*. No
 
 On peut ajouter des options à la compilation. Par exemple, pour gagner du temps, on pourra utiliser l'option `--no-build-vignettes` qui évite de re-compiler les vignettes (qui peuvent mettre du temps à compiler si elles sont longues)
 
-![Exemple d'options pour les packages](./pics/05_options_build.PNG){width=60%}
+![Exemple d'options pour les packages](./pics/05_options_build.png){width=60%}
 
 
 ## Options `git` 
 
 
-![Exemple d'options git](./pics/05_options_git.PNG){width=60%}
+![Exemple d'options git](./pics/05_options_git.png){width=60%}
 
 
 # Edition de code dans `Rstudio`
@@ -316,12 +316,12 @@ Les `addins` sont des outils pratiques pour gagner du temps dans l'édition du c
 
 Les *addins* sont disponibles en haut de l'éditeur
 
-![Addins Rstudio](./pics/06_addins.PNG){width=100%}
+![Addins Rstudio](./pics/06_addins.png){width=100%}
 
 
 Avec le package `addinslist`, on peut installer des addins à partir d'une fenêtre graphique
 
-![Installer facilement de nouveaux addins](./pics/06b_addins.PNG){width=100%}
+![Installer facilement de nouveaux addins](./pics/06b_addins.png){width=100%}
 
 <!-----------
 ## Un exemple
@@ -351,5 +351,5 @@ On peut trouver des aides mémoires en ligne grâce aux [cheatsheets](https://ww
 
 \hypertarget{label}{\beamerbutton{Exemple de cadre `History`}}
 
-![](./pics/04_history.PNG){width=100%}
+![](./pics/04_history.png){width=100%}
     
