@@ -13,7 +13,7 @@ Authors@R: c(
     person("Romain", "Lesur", role = "ctb", comment = c(ORCID = "0000-0002-0721-5595")),
     person(family = "Institut National de la Statistique et des Études Économiques", role = "cph")
     )
-License: CCBY-4.0
+License: CC BY 4.0
 Encoding: UTF-8
 URL: https://gitlab.com/linogaliana/collaboratif
 Imports:
