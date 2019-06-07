@@ -1,18 +1,21 @@
 ---
-title: "README"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
-
-## GitHub Documents
-
+# collaboratif
 
 Références utiles:
 
-[Efficient R Programming](https://csgillespie.github.io/efficientR/)
-[R packages](http://r-pkgs.had.co.nz/)
-[Advanced R](https://adv-r.hadley.nz/)
+[Efficient R Programming](https://csgillespie.github.io/efficientR/)  
+[R packages](http://r-pkgs.had.co.nz/)  
+[Advanced R](https://adv-r.hadley.nz/)  
 [Un cours qui couvre quelques problématiques](https://mikoontz.github.io/data-carpentry-week/index.html)
