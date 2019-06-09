@@ -223,6 +223,7 @@ Pour gagner du temps, il est important d'utiliser les raccourcis pour les comman
 * `Alt`+ `6` (windows): insérer opérateur assignation `<-`
 * `Ctrl` + `Shift` + `F`: rechercher une expression dans plusieurs fichiers
 * `Ctrl` + `Shift` + `K`: compilation d'un *markdown* (*knitter* en bon français)
+* `Ctrl` + `Shift` + `Alt` + `M`: renommer la variable dans la portée (*scope*), nous verrons ce dont il s'agit dans la prochaine leçon
 
 ![](./pics/rreformat_optimized.gif)
 
