@@ -23,3 +23,7 @@ Références utiles:
 * Le livre [R packages](http://r-pkgs.had.co.nz/), dans son ensemble
 * Les éléments du livre [Advanced R](https://adv-r.hadley.nz/) liés à la programmation fonctionnelle
 * [Un cours](https://mikoontz.github.io/data-carpentry-week/index.html) qui couvre quelques problématiques
+
+Sur l'intégration continue:
+
+* Ce livre sur la [reproducibilité des Rmd et CI](https://vickysteeves.gitlab.io/repro-papers/r-markdown-in-reproducible-research.html)
