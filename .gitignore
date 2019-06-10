@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 
-*.pdf
-*.html
+*supports/*.pdf
+*supports/*.html
