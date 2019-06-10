@@ -1,0 +1,10 @@
+article:
+  stage: deploy
+  image: rocker/verse:3.5.1
+  script:
+    - Rscript -e "devtools::install_github('hadley/emo')"
+    - Rscript -e "rmarkdown::render('supports/01_preparer_travail_equipe/01_main.Rmd')"
+  artifacts:
+    paths:
+      - "supports/01_preparer_travail_equipe"
+    when: always
