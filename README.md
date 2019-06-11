@@ -14,4 +14,13 @@ Références utiles:
 
 Sur l'intégration continue:
 
--   Ce livre sur la [reproducibilité des Rmd](https://vickysteeves.gitlab.io/repro-papers/r-markdown-in-reproducible-research.html)
+-   Ce livre sur la [reproducibilité des Rmd et CI](https://vickysteeves.gitlab.io/repro-papers/r-markdown-in-reproducible-research.html)
+-   [Ce post de blog](https://blog.methodsconsultants.com/posts/developing-r-packages-with-usethis-and-gitlab-ci-part-ii/)
+
+J'ai utilisé `git filter` pour retirer le *beamer* de l'histoire de git. J'ai utilisé la commande `git filter` suivante:
+
+``` r
+git filter-branch --index-filter "git rm --cached --ignore-unmatch *.pdf" HEAD
+```
+
+permet de retirer tous les fichiers .pdf de l'histoire de git
