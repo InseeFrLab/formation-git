@@ -4,7 +4,7 @@ article:
   script:
     - Rscript -e "devtools::install_github('hadley/emo')"
     - Rscript -e "rmarkdown::render('supports/01_preparer_travail_equipe/01_main.Rmd')"
-    - Rscript -e "rmarkdown::render('supports/02_functions/02_main.Rmd')"
+    - Rscript -e "rmarkdown::render('supports/02_fonctions/02_main.Rmd')"
   artifacts:
     paths:
       - "supports/01_preparer_travail_equipe"
