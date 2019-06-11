@@ -3,7 +3,7 @@ article:
   image: rocker/verse:3.5.1
   script:
     - Rscript -e "devtools::install_deps()"
-    - ./build.R
+    - Rscript ./build.R
   artifacts:
     paths:
       - artifacts
