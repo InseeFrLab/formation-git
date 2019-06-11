@@ -5,3 +5,4 @@
 ^LICENSE\.md$
 ^doc$
 ^supports$
+^build\.R$

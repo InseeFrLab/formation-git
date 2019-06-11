@@ -3,8 +3,8 @@ article:
   image: rocker/verse:3.5.1
   script:
     - Rscript -e "devtools::install_deps()"
-    - Rscript -e "rmarkdown::render('supports/01_preparer_travail_equipe/01_main.Rmd')"
+    - ./build.R
   artifacts:
     paths:
-      - "supports/01_preparer_travail_equipe"
+      - artifacts
     when: always
