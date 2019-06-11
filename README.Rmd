@@ -34,3 +34,7 @@ J'ai utilisé `git filter` pour retirer le *beamer* de l'histoire de git. J'ai u
 git filter-branch --index-filter "git rm --cached --ignore-unmatch *.pdf" HEAD
 ```
 permet de retirer tous les fichiers .pdf de l'histoire de git
+
+## Télécharger la dernière version du support
+
+Pour télécharger la dernière version du support, [cliquer sur ce lien](https://gitlab.com/linogaliana/collaboratif/-/jobs/artifacts/master/download?job=article).
