@@ -6,5 +6,5 @@ article:
     - Rscript ./build.R
   artifacts:
     paths:
-      - artifacts
+      - html
     when: always
