@@ -38,3 +38,26 @@ permet de retirer tous les fichiers .pdf de l'histoire de git
 ## Télécharger la dernière version du support
 
 Pour télécharger la dernière version du support, [cliquer sur ce lien](https://gitlab.com/linogaliana/collaboratif/-/jobs/artifacts/master/download?job=article).
+
+## Sur la gestion des PR
+
+Le *workflow* standard que j'ai utilisé pour intégrer les PR est le suivant (exemple à partir d'une PR de Romain que j'ai intégrée):
+
+```{r, eval = FALSE}
+git fetch origin
+git checkout -b ci-cd origin/ci-cd
+
+git fetch origin
+git checkout origin/master
+git merge --no-ff ci-cd
+
+git branch temp
+git checkout temp
+git branch -f master temp
+git checkout master
+git branch -d temp
+git push origin master
+```
+
+une partie des commandes provient de ce [lien](https://stackoverflow.com/questions/5772192/how-can-i-reconcile-detached-head-with-master-origin)
+
