@@ -206,7 +206,16 @@ df3[] <- lapply(df3, function(x) ({
   return(x)
   }))
 identical(df2,df3)
+
+
+# Approche équivalente avec purrr::map
+df2_map <- df2
+df2_map[] <- purrr::map(df2_map,fix_missing)
+df2_map
+identical(df2,df2_map)
 ```
+
+Le dernier bloc de code montre une manière équivalente de procéder dans le cadre du `tidyverse` à partir de la fonction `purrr::map` à la place de `lapply`^[Si la structuration de données choisie est le *tibble* (approche `tidyverse`), `purrr::map` est probablement à privilégier car `purrr` est conçu pour fonctionner en conjonction avec `dplyr`. `lapply`, parce qu'il s'agit d'une fonction de base, est mobilisable pour une très grande variété de problèmes. Parce que `R` est un langage de programmation où les fonctions sont centrales et où les listes sont une structure de données très riche, `lapply` reste très malléable et s'intègre très bien avec une grande variété d'objets `R`]
 
 Ce code a plusieurs avantages sur le copier-coller:
 
@@ -220,6 +229,11 @@ De plus, le code est facilement généralisable. Par exemple, à partir de la m�
 ```{r}
 df2 <- df
 df2[c("a","b","e")] <- lapply(c("a","b","e"), function(col) fix_missing(df2[col]))
+
+# ou approche équivalente avec purrr::map
+df2_map <- df
+df2_map[c("a","b","e")] <- purrr::map(c("a","b","e"), function(col) fix_missing(df2_map[col]))
+identical(df2,df2_map)
 ```
 
 Cette approche de composition de fonctions est très précieuse et explique la grande flexibilité du langage `R`. Ecrire des fonctions simples et les composer dans une ou plusieurs fonctions maîtres est très précieux dans un travail collaboratif car cela permet de mieux comprendre le déroulé d'un traitement de données.
