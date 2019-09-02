@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
  
 `R` est, dans son essence, un langage de programmation fonctionnelle. L'utilisation de fonctions est ainsi la manière privilégiée de développer un programme en `R`: comprendre la manière dont elles fonctionnent, interagissent avec l'environnement de l'utilisateur, est la meilleure manière de développer, par la suite, un programme reproductible. 
 
-Construire un *workflow* à partir de fonctions est une pratique qui permet de réduire les risques de *bug* (en identifiant mieux leur origine) et, surtout, assure un code plus flexible et reproductible. Cela renvoie au paradigme informatique du *“do not repeat yourself”*.
+Construire un projet autour d'un enchaînement de fonctions est une pratique qui permet de réduire les risques de *bug* (en identifiant mieux leur origine) et, surtout, assure un code plus flexible et reproductible. Cela renvoie au paradigme informatique du *“do not repeat yourself”*.
 
 
 > “Every piece of knowledge must have a single, unambiguous, authoritative representation within a system”
@@ -221,7 +221,7 @@ Ce code a plusieurs avantages sur le copier-coller:
 
 1. Il est plus concis
 2. Si on a un changement de code pour les valeurs manquantes, il suffit de le mettre à un seul endroit
-3. Il fonctionne quelque soit le nombre de colonnes.
+3. Il fonctionne quel que soit le nombre de colonnes.
 4. On ne peut pas traiter par erreur une colonne différemment d'une autre
 
 De plus, le code est facilement généralisable. Par exemple, à partir de la même structure, écrire le code qui permet de ne traiter que les colonnes *a*,*b* et *e*
@@ -281,7 +281,7 @@ Comment faire maintenant si on désire autoriser d'autres valeurs que `-99` ? Il
 
 ## Fonctions à plusieurs arguments
 
-Notre fonction précédente prenait comme donnée que la valeur pour les valeurs manquantes est `-99`. On peut en faire un paramètre d'une fonction plus générale qui serait de la forme `fix_missing <- function(x, na.value)`. Ecrire cette fonction et l'appliquer à nouveau
+Notre fonction précédente prenait comme donnée que la valeur `-99` pour les valeurs manquantes. On peut en faire un paramètre d'une fonction plus générale qui serait de la forme `fix_missing <- function(x, na.value)`. Ecrire cette fonction et l'appliquer à nouveau
 
 <div class="fold s">
 ```{r}
@@ -418,6 +418,7 @@ Par exemple, une documentation simple prend la forme
 ```{r}
 #' Add together two numbers.
 #' 
+#' An example of function documentation
 #' @param x A number.
 #' @param y A number.
 #' @return The sum of \code{x} and \code{y}.
@@ -431,14 +432,16 @@ add <- function(x, y) {
 
 Les blocs sont décomposés sous forme de tags `@****`. Le texte avant le premier tag est l'introduction qui se décompose de la manière suivante:
 
-1. La première phrase est le titre de la documentation. C'est cette phrase qu'on retrouve en tapant `help(package = mypackage)` et qu'on retrouve en tête de chaque fichier d'aide `?myfunc`. Cette phrase doit être écrite sur une ligne et ne pas terminer par un point
+1. La première phrase est le titre de la documentation. C'est cette phrase qu'on retrouve en tapant `help(package = mypackage)` et qu'on retrouve en tête de chaque fichier d'aide `?myfunc`. Cette phrase doit être écrite sur une ligne et ne pas se terminer par un point. Ici le titre est *Add together two numbers*
 
 
 ![](./pics/04_help_example.png)
 
-2. Le second paragraphe est la section *description*. C'est le premier élément d'une documentation de fonction qui explique de manière succincte l'objet d'une fonction
+2. Le second paragraphe est la section *description*. C'est le premier élément d'une documentation de fonction qui explique de manière succincte l'objet d'une fonction. Ici, la description est *An example of function documentation*
 
 3. Le troisième paragraphe, s'il a lieu d'être, et les suivants avant le premier tag, constituent la section *details*. C'est une partie plus longue de documentation qui permet d'approfondir l'objet, ou les subtilités, d'une fonction
+
+Quand des blocs ne sont pas identifiés par `@...` comme dans le début de la documentation de la fonction `add` ci-dessus, un saut de ligne entre chaque partie permet de dissocier les blocs. 
 
 Toutes les fonctions doivent avoir un titre et une description. Les détails sont optionnels. En supplément du bloc introductif, la plupart des fonctions nécessitent les trois tags `@param`, `@examples` et `@return`.
 
@@ -525,16 +528,16 @@ While f() is running, the a inside the function points to the same value as the 
 
 Formellement, on peut décomposer une fonction en trois parties:
 
-* Arguments (ex: `formals(lm)`): la liste des arguments qui contrôlent l'appel à une fonction
-* Corps (ex: `body(lm)`): les commandes internes à la fonction
-* Environnement (ex: `environment(lm)`): le contexte qui détermine comment la fonction trouve des valeurs associées aux noms évoqués
+* *Arguments* (ex: `formals(lm)`): la liste des arguments qui contrôlent l'appel à une fonction
+* *Corps* (ex: `body(lm)`): les commandes internes à la fonction
+* *Environnement* (ex: `environment(lm)`): le contexte qui détermine comment la fonction trouve des valeurs associées aux noms évoqués. Ces noms peuvent renvoyer à tout type d'objet `R`: données, variables, fonctions, packages...
 
 Alors que les arguments et le corps de la fonction sont définis explicitement, l'environnement est lui défini implicitement, selon le contexte dans lequel est évoqué la fonction. 
 
 
 ```{r}
 f02 <- function(x, y) {
-  # A comment
+  # Un commentaire
   x + y
 }
 
@@ -621,7 +624,7 @@ g03 <- function() {
 }
 g03()
 
-# And this doesn't change the previous value of y
+# La commande ci-dessous ne change pas la valeur précédente de y
 y
 ```
 
@@ -630,6 +633,8 @@ Cette règle s'applique de la même manière pour les fonctions emboîtées: `R`
 Un bon exemple de portée d'une fonction est le suivant:
 
 ```{r}
+# On reprend le vecteur a
+a <- c(1,2,3)
 g11 <- function() {
   if (!exists("a")) {
     a <- 1
@@ -659,7 +664,7 @@ x <- 20
 g12()
 ```
 
-La modification de `x` (variable globale) change donc l'output de la fonction. Une manière de rapidement savoir quelles sont les variables globales qui peuvent avoir un effet sur les résultats est d'utiliser la fonction `codetools::findGlobals()`. Cette fonction liste toutes les dépendances externes appelés dans une fonction 
+La modification de `x` (variable globale) change donc l'output de la fonction. Une manière de rapidement savoir quelles sont les variables globales qui peuvent avoir un effet sur les résultats est d'utiliser la fonction `codetools::findGlobals()`. Cette fonction liste toutes les dépendances externes appelées dans une fonction 
 
 ```{r}
 codetools::findGlobals(g12)
@@ -704,8 +709,8 @@ add(1,"b")
 
 Dans le cadre de l'évaluation paresseuse, ce qui permet à `R` de lier les objets et environnements entre eux est la `promesse`. Elle a trois éléments
 
-* Une *expression*, comme `x + y`, qui amènera à de futures calculs
-* Un *environement*, où l'expression sera évaluée, i.e. l'environnement où la fonction est évaluée
+* Une *expression*, comme `x + y`, qui amènera à de futurs calculs
+* Un *environnement*, où l'expression sera évaluée, i.e. l'environnement où la fonction est évaluée
 * Une *valeur* qui est calculée et gardée en mémoire au sein de l'environnement (de manière à éviter de faire deux fois le même calcul si le même plan est appelé deux fois dans le même environnement). 
 
 <!-----------
@@ -865,9 +870,9 @@ e3[["z"]]
 
 ## L'environnement des packages et le chemin de recherche (*search path*)
 
-Tous les *packages* attachés par la commande `library()` ou `require()` devient un environnement parent de l'environnement global. La parent immédiat de l'environnement global est le dernier environnement attaché, le parent suivant est celui attaché avant, etc. 
+Tous les *packages* attachés par la commande `library()` ou `require()` devient un environnement parent de l'environnement global. Le parent immédiat de l'environnement global est le dernier environnement attaché, le parent suivant est celui attaché avant, etc. 
 
-Le principe de l'héritage des fonctions s'applique de la même manière qu'expliqué précedemment pour les environnements. Si un nom de fonction n'est pas trouvé dans l'environnement global, `R` va donc chercher ce nom jusqu'au premier parent où ce nom fera référence à un objet. C'est une source commune d'erreur lors d'un partage de code. 
+Le principe de l'héritage des fonctions s'applique de la même manière qu'expliqué précédemment pour les environnements. Si un nom de fonction n'est pas trouvé dans l'environnement global, `R` va donc chercher ce nom jusqu'au premier parent où ce nom fera référence à un objet. C'est une source commune d'erreur lors d'un partage de code. 
 
 En effet, en cas de conflits entre noms de fonctions, la priorité sera Environnement Global > Dernier package chargé > Avant dernier package chargé > ... Donc, si deux personnes n'ont pas chargé de *package* dans le même ordre, elles peuvent ne pas parvenir à obtenir le même résultat (une erreur vs un output). Un cas typique est la fonction `select`. 
 
@@ -903,9 +908,9 @@ detach("package:dplyr")
 detach("package:MASS")
 ```
 
-cette fois on a une erreur. Pourquoi ? Parce que la fonction `select` renvoie maintenant à celle du package `MASS` (le dernier chargé). Celle-ci n'admet pas une colonne, source de l'erreur. 
+cette fois on a une erreur. Pourquoi ? Parce que la fonction `select` renvoie maintenant à celle du package `MASS` (le dernier chargé). Celle-ci n'admet pas une colonne comme paramètre, source de l'erreur. 
 
-Si on pense régulièrement à nettoyer notre environnement, voire à repartir d'un environnement propre avec la commande `lm(list = ls())`, on ne pense pas nécessairement à nettoyer les *packages* chargés. C'est un vrai enjeu de replicabilité et robustesse du code. La bonne pratique à adopter est de systématiquement écrire les fonctions sous la forme `pkg::function`, par exemple `dplyr::select`. Cela enlève toute ambiguïté à la fonction: `R` sait qu'il est nécessaire d'aller chercher la fonction select dans l'espace de noms (*namespace*) `dplyr`. Quelques soient les packages chargés ou les fonctions dans l'environnement, la commande `dplyr::select` répondra toujours à l'intention du développeur^[Les utilisateurs de `Python` sont plus habitués à ce formalisme qui est appréciable. Les habitués de `Python` devraient reconnaître dans le code suivant une syntaxe habituelle `import numpy as np ; np.array([1, 2, 3])`]. Cette syntaxe, *a priori* plus lourde, rend néanmoins moins ambigu les fonctions utilisées
+Si on pense régulièrement à nettoyer notre environnement, voire à repartir d'un environnement propre avec la commande `lm(list = ls())`, on ne pense pas nécessairement à nettoyer les *packages* chargés. C'est un vrai enjeu de replicabilité et robustesse du code. La bonne pratique à adopter est de systématiquement écrire les fonctions sous la forme `pkg::function`, par exemple `dplyr::select`. Cela enlève toute ambiguïté à la fonction: `R` sait qu'il est nécessaire d'aller chercher la fonction select dans l'espace de noms (*namespace*) `dplyr`. Quels que soient les packages chargés ou les fonctions dans l'environnement, la commande `dplyr::select` répondra toujours à l'intention du développeur^[Les utilisateurs de `Python` sont plus habitués à ce formalisme qui est appréciable. Les habitués de `Python` devraient reconnaître dans le code suivant une syntaxe habituelle `import numpy as np ; np.array([1, 2, 3])`]. Cette syntaxe, *a priori* plus lourde, rend néanmoins moins ambigu les fonctions utilisées
 
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
