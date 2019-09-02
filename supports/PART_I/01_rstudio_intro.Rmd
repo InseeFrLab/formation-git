@@ -61,19 +61,19 @@ Pour qu'un programme soit reproductible, le contexte doit être homogène, c'est
 
 Les `projets` Rstudio sont un outil pour faciliter la collaboration mais aussi mieux s'organiser lorsqu'on travail en solitaire. Un projet bien organisé facilite la vie: 
 
+* Ils renforcent la portabilité: le répertoire de travail par défaut d’un projet est le répertoire où est ce projet. Cela rend les scripts indépendants de l'arborescence de la machine
 * Centraliser l'ensemble des productions d'un projet: codes, articles, présentations, documentation...
 * Faciliter la compréhension et la reproducibilité d'un travail à partir de 0
 * Permettre l'interaction entre les fichiers (plusieurs documents codes, R markdown...) et avec les données
 * Faciliter des évolutions postérieures avec un projet organisé
-    
 * Un projet ne contient pas que du code `R`:
     + ensemble des documents (documation incluse) pour permettre la compréhension et l'exécution d'un projet
-
+* Des outils supplémentaires sont associés aux projets `R`: `packrat`, `git`...
 
 La philosophie des `Rproject` est d'associer à chaque projet personnel un contexte
  
- * Chaque projet a un contexte: espace de travail, historique de commandes, variables d'environnement...
- * Projet: pas seulement fichier `.R` mais un ensemble plus global
+* Chaque projet a un contexte: espace de travail, historique de commandes, variables d'environnement...
+* Projet: pas seulement fichier `.R` mais un ensemble plus global
  
 Par exemple, le package ci-dessous est organisé de manière à ce que les codes (`R`) soient associés à une documentation propre à chaque fonction (`man`) et à une documentation plus globale (`inst`). L'organisation des *packages* sera abordée plus en détail par la suite. Ce package est lui-même inclus dans un projet plus large où il est appelé par des `Rmarkdown` qui me permettent de construire des productions écrites intermédiaires et finales
     
@@ -118,10 +118,11 @@ Un outil supplémentaire pour assurer la sécurité du code est le contrôle de 
 
 ![Un exemple de projet sauvegardé](./pics/11_git.png){width=100%}
 
-est entreposé sur un dépôt. Il en existe des publics (gitlab,github,framagit) et des dépôts à accès restreints (ex: plateforme innovation). Le principal intérêt de la gestion de version est que, ligne par ligne, on peut suivre les évolutions d'un fichier. En conséquence, plus besoin de stocker `20190513_toto.R` et `20190514_toto.R`: on aura un seul fichier `toto.R` dont on peut suivre les version.
+est entreposé sur un dépôt. Il en existe des publics (gitlab,github,framagit) et des dépôts à accès restreints (ex: plateforme innovation). Le principal intérêt de la gestion de version est que, ligne par ligne, on peut suivre les évolutions d'un fichier. En conséquence, plus besoin de stocker `20190513_toto.R` et `20190514_toto.R`: on aura un seul fichier `toto.R` dont on peut suivre les versions.
 
-Le principal logiciel de gestion de version est `git`, sur lequel nous reviendrons. On peut initialiser `git` en même temps que le projet
+Le principal logiciel de gestion de version est `git`, sur lequel nous reviendrons. On peut:
 
+* Initialiser `git` en même temps que le projet
 * Ou l'initialiser à tout moment (cf. suite)
 * Ou initaliser le projet à partir d'un dépôt git existant (plus simple, cf. suite)
 
@@ -134,24 +135,23 @@ Le principal logiciel de gestion de version est `git`, sur lequel nous reviendro
     + Centralise les options (présentées dans la suite)
     + Raccourci pour ouvrir le projet
 
-![Structure d'un projet R](./pics/03a_project_organization1.png){width=80%}
-
-## `RProject`: structure
-
 2. Création d'un dossier caché (nommé `.Rproj.user`)
     + Où sont stockés les fichiers temporaires du projet (scripts sauvegardés automatiquement...)
     + Automatiquement ignoré par `.Rbuildignore`, `.gitignore`
 
-
-![Structure d'un projet R](./pics/03a_project_organization1.png){width=80%}
-
-
-## `RProject`: structure
-
 3. Charge le projet dans `Rstudio` et affiche son nom dans la barre de projets
 
 
+Ci-dessous, en bas à droite, on peut retrouver cette structure avec un fichier `.RProj` et un `.gitignore`:
+
+![Illustration de structure d'un projet R](./pics/03a_project_organization1.png){width=80%}
+
+
+On peut accéder aux derniers projets ouverts avec le raccourci en haut à droite:
+
 ![Raccourci pour accéder aux derniers projets](./pics/03a_project_organization2.png){width=80%}
+
+
     
 
 # Travailler sur un projet
@@ -161,20 +161,19 @@ Le principal logiciel de gestion de version est `git`, sur lequel nous reviendro
 Lorsqu'on ouvre un `Rproject`:
 
 * Une nouvelle session `R` est ouverte
-* Le `.Rprofile` du projet (si présent) est chargé
-* Le `.RData` du projet (si présent) est chargé (si les options du projet l'autorisent)
-* Le `.Rhistory` du projet (si présent) est chargé dans le cadre `History` (et permet l'utilisation des boutons haut/bas pour remonter l'histoire des commandes). \hyperlink{label}{\beamerbutton{Exemple de cadre `History`}}
+* Les fichiers `.Rprofile` (variables d'environnement) et `.RData` (sauvegarde temporaire des données) du projet (si présents) sont chargés 
+* Le `.Rhistory` du projet (si présent) est chargé dans le cadre `History` (et permet l'utilisation des boutons haut/bas pour remonter l'histoire des commandes).
 * Le *working directory* est fixé au niveau du dossier maître du projet
-* Les documents précedemment ouverts sont restaurés dans l'éditeur `Rstudio`
+* Les documents précédemment ouverts sont restaurés dans l'éditeur `Rstudio`
 * Les autres paramètres `RStudio` (e.g. position du curseur, etc.) sont restaurés à leur valeur précédent la fermeture du projet
 
 ## A la fermeture du projet
 
 
 * `.RData` et/ou `.Rhistory` sont sauvegardés dans le projet (si les options du projet l'autorisent)
-* Les documents ouverts non sauvegardés sont sauvergardés temporairement
+* Les documents ouverts non sauvegardés sont sauvergardés temporairement (ils sont disponibles dans une version non sauvegardée dans `Rstudio`)
 * Les autres paramètres RStudio sont sauvés
-* La session R associée au projet est arrêtée
+* La session `R` associée au projet est arrêtée
 
 
 # Options du projet (`Tools > Project Options...`)
@@ -183,7 +182,7 @@ Lorsqu'on ouvre un `Rproject`:
 
 * `(Default)`: utiliser les options globales
 * *Restore .RData into workspace at startup* —  N'est pas recommandé si les données sont volumineuses (ralentissement du démarrage de la session)
-* *Always save history (even when not saving .RData)* — Ajouter la ligne `.Rhistory` dans le fichier `.gitignore` (si existe) si l'histoire des commandes est conservée
+* *Always save history (even when not saving .RData)* — On conserve l'historique des commandes. Pour éviter que cet historique soit partagé lorsque `git` est activé (par exemple si vous avez rentré en commande des mots de passe pour accéder à des services type *API*), vous pouvez ajouter la ligne `.Rhistory` dans le fichier `.gitignore`
 
 
 ![Options générales](./pics/05_options.png){width=60%}
@@ -202,6 +201,8 @@ On peut ajouter des options à la compilation. Par exemple, pour gagner du temps
 
 ## Options `git` 
 
+Si vous désirez utiliser un système de gestion de version, sélectionnez `git` (nécessite d'avoir le logiciel `git` installé, cf. chapitre dédié). Si vous avez connecté votre projet à un dépôt distant, la ligne *Origine* vous rappelle l'adresse de celui-ci.
+
 
 ![Exemple d'options git](./pics/05_options_git.png){width=60%}
 
@@ -210,7 +211,7 @@ On peut ajouter des options à la compilation. Par exemple, pour gagner du temps
 
 ## Raccourcis utiles
 
-Pour gagner du temps, il est important d'utiliser les raccourcis pour les commandes répétitives. En voici quelques uns,
+Pour gagner du temps, il est important d'utiliser les raccourcis pour les commandes répétitives. En voici une liste non exhaustive:
 
 * `Ctrl`+`Enter`: exécuter les lignes sélectionnées 
 * `Tab`: autocomplétion
@@ -227,81 +228,6 @@ Pour gagner du temps, il est important d'utiliser les raccourcis pour les comman
 
 ![](./pics/rreformat_optimized.gif)
 
-# Utiliser le debuggeur
-
-## Erreur: toutes ne sont pas à effacer
-
-Une fonction peut provoquer une erreur parce que 
-
-1. C'est volontaire: on introduit des `stop` pour éviter l'exécution d'une erreur dans des conditions que l'on n'avait pas anticipé. C'est très utilisé en *programmation défensive*, paradigme de programmation où on essaie d'assurer le fonctionnement continu d'un programme, en faisant en sorte qu'un code échoue dans une manière pré-determinée même si l'origine de l'erreur ne pouvait pas être anticipée lors de la conception. Un des principes clés de ce paradigme est "l'erreur rapide": dès qu'on remarque une potentielle erreur, on la signale. Cela implique plus de travail pour le programmeur mais rend le débuggage, et donc la collaboration, plus efficace car les utilisateurs peuvent identifier et isoler l'origine de l'erreur et ainsi la corriger plus rapidement. 
-
-Par exemple, si on ne connaît pas le fonctionnement de la fonction `log`, et donc ne saît pas qu'elle fonctionne (mais renvoie un `NaN`) avec des nombres négatifs, on peut une pratique de  *programmation défensive* et écrire
-
-```{r, error = TRUE, eval = TRUE}
-lance_erreur <- function(x){
-  if (x<=0) stop("J'ai peur que les nombres négatifs provoquent une erreur")
-  
-  return(log(x))
-}
-lance_erreur(2)
-lance_erreur(-2)
-```
-
-La programmation défensive n'est pas une pratique obligatoire en équipe, il s'agit d'un principe de prudence.
-
-2. C'est involontaire: un comportement non anticipé d'une fonction, une erreur de type de variable... Il s'agit de cas fréquents. Dans ce cas, le principe général est d'essayer d'identifier l'erreur à partir de cas types (les tests d'un package visent à automatiser cette recherche) pour être en mesure d'améliorer progressivement une fonction. 
-
-
-On peut utiliser trois outils pour débugger:
-
-1. Inspecteur d'erreur Rstudio et `traceback()` qui liste la séquence des appels qui a amené une erreur
-2. L'outil *“Rerun with Debug”* et la commande `options(error = browser)` permettant d'ouvrir une fenêtre interactive pour tester l'environnement ayant généré l'erreur
-3. Les points de débuggage (*breakpoints*) ou la commande `browser()` qui ouvre une session sur un point déterminé par le créateur de la fonction
-
-## Traceback
-
-Cet outil est parfois appelé *call stack*. Il permet de voir l'empilement d'appels de fonctions ayant généré l'erreur. 
-
-Par exemple, voici une séquence ayant générant une erreur
-```{r, eval = FALSE, error = TRUE}
-f <- function(a) g(a)
-g <- function(b) h(b)
-h <- function(c) i(c)
-i <- function(d) "a" + d
-f(10)
-```
-
-![](./pics/08_bug1.png)
-
-En cliquant sur le bouton `traceback`, on voit la séquence de fonctions, ce qui permet d'identifier que l'origine de l'erreur provient de la fonction `i(.)`:
-
-![](./pics/08_bug2.png)
-
-S'il s'agit d'un code qui a été lu à partir de la commande `source()`, le *traceback* affichera également la localisation de la fonction dans le fichier sous la forme *filename.r#linenumber*. On peut cliquer dessus et Rstudio amènera à la localisation du fichier dans l'éditeur
-
-
-## "Rerun with debug"
-
-`traceback()` montre la manière dont l'erreur s'est produite, pas pourquoi. Cliquer sur le bouton *"Rerun with debug"* permet d'ouvrir une fenêtre interative qui permet de mettre en pause l'exécution d'une fonction et explorer interactivement l'état de celle-ci.
-
-C'est particulièrement intéressant car une source fréquente d'erreur provient du fait que, lorsqu'on développe généralement un code, on interagit avec l'*environnement global* alors que les fonctions exécutent leur code interne dans un environnement séparé. Le debuggeur permet d'interagir avec ces environnements, de s'assurer que l'environnement accède bien aux objets désirés (packages, paramètres, dataframe, functions...), que les environnements emboîtés accèdent bien aux objets attendus...
-
-Vous verrez apparaître le code correspondant dans l'éditeur, avec la prochaine commande mise en lumière. Les objets présents dans les environnements d'exécution des différentes fonctions emboîtées sont disponibles: on peut naviguer dedans. 
-
-On dispose également d'une barre dans la console:
-![](./pics/08_bug3.png)
-
-
-* *Next*: exécuter la prochaine étape de la fonction. Attention, si vous disposez, dans la fonction, d'une variable nommée *n*: pour l'afficher, vous devrez utiliser `print(n)` (dans le debuggeur, *n* est un raccourci pour *next*).
-* *Step into*: fonctionne comme *next* mais si la prochaine ligne est une fonction, cela vous enverra dans la fonction afin de progresser ligne par ligne
-* *Finish*: finit l'exécution de la boucle ou fonction actuelle
-* *Continue*: retour à l'environnement supérieur. C'est utile si le problème sur la fonction a été réglé et qu'on veut tester s'il est bien corrigé
-* *Stop*: sortir du debuggeur
-
-
-## Breakpoint
-
-On peut mettre un point d'arrêt à une fonction en cliquant sur la gauche du numéro de ligne d'un script (ou `Shift` + `F9` quand on a le curseur sur la ligne) ou bien `browser()` dans le code de la fonction à l'endroit où on désire l'arrêter. Une fois placé, quand on exécutera la fonction, on aura le debuggeur qui s'ouvrira une fois arrivé à cet endroit
 
 
 

@@ -1,0 +1,113 @@
+---
+title: 'Développement efficace avec Rstudio'
+subtitle: "Travail collaboratif avec R"
+author: "Lino Galiana"
+date: "`r format(Sys.Date(), format = '%d %B %Y')` "
+output:
+  html_document:
+  css: ../style.css
+toc: true
+toc_float: true
+code_folding: show
+number_sections: true
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+# Rappels sur `rstudio`
+
+`Rstudio` est un éditeur de code très complet et très bien intégré à `R` mais aussi à d'autres langages: `C++`, maintenant `Python`. 
+
+Pour rappel,
+
+* Structurer les dossiers sous forme de `RProject`
+* Utiliser `git` pour le contrôle de version
+* Utiliser `Rmarkdown` pour documenter un proket
+
+
+La seconde partie du cours vise à introduire au développement de package. Il s'agit d'une organisation particulière de l'ensemble des programmes, données et documentations constituant un projet `R`. La construction d'un projet autour d'un ou plusieurs packages est la meilleure manière d'assurer la reproducibilité (sous condition d'avoir accès aux mêmes données) et de transparence des traitements statistiques. Il s'agit également d'une approche appropriée pour le travail collaboratif car cela rend le code plus lisible, bien documenté et plus propice à des évolutions futures. 
+
+La deuxième partie du cours adopte la structure suivante, tournée autour de la notion de programmation fonctionnelle:
+
+1. Présentation rapide du débuggeur de `Rstudio`, un outil pratique dans le développement
+2. Présentation étendue des fonctions et environnements
+3. Présentation et constitution d'un premier *package*
+
+
+# Utiliser le debuggeur
+
+## Erreur: toutes ne sont pas à effacer
+
+Une fonction peut provoquer une erreur parce que 
+
+1. C'est volontaire: on introduit des `stop` pour éviter l'exécution d'une erreur dans des conditions que l'on n'avait pas anticipé. C'est très utilisé en *programmation défensive*, paradigme de programmation où on essaie d'assurer le fonctionnement continu d'un programme, en faisant en sorte qu'un code échoue dans une manière pré-determinée même si l'origine de l'erreur ne pouvait pas être anticipée lors de la conception. Un des principes clés de ce paradigme est "l'erreur rapide": dès qu'on remarque une potentielle erreur, on la signale. Cela implique plus de travail pour le programmeur mais rend le débuggage, et donc la collaboration, plus efficace car les utilisateurs peuvent identifier et isoler l'origine de l'erreur et ainsi la corriger plus rapidement. 
+
+Par exemple, si on ne connaît pas le fonctionnement de la fonction `log`, et donc ne saît pas qu'elle fonctionne (mais renvoie un `NaN`) avec des nombres négatifs, on peut une pratique de  *programmation défensive* et écrire
+
+```{r, error = TRUE, eval = TRUE}
+lance_erreur <- function(x){
+  if (x<=0) stop("J'ai peur que les nombres négatifs provoquent une erreur")
+  
+  return(log(x))
+}
+lance_erreur(2)
+lance_erreur(-2)
+```
+
+La programmation défensive n'est pas une pratique obligatoire en équipe, il s'agit d'un principe de prudence.
+
+2. C'est involontaire: un comportement non anticipé d'une fonction, une erreur de type de variable... Il s'agit de cas fréquents. Dans ce cas, le principe général est d'essayer d'identifier l'erreur à partir de cas types (les tests d'un package visent à automatiser cette recherche) pour être en mesure d'améliorer progressivement une fonction. 
+
+
+On peut utiliser trois outils pour débugger:
+
+1. Inspecteur d'erreur Rstudio et `traceback()` qui liste la séquence des appels qui a amené une erreur
+2. L'outil *“Rerun with Debug”* et la commande `options(error = browser)` permettant d'ouvrir une fenêtre interactive pour tester l'environnement ayant généré l'erreur
+3. Les points de débuggage (*breakpoints*) ou la commande `browser()` qui ouvre une session sur un point déterminé par le créateur de la fonction
+
+## Traceback
+
+Cet outil est parfois appelé *call stack*. Il permet de voir l'empilement d'appels de fonctions ayant généré l'erreur. 
+
+Par exemple, voici une séquence ayant générant une erreur
+```{r, eval = FALSE, error = TRUE}
+f <- function(a) g(a)
+g <- function(b) h(b)
+h <- function(c) i(c)
+i <- function(d) "a" + d
+f(10)
+```
+
+![](./pics/08_bug1.png)
+
+En cliquant sur le bouton `traceback`, on voit la séquence de fonctions, ce qui permet d'identifier que l'origine de l'erreur provient de la fonction `i(.)`:
+
+![](./pics/08_bug2.png)
+
+S'il s'agit d'un code qui a été lu à partir de la commande `source()`, le *traceback* affichera également la localisation de la fonction dans le fichier sous la forme *filename.r#linenumber*. On peut cliquer dessus et Rstudio amènera à la localisation du fichier dans l'éditeur
+
+
+## "Rerun with debug"
+
+`traceback()` montre la manière dont l'erreur s'est produite, pas pourquoi. Cliquer sur le bouton *"Rerun with debug"* permet d'ouvrir une fenêtre interative qui permet de mettre en pause l'exécution d'une fonction et explorer interactivement l'état de celle-ci.
+
+C'est particulièrement intéressant car une source fréquente d'erreur provient du fait que, lorsqu'on développe généralement un code, on interagit avec l'*environnement global* alors que les fonctions exécutent leur code interne dans un environnement séparé. Le debuggeur permet d'interagir avec ces environnements, de s'assurer que l'environnement accède bien aux objets désirés (packages, paramètres, dataframe, functions...), que les environnements emboîtés accèdent bien aux objets attendus...
+
+Vous verrez apparaître le code correspondant dans l'éditeur, avec la prochaine commande mise en lumière. Les objets présents dans les environnements d'exécution des différentes fonctions emboîtées sont disponibles: on peut naviguer dedans. 
+
+On dispose également d'une barre dans la console:
+![](./pics/08_bug3.png)
+
+
+* *Next*: exécuter la prochaine étape de la fonction. Attention, si vous disposez, dans la fonction, d'une variable nommée *n*: pour l'afficher, vous devrez utiliser `print(n)` (dans le debuggeur, *n* est un raccourci pour *next*).
+* *Step into*: fonctionne comme *next* mais si la prochaine ligne est une fonction, cela vous enverra dans la fonction afin de progresser ligne par ligne
+* *Finish*: finit l'exécution de la boucle ou fonction actuelle
+* *Continue*: retour à l'environnement supérieur. C'est utile si le problème sur la fonction a été réglé et qu'on veut tester s'il est bien corrigé
+* *Stop*: sortir du debuggeur
+
+
+## Breakpoint
+
+On peut mettre un point d'arrêt à une fonction en cliquant sur la gauche du numéro de ligne d'un script (ou `Shift` + `F9` quand on a le curseur sur la ligne) ou bien `browser()` dans le code de la fonction à l'endroit où on désire l'arrêter. Une fois placé, quand on exécutera la fonction, on aura le debuggeur qui s'ouvrira une fois arrivé à cet endroit

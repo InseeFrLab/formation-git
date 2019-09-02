@@ -41,9 +41,9 @@ Construire un *workflow* à partir de fonctions est une pratique qui permet de r
 Cette approche nous intéresse particulièrement car elle rend le code plus clair, plus robuste, plus facile à répliquer et à faire évoluer.
 
 
-# Noms et valeurs
+# Distinguer noms et valeurs
 
-Lorsqu'on a un code fonctionnel et qu'on le partage, la source la plus commune d'erreur lorsque quelqu'un d'autre fait tourner ce code est que les environnements ne coïncident pas. Pour assurer un code fonctionnel lors d'un partage, il est important de comprendre la manière dont `R` gère les objets, environnements et dépendances. 
+Avoir un code fonctionnel sur son ordinateur n'assure pas qu'un autre utilisateur soit en mesure de le faire tourner. La source la plus commune d'erreur est que les environnements ne coïncident pas. Pour assurer un code fonctionnel lors d'un partage, il est important de comprendre la manière dont `R` gère les objets, environnements et dépendances. 
 
 La première distinction importante est celle entre un objet et son nom. A ce stade, vous devriez être habitué à l'assignation
 
@@ -51,7 +51,7 @@ La première distinction importante est celle entre un objet et son nom. A ce st
 x <- c(1, 2, 3)
 ```
 
-On serait tenté de lire "je crée un objet appelé 'x' contenant les valeurs 1,2 et 3". En réalité, R procède de la manière suivante:
+On serait tenté de lire *"je crée un objet appelé 'x' contenant les valeurs 1,2 et 3"*. En réalité, R procède de la manière suivante:
 
 * `R` crée un vecteur de valeurs `c(1, 2, 3)`
 * `R` lie (*binds*) ce vecteur a un nom, ici `x`
@@ -62,7 +62,7 @@ Autrement dit, l'objet/la valeur n'a pas de nom ; c'est le nom qui a une valeur.
 y <- x
 ```
 
-crée une copie d'un objet déjà existant (`x`). Ce qu'il fait, c'est créer une référence supplémentaire pour accéder au vecteur `c(1,2,3)`
+crée une copie (mobilisant de la mémoire) d'un objet déjà existant (`x`). Ce qu'il fait, c'est créer une référence supplémentaire pour accéder au vecteur `c(1,2,3)`
 
 ## Copie
 
@@ -505,7 +505,8 @@ On peut ajouter autant de sections que nécessaire à la documentation d'une fon
 
 # Fonctions: un peu de formalisme
 
----> METTRE CA AILLEURS
+<!--------------------
+-------- METTRE CA AILLEURS
 
 Changing the value of a supplied argument within a function will not affect the value of the variable in the calling frame
 
@@ -520,7 +521,7 @@ f(x)
 
 
 While f() is running, the a inside the function points to the same value as the x does outside the function
-
+--------------->
 
 Formellement, on peut décomposer une fonction en trois parties:
 
