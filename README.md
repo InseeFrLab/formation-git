@@ -40,3 +40,39 @@ Sur l’intégration continue:
     CI](https://vickysteeves.gitlab.io/repro-papers/r-markdown-in-reproducible-research.html)
   - [Ce post de
     blog](https://blog.methodsconsultants.com/posts/developing-r-packages-with-usethis-and-gitlab-ci-part-ii/)
+
+# Génération des supports
+
+## Cloner le repository
+
+Le repo étant privé une solution relativement simple pour travailler est
+de se créer un token privé (`private_token`) sur GitLab avec droit en
+écriture (aller sur son profil GitLab, puis *Settings* et *Access
+Tokens*, donner un nom, cocher *write\_repository* puis cliquer sur
+*Create personal access token*).  
+Pour cloner le repository, utiliser l’url
+`https://oauth2:private_token@gitlab.com/linogaliana/collaboratif.git`
+
+## Générer l’ensemble des supports
+
+Dans la console de R, exécuter
+
+``` r
+source('build.R')
+```
+
+ou bien dans RStudio, dans l’onglet *Build*, cliquer sur *Build All*.
+
+## Travailler sur un support et le générer
+
+Une petite manipulation est à effectuer dans RStudio pour générer un
+document.
+
+Cliquer sur le menu à droite du bouton *Knit*, sélectionner *Knit
+Directory* puis *Project Directory* comme dans cette image
+
+![Knit Project
+Directory](https://gitlab.com/linogaliana/collaboratif/uploads/a8cb41e78336460e2292bdae90d5427c/Capture_du_2019-09-18_01-46-19.png)
+
+Ensuite, vous pouvez cliquer sur le bouton *Knit* pour générer le
+document.

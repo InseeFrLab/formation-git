@@ -3,13 +3,7 @@ title: "Construction de rapports et documents reproductibles avec Rmarkdown"
 subtitle: "Version longue"
 author: "Lino Galiana"
 date: "`format(Sys.Date(), format = '%d %B %Y')`"
-output:
-  html_document:
-    css: ../style.css
-    toc: true
-    toc_float: true
-    code_folding: show
-    number_sections: true
+output: collaboratif_format
 ---
 
 ```{r setup, include=FALSE}

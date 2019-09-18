@@ -3,17 +3,8 @@ title: "Tirer profit des fonctions en `R`"
 subtitle: "Version longue"
 author: "Lino Galiana"
 date: "13 mai 2019"
-output:
-  html_document:
-    css: ../style.css
-    toc: true
-    toc_float: true
-    code_folding: show
-    number_sections: true
+output: collaboratif_format
 ---
-
-<script src="../js/hideOutput.js"></script>
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -146,14 +137,12 @@ Pour généraliser le code précédent, on voit qu'il y a une structure commune 
 Ecrivez un exemple de fonction `fix_missing` qui généralise, simplement, ce travail de nettoyage. Elle prendra en entrée x (un vecteur) et retourne ce vecteur avec les valeurs manquantes corrigées
 
 
-<div class="fold o s">
-```{r}
+```{r, fold="o s"}
 fix_missing <- function(x) {
   x[x == -99] <- NA
   x
 }
 ```
-</div>
 
 On peut l'appliquer avec le code suivant:
 ```{r}
@@ -242,8 +231,7 @@ Cette approche de composition de fonctions est très précieuse et explique la g
 Il y aurait une autre manière de traiter ce problème évitant d'appliquer la fonction `lapply` mais qui, ici, ne produit pas de résultats plus rapide. En transformant le format du *dataframe* de *wide* (beaucoup de colonnes) en *long* (beaucoup de lignes), on évite le *lapply* et on peut ainsi appliquer la fonction `fix_missing` facilement. 
 
 
-<div class="fold s">
-```{r}
+```{r, fold="s"}
 #' Version alternative du programme évitant une boucle \code{lapply}
 #' 
 #' @param df Dataframe
@@ -271,7 +259,6 @@ fix_missing_long(df)
 identical(fix_missing_long(df),df2_good)
 
 ```
-</div>
 
 Néanmoins, ici, ce n'est pas la méthode la plus appropriée car le jeu n'en vaut pas la chandelle. C'est une opération couteuse de reformater un *dataframe* et, ici, l'opération vectorielle n'est pas assez complexe pour que la répétition $K$ fois de celle-ci prenne plus de temps que deux formatage de données (*wide* -> *long* -> *wide*)
 
@@ -283,8 +270,7 @@ Comment faire maintenant si on désire autoriser d'autres valeurs que `-99` ? Il
 
 Notre fonction précédente prenait comme donnée que la valeur `-99` pour les valeurs manquantes. On peut en faire un paramètre d'une fonction plus générale qui serait de la forme `fix_missing <- function(x, na.value)`. Ecrire cette fonction et l'appliquer à nouveau
 
-<div class="fold s">
-```{r}
+```{r, fold="s"}
 fix_missing <- function(x, na.value) {
   x[x == na.value] <- NA
   x
@@ -292,7 +278,6 @@ fix_missing <- function(x, na.value) {
 
 fix_missing(x = df,na.value = -99)
 ```
-</div>
 
 On peut omettre les noms d'arguments en `R` dans l'appel d'une fonction (`fix_missing(df,-99)` fonctionne). Néanmoins, il s'agit d'une pratique dangereuse qu'il vaut mieux éviter:
 
@@ -303,8 +288,7 @@ Mieux vaut être explicite donc. Avec l'autocomplétion de `Rstudio`, ce n'est p
 
 Imaginons maintenant qu'un code supplémentaire de valeur manquante doive être introduit. Supposons, en supplément de `-99`, que les valeurs manquantes sont aussi codées `10`. Comment feriez-vous ?
 
-<div class="fold s">
-```{r}
+```{r, fold="s"}
 fix_missing2 <- function(x, na.value) {
   x[x %in% na.value] <- NA
   x
@@ -315,7 +299,6 @@ fix_missing2(x = df$d, na.value = c(-99,10))
 df2 <- df
 df2[] <- lapply(colnames(df2), function(col) fix_missing2(df2[,col], na.value = c(-99,10)))
 ```
-</div>
 
 Il suffit en effet d'une transformation mineure de la fonction `fix_missing2`. Notez que cette fois, dans le `lapply`, on a écrit `df2[,col]` et non `df2[col]`.
 
@@ -329,17 +312,15 @@ codes_na <- list("a" = 1:3, "b" = 4:6, "c" = 7:9)
 
 Dans un premier temps, effectuez ceci avec un `lapply`
 
-<div class="fold s">
-```{r}
+```{r, fold="s"}
 df2 <- df
 df2[names(codes_na)] <- lapply(names(codes_na), function(variable) fix_missing2(df2[,variable], na.value = codes_na[[variable]]))
 df2
 ```
-</div>
 
 Maintenant, généralisez en créant une fonction à partir de ce code
-<div class="fold s">
-```{r}
+
+```{r, fold="s"}
 fix_multiple_missing <- function(data,codes_na){
   data[names(codes_na)] <- lapply(names(codes_na), function(variable) fix_missing2(data[,variable], na.value = codes_na[[variable]]))
   return(data)
@@ -347,7 +328,6 @@ fix_multiple_missing <- function(data,codes_na){
 
 fix_multiple_missing(df, codes_na = list("a" = 1:3, "b" = 4:6, "c" = 7:9))
 ```
-</div>
 
 <!-----
 TROP COMPLIQUE JE PENSE
@@ -599,8 +579,7 @@ R’s lexical scoping follows four primary rules:
 
 Le principe de base de la portée est que les noms définis au sein d'une fonction masquent les noms définis en dehors. Le code suivant montre un exemple de cette régle: que renvoie la fonction suivante?
 
-<div class="fold o">
-```{r}
+```{r, fold="o"}
 x <- 10
 y <- 20
 g02 <- function() {
@@ -610,8 +589,6 @@ g02 <- function() {
 }
 g02()
 ```
-</div>
-
 
 Si `R` ne trouve pas un nom dans une fonction, il cherchera celui-ci dans un environnement situé un niveau au-dessus (cf. plus tard)
 
