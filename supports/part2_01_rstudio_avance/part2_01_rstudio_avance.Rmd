@@ -3,13 +3,7 @@ title: 'Développement efficace avec Rstudio'
 subtitle: "Travail collaboratif avec R"
 author: "Lino Galiana"
 date: "`r format(Sys.Date(), format = '%d %B %Y')` "
-output:
-  html_document:
-  css: ../style.css
-toc: true
-toc_float: true
-code_folding: show
-number_sections: true
+output: collaboratif_format
 ---
   
 ```{r setup, include=FALSE}
