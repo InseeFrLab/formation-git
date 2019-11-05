@@ -39,9 +39,8 @@ collaboratif_format = function(...) {
   format$knitr$knit_hooks = list(chunk = function(x, options) {
     x = default_chunk_hook(x, options)
     if (is.null(options$fold)) return(x)
-    classes = paste0('.', c('fold', unlist(strsplit(options$fold, ' '))))
-    opening_div = paste0(':::{', paste(classes, collapse = ' '), '}')
-    closing_div = ':::'
+    opening_div = sprintf('<div class="fold %s">', options$fold)
+    closing_div = '</div>'
     paste(c(opening_div, x, closing_div), collapse = '\n')
   })
   
