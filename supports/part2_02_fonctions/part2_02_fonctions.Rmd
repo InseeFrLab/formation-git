@@ -860,6 +860,10 @@ Les *packages* `MASS` et `dplyr` proposent une fonction ayant le même nom mais 
 Voyons comment fonctionne le code dans un sens: imaginons que nous ayons d'abord attaché `MASS`, puis `dplyr`
 
 ```{r}
+data(iris)
+```
+
+```{r}
 library(MASS)
 library(dplyr)
 

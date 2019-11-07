@@ -5,3 +5,4 @@
 *supports/**/*.pdf
 *supports/**/*.html
 html/*
+*_cache/

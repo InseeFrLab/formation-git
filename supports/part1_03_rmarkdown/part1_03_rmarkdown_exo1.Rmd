@@ -1,0 +1,37 @@
+---
+title: "exercice"
+author: "Nom Prénom"
+date: "`r format (Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Markdown
+## Comment insérer du texte
+
+Saisir le texte.
+
+## Comment habiller le texte
+
+* Tricher. Consulter la **Cheat sheet** R Markdown disponible sur le site de R Studio **https://rstudio.com**
+
+* Mettre en **gras** avec `**`
+
+* Faire des puces avec `*`
+
+* etc ...
+
+## Comment insérer une image
+Avec la syntaxe `![](mon chemin relatif)`
+
+## Comment insérer un lien http
+
+Avec la syntaxe `<mon url>`
+
+## Comment générer un mon rapport en html
+* A l'aide du bouton `Knit`
+
+

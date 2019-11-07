@@ -18,7 +18,9 @@ License: CC BY-NC-SA 4.0
 Encoding: UTF-8
 URL: https://gitlab.com/linogaliana/collaboratif
 Imports:
+    callr,
     emo,
+    questionr,
     here,
     htmltools,
     rmarkdown
