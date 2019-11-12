@@ -18,11 +18,26 @@ License: CC BY-NC-SA 4.0
 Encoding: UTF-8
 URL: https://gitlab.com/linogaliana/collaboratif
 Imports:
-    callr,
-    emo,
-    questionr,
+    available,
+    covr,
+    desc,
+    devtools,
+    dplyr,
+    git2r,
+    gitlabr (>= 1.1.6),
     here,
     htmltools,
-    rmarkdown
+    httr,
+    questionr,
+    purrr,
+    rmarkdown,
+    roxygen2 (>= 6.0.0),
+    roxygen2md,
+    testthat,
+    usethis (>= 1.5.1)
+Suggests:
+    emo,
+    callr
 Remotes:
-    hadley/emo
+    hadley/emo,
+    r-lib/roxygen2md
