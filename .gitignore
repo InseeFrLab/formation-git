@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
 *supports/**/*.pdf
 *supports/**/*.html
 html/*
