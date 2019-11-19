@@ -31,6 +31,7 @@ Il existe un outil informatique très puissant afin de répondre à tous ces bes
 * revenir à des versions précédentes d'un ou plusieurs fichiers
 * rechercher les modifications qui ont pu créer des erreurs
 * partager ses modifications et récupérer celles des autres
+* proposer des modifications, les discuter, sans pour autant modifier la dernière version existante
 * identifier les auteurs et la date des modifications
 
 En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R, Python, SAS, LaTeX, Java, etc.) car reposent sur la comparaison des lignes et des caractères des programmes.
