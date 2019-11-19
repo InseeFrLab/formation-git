@@ -221,6 +221,11 @@ commit
 push/pull
 branch
 
+gitignore : pas les résultats (exemple des markdowns volumineux), pas les données, pas d'informations personnelles (configuration).
+ce n'est pas un drive / dropbox.
+
+EXERCICES de mise en oeuvre
+
 ##Gitlab, plateforme de partage de code 
 
 Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment.
