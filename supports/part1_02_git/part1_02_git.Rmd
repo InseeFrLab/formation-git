@@ -27,7 +27,7 @@ Tous les statisticiens se sont déjà demandé (ou à leurs collègues) :
 
 Il existe un outil informatique très puissant afin de répondre à tous ces besoins : la gestion de version (*version control system* (VCN) en anglais). Ses avantages sont incontestables et permettent de facilement :
 
-* enregister l'historique des modifications d'un ensemble de fichiers 
+* enregistrer l'historique des modifications d'un ensemble de fichiers 
 * revenir à des versions précédentes d'un ou plusieurs fichiers
 * rechercher les modifications qui ont pu créer des erreurs
 * partager ses modifications et récupérer celles des autres
