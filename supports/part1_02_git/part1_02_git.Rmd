@@ -184,12 +184,18 @@ Il est possible d'éviter les conflits en amont en validant souvent les modifica
 
 De manière générale, il ne faut pas avoir peur des conflits. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec 'GIT', il est très rare de faire des bétises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme 'git push --force'.
 
-## Quelques éléments de GIT avancé
+## Les branches
 
 Création de branches pour développer de longs projets, en
 parallèle, sans perturber le dépôt commun : git branch
 * Fusionner des projets (branches) : git merge
+
+Fusion de branches
+
+## Quelques éléments de GIT avancé
+
 * Conserver des fichiers en privé : git ignore
+
 * Sauvegarder une version figée : git tag
 En savoir plus : https://git-scm.com/.
 
@@ -197,9 +203,8 @@ retour en arrière dans l'historique
 
 Qui a modifié en dernier une ligne donné dans un fichier donné ? git blame 
 
-Fusion de branches
 Rebasage
-Réécriture de l'historique
+Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
 
 
 Pour aller plus loin :
@@ -207,7 +212,16 @@ Pour aller plus loin :
 https://romain-warnan.github.io/git-au-quotidien 
 
 
-# Utiliser Gitlab, plateforme de partage de code 
+# Bonnes pratiques de GIT et GITLab 
+
+## En local
+
+staging
+commit
+push/pull
+branch
+
+##Gitlab, plateforme de partage de code 
 
 Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment.
 
@@ -230,9 +244,16 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 
 * Tickets
 
-* Fusion de branches
+* Fusion de branches : MR et merge en pratique (exemples des PR avec commentaires etc.)
 
+EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork.
 
+## Pratiques à éviter pour un usage néophyte
+
+ si vous avez peur de faire une bêtise, commencez par faire une copie locale de votre clone
+
+rebase
+push force
 
 # Configurer un projet GIT avec Rstudio à l'Insee
 
