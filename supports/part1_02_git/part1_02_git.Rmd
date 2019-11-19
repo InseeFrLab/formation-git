@@ -121,7 +121,7 @@ lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, e
 
 # Des bases de GIT 
 
-Les deux langage de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant.
+Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant.
 
 GIT est open source, gratuit et très répandu. Une très vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', il y a un rapide tutoriel en ligne : http://try.github.io/
 
