@@ -134,7 +134,7 @@ Genèse de Git
 – développements non linéaires (branches)
 – compacité des données
 
-Centralisé (SVN) vs distribué (GIT) : avantage de GIT sont la sécurité (dépôts copiés localement) et la  rapidité
+Centralisé (SVN) vs distribué (GIT) : avantage de GIT sont la sécurité (dépôts copiés localement) et la  rapidité. Contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT : on transmet ses modifications quand on le souhaite ou peut, cela facilite le travail distant.
 
 GIT est directement intégré dans l’interface RStudio
 
