@@ -109,7 +109,7 @@ Le tableau suivant compare les usages au temps (pré-historique ?) de la program
 |Gestion des erreurs   | à la main             | méthodique           |
 |
 
-Que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets indivduels, notre temps est consacré à la programmation réellement utile. L'organisation du traval est efficace grâce :
+Que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. L'organisation du travail est efficace grâce :
 * aux améliorations rapides des codes
 * au partage efficace des tâches
 * à la recherche puissante des erreurs
