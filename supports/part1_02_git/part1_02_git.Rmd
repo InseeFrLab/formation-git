@@ -158,7 +158,7 @@ Les programmes s’organisent sur un répertoire distant commun
 dossiers locaux (working directory).
 Les trois commandes principales :
 * diff : fichiers modifiés, ajoutés ou supprimés
-* staging area puis commit : sélection et envoi des modifications
+* staging area puis commit : sélection et validation des modifications
 * push et pull : mise à jour du local par rapport au distant (et
 réciproquement)
 
