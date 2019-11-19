@@ -176,15 +176,13 @@ push
 pull
 
 
-Mieux vaut éviter les conflits que les résoudre
-Valider souvent
-– des petits lots de modifications homogènes
-Préférer de petits fichiers
-– bien découper les classes selon leurs responsabilités
-Communiquer avec les autres membres de l’équipe
-– dire sur quoi on travaille
-– bien prévenir en cas de refactoring important
-Mettre à jour sa copie locale régulièrement
+Il est possible d'éviter les conflits en amont en validant souvent les modifications ('commit') :
+
+* par petits lots homogènes et en préférant peu de fichiers
+* en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
+* Mettre à jour sa copie locale régulièrement, voire dès qu'on commencer à travailler sur un projet.
+
+De manière générale, il ne faut pas avoir peur des conflits. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec 'GIT', il est très rare de faire des bétises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme 'git push --force'.
 
 ## Quelques éléments de GIT avancé
 
