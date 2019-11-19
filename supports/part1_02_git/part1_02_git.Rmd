@@ -113,7 +113,7 @@ Que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres proj
 * aux améliorations rapides des codes
 * au partage efficace des tâches
 * à la recherche puissante des erreurs
-* à un archivage géré automatiquement avec des méta-donées
+* à un archivage géré automatiquement avec des méta-données
 * à des outils généralisés et documentés en ligne.
 
 C'est donc le meilleur moyen de partager du code (entre équipes internes,
