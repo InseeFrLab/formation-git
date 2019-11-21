@@ -214,7 +214,7 @@ https://romain-warnan.github.io/git-au-quotidien
 
 # Bonnes pratiques de GIT et GITLab 
 
-## En local
+## Recommandation pour faire GIT en local
 
 staging
 commit
@@ -228,13 +228,11 @@ EXERCICES de mise en oeuvre
 
 ##Gitlab, plateforme de partage de code 
 
-Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment.
+Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Un réseau social du code
 
 Inspecter un dépôt distant : onglet branches, commits etc
 
 [documentation](https://docs.gitlab.com/ee/user/index.html)  `GitLab`
-
-## Un réseau social du code
 
 cf. Drees : groupes publics et privé, profils, pages projet etc.
 
@@ -253,12 +251,130 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 
 EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork.
 
-## Pratiques à éviter pour un usage néophyte
+## Pratique de GitLab au quotidien
 
+ à éviter pour un usage néophyte :  à éviter pour un usage néophyte
  si vous avez peur de faire une bêtise, commencez par faire une copie locale de votre clone
 
 rebase
 push force
+
+### Préambule
+
+- vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`)
+- chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repo à la légère, vous pourriez le regretter
+- c'est au(x) mainteneur(s) du repo de définir les règles d'organisation du travail
+- idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet
+- il est essentiel que chaque personne qui contribue au projet se conforme à ces règles
+- `git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail. Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `git` mais à une mauvaise définition de l'organisation du travail ou bien à son non respect par les mainteneurs. 
+- d'expérience, si vous n'avez pas réfléchi à l'organisation du travail, il est à peu près certain que vous rencontrerez des problèmes. Des difficultés peuvent en particulier apparaître dans une équipe dont personne n'aurait d'expérience avec `git`
+- vous devez savoir qu'il y a plusieurs méthodes de travail avec `git`. Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail. Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents...)
+
+Cependant, vous devez savoir que des "habitudes" se sont imposées dans la communauté R, essentiellement au travers des collaborations sur la plateforme GitHub (GitLab fonctionne de la même façon mais est open source contrairement à GitHub). Au fur et à mesure des collaborations, une forme de "norme sociale" s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
+
+### Usages de `git` dans la communauté R
+
+Voici quelques usages couramment répandus, ceux qu'on observe le plus souvent. Nous ne prétendons pas que tout le monde respecte toutes ces règles mais voici les "patterns" fréquemment observés. Comme il a été indiqué, ces règles ne sont pas les "meilleures". Vous trouverez donc toujours quelqu'un pour indiquer que telle ou telle règle n'est pas nécessaire, qu'on peut faire autrement, qu'une autre est bien meilleure... 
+
+Même si elles sont écrites de façon impérative, conservez du recul. Cependant, si vous les adoptez, tout se passera bien.
+
+#### Ouvrir et organiser les issues
+
+Avant de travailler, vous devez ouvrir des issues. Au début de votre projet, ce seront des fonctionnalités (en anglais, _features_). Au bout d'un moment, vos issues seront également des bugs constatés.
+
+Ces issues seront fermées au fur et à mesure que les fonctionnalités seront implémentées ou bien que vous aurez abandonné vos idées. Utilisez les labels pour classer vos issues. Vous pouvez les affecter à une personne en particulier, fixer une date de rendu, etc.
+
+#### Le rôle de `master`
+
+La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu. Avec l'intégration continue, elle se doit d'être en succès. 
+
+Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. N'ayez pas peur de fixer comme règle l'interdiction de pousser sur master, cela obligera l'équipe projet à travailler très professionnellement (ça fera peut-être râler certains coéquipiers mais c'est pour la bonne cause).
+
+Au moindre doute, créez une branche.
+
+#### Les branches
+
+Les branches sont utilisées pour des travaux significatifs :
+
+- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur master des travaux non aboutis)
+- vous travaillez sur une fonctionnalité nouvelle et vous souhaiterez recueillir l'avis de vos collègues avant de modifier `master`
+- vous n'êtes pas certain de réussir vos modifications "du premier coup"
+
+**Toutes les branches sont publiées, le rebase est interdit. Le push force est également interdit.** (carton rouge)
+
+**Tous les merges dans master doivent se faire par l'intermédiaire d'une merge request dans GitLab**. En effet, il est très mal vu de merger une branche dans master localement (carton rouge).
+
+Comment nommer les branches ? Là encore, il y a énormément de conventions différentes. Une fréquemment observée est :
+
+- pour les nouvelles fonctionnalités : `feature/nouvelle-fonctionnalite` où `nouvelle-fontionnalite` est un nom court résumant la fonctionnalité
+- pour les corrections de bug : `issue-num` où `num` est le numéro de l'issue
+
+N'hésitez pas à aller encore plus loin dans la normalisation : c'est pour la bonne cause !
+
+#### Ouvrir des merge requests
+
+Les merges requests sont sans doute la fonctionnalité la plus pratique.
+
+Vous ouvrez une merge request :
+
+- donnez un titre explicite
+- donnez des détails dans le message
+- dans le corps du message, ajoutez `close #xx` où `xx` est le numéro de l'issue décrivant la fonctionnalité que la merge request implémente. Lorsque la merge request sera fusionnée, l'issue sera automatiquement fermée et un lien sera créé entre l'issue et la merge request. Cela vous permettra de comprendre, plusieurs mois ou années plus tard comment et pourquoi telle ou telle fonctionnalité à été implémentée
+
+Une fois une merge request ouverte, sollicitez une relecture. En effet, personne (même les superstars de la programmation) n'est à l'abri d'une erreur. 
+
+Les merge requests doivent également modifier le fichier `NEWS.md`, de la façon suivante :
+
+```markdown
+# Version 0.4
+
+## Nouvelles fonctionnalités
+
+- La fonction `show_map()` permet d'afficher une carte (#xx et !yy).
+
+## Corrections de bugs
+
+- La fonction `compute_map()` renvoie une erreur si la projection n'est pas Lambert-93 (#ww et #zz).
+``` 
+
+Dans l'exemple ci-dessus, les chiffres précédés de `!` font référence aux numéros des merges requests.  
+Les chiffres précédés de `#` font références aux issues.
+
+#### Contribuer aux merge requests
+
+**Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
+
+Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
+
+#### Fusionner les merge requests
+
+C'est la responsabilité des mainteneurs : seuls les mainteneurs peuvent merger dans master.  
+Il leur appartient de veiller à la bonne qualité des merge requests.
+
+Question : squash and merge ou pas ?  
+Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
+
+#### Résoudre les conflits
+
+Si vous adoptez les règles précédentes, master sera surtout modifié via des merge requests. Vous ne devriez donc jamais avoir de conflits sur master.
+
+Tous les conflits devraient donc survenir dans les branches. Les merge requests en conflit sont impossibles à merger. Il n'y a donc pas de possibilité de commettre un erreur par mégarde (c'est la raison pour laquelle il est interdit de merger dans master localement).
+
+Si votre branche est en conflit, **le conflit doit être résolu dans la branche et pas dans master**. Voici la marche à suivre :
+
+- appliquez le conseil de survie : faites une copie de sauvegarde de votre clone (avec l'expérience, vous pourrez vous passer de cette étape)
+- dans votre clone, placez vous sur la branche en question `git checkout nom-de-la-branche`
+- mergez master dans la branche `git merge master`
+- résolvez les conflits
+- finalisez le commit de merge
+- poussez vers GitLab
+
+Rappel : **Il est interdit de faire l'inverse (merger localement la branche dans master)**
+
+Une référence sur GitHub : https://happygitwithr.com/ 
+
+EXERCICE : ouvrir une MR, l'assigner, la résoudre sur GitLab
+Usage des issues et ToDo
 
 # Configurer un projet GIT avec Rstudio à l'Insee
 
