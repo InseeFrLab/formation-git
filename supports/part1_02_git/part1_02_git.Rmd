@@ -214,17 +214,30 @@ https://romain-warnan.github.io/git-au-quotidien
 
 # Bonnes pratiques de GIT et GITLab 
 
+Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
+
 ## GIT en local
 
-staging
-commit
-push/pull
-branch
+Exercice : staging
+Modifier un fichier
+
+Exercice : commit
+Valider cette modification dans votre dépôt local
+
+Exercice : push
+Envoyer cette modification au dépôt commun
+
+Exercice : pull
+Récupérer les modifications du dépôt commun
+
+Exercice : branch
+Créer une branche et la modifier.
+
+Excercice : gitignore
+Ajouter les fichiers .pdf etc. dans le gitignore
 
 gitignore : pas les résultats (exemple des markdowns volumineux), pas les données, pas d'informations personnelles (configuration).
 ce n'est pas un drive / dropbox.
-
-EXERCICES de mise en oeuvre
 
 ## Gitlab, aperçu de la plateforme de partage de code 
 
@@ -247,8 +260,6 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 * Tickets
 
 * Fusion de branches : MR et merge en pratique (exemples des PR avec commentaires etc.)
-
-EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork.
 
  à éviter pour un usage néophyte :  à éviter pour un usage néophyte
  si vous avez peur de faire une bêtise, commencez par faire une copie locale de votre clone
@@ -281,6 +292,8 @@ Avant de travailler, vous devez ouvrir des issues. Au début de votre projet, ce
 
 Ces issues seront fermées au fur et à mesure que les fonctionnalités seront implémentées ou bien que vous aurez abandonné vos idées. Utilisez les labels pour classer vos issues. Vous pouvez les affecter à une personne en particulier, fixer une date de rendu, etc.
 
+EXERCICE : ouvrir et assigner une issue à votre voisin. Répondre à celle de votre voisin et clore celle que vous avez initiée. 
+
 ### Le rôle de `master`
 
 La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu. Avec l'intégration continue, elle se doit d'être en succès. 
@@ -307,6 +320,8 @@ Comment nommer les branches ? Là encore, il y a énormément de conventions dif
 - pour les corrections de bug : `issue-num` où `num` est le numéro de l'issue
 
 N'hésitez pas à aller encore plus loin dans la normalisation : c'est pour la bonne cause !
+
+EXERCICE : créer une branche avec votre voisin, commit, push, pull
 
 ### Ouvrir des merge requests
 
@@ -337,16 +352,19 @@ Les merge requests doivent également modifier le fichier `NEWS.md`, de la faço
 Dans l'exemple ci-dessus, les chiffres précédés de `!` font référence aux numéros des merges requests.  
 Les chiffres précédés de `#` font références aux issues.
 
+EXERCICE : créer une MR proprement avec GitLab (indications)
+
 ### Contribuer aux merge requests
 
 **Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
 
 Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
 
+EXERCICE : Choisissez une autre MR et contribuez-y via GitLab.
+
 ### Fusionner les merge requests
 
-C'est la responsabilité des mainteneurs : seuls les mainteneurs peuvent merger dans master.  
-Il leur appartient de veiller à la bonne qualité des merge requests.
+C'est la responsabilité des mainteneurs : seuls les mainteneurs peuvent merger dans master. Il leur appartient de veiller à la bonne qualité des merge requests.
 
 Question : squash and merge ou pas ?  
 Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
@@ -372,6 +390,8 @@ Une référence sur GitHub : https://happygitwithr.com/
 
 EXERCICE : ouvrir une MR, l'assigner, la résoudre sur GitLab
 Usage des issues et ToDo
+
+EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork
 
 # Configurer un projet GIT avec Rstudio à l'Insee
 
