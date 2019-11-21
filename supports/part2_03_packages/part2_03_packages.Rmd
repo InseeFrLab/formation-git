@@ -94,13 +94,15 @@ Certaines personnes se plaisent à véhiculer ces mythes. Bien évidemment, tout
 
 Certes, la création de packages nécessite d'acquérir de nouvelles connaissances et notions mais elles ne sont pas particulièrement complexes. De plus, ces notions sont largement transposables d'un langage de programmation à un autre car la plupart des langages utilisent la notion de packages (parfois appelés librairies ou modules dans d'autres langages). 
 
-Un avantage de la création de packages est que cela va permettre de structurer vos programmes et d'y ajouter beaucoup de rigueur. La principale compétence à laquelle on fera donc appel lors de la réalisation d'un package est **la rigueur**.
+Un avantage de la création de packages est que cela va permettre de structurer vos programmes et d'y ajouter beaucoup de rigueur. La principale compétence à laquelle on fera donc appel lors de la réalisation d'un package est **la rigueur**. Cette rigueur réduit le coût pour se réapproprier un code fait il y a quelques temps ou fait par un autre. C'est donc une pratique à recommander dans le cadre d'un travail collaboratif. 
+
+Dès qu'on a un doute sur la conception d'un package, on peut se référer au livre d'[Hadley](http://r-pkgs.had.co.nz/) sur le sujet
 
 ## Quand créer un package ? {-}
 
 Voici une règle d'or qui devrait vous guider pour savoir quand vous **devez** créer un package:
 
-- lorsque vous réalisez une analyse, si vous utilisez plus de deux fois une même portion de code (que vous avez "copié-collé"), vous devez créer une fonction
+- lorsque vous réalisez une analyse, si vous utilisez plus de deux fois une même portion de code (que vous avez "copié-collé"), vous devez créer une fonction. Le *copier-coller* est une pratique risquée car on risque toujours d'introduire une source d'erreur lors de ce geste manuel.
 - si vous réutilisez une fonction entre deux analyses (en "copiant-collant" le code source de cette fonction), vous devez faire un package
 
 Un package vous permettra de réutiliser aisément des "bouts de code" entre différentes analyses et vous obligera à adopter toute la rigueur nécessaire à ce type d'exercice. Réaliser un package est un moyen simple de partager votre code : combien de fois avez-vous échangé des bouts de code par mail avec un collègue ? C'est précisément pour répondre à cette problématique lié au travail collaboratif que les packages ont été créés.
@@ -132,7 +134,7 @@ Un package doit répondre à un ensemble de **normes**. L'objectif de la formati
 
 En effet, nous utiliserons un ensemble d'outils (principalement les packages **devtools** et **usethis**) qui nous permettront de gérer correctement la création d'un package. Cependant, nous contrôlerons en permanence que notre package est conforme aux normes attendues par R en effectuant **des contrôles de conformité**.
 
-Dans le jargon R, un contrôle de conformité s'appelle un **check**. Cette étape est **fondamentale**. **Vous ne devrez jamais la négliger.**
+Dans le jargon R, un contrôle de conformité s'appelle un **check**. Cette étape est **fondamentale**. **Vous ne devrez jamais la négliger.** 
 
 Il s'agit de passer une batterie de contrôles pour voir si les modifications que vous opérez à votre package sont conformes :
 
@@ -174,7 +176,7 @@ Vous pousserez également votre travail sur GitLab et montrerez le rapport de co
 
 ### Comment lire ce document ? {-}
 
-Le document détaille chaque étape de la feuille de route. Vous pouvez le lire dans l'ordre successif où aller directement à la partie qui vous intéresse. 
+Le document détaille chaque étape de la feuille de route. Vous pouvez le lire dans l'ordre successif ou aller directement à la partie qui vous intéresse. 
 
 L'objectif de la formation n'est pas de dispenser toutes les informations comprises dans ce document (cela ferait trop). Ce document est une aide pour les formateurs et les stagiaires pour trouver des réponses à des questions qui se posent en pratique.
 
@@ -766,6 +768,9 @@ git remote add origin git@gitlab.com:RLesur/monpetitpaquet.git
 git push -u origin master
 ```
 
+Si vous n'avez pas initialisé de `README` lors de la création du dépôt (cf. plus haut) `gitlab` vous propose les lignes de commande nécessaires que vous pouvez copier-coller. Une fois la connection au dépôt distant effectuée, par exemple via `usethis::use_git_remote(url = repo_url)`, vous pouvez utiliser le bouton `push ` de l'onglet `git` de `Rstudio`. 
+
+
 ## Utiliser `testthat` pour les tests
 
 Nous allons maintenant créer les dossiers et fichiers nécessaires pour tester notre code. Nous allons utiliser le package **testthat** pour nous aider à écrire des tests.
@@ -930,6 +935,8 @@ Nous allons exécuter la commande suivante (nous exécuterons très souvent cett
 devtools::document()
 ```
 
+Il y a aussi la possibilité d'utiliser le raccourci `CTRL+SHIFT+D` ou dans l'onglet `Build` de `Rstudio` de cliquer sur `More` et sélectionner `document`
+
 Cette commande va avoir deux effets principaux :  
 
 - constuire les fichiers de documentation au format attendu par R (les fichiers `Rd` qui se trouve dans le répertoire `man` du projet)
@@ -938,7 +945,7 @@ Cette commande va avoir deux effets principaux :
 
 Qu'est ce que le fichier `NAMESPACE` ?
 
-Voici le fichier `NAMESPACE`que nous avons à ce stade :
+Voici le fichier `NAMESPACE` que nous avons à ce stade :
 
 ```{r, eval=FALSE}
 # Generated by roxygen2: do not edit by hand
@@ -951,7 +958,7 @@ Notez bien le mot clé `@export` dans l'exemple précédent : cela signifie que 
 
 **Attention aux noms des fonctions exportées par votre package !** Vous devez évitez d'utiliser les mêmes noms que d'autres packages. Par exemple, ce serait une très mauvaise idée d'exporter des fonctions s'appelant `select()`, `mutate()` ou `filter()` car ce sont des noms déjà mis à disposition par le package **dplyr**. Si vous faites cela, vous risquez de provoquer le mécontentement de vos utilisateurs. Une pratique répandue est de préfixer les noms de fonctions : regardez par exemple les noms des fonctions des packages **stringr** (`str_*`) et **stringi** (`stri_*`).
 
-Pour mieux organiser votre travail, vous pouvez bien évidemment créer des fonctions à seul but interne. Dans ce cas, retirez la directive `@export`. Ces fonctions pourront être utilisées seulement à l'intérieur de votre package.
+Pour mieux organiser votre travail, vous pouvez bien évidemment créer des fonctions à seul but interne. Dans ce cas, retirez la directive `@export`. Ces fonctions pourront être utilisées seulement à l'intérieur de votre package. Cela peut permettre d'inclure des fonctions couteaux-suisse dans votre package qui effectuent des tâches intermédiaires et n'ont donc pas besoin d'être utilisées par un utilisateur final. 
 
 #### Trucs et astuces pour éviter de s'arracher les cheveux {-}
 
@@ -1005,9 +1012,9 @@ Il existe deux **règles d'or**. La première est que **toute fonctionnalité no
 
 La seconde règle d'or est : tout bug que vous avez détecté doit donner lieu à l'écriture d'un test. Cela évite de se faire prendre plusieurs fois au même endroit.
 
-Enfin, le dernier intérêt des tests est d'éviter que votre package se brise si vous faites des petites modifications ultérieurement (si, si, ça arrive...).
+Enfin, le dernier intérêt des tests est d'éviter que votre package se brise si vous faites des petites modifications ultérieurement (si, si, ça arrive...). Dans des projets de production, où les fonctions s'enchaînent, cette pratique est vitale pour réduire les risques de *bug* non identifiés ou résultats non contrôlés. 
 
-Mais vous allez voir, écrire des tests est quelque chose de simple et amusant. Nous allons utiliser le package **testthat** pour nous aider à les écrire et générer de beaux rapports.
+Mais vous allez voir, écrire des tests est quelque chose de simple et amusant. Nous allons utiliser le package **testthat** pour nous aider à les écrire et générer de beaux rapports. Les tests ont vocation à tourner sur des petits jeux de données d'exemple à la structure équivalente aux données utilisées dans le projet: il ne s'agit pas de faire tourner un test sur les DADS ! 
 
 Nous allons écrire des tests pour la fonction `fix_missing()` de notre package. Pour créer un nouveau fichier qui comprendra nos tests, nous allons utiliser la fonction `usethis::use_test()`. Exécutez la commande :
 
@@ -1023,7 +1030,7 @@ test_that("multiplication works", {
 })
 ```
 
-L'ensemble des fonctions (`test_that()`, `expect_*()`...) sont issues du package **testthat**. 
+L'ensemble des fonctions (`test_that()`, `expect_*()`...) sont issues du package **testthat**. Le principe d'un test est de proposer de manière littéraire le résultat anticipé (par exemple "la multiplication fonctionne") et effectuer un test formel (test d'égalité, logique...)
 
 Ecrivons un premier test. Il s'agit d'un bon exercice. Vous pouvez lire en parallèle la documentation que nous avons écrite pour la fonction `fix_missing()` et les tests ci-dessous.
 
@@ -1205,7 +1212,7 @@ Mais tout d'abord, nous allons appliquer ce que nous avons vu précédemment :
 - lancer les tests : `devtools::test()`
 - lancer les contrôles de conformité : `devtools::check()`
 
-Essayez de le faire par vous-même. Pour la documentation de la fonction, vous pouvez utiliser l'astuce suivante : il est possible de réutiliser la documentation d'un paramètre d'une fonction grâce à la directive `@inheritParams nomdelafonction`^[pour réutiliser la documentation d'un autre package, utilisez `@inheritParams package::nomdelafonction`]. Dans notre exemple, cela peut être utile pour documenter le paramètre `na.value` de la fonction `fix_missing_df` en réutilisant celle de la fonction `fix_missing`. Vous évitez ainsi de faire des copier-coller et votre documentation sera plus facile à mettre à jour. **Utilisez cette astuce le plus souvent possible**. Pour le paramètre `...`, la directive est `@inheritDotParams`.
+Essayez de le faire par vous-même. Pour la documentation de la fonction, vous pouvez utiliser l'astuce suivante : il est possible de réutiliser la documentation d'un paramètre d'une fonction grâce à la directive `@inheritParams nomdelafonction`^[pour réutiliser la documentation d'un autre package, utilisez `@inheritParams package::nomdelafonction`]. Dans notre exemple, cela peut être utile pour documenter le paramètre `na.value` de la fonction `fix_missing_df` en réutilisant celle de la fonction `fix_missing`. Vous évitez ainsi de faire des copier-coller et votre documentation sera plus facile à mettre à jour. **Utilisez cette astuce le plus souvent possible**, notamment dans le cas des fonctions emboîtées. Pour le paramètre `...`, la directive est `@inheritDotParams`.
 
 Voici une solution possible pour la fonction `fix_missing_df()` :
 
@@ -1389,7 +1396,7 @@ Pour le créer, la commande est :
 usethis::use_readme_md()
 ```
 
-Il est possible d'utiliser R Markdown grâce à la commande : 
+S'il est nécessaire d'introduire du code `R` à exécuter dans le fichier `README`, il est possible d'utiliser R Markdown grâce à la commande : 
 
 ```{r}
 usethis::use_readme_rmd()
@@ -1421,7 +1428,7 @@ usethis::use_vignette("monpetitpaquet")
 
 Cette commande crée un nouveau fichier intitulé `monpetitpaquet.Rmd` dans le répertoire `vignettes`. Il s'agit d'un fichier R Markdown. Expliquez dans ce fichier à quoi sert votre package et comment on l'utilise.
 
-Si dans votre vignette vous utilisez un package qui n'est pas recensé dans la rubrique `Imports` de votre package, vous devez absolument le mentionner dans la rubrique `Suggests` du fichier `DESCRIPTION` en utilisant `usethis::use_package(type = "Suggests")`. Par exemple, si votre package n'importe aucune fonction de `dplyr` mais la vignette décrit comme l'utiliser avec `dplyr`, vous devez exécuter :
+Si dans votre vignette vous utilisez un package qui n'est pas recensé dans la rubrique `Imports` de votre package, vous devez absolument le mentionner dans la rubrique `Suggests` du fichier `DESCRIPTION` en utilisant `usethis::use_package(type = "Suggests")`. Par exemple, si votre package n'importe aucune fonction de `dplyr` mais la vignette décrit comment l'utiliser avec `dplyr`, vous devez exécuter :
 
 ```{r, eval=FALSE}
 usethis::use_package("dplyr", type = "Suggests")
