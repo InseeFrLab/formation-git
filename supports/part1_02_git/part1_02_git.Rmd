@@ -213,34 +213,6 @@ https://romain-warnan.github.io/git-au-quotidien
 Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/
 
 
-
-# Bonnes pratiques de GIT et GITLab 
-
-Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
-
-## GIT en local
-
-Exercice : staging
-Modifier un fichier
-
-Exercice : commit
-Valider cette modification dans votre dépôt local
-
-Exercice : push
-Envoyer cette modification au dépôt commun
-
-Exercice : pull
-Récupérer les modifications du dépôt commun
-
-Exercice : branch
-Créer une branche et la modifier.
-
-Excercice : gitignore
-Ajouter les fichiers .pdf etc. dans le gitignore
-
-gitignore : pas les résultats (exemple des markdowns volumineux), pas les données, pas d'informations personnelles (configuration).
-ce n'est pas un drive / dropbox.
-
 ## Gitlab, aperçu de la plateforme de partage de code 
 
 Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Un réseau social du code
@@ -269,6 +241,12 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 rebase
 push force
 
+
+# Bonnes pratiques de GIT et GITLab 
+
+Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
+
+
 ## Pré-requis pour l'organisation du travail collaboratif
 
 - vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`)
@@ -282,13 +260,38 @@ push force
 
 Cependant, vous devez savoir que des "habitudes" se sont imposées dans la communauté R, essentiellement au travers des collaborations sur la plateforme GitHub (GitLab fonctionne de la même façon mais est open source contrairement à GitHub). Au fur et à mesure des collaborations, une forme de "norme sociale" s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
 
-## Usages de `git` dans la communauté R
+
+On propose une synthèse des usages de `git` dans la communauté R, adaptés à la configuration à l'Insee : AUS pour commencer (puis à la fin donner les autres usages.)
+
+## GIT en local
+
+Exercice : staging
+Modifier un fichier
+
+Exercice : commit
+Valider cette modification dans votre dépôt local
+
+Exercice : push
+Envoyer cette modification au dépôt commun
+
+Exercice : pull
+Récupérer les modifications du dépôt commun
+
+Exercice : branch
+Créer une branche et la modifier.
+
+Excercice : gitignore
+Ajouter les fichiers .pdf etc. dans le gitignore
+
+gitignore : pas les résultats (exemple des markdowns volumineux), pas les données, pas d'informations personnelles (configuration).
+ce n'est pas un drive / dropbox.
+
 
 Voici quelques usages couramment répandus, ceux qu'on observe le plus souvent. Nous ne prétendons pas que tout le monde respecte toutes ces règles mais voici les "patterns" fréquemment observés. Comme il a été indiqué, ces règles ne sont pas les "meilleures". Vous trouverez donc toujours quelqu'un pour indiquer que telle ou telle règle n'est pas nécessaire, qu'on peut faire autrement, qu'une autre est bien meilleure... 
 
 Même si elles sont écrites de façon impérative, conservez du recul. Cependant, si vous les adoptez, tout se passera bien.
 
-### Ouvrir et organiser les issues
+## Ouvrir et organiser les issues
 
 Avant de travailler, vous devez ouvrir des issues. Au début de votre projet, ce seront des fonctionnalités (en anglais, _features_). Au bout d'un moment, vos issues seront également des bugs constatés.
 
@@ -296,7 +299,7 @@ Ces issues seront fermées au fur et à mesure que les fonctionnalités seront i
 
 EXERCICE : ouvrir et assigner une issue à votre voisin. Répondre à celle de votre voisin et clore celle que vous avez initiée. 
 
-### Le rôle de `master`
+## Le rôle de `master`
 
 La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu. Avec l'intégration continue, elle se doit d'être en succès. 
 
@@ -304,7 +307,7 @@ Peut-on pousser directement sur `master` ? oui, pour des petites corrections, de
 
 Au moindre doute, créez une branche.
 
-### Les branches
+## Les branches
 
 Les branches sont utilisées pour des travaux significatifs :
 
@@ -325,7 +328,7 @@ N'hésitez pas à aller encore plus loin dans la normalisation : c'est pour la b
 
 EXERCICE : créer une branche avec votre voisin, commit, push, pull
 
-### Ouvrir des merge requests
+## Ouvrir des merge requests
 
 Les merges requests sont sans doute la fonctionnalité la plus pratique.
 
@@ -356,7 +359,7 @@ Les chiffres précédés de `#` font références aux issues.
 
 EXERCICE : créer une MR proprement avec GitLab (indications)
 
-### Contribuer aux merge requests
+## Contribuer aux merge requests
 
 **Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
 
@@ -364,14 +367,14 @@ Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un com
 
 EXERCICE : Choisissez une autre MR et contribuez-y via GitLab.
 
-### Fusionner les merge requests
+## Fusionner les merge requests
 
 C'est la responsabilité des mainteneurs : seuls les mainteneurs peuvent merger dans master. Il leur appartient de veiller à la bonne qualité des merge requests.
 
 Question : squash and merge ou pas ?  
 Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
 
-### Résoudre les conflits
+## Résoudre les conflits
 
 Si vous adoptez les règles précédentes, master sera surtout modifié via des merge requests. Vous ne devriez donc jamais avoir de conflits sur master.
 
