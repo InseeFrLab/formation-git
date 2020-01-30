@@ -196,6 +196,8 @@ Fusion de branches
 
 * Conserver des fichiers en privé : git ignore
 
+Conseils de la Cnil : https://lincnil.github.io/Guide-RGPD-du-developpeur/ 
+
 * Sauvegarder une version figée : git tag
 En savoir plus : https://git-scm.com/.
 
