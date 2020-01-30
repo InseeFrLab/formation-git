@@ -123,18 +123,17 @@ lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, e
 
 # Des bases de GIT 
 
-Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant, en raison de plusieurs avantages.
+Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant, en raison de plusieurs avantages. 
 
-GIT est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', la (page de tutoriel)[http://try.github.io/] regroupe différents supports. Des vidéos pédagogiques sont fournies sur (git-scm.com)[https://git-scm.com/videos]
+GIT est un logiciel qui est installé sur son poste et celui de ses collaborateurs. Il est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', la (page de tutoriel)[http://try.github.io/] regroupe différents supports. Des vidéos pédagogiques sont fournies sur (git-scm.com)[https://git-scm.com/videos]
 
 Cependant, face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les donnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis. C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec R studio à l'Insee.
 
 La genèse de Git correspond au noyau du système d'exploitation Linux qui gérait les patchs et les archives pendant les années 1990. À partir de 2005, Linus Torvalds, aussi inventeur de Linux, développe un successeur avec pour objectifs, la vitesse, la simplicité, la possibilité de développements en parallèle (les futures **branches**), le tout avec un usage compact des données. Depuis, son usage a largement dépassé celui de SVN.
 
-
 SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notamment que chaque collaborateur possède une copie en propre de l'ensemble du projet sur son poste de travail. Cela implique un avantage important de GIT en terme de sécurité des codes (qui risquent beaucoup moins d'être perdus) et la  rapidité des partages des modifications. En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
 
-Enfin, un des grands avantages pratiques de GIT est son intégration dans l’interface RStudio ainsi que dans les plateformes de forme Github et Gitlab (voir parties ci-après).
+Enfin, un des grands avantages pratiques de GIT est son intégration naïve dans l’interface RStudio ainsi que dans les plateformes de forme Github et Gitlab (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
 
 
 ## Le B.A-BA
@@ -168,6 +167,7 @@ Lors d'un 'commit', le message de validation est très important.
 – importance de l’homogénéité des modifications contenues dans un commit
 – à l’attention des autres développeurs
 
+Chaque commit est identifié de façon unique par un **hash**, c'est ce qui permet les différentes manipulations.
 
 Ensuite, les deux fonctions 'push' et 'pull' permettent la mise à jour du local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent exister, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
 
@@ -177,40 +177,45 @@ Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en 
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
 * Mettre à jour sa copie locale régulièrement via 'pull', voire dès qu'on commencer à travailler sur un projet.
 
-De manière générale, il ne faut pas avoir peur des conflits. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec 'GIT', il est très rare de faire des bétises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme 'git push --force'.
-
-Des ressources externes : un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`. 
+De manière générale, il ne faut pas avoir peur des conflits. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec 'GIT', il est très rare de faire des bétises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme 'git push --force'. 
 
 ## Les branches
 
-Création de branches pour développer de longs projets, en
-parallèle, sans perturber le dépôt commun : git branch
-* Fusionner des projets (branches) : git merge
+C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de branches dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans perturber le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
-Fusion de branches
+Les branches peuvent avoir des durées de vie plus ou moins longues selon leurs objectifs : nouvelle fonctionnalité, résolution de bugs, environnement de développement ou de production, etc.
+
+Trois principales fonctionnalités existent :
+
+* git branch : création d'une branche
+* git checkout : pour changer de branche
+* git merge : fusion de branche
+
+Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc. C'est autour d'elle que vont pousser ou se greffer les branches comme le montre l'exemple ci-dessous.
+
+![](./pics/branches_tree.png){width=100%} 
 
 ## Quelques éléments de GIT avancé
 
 * Conserver des fichiers en privé : git ignore
-
 Conseils de la Cnil : https://lincnil.github.io/Guide-RGPD-du-developpeur/ 
 
 * Sauvegarder une version figée : git tag
-En savoir plus : https://git-scm.com/.
- 
+
 retour en arrière dans l'historique
 
 Qui a modifié en dernier une ligne donné dans un fichier donné ? git blame 
 
-Rebasage
-Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
+Rebasage :
 
+Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
 
 Pour aller plus loin :
 
 https://romain-warnan.github.io/git-au-quotidien 
 Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/
 
+Des ressources externes : un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
 
 ## Gitlab, aperçu de la plateforme de partage de code 
 
@@ -239,6 +244,27 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 
 rebase
 push force
+
+## résumé du vocabulaire 
+
+(repris de thinkR)
+
+repository : le dossier que vous voulez
+surveiller
+commit : un instant figé dans la vie de votre
+projet
+hash : un identifiant unique
+checkout : un saut dans le temps vers un commit
+branche : un chemin paralelle
+merge : la fusion de une ou plusieur branche
+remote : un serveur distant ayant une copi de
+repository
+clone : récuperer pour la premiere fois le
+repository depuis le remote
+pull : recuperer les nouveaux commit en local
+depuis le remote
+push : envoyer ses nouveaux commit vers le
+remote
 
 
 # Bonnes pratiques de GIT et GITLab 
