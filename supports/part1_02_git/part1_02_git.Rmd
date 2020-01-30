@@ -13,19 +13,20 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 # Pourquoi utiliser la gestion de version ?
 
-Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, nous avons également un besoin d'un archivage détaillé et facilement accessible pour nos chaînes de traitement. 
+Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, le maintien de la qualité de nos chaînes de traitement nécessitent un archivage détaillé et facilement accessible. 
 
 Tous les statisticiens se sont déjà demandé (ou à leurs collègues) : 
 
 * quelle était la bonne version d'un programme 
 * qui était l'auteur d'un bout de code en particulier
 * si un changement était important ou juste un essai
+* comment fusionner des programmes
 * etc.
 
 **Exemple d'une organisation de fichiers à l'ancienne**
 ![](./pics/fichiers_multiples.png){width=100%}  
 
-Il existe un outil informatique très puissant afin de répondre à tous ces besoins : la gestion de version (*version control system* (VCN) en anglais). Ses avantages sont incontestables et permettent de facilement :
+Il existe un outil informatique puissant afin de répondre à tous ces besoins : la gestion de version (*version control system* (VCN) en anglais). Ses avantages sont incontestables et permettent de facilement :
 
 * enregistrer l'historique des modifications d'un ensemble de fichiers 
 * revenir à des versions précédentes d'un ou plusieurs fichiers
@@ -38,9 +39,9 @@ En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R
 
 ## Conserver et archiver du code
 
-Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un dépôt, qui constitue le projet (par exemple, le modèle Ines).
+Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui constitue le projet (par exemple, le modèle Ines).
 
-Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique.
+Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique. Les modifications transmises au dépôt sont appelées **commit**.
 
 **Un exemple d'historique d'un projet sur GitLab**
 ![histoGIT](./pics/historique_gitlab.png){width=100%}  
@@ -48,28 +49,28 @@ Tout repose dans la gestion et la présentation de l'historique des modification
 **Un exemple d'historique d'un projet via RStudio**
 ![histR](./pics/historique_Rstudio.png "texte pour le titre, facultatif"){width=100%} 
 
-Sur son poste de travail, il n'y a plus des dizaines (centaines ?) de codes organisés à la main. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet.
+Sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
 
 ## Travailler efficacement en équipe
 
-Le deuxième avantage de la gestion de version représente une immense amélioration du travail en équipe sur des codes en commun. Que ce soit au sein d'un modèle cogéré (Ines, Destinie, etc.), de gros projets (Nautile) ou de chaînes de traitement récurrentes (enquête emploi, comptes trimestriels, etc.), la collaboration est courante lors des travaux statistiques. La gestion de version permet collaborer simplement et avec méthode. Elle permet de:
+Le deuxième avantage de la gestion de version représente une amélioration notable du travail en équipe sur des codes en commun. Que ce soit au sein d'un modèle cogéré (Ines, Destinie, etc.), de gros projets (Nautile) ou de chaînes de traitement récurrentes (enquête emploi, comptes trimestriels, etc.), la collaboration est courante lors des travaux statistiques. La gestion de version permet collaborer simplement et avec méthode. De façon organisée, elle permet de:
 
 * travailler en parallèle et fusionner facilement du code
 * partager une documentation des programmes grâce :
- + aux commentaires des modifications
- + à la possibilité d'une documentation commune et collaborative
+    + aux commentaires des modifications
+    + à la possibilité d'une documentation commune et collaborative
 * trouver rapidement des erreurs et en diffuser rapidement la
 correction
 
 **Exemple de détails d'une modification**
 ![](./pics/commit_Rstudio.png){width=100%} 
 
-L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tards le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste.
+L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tards le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
 
 
 ## Améliorer la qualité des codes
 
-Le fonctionnement du gestion de version reposant sur l'archivage structuré des modifications et les commentaires les accompagnant renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. 
+Le fonctionnement du gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. 
 
 Quand il s'agit de modèles statistiques, ou de chaînes de traitement statistique, constitués de nombreux programmes, la gestion de version permet :
 
@@ -81,7 +82,7 @@ Lors de l'ouverture des modèles, leur diffusion publique correspond aux standar
 
 ## Usage quotidien : un exemple avec le modèle Ines
 
-Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une forge qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs. Les utilisateurs y ont accès via la (plateforme Adullact)[https://adullact.net/projects/ines-libre]. Le dépôt regroupe donc les programmes et historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
+Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une forge qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs. Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
 
 Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponible en temps réel.
 
@@ -101,7 +102,7 @@ Les chargés d'étude ont une copie locale du projet sur leur poste de travail. 
 Le tableau suivant compare les usages au temps (pré-historique ?) de la programmation sans gestion de version avec les modes de travail si on y a recours.
 
 |                      |      Avant            |  Gestion de version  |
-| :------------------- | :-------------------: | :------------------: |
+|:---------------------|----------------------:|---------------------:|
 |Archivage             | à la main             | automatique          |
 |Envoi de modification | mail, dossier partagé | code partagé         |
 |Fusion de code        | copié-collé           | simple, sûr          |
@@ -109,35 +110,31 @@ Le tableau suivant compare les usages au temps (pré-historique ?) de la program
 |Gestion des erreurs   | à la main             | méthodique           |
 |
 
-Que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. L'organisation du travail est efficace grâce :
+En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. L'organisation du travail est efficace grâce :
+
 * aux améliorations rapides des codes
 * au partage efficace des tâches
 * à la recherche puissante des erreurs
 * à un archivage géré automatiquement avec des méta-données
 * à des outils généralisés et documentés en ligne.
 
-C'est donc le meilleur moyen de partager du code (entre équipes internes,
-lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent de l'informatique et de la création du logiciel. Les traitements statistiques sont des chaînes informatiques et sont donc pleinement adaptés pour être traités avec les outils de gestion de version.
+La gestion de version est donc le meilleur moyen de partager du code (entre équipes internes,
+lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent de l'informatique et de la création des logiciels et applications. Les traitements statistiques sont également des chaînes informatiques et sont donc pleinement adaptés pour être traités avec les outils de gestion de version.
 
 # Des bases de GIT 
 
-Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant.
+Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant, en raison de plusieurs avantages.
 
-GIT est open source, gratuit et très répandu. Une très vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', il y a un rapide tutoriel en ligne : http://try.github.io/
+GIT est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', la (page de tutoriel)[http://try.github.io/] regroupe différents supports. Des vidéos pédagogiques sont fournies sur (git-scm.com)[https://git-scm.com/videos]
+
+Cependant, face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les donnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis. C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec R studio à l'Insee.
+
+La genèse de Git correspond au noyau du système d'exploitation Linux qui gérait les patchs et les archives pendant les années 1990. À partir de 2005, Linus Torvalds, aussi inventeur de Linux, développe un successeur avec pour objectifs, la vitesse, la simplicité, la possibilité de développements en parallèle (les futures **branches**), le tout avec un usage compact des données. Depuis, son usage a largement dépassé celui de SVN.
 
 
-Genèse de Git
-1991 – 2002 : Noyau Linux géré via des patchs et des archives
-À partir de 2005 : Linus Torvalds développe un successeur, objectifs :
-– vitesse
-– simplicité
-– développements non linéaires (branches)
-– compacité des données
+SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notamment que chaque collaborateur possède une copie en propre de l'ensemble du projet sur son poste de travail. Cela implique un avantage important de GIT en terme de sécurité des codes (qui risquent beaucoup moins d'être perdus) et la  rapidité des partages des modifications. En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
 
-Centralisé (SVN) vs distribué (GIT) : avantage de GIT sont la sécurité (dépôts copiés localement) et la  rapidité. Contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT : on transmet ses modifications quand on le souhaite ou peut, cela facilite le travail distant.
-
-GIT est directement intégré dans l’interface RStudio
-
+Enfin, un des grands avantages pratiques de GIT est son intégration dans l’interface RStudio ainsi que dans les plateformes de forme Github et Gitlab (voir parties ci-après).
 
 
 ## Le B.A-BA
@@ -157,6 +154,7 @@ Les programmes s’organisent sur un répertoire distant commun
 (repository) et sont manipulés sur les postes indidivuels dans des
 dossiers locaux (working directory).
 Les trois commandes principales :
+
 * diff : fichiers modifiés, ajoutés ou supprimés
 * staging area puis commit : sélection et validation des modifications
 * push et pull : mise à jour du local par rapport au distant (et
@@ -200,7 +198,7 @@ Conseils de la Cnil : https://lincnil.github.io/Guide-RGPD-du-developpeur/
 
 * Sauvegarder une version figée : git tag
 En savoir plus : https://git-scm.com/.
-
+ 
 retour en arrière dans l'historique
 
 Qui a modifié en dernier une ligne donné dans un fichier donné ? git blame 
