@@ -210,6 +210,8 @@ Réécriture de l'historique (usage non recommandé pour un usage non approfondi
 Pour aller plus loin :
 
 https://romain-warnan.github.io/git-au-quotidien 
+Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/
+
 
 
 # Bonnes pratiques de GIT et GITLab 
@@ -395,6 +397,14 @@ EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droi
 
 # Configurer un projet GIT avec Rstudio à l'Insee
 
+
+vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
+
+configuration GIT  :https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git
+
+remote SSH via la plateforme innovation sur AUS.
+
+présentation HTTPS sur github.com et giltlab.com ici.
 
 
     
