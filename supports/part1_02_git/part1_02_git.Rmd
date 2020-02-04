@@ -144,18 +144,18 @@ dossiers locaux (**working directory**). Le dépôt peut par exemple être hébe
 
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
-+ **pull** : je récupère la dernière version des codes du dépôt distant
-+ **commit** : je valide mes modifications avec un message qui les expliquent
-+ **push** : je transmets mes modifications validées au dépôt distant
++ `pull` : je récupère la dernière version des codes du dépôt distant
++ `commit` : je valide mes modifications avec un message qui les expliquent
++ `push` : je transmets mes modifications validées au dépôt distant
 
 
 ![](./pics/push_pull_Drees.png){width=100%} 
 
 De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (commit) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
 
-* diff : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés
-* staging area : sélection des modifications 
-* commit :  validation des modifications sélectionnées (avec commentaire).
+* `diff` : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés
+* `staging area` : sélection des modifications 
+* `commit` :  validation des modifications sélectionnées (avec commentaire).
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
@@ -187,9 +187,9 @@ Les branches peuvent avoir des durées de vie plus ou moins longues selon leurs 
 
 Trois principales fonctionnalités existent :
 
-* git branch : création d'une branche
-* git checkout : pour changer de branche
-* git merge : fusion de branche
+* `git branch` : création d'une branche
+* `git checkout` : pour changer de branche
+* `git merge` : fusion de branche
 
 Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc. C'est autour d'elle que vont pousser ou se greffer les branches comme le montre l'exemple ci-dessous.
 
@@ -218,26 +218,29 @@ Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.ins
 Des ressources externes : un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
 
 
-## résumé du vocabulaire 
+## Vocabulaire 
 
-(repris de thinkR)
+En résumé, voilà les principaux concepts présentés et qui seront utiles pour la pratique de la gestion de version :
 
-repository : le dossier que vous voulez
-surveiller
-commit : un instant figé dans la vie de votre
-projet
-hash : un identifiant unique
-checkout : un saut dans le temps vers un commit
-branche : un chemin paralelle
-merge : la fusion de une ou plusieur branche
-remote : un serveur distant ayant une copi de
-repository
-clone : récuperer pour la premiere fois le
-repository depuis le remote
-pull : recuperer les nouveaux commit en local
-depuis le remote
-push : envoyer ses nouveaux commit vers le
-remote
+`repository` : le dossier partagé qui contient toutes les informations
+
+`commit` : modification validée à un instant donné, par extension l'état du projet à cet instant
+
+`hash` : un identifiant unique pour chaque commit, contenant notamment l'horodatage
+
+`checkout` : un déplacement vers un commit
+
+`branche` : un projet parallèle au sein du dossier
+
+`merge` : la fusion de une ou plusieurs branches
+
+`remote` : un serveur distant ayant une copie de repository
+
+`clone` : récupération du dossier depuis le remote (pour la première fois)
+
+`pull` : récupération des nouveaux commits en local depuis le remote
+
+`push` : envoi de ses nouveaux commit vers le remote
 
 # Gitlab, aperçu de la plateforme de partage de code 
 
