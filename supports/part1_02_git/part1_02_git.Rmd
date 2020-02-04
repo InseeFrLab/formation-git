@@ -217,7 +217,29 @@ Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.ins
 
 Des ressources externes : un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
 
-## Gitlab, aperçu de la plateforme de partage de code 
+
+## résumé du vocabulaire 
+
+(repris de thinkR)
+
+repository : le dossier que vous voulez
+surveiller
+commit : un instant figé dans la vie de votre
+projet
+hash : un identifiant unique
+checkout : un saut dans le temps vers un commit
+branche : un chemin paralelle
+merge : la fusion de une ou plusieur branche
+remote : un serveur distant ayant une copi de
+repository
+clone : récuperer pour la premiere fois le
+repository depuis le remote
+pull : recuperer les nouveaux commit en local
+depuis le remote
+push : envoyer ses nouveaux commit vers le
+remote
+
+# Gitlab, aperçu de la plateforme de partage de code 
 
 Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Un réseau social du code
 
@@ -244,27 +266,6 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 
 rebase
 push force
-
-## résumé du vocabulaire 
-
-(repris de thinkR)
-
-repository : le dossier que vous voulez
-surveiller
-commit : un instant figé dans la vie de votre
-projet
-hash : un identifiant unique
-checkout : un saut dans le temps vers un commit
-branche : un chemin paralelle
-merge : la fusion de une ou plusieur branche
-remote : un serveur distant ayant une copi de
-repository
-clone : récuperer pour la premiere fois le
-repository depuis le remote
-pull : recuperer les nouveaux commit en local
-depuis le remote
-push : envoyer ses nouveaux commit vers le
-remote
 
 
 # Bonnes pratiques de GIT et GITLab 
