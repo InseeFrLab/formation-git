@@ -7,3 +7,13 @@
 *supports/**/*.html
 html/*
 *_cache/
+
+_bookdown_files/
+_book/
+*bookdown.log
+*bookdown.rds
+*bookdown.tex
+
+# Avoid committing bookdown generated files
+supports/bookdown/*.md
+public/

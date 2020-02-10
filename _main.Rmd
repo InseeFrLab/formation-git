@@ -76,3 +76,6 @@ Cliquer sur le menu à droite du bouton _Knit_, sélectionner _Knit Directory_ p
 
 Ensuite, vous pouvez cliquer sur le bouton _Knit_ pour générer le document.
 
+
+<!--chapter:end:README.Rmd-->
+

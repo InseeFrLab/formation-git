@@ -1,0 +1,270 @@
+# Développement efficace avec Rstudio
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+
+## Pourquoi utiliser Rstudio?
+
+`Rstudio` est un éditeur de code (IDE) très complet, le plus intégré à l'éco-système `R`:
+
+* Outils pour écrire et exécuter du code `R`
+* Extensions pour écrire des documents facilement à partir de `R markdown`: documents `LateX`, `html`, livres...
+* Possibilité d'exécuter d'autres langages (`Python`,`C++`...)
+* Brancher à `git`, visualiser du `html`, des `shiny`...
+
+
+L'interface a l'aspect suivant^[Pour vos yeux fragile, je vous recommande de changer l'aspect de `Rstudio` pour mettre un fond noir, moins violent `r emo::ji("smile")`. Pour changer le fond, on peut utiliser `Tools > Global Options > Appearance`]:
+
+![](./pics/02_rstudio/00_Rstudio.png){width=100%}     
+
+</br></br>
+
+1. La fenêtre *source*: fenêtre où on édite les programmes et fichiers texte. 
+
+2. La fenêtre *console*: fenêtre où le code édité s'exécute. On peut également écrire directement dans la console pour exécuter du code. 
+
+3. La fenêtre `Files`/`Plots`/....
+    + *Files*: Naviguer dans les fichiers
+    + *Plots*: Affichage des graphiques
+    + *Packages*: Liste des packages installés et disponibles
+    + *Help*: Aide des fonctions, ex: `?sum`
+    + *Viewer*: affichage de pages *HTML*, de documents *markdown* compilés
+
+4. La fenêtre `Environment`/`History`/.....
+    + *Environment*: affichage des objets appartenant à l'environnement global de `R`
+    + *History*: historique des commandes exécutées
+    + *Connections*: connection entre `R` et d'autres systèmes, par exemple serveur `SQL`
+    + Et des onglets optionnels:
+        + *Git*: contrôle de version, sur lequel nous reviendrons
+        + *Build*: onglet pour la compilation de packages, nous reviendrons également dessus
+
+
+## Utiliser des projets R
+
+### Principe
+
+Pour qu'un programme soit reproductible, le contexte doit être homogène, c'est-à-dire que tout utilisateur doit être en mesure de faire tourner l'intégralité du programme sans erreur. C'est une philosophie assez exigeante mais qui, lorsqu'on l'a à l'esprit, permet de développer un code propre et clair facilitant une évolution future (le code ne doit jamais être vu comme une production figée). 
+
+Les `projets` Rstudio sont un outil pour faciliter la collaboration mais aussi mieux s'organiser lorsqu'on travail en solitaire. Un projet bien organisé facilite la vie: 
+
+* Ils renforcent la portabilité: le répertoire de travail par défaut d’un projet est le répertoire où est ce projet. Cela rend les scripts indépendants de l'arborescence de la machine
+* Centraliser l'ensemble des productions d'un projet: codes, articles, présentations, documentation...
+* Faciliter la compréhension et la reproducibilité d'un travail à partir de 0
+* Permettre l'interaction entre les fichiers (plusieurs documents codes, R markdown...) et avec les données
+* Faciliter des évolutions postérieures avec un projet organisé
+* Un projet ne contient pas que du code `R`:
+    + ensemble des documents (documation incluse) pour permettre la compréhension et l'exécution d'un projet
+* Des outils supplémentaires sont associés aux projets `R`: `packrat`, `git`...
+
+La philosophie des `Rproject` est d'associer à chaque projet personnel un contexte
+ 
+* Chaque projet a un contexte: espace de travail, historique de commandes, variables d'environnement...
+* Projet: pas seulement fichier `.R` mais un ensemble plus global
+ 
+Par exemple, le package ci-dessous est organisé de manière à ce que les codes (`R`) soient associés à une documentation propre à chaque fonction (`man`) et à une documentation plus globale (`inst`). L'organisation des *packages* sera abordée plus en détail par la suite. Ce package est lui-même inclus dans un projet plus large où il est appelé par des `Rmarkdown` qui me permettent de construire des productions écrites intermédiaires et finales
+    
+![Exemple de RProject (ici sous forme de package)](./pics/02_rstudio/01_ExempleRProject.png)
+
+
+### Créer un projet R
+
+![Créer un nouveau projet: `File > New Project`](./pics/02_rstudio/02_projectnew.png){width=100%} 
+
+3 possibilités:
+
+1. Dans un nouveau dossier:
+    + Pour un projet tout nouveau
+
+2. Dans un dossier existant:
+    + Commencer à organiser un projet dans lequel des documents ont déjà été produits
+
+3. Cloner un projet depuis un dépôt:
+    + Pour récupérer depuis un dépôt git distant et se connecter à celui-ci
+    + Nous verrons cela plus tard
+
+
+
+### Types de projets possibles
+
+`Rstudio` facilite l'initialisation de différents types de projets. Cela permet d'avoir une organisation cohérente avec le besoin: écrire un article/livre avec `R` ne demande pas la même organisation de programmes qu'une chaîne de production
+
+![Différents types de projets](./pics/02_rstudio/02_projectnew2.png){width=100%}
+
+On peut tout à fait avoir des projets emboîtés si c'est nécessaire. Par exemple, une organisation fréquente d'un dossier est
+
+* Un projet maître qui centralise des sous-projets:
+    + Un ou plusieurs ensembles de fonctions qui ont été homogénéisés sous forme de *package*
+    + Un dossier stockant des exploitations de ces fonctions, par exemple des articles ou rapports
+
+Les projets sont une forme très malléable d'organisation et s'adaptent ainsi facilement à des besoins hétérogènes. Ils sont néanmoins recommandés, à défaut de pouvoir les rendre obligatoire, pour travailler en équipe où la définition d'un contexte commun est primordial
+
+### A la création du projet: intégrer `git` ?
+
+Un outil supplémentaire pour assurer la sécurité du code est le contrôle de version. Cela permet de stocker un code, et l'ensemble de ses évolutions, sur un serveur distant. Par exemple, le projet ci-dessous,
+
+![Un exemple de projet sauvegardé](./pics/02_rstudio/11_git.png){width=100%}
+
+est entreposé sur un dépôt. Il en existe des publics (gitlab,github,framagit) et des dépôts à accès restreints (ex: plateforme innovation). Le principal intérêt de la gestion de version est que, ligne par ligne, on peut suivre les évolutions d'un fichier. En conséquence, plus besoin de stocker `20190513_toto.R` et `20190514_toto.R`: on aura un seul fichier `toto.R` dont on peut suivre les versions.
+
+Le principal logiciel de gestion de version est `git`, sur lequel nous reviendrons. On peut:
+
+* Initialiser `git` en même temps que le projet
+* Ou l'initialiser à tout moment (cf. suite)
+* Ou initaliser le projet à partir d'un dépôt git existant (plus simple, cf. suite)
+
+![To git or not to git?](./pics/02_rstudio/02_projectnew3.png){width=100%}
+
+
+### `RProject`: structure
+
+1. Création d'un fichier `.Rproj` dans le dossier principal.
+    + Centralise les options (présentées dans la suite)
+    + Raccourci pour ouvrir le projet
+
+2. Création d'un dossier caché (nommé `.Rproj.user`)
+    + Où sont stockés les fichiers temporaires du projet (scripts sauvegardés automatiquement...)
+    + Automatiquement ignoré par `.Rbuildignore`, `.gitignore`
+
+3. Charge le projet dans `Rstudio` et affiche son nom dans la barre de projets
+
+
+Ci-dessous, en bas à droite, on peut retrouver cette structure avec un fichier `.RProj` et un `.gitignore`:
+
+![Illustration de structure d'un projet R](./pics/02_rstudio/03a_project_organization1.png){width=80%}
+
+
+On peut accéder aux derniers projets ouverts avec le raccourci en haut à droite:
+
+![Raccourci pour accéder aux derniers projets](./pics/02_rstudio/03a_project_organization2.png){width=80%}
+
+
+    
+
+## Travailler sur un projet
+
+### A l'ouverture d'un projet
+ 
+Lorsqu'on ouvre un `Rproject`:
+
+* Une nouvelle session `R` est ouverte
+* Les fichiers `.Rprofile` (variables d'environnement) et `.RData` (sauvegarde temporaire des données) du projet (si présents) sont chargés 
+* Le `.Rhistory` du projet (si présent) est chargé dans le cadre `History` (et permet l'utilisation des boutons haut/bas pour remonter l'histoire des commandes).
+* Le *working directory* est fixé au niveau du dossier maître du projet
+* Les documents précédemment ouverts sont restaurés dans l'éditeur `Rstudio`
+* Les autres paramètres `RStudio` (e.g. position du curseur, etc.) sont restaurés à leur valeur précédent la fermeture du projet
+
+### A la fermeture du projet
+
+
+* `.RData` et/ou `.Rhistory` sont sauvegardés dans le projet (si les options du projet l'autorisent)
+* Les documents ouverts non sauvegardés sont sauvergardés temporairement (ils sont disponibles dans une version non sauvegardée dans `Rstudio`)
+* Les autres paramètres RStudio sont sauvés
+* La session `R` associée au projet est arrêtée
+
+
+## Options du projet (`Tools > Project Options...`)
+
+### Options générales 
+
+* `(Default)`: utiliser les options globales
+* *Restore .RData into workspace at startup* —  N'est pas recommandé si les données sont volumineuses (ralentissement du démarrage de la session)
+* *Always save history (even when not saving .RData)* — On conserve l'historique des commandes. Pour éviter que cet historique soit partagé lorsque `git` est activé (par exemple si vous avez rentré en commande des mots de passe pour accéder à des services type *API*), vous pouvez ajouter la ligne `.Rhistory` dans le fichier `.gitignore`
+
+
+![Options générales](./pics/02_rstudio/05_options.png){width=60%}
+
+### Options `build` (développement package uniquement)
+
+C'est l'endroit où on peut définir les options de compilation du *package*. Nous reviendrons dessus plus tard. Il est recommandé de cocher les cases
+
+* *Use devtools package functions if available*: permet d'utiliser l'outil *devtools* pour créer le package
+* *Generate documentation with Roxygen*: permet d'automatiser la création des fichiers de documentation à partir du package `Roxygen`
+
+On peut ajouter des options à la compilation. Par exemple, pour gagner du temps, on pourra utiliser l'option `--no-build-vignettes` qui évite de re-compiler les vignettes (qui peuvent mettre du temps à compiler si elles sont longues)
+
+![Exemple d'options pour les packages](./pics/02_rstudio/05_options_build.png){width=60%}
+
+
+### Options `git` 
+
+Si vous désirez utiliser un système de gestion de version, sélectionnez `git` (nécessite d'avoir le logiciel `git` installé, cf. chapitre dédié). Si vous avez connecté votre projet à un dépôt distant, la ligne *Origine* vous rappelle l'adresse de celui-ci.
+
+
+![Exemple d'options git](./pics/02_rstudio/05_options_git.png){width=60%}
+
+
+## Edition de code dans `Rstudio`
+
+### Raccourcis utiles
+
+Pour gagner du temps, il est important d'utiliser les raccourcis pour les commandes répétitives. En voici une liste non exhaustive:
+
+* `Ctrl`+`Enter`: exécuter les lignes sélectionnées 
+* `Tab`: autocomplétion
+* `Ctrl` + `Alt` + `R`: exécuter l'ensemble d'un script
+* `Ctrl` + `I`: réindenter code
+* `Ctrl` + `Shift` + `A`: reformater code
+* `Alt` + `Up/Down`: déplacer une ligne sans faire copier-coller
+* `Ctrl` + `Deplacement souris`: passage en édition verticale (curseur en colonne)
+* `Ctrl` + `Shift` + `M`: insérer pipe `%>%`
+* `Alt`+ `6` (windows): insérer opérateur assignation `<-`
+* `Ctrl` + `Shift` + `F`: rechercher une expression dans plusieurs fichiers
+* `Ctrl` + `Shift` + `K`: compilation d'un *markdown* (*knitter* en bon français)
+* `Ctrl` + `Shift` + `Alt` + `M`: renommer la variable dans la portée (*scope*), nous verrons ce dont il s'agit dans la prochaine leçon
+
+![](./pics/02_rstudio/rreformat_optimized.gif)
+
+
+
+
+## Addins Rstudio
+
+### Addins
+
+Les `addins` sont des outils pratiques pour gagner du temps dans l'édition du code
+
+* Installation simple grâce à addinslist: `install.packages('addinslist')`
+* Ceux sur `CRAN` sont disponibles pour tous, ceux sur `github` nécessitent d'avoir configuré le proxy 
+* Génèrent automatiquement du code ou du texte utile pour les *markdown*
+
+Les *addins* sont disponibles en haut de l'éditeur
+
+![Addins Rstudio](./pics/02_rstudio/06_addins.png){width=100%}
+
+
+Avec le package `addinslist`, on peut installer des addins à partir d'une fenêtre graphique
+
+![Installer facilement de nouveaux addins](./pics/02_rstudio/06b_addins.png){width=100%}
+
+<!-----------
+### Un exemple
+
+![](http://rstudio.github.io/rstudioaddins/demo/demo-subset.gif)
+---------> 
+
+### Quelques addins utiles
+
+
+* `snippetsaddins`: convertir slash automatiquement pour avoir des chemins valide
+    + *"monchemin/toto/fichier.csv"* -> *"monchemin\\toto\\fichier.csv"*
+* `ggedit`: aide pour générer un code pour graphiques `ggplot2`
+* `JADD`: en sélectionnant une fonction, on assigne les paramètres par défaut dans l'environnement
+* `questionr`: recodage facilité des variables `factor`
+* `trackmd`: un outil de *track change* pour `markdown`
+
+![](./pics/02_rstudio/trackchanges.gif){width=90%}
+
+### Cheatsheets
+
+On peut trouver des aides mémoires en ligne grâce aux [cheatsheets](https://www.rstudio.com/resources/cheatsheets/). Celle relative à `Rstudio` est disponible [ici](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+
+## Annexe
+
+### Rhistory
+
+\hypertarget{label}{\beamerbutton{Exemple de cadre `History`}}
+
+![](./pics/02_rstudio/04_history.png){width=100%}
+    
