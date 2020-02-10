@@ -1,10 +1,26 @@
+before_script:
+  - Rscript -e "devtools::install_deps(dependencies = TRUE)"
+
 article:
   stage: deploy
   image: rocker/verse:3.5.1
   script:
-    - Rscript -e "devtools::install_deps(dependencies = TRUE)"
     - Rscript ./build.R
   artifacts:
     paths:
       - html
     when: always
+  only:
+      - master
+
+
+buildbookdown:
+  stage: deploy
+  image: rocker/verse:3.5.1
+  script:
+  - Rscript -e "bookdown::render_book('./supports/bookdown/index.Rmd', output_dir = 'public')"
+  artifacts:
+    paths:
+      - public
+    when: always
+  

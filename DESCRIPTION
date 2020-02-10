@@ -37,7 +37,9 @@ Imports:
     usethis (>= 1.5.1)
 Suggests:
     emo,
-    callr
+    callr,
+    knitr
 Remotes:
     hadley/emo,
     r-lib/roxygen2md
+VignetteBuilder: knitr
