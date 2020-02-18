@@ -25,7 +25,7 @@ library(questionr)
 * des présentations sous forme de slides
 * ...
 
-![](./pics/04/markdowntypes_sorties.png)
+![](./pics/04_markdown/types_sorties.png)
 
 
 ### Comment fonctionne `R markdown` ? 
@@ -48,7 +48,7 @@ R Markdown fonctionne :
     * facilite le suivi de l'analyse, ou son appropriation par une personne externe à l'équipe projet (un membre intervenant ponctuellement à titre d'expert sur un sujet, ou encore un nouveau membre venu en renfort)
     * pour commenter : 
         * Dans le texte, pour activer/désactiver un commentaire c'est facile : **ctl + Maj + c**
-            * ![](./pics/04/markdownCommentaire.png)
+            * ![](./pics/04_markdown/Commentaire.png)
         * à l'intérieur des blocs de code R, les commentaires se font comme dans un script R
     
 * R Mardown a été pensé pour permettre une prise en main rapide et simple. Plus simple que le langage Html.
@@ -59,7 +59,7 @@ R Markdown fonctionne :
     
 
     
-![](./pics/04/markdownfinal_doc.png)
+![](./pics/04_markdown/final_doc.png)
 
 ## Avant de commencer
 
@@ -85,7 +85,7 @@ R Markdown fonctionne :
 
 1. **Créer** un nouveau fichier Rmarkdown.
 
-![](./pics/04/markdowncrea_premier_fic.png)
+![](./pics/04_markdown/crea_premier_fic.png)
 
 2. Tester. **Saisir** du texte en l'habillant de mises en formes : 
 * titres de niveaux différents avec **#** 
@@ -97,7 +97,7 @@ R Markdown fonctionne :
 
 3. **Tricoter** (knit) pour visualiser le résultat (avec la mise en forme) dans le l'onglet Viewer.
 
-![](./pics/04/markdownknit.png)
+![](./pics/04_markdown/knit.png)
 
 
 ### Anatomie d'un document R Markdown
@@ -117,36 +117,36 @@ R Markdown fonctionne :
 
 #### Mise en forme de texte
 
-![](./pics/04/markdownsyntaxe.png)
+![](./pics/04_markdown/syntaxe.png)
 
 Quand des niveaux de titre ont été définis, une table des matières est générée automatiquement.
-![](./pics/04/markdowntable_matiere.png)
+![](./pics/04_markdown/table_matiere.png)
 
 
 #### Insérer un lien hypertexte
 
 
-![](./pics/04/markdowninserer_lien.png)
+![](./pics/04_markdown/inserer_lien.png)
 
 une adresse utile <https://rmarkdown.rstudio.com/>
 
 
 En remplaçant l'url par un alias
 
-![](./pics/04/markdowninserer_lien_nom.png)
+![](./pics/04_markdown/inserer_lien_nom.png)
 
 une adresse utile [ici](https://rmarkdown.rstudio.com)
 
 #### Insérer une image
 
-![](./pics/04/markdowninserer_img.png)
+![](./pics/04_markdown/inserer_img.png)
 
-![](./pics/04/markdownCaptureInsee.png)
+![](./pics/04_markdown/CaptureInsee.png)
 
 #### Exercice 1
 
 **Créer un fichier R Markdown produisant la sortie suivante :** 
-![](./pics/04/markdowncapture_exo1.png)
+![](./pics/04_markdown/capture_exo1.png)
 
 #### Insérer du code R : 3 options
 
@@ -154,7 +154,7 @@ une adresse utile [ici](https://rmarkdown.rstudio.com)
 
 Pour insérer le résultat d'une instruction simple, à l'intérieur d'un texte : 
 
-![](./pics/04/markdowninserer Rsimple.png)
+![](./pics/04_markdown/inserer Rsimple.png)
 
 * Exemple 1 : Voici le résultat de l'instruction R dim(mtcar) : `r dim(mtcars)`
 
@@ -167,7 +167,7 @@ Pour insérer le résultat d'une instruction simple, à l'intérieur d'un texte 
 
 Pour réaliser l'insertion de d'instructions moins élémentaires dans un fichier R Markdown, le code doit être délimité de la façon suivante :
 
-![](./pics/04/markdowninserer_R.png)
+![](./pics/04_markdown/inserer_R.png)
 
 ```{r, message = FALSE}
 # Insérer du code R dans un fichier R Markdown c est facile
@@ -236,14 +236,14 @@ Vous pourrez par exemple utiliser les données mtcars.
 
 * Consulter la **Cheat sheet** R Markdown disponible sur le site de R Studio **https://rstudio.com**
 
-![](./pics/04/markdowncheat sheet Rmarkdown.png)
+![](./pics/04_markdown/cheat sheet Rmarkdown.png)
 
 
 * **CodiMD** : interface disponible sur la plateforme innovation
 [lien](https://hackmd.beta.innovation.insee.eu)
 
 Permet de visualiser en direct le résultat
-![](./pics/04/markdownCodiMD.png)
+![](./pics/04_markdown/CodiMD.png)
 
 ># Résumé
 >* Réaliser un document R Mardown est simple, mais la visualisation du résultat requiert une étape de compilation du fichier .Rmd
