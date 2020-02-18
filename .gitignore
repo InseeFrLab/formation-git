@@ -17,3 +17,5 @@ _book/
 # Avoid committing bookdown generated files
 supports/bookdown/*.md
 public/
+render*
+libs/
