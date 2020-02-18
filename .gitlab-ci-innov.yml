@@ -5,19 +5,6 @@ variables:
 before_script:
   - Rscript -e "devtools::install_deps(dependencies = TRUE)"
 
-article:
-  stage: deploy
-  image: git-registry.stable.innovation.insee.eu/innovation/rstudio
-  script:
-    - Rscript ./build.R
-  artifacts:
-    paths:
-      - html
-    when: always
-  only:
-      - master
-
-
 pages:
   stage: deploy
   image: git-registry.stable.innovation.insee.eu/innovation/rstudio
@@ -29,6 +16,3 @@ pages:
     paths:
       - public
     when: always
-  only:
-      - bookdown
-  
