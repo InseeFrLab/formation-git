@@ -7,13 +7,18 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-always_allow_html: true
+always_allow_html: yes
 description: "Support associé à la formation Travail collaboraif avec R"
 ---
 
-# Introduction
+Supports associés à la formation nationale `Travail collaboraif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
 
-TO DO
+Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
+
+```{r, eval = FALSE}
+bookdown::render_book('./index.Rmd', output_dir = 'public')
+```
+
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
