@@ -8,7 +8,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 always_allow_html: yes
-description: "Support associé à la formation Travail collaboraif avec R"
+description: "Support associé à la formation Travail collaboratif avec R"
 ---
 
 Supports associés à la formation nationale `Travail collaboraif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
