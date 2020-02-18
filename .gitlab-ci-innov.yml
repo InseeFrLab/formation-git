@@ -16,3 +16,5 @@ pages:
     paths:
       - public
     when: always
+  only:
+    - master
