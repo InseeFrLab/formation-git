@@ -17,4 +17,4 @@ pages:
       - public
     when: always
   only:
-    - master
+    - bookdown
