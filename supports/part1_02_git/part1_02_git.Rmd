@@ -197,18 +197,23 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ## Quelques éléments de GIT avancé
 
-* Conserver des fichiers en privé : git ignore
-Conseils de la Cnil : https://lincnil.github.io/Guide-RGPD-du-developpeur/ 
+Le langage GIT permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée.
+
+
+* `git ignore` : Modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
+
+pas les données .csv par la production : html pdf
+
+Conseils de la Cnil : https://linpricnil.github.io/Guide-RGPD-du-developpeur/ 
 
 * Sauvegarder une version figée : git tag
 
-retour en arrière dans l'historique
+* Retour en arrière dans l'historique
 
-Qui a modifié en dernier une ligne donné dans un fichier donné ? git blame 
+* `git blame` : Qui a modifié en dernier une ligne donné dans un fichier donné 
 
-Rebasage :
 
-Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
+Rebasage : Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
 
 Pour aller plus loin :
 
@@ -428,6 +433,16 @@ Usage des issues et ToDo
 EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork
 
 # Configurer un projet GIT avec Rstudio à l'Insee
+
+créer un compte sur la plateforme innovation/ Accéder à Gitlab
+
+Générer une clé SSH
+
+Ajout de la clé SSH sous Gitlab
+
+https://git.stable.innovation.insee.eu/animation-ateliers-r-dsds/atelier-1/wikis/Utiliser-Git-et-Gitlab-%C3%A0-l'Insee 
+
+Cloner un dépôt à partir de Gitlab
 
 vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
 
