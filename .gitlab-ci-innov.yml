@@ -11,10 +11,9 @@ pages:
   script:
   - Rscript -e "install.packages('webshot')"
   - Rscript -e "webshot::install_phantomjs()"
-  - Rscript -e "bookdown::render_book('./index.Rmd' ,output_dir = 'public')"
+  - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
   artifacts:
     paths:
       - public
-    when: always
   only:
-    - master
+    - cleanbook

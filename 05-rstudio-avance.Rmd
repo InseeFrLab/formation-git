@@ -69,11 +69,11 @@ i <- function(d) "a" + d
 f(10)
 ```
 
-![](./pics/08_bug1.png)
+![](./pics/05_rstudio_avance/08_bug1.png)
 
 En cliquant sur le bouton `traceback`, on voit la séquence de fonctions, ce qui permet d'identifier que l'origine de l'erreur provient de la fonction `i(.)`:
 
-![](./pics/08_bug2.png)
+![](./pics/05_rstudio_avance/08_bug2.png)
 
 S'il s'agit d'un code qui a été lu à partir de la commande `source()`, le *traceback* affichera également la localisation de la fonction dans le fichier sous la forme *filename.r#linenumber*. On peut cliquer dessus et Rstudio amènera à la localisation du fichier dans l'éditeur
 
@@ -87,7 +87,7 @@ C'est particulièrement intéressant car une source fréquente d'erreur provient
 Vous verrez apparaître le code correspondant dans l'éditeur, avec la prochaine commande mise en lumière. Les objets présents dans les environnements d'exécution des différentes fonctions emboîtées sont disponibles: on peut naviguer dedans. 
 
 On dispose également d'une barre dans la console:
-![](./pics/08_bug3.png)
+![](./pics/05_rstudio_avance/08_bug3.png)
 
 
 * *Next*: exécuter la prochaine étape de la fonction. Attention, si vous disposez, dans la fonction, d'une variable nommée *n*: pour l'afficher, vous devrez utiliser `print(n)` (dans le debuggeur, *n* est un raccourci pour *next*).

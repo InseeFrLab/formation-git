@@ -1,4 +1,4 @@
-# Tirer profit des fonctions en `R`
+# Tirer profit des fonctions en `R` {#functions}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
