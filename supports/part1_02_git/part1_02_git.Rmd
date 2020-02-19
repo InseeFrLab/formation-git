@@ -331,13 +331,28 @@ Après avoir cliqué sur le bouton `Add Key` et en modifiant éventuellement le 
 
 ## Au lancement de chaque projet 
 
-Cloner un dépôt à partir de GitLab
 
-vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
+Afin de pouvoir travailler avec les outils intégrés de `GIT` , il est nécessaire d'accéder à une version améliorée de `Rstudio` disponible via le chemin `Y:\Logiciels\R\RStudio avec git et Rtools` (cliquer sur le raccourci afin de lancer l'application).
 
-configuration GIT  :https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git
+La première étape consister à récupérer le chemin du dossier partagé. Il est disponible via le bouton `clone` du projet. Prenons l'exemple du support de cette formation, créé avec `Rstudio` et `GIT` via le projet disponible sur [cette page du `GitLab`](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
 
-remote SSH via la plateforme innovation sur AUS.
+Pour récupérer (*cloner* en vocabulaire `GIT`) le dossier partagé, copier l'adresse indiquée sous la boîte *Clone with SSH*.
+
+![](./pics/clone_ssh.png)
+
+Ensuite, il est nécessaire d'indiquer à `Rstudio` comment s'y connecter. Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
+
+![](./pics/Rproj.png) 
+
+Il suffit ensuite de remplir les trois paramètres : 
+
+* *Repository URL* : coller l'adresse `https` copiée depuis la plateforme.
+* *Projet directory name* : le nom du dossier où va sera la copie locale du `repository`, c'est là où vous allez modifier les programmes et où se situera votre code
+* *Create project as subdirectory of* : le chemin physique où se situera le projet, par exemple `D:/idep`.
+
+Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `Rstudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
+
+La section qui suit décrit la même configuration pour un dépôt externe. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git). 
 
 ## D'autres possibilités pour des projets externes
 
@@ -347,17 +362,8 @@ Par exemple, en ayant un profil sur `github.com` ou `giltlab.com`, il suffit alo
 
 ![](./pics/clone_https.png)
 
-et d'indiquer à `Rstudio` comment s'y connecter. Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
+Ensuite, les étapes sont identiques à la section précédente: à partir du menu "File / New Project", sélectionner `Version control` puis `GIT`; remplir les paramètres du dossier local et cliquer sur `Create project`.
 
-![](./pics/Rproj.png)
-
-Il suffit ensuite de remplir les trois paramètres : 
-
-* *Repository URL* : coller l'adresse `https` copiée depuis la plateforme.
-* *Projet directory name* : le nom du dossier où va sera la copie locale du `repository`, c'est là où vous allez modifier les programmes et où se situera votre code
-* *Create project as subdirectory of* : le chemin physique où se situera le projet, par exemple `D:/idep`.
-
-Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `Rstudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
 
 # Bonnes pratiques de `GIT` et `GitLab` 
 
