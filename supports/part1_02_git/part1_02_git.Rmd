@@ -110,6 +110,8 @@ Le tableau suivant compare les usages au temps (pré-historique ?) de la program
 |Gestion des erreurs   | à la main             | méthodique           |
 |
 
+Beaucoup de supports existent en ligne, il faut parfois s'en méfier car les usages peuvent différer (cf. *infra*). Cette présentation [*Git for humans*](https://speakerdeck.com/alicebartlett/git-for-humans) didactique courte mais en anglais présente les avantages de l'usage de `GIT`.
+
 En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. L'organisation du travail est efficace grâce :
 
 * aux améliorations rapides des codes
@@ -371,6 +373,8 @@ Dans cette partie, nous allons adopter un fil rouge en créant un document colla
 
 
 ## Pré-requis pour l'organisation du travail collaboratif
+
+Github flow https://guides.github.com/introduction/flow/
 
 - vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`)
 - chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repo à la légère, vous pourriez le regretter
