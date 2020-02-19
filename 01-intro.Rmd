@@ -1,7 +1,3 @@
----
-title: Travail collaboratif avec R
----
-
 # Objectif de la formation {#intro}
 
 La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. 

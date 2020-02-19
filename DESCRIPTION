@@ -34,7 +34,9 @@ Imports:
     roxygen2 (>= 6.0.0),
     roxygen2md,
     testthat,
-    usethis (>= 1.5.1)
+    usethis (>= 1.5.1),
+    import,
+    DT
 Suggests:
     emo,
     callr,
