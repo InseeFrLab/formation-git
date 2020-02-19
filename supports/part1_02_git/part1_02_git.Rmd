@@ -195,32 +195,34 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ![](./pics/branches_tree.png){width=100%} 
 
-## Quelques éléments de GIT avancé
+## Quelques compléments de GIT 
 
 Le langage GIT permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée.
 
+Une des commandes les plus utiles pour un travail collaboratif pour les statisticiens permet de ne pas partager les bases de données ou tout type de fichier, soit trop volumineux, soit confidentiel : 
 
-* `git ignore` : Modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
+* `git ignore` : modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
 
-pas les données .csv par la production : html pdf
+Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`.
 
-Conseils de la Cnil : https://linpricnil.github.io/Guide-RGPD-du-developpeur/ 
+La Cnil fournit ainsi des conseils aux développeurs pour compléter ces bonnes pratiques : https://linpricnil.github.io/Guide-RGPD-du-developpeur/ 
 
-* Sauvegarder une version figée : git tag
+D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
 
-* Retour en arrière dans l'historique
+* `git tag` : sauvegarder une version figée, comme une "photographie" à un instant donné
+* `git blame` : lister les modifications d'un fichier donné à une ligne donnée
 
-* `git blame` : Qui a modifié en dernier une ligne donné dans un fichier donné 
+Le `git blame` permet ainsi de filtrer sur les différences précédentes afin de régler des problèmes ou trouver un commit particulier à l'origine d'un bug ou d'une erreur. `git log` peut aussi permettre de filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
 
 
-Rebasage : Réécriture de l'historique (usage non recommandé pour un usage non approfondi)
+D'autres commandes, plus périlleuses peuvent permettre un retour en arrière dans l'historique, appelé rebasage. La réécriture de l'historique est un usage non recommandé pour une utilisation non approfondie comme un projet statistique en équipe. En cas de manipulations s'écartant des sentiers battus, il est toujours possible de revenir à des sauvegardes manuelles des fichiers et à des déplacements par copié-collé des programmes à modifier ou à récupérer.
 
-Pour aller plus loin :
+Pour aller plus loin, des ressources internes existent (plutôt destinés à des développeurs) :
 
-https://romain-warnan.github.io/git-au-quotidien 
-Supports du SNDI GIT base : http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/
+* [`GIT` au quotidien](https://romain-warnan.github.io/git-au-quotidien) par Romain Warnan  
+* des supports du SNDI sur les [bases de `GIT`](http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/)
 
-Des ressources externes : un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
+Les ressources externes très complètes sont disponibles, citons notamment un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
 
 
 ## Vocabulaire 
