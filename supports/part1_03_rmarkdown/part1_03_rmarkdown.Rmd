@@ -76,7 +76,7 @@ R Markdown fonctionne :
 
 * R Markdown est un outil collaboratif en plus, son utilisation nécessite l'adhésion de l'ensemble de l'équipe. 
 * L'ensemble des contributeurs doit donc s'approprier à la fois ses principes et sa syntaxe (hors contexte collaboratif, ses avantages demeurent pour un document réalisé seul).
-* correcteur automatique de document, en anglais....
+* correcteur automatique de document. Pour le paramétrer en français, aller dans le menu `Tools > Global Options > Spelling` et dans le menu déroulant _Main dictionary language_, sélectionner _Français_.
 * actuellement pas d'outils disponible pour intégrer automatiquement la charte graphique Insee dans un document Markdown.
 * les outils ne remplacent pas la communication dans l'équipe projet. La production collaborative d'un document R Markdown nécessite de se mettre d'accord sur sa structure. Il est donc nécessaire de faire des points d'équipe. Pour vous aider, il existe un [chat Insee](https://rocket-chat.stable.innovation.insee.eu) ou les *issues* dans *gitlab* qui peuvent servir de forum entre collaborateurs d'un sujet (cf. chapitre `git`)
 
