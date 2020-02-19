@@ -356,9 +356,9 @@ Cliquer sur `Create project` copier les fichiers du dossier partagé et vous per
 
 La section qui suit décrit la même configuration pour un dépôt externe. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git). 
 
-## D'autres possibilités pour des projets externes
+## Pour des projets externes
 
-En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés sur la plateforme innovation, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `https`.
+En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés en interne, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `https`.
 
 Par exemple, en ayant un profil sur `github.com` ou `giltlab.com`, il suffit alors de copier l'url : 
 
@@ -372,25 +372,59 @@ Ensuite, les étapes sont identiques à la section précédente: à partir du me
 Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
 
 
-## Pré-requis pour l'organisation du travail collaboratif
+## Pré-requis : organiser le travail collaboratif
 
-Github flow https://guides.github.com/introduction/flow/
+Cette section propose une synthèse des usages de `Git` dans la communauté R, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens. Quand on rentre dans le détail de toutes les fonctionnalités, il existe de multiples façon de travailler avec les outils de gestion de version. 
 
-- vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`)
-- chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repo à la légère, vous pourriez le regretter
-- c'est au(x) mainteneur(s) du repo de définir les règles d'organisation du travail
-- idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet
-- il est essentiel que chaque personne qui contribue au projet se conforme à ces règles
-- `git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail. Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `git` mais à une mauvaise définition de l'organisation du travail ou bien à son non respect par les mainteneurs. 
-- d'expérience, si vous n'avez pas réfléchi à l'organisation du travail, il est à peu près certain que vous rencontrerez des problèmes. Des difficultés peuvent en particulier apparaître dans une équipe dont personne n'aurait d'expérience avec `git`
-- vous devez savoir qu'il y a plusieurs méthodes de travail avec `git`. Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail. Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents...)
+Cette formation adopte le parti pris de suivre le `Github flow` donc une rapide description peut être trouvée sur [cette page](https://guides.github.com/introduction/flow/).
 
 Cependant, vous devez savoir que des "habitudes" se sont imposées dans la communauté R, essentiellement au travers des collaborations sur la plateforme GitHub (GitLab fonctionne de la même façon mais est open source contrairement à GitHub). Au fur et à mesure des collaborations, une forme de "norme sociale" s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
 
+- Vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`).
+- Chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repo à la légère, vous pourriez le regretter.
+- C'est au(x) mainteneur(s) du repo de définir les règles d'organisation du travail.
+- Idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet.
+- Il est essentiel que chaque personne qui contribue au projet se conforme à ces règles.
+- `git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail. Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `git` mais à une mauvaise définition de l'organisation du travail ou bien à son non respect par les mainteneurs. 
+- D'expérience, si vous n'avez pas réfléchi à l'organisation du travail, il est à peu près certain que vous rencontrerez des problèmes. Des difficultés peuvent en particulier apparaître dans une équipe dont personne n'aurait d'expérience avec `git`.
+- Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git`. Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail. Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents,...).
 
-On propose une synthèse des usages de `git` dans la communauté R, adaptés à la configuration à l'Insee : AUS pour commencer (puis à la fin donner les autres usages.)
 
-## GIT en local
+Pour les modifications quotidiennes, il est possible d'effectuer un `commit` sur `master`. Cela est possible si dans l'organisation du travail, vous avez les droits de type _Maintener_. C'est l'objet de la première section **`Git` en local**.
+
+Cependant, pour des changements plus profonds, il est recommandé d'organiser le travail selon les cinq étapes Suivantes.
+
+### Créer une branche
+
+Une branche permet de développer "dans son coin" (seul ou à plusieurs) et d'expérimenter des modifications et des améliorations avant de les proposer au dépôt commun.
+
+![](./pics/flow1_branch.png)
+
+### Modifier et valider ces changements 
+
+C'est l'étape des `commits`. Le travail se fait sur la branche en veillant à bien commenter les modifications et à bien les distinguer (il vaut mieux trop de `commit` que pas assez). 
+
+![](./pics/flow2_commit.png)
+
+### Ouvrir une demande de fusion 
+
+Une fois la série de modifications terminée ou le temps venu de rassembler les différents travaux, c'est par l'intermédiaire de la fusion entre la branche et le `master` (`Pull Request` sur `GitHub` ou `Merge Request` sur `GitLab`). Il faut alors "demander" de fusionner et c'est très bien intégré dans l'environnement `GitLab` (cf. ci-après). Cela initie un échange sur les modifications apportées.
+
+![](./pics/flow3_MR.png)
+
+### Échanger entre collaborateurs et vérifier le code
+
+Une fois la `Merge Request` ouverte, il est possible d'échanger des images, de commenter, de poser des questions et d'y répondre. Il est par exemple possible de mentionner un membre de l'équipe par l'intermédiaire de `@personne`.
+
+![](./pics/flow4_discuss.png)
+
+### Fusionner la branche avec `master`
+
+Une fois les vérifications faites, la fusion conserve l'historique des modifications et l'ensemble des `commits`.
+
+![](./pics/flow5_merge.png)
+
+## `Git` en local
 
 Exercice : staging
 Modifier un fichier
@@ -404,9 +438,6 @@ Envoyer cette modification au dépôt commun
 Exercice : pull
 Récupérer les modifications du dépôt commun
 
-Exercice : branch
-Créer une branche et la modifier.
-
 Excercice : gitignore
 Ajouter les fichiers .pdf etc. dans le gitignore
 
@@ -417,6 +448,7 @@ ce n'est pas un drive / dropbox.
 Voici quelques usages couramment répandus, ceux qu'on observe le plus souvent. Nous ne prétendons pas que tout le monde respecte toutes ces règles mais voici les "patterns" fréquemment observés. Comme il a été indiqué, ces règles ne sont pas les "meilleures". Vous trouverez donc toujours quelqu'un pour indiquer que telle ou telle règle n'est pas nécessaire, qu'on peut faire autrement, qu'une autre est bien meilleure... 
 
 Même si elles sont écrites de façon impérative, conservez du recul. Cependant, si vous les adoptez, tout se passera bien.
+
 
 ## Ouvrir et organiser les issues
 
