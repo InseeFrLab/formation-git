@@ -431,22 +431,28 @@ Dans le cadre de cette formation, un projet commun a été créé pour vous. Vou
 Pour commencer, tout se passe dans l'onglet `git` de `Rstudio` (en haut à droite) : 
 ![](./pics/onglet_git.png)
 
-*a) `gitignore`*
+**Question a.** * `gitignore`*
+
 Après avoir clôné le dossier de votre projet, modifier le fichier `gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
 
-*b) `staging`*
+**Question b.** *`staging`*
+
 Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
 
-*c) `commit`*
+**Question c.** *`commit`*
+
 Valider cet ajout via le bouton `commit` en ajoutant un message clair mais bref.
 
-*d) `push`*
+**Question d.** *`push`*
+
 Envoyer cette modification au projet partagé via le bouton `push` (flèche verte montante).
 
-*e) `pull`*
+**Question e.** * `pull`*
+
 Récupérer les modifications du dépôt commun (= le fichier de votre voisin à ce stade) via le bouton `pull` (flèche bleue descendante).
 
-*f) `commit-push-pull`*
+**Question f.** * `commit-push-pull`*
+
 Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre voisin. Compléter le texte par une autre phrase.
 
 ## Exercice 2 : Ouvrir et organiser les *issues*
@@ -459,31 +465,30 @@ Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
 
 ![](./pics/new_issue.png)
 
-*a) Ouverture et attribution*
+**Question a.** * Ouverture et attribution*
+
 Ouvrir une *issue* concernant le fichier de votre voisin et indiquant qu'il faut corriger les majuscules et la ponctuation. Lui attribuer l'*issue* via `@idep`.
 
-*c) Règlement*
+**Question b.** * Règlement*
+
 Corriger votre fichier `votre-idep.md` par un `commit` puis un `push`.
 
-*d) Clôture*
+**Question c.** * Clôture*
+
 Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*issue* sur `GitLab`.
 
 
-## Le rôle de `master`
+## Exercice 3 : Branches et `master`
 
-La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu. Avec l'intégration continue, elle se doit d'être en succès. 
+La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
 
-Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. N'ayez pas peur de fixer comme règle l'interdiction de pousser sur master, cela obligera l'équipe projet à travailler très professionnellement (ça fera peut-être râler certains coéquipiers mais c'est pour la bonne cause).
+Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. N'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master` (voir section précédente), cela obligera l'équipe projet à travailler professionnellement. 
 
-Au moindre doute, créez une branche.
+Au moindre doute, créez une branche. Les branches sont utilisées pour des travaux significatifs :
 
-## Les branches
-
-Les branches sont utilisées pour des travaux significatifs :
-
-- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur master des travaux non aboutis)
+- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis)
 - vous travaillez sur une fonctionnalité nouvelle et vous souhaiterez recueillir l'avis de vos collègues avant de modifier `master`
-- vous n'êtes pas certain de réussir vos modifications "du premier coup"
+- vous n'êtes pas certain de réussir vos modifications du premier coup et préférez faire des tests en parallèle.
 
 **Toutes les branches sont publiées, le rebase est interdit. Le push force est également interdit.** (carton rouge)
 
@@ -498,7 +503,7 @@ N'hésitez pas à aller encore plus loin dans la normalisation : c'est pour la b
 
 EXERCICE : créer une branche avec votre voisin, commit, push, pull
 
-## Ouvrir des merge requests
+## Exercice 3 : Fusionner les travaux avec des `Merge Requests`
 
 Les merges requests sont sans doute la fonctionnalité la plus pratique.
 
@@ -526,25 +531,30 @@ Les merge requests doivent également modifier le fichier `NEWS.md`, de la faço
 
 Dans l'exemple ci-dessus, les chiffres précédés de `!` font référence aux numéros des merges requests.  
 Les chiffres précédés de `#` font références aux issues.
-
-EXERCICE : créer une MR proprement avec GitLab (indications)
-
-## Contribuer aux merge requests
-
 **Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
 
 Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
 
-EXERCICE : Choisissez une autre MR et contribuez-y via GitLab.
 
-## Fusionner les merge requests
+a) Ouvrir des merge requests 
+créer une MR proprement avec GitLab (indications)
+
+b) contribuer aux merge requests
+Choisissez une autre MR et contribuez-y via GitLab.
+
+c) Fusionner les merge requests
+
+
+
+
+
 
 C'est la responsabilité des mainteneurs : seuls les mainteneurs peuvent merger dans master. Il leur appartient de veiller à la bonne qualité des merge requests.
 
 Question : squash and merge ou pas ?  
 Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
 
-## Résoudre les conflits
+## Exercice 4 : Résoudre les conflits, c'est facile.
 
 Si vous adoptez les règles précédentes, master sera surtout modifié via des merge requests. Vous ne devriez donc jamais avoir de conflits sur master.
 
