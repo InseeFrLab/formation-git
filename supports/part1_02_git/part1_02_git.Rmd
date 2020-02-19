@@ -277,17 +277,61 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 rebase
 push force
 
-# Configurer un projet GIT avec Rstudio à l'Insee
+# Configurer un projet `GIT` avec Rstudio à l'Insee
 
-créer un compte sur la plateforme innovation/ Accéder à Gitlab
+Dans une configuration classique, la première étape constisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `Rstudio` recommandée et d'avoir accès aux coffres. Elle se déroulera donc sur le serveur de calcul `AUS`. Il est également possible de collaborer à des projets via son poste local. Nous présentons cette configuration dans un premier temps.
 
-Générer une clé SSH
+La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `GitHub.com`, `GitLab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil) qui héberge un [`GitLab` interne](https://git.stable.innovation.insee.eu/).
 
-Ajout de la clé SSH sous Gitlab
+Il est d'abord nécessaire de créer son accès à la plateforme et ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une seule fois pour un poste de travail. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples. C'est l'étape fondamentale pour pouvoir lire et modifier un dossier partagé.
 
-https://git.stable.innovation.insee.eu/animation-ateliers-r-dsds/atelier-1/wikis/Utiliser-Git-et-Gitlab-%C3%A0-l'Insee 
+## La première fois 
+### Accéder au `GitLab` de la plateforme
 
-Cloner un dépôt à partir de Gitlab
+Le `GitLab` est accessible via ce lien : [git.stable.innovation.insee.eu/](https://git.stable.innovation.insee.eu/). Après avoir créé un compte sur la plateforme en y accédant pour la première fois, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
+
+![](./pics/sign_in_gitlab.png){width=100%} 
+
+L'authentification sur la plateforme est alors automatique depuis le poste de travail Insee via le login `Insee SSO`. Il suffit alors de cliquer pour être connecté en tant qu'utilisateur:
+
+![](./pics/login_sso.png){width=100%} 
+
+### Générer et ajouter une clé SSH
+
+La deuxième étape pour mener à bien la configuration initiale revient à permettre le dialogue entre la plateforme (ici `GitLab`) et le logiciel `GIT` en local. Pour ce faire, le contrôle de version repose sur un protocole sécurisé, chiffrant les échanges. Ce processus d'authenfication s'appuie sur les clés SSH, l'une publique qu'on envoie à la plateforme distante, l'autre privée que l'on conserve sur son poste. C'est la combinaison des deux qui identifie un utilisateur de façon unique et sécurise les échanges. Un utilisateur peut générer autant de clés SSH qu'il souhaite, par exemple pour échanger avec plusieurs systèmes distants.
+
+Il est d'abord nécessaire de télécharger des utilitaires  via l'application `Si@moi`, et de suivre le chemin suivant : "Faire une demande" > "Catalogue à l'usage de tous les agents" > "3 Installation de logiciels" > Rubrique "Développement" > "Git Pack".
+
+Ensuite, le logiciel "Paramétrage SSH" permet de créer une clé sur son poste local :
+
+![](./pics/ssh_keygen.png)
+
+On sélectionne ensuite "Générer une nouvelle clé" ; cette clé sera créée et sauvegardée en général dans le chemin suivant : D:/idep/Données d'application/.ssh, et sera constituée de deux fichiers texte :
+
+* un fichier en .pub, qui fournit la partie publique de la clé, et qui a vocation à être diffusée (donc c'est ce fichier qu'on chargera sur `Gitlab` pour permettre l'authentification) ;
+* un fichier .ppk (comme Private Key) qui est la partie privée de la clé, et qui ne doit en aucun cas être diffusée.
+
+L'outil propose ensuite de télécharger la partie publique de la clé sur un dépôt distant à spécifier ; un message d'erreur s'affiche dans certains cas mais il ne faut pas s'y fier. Nous allons confirmer manuellement après l'accès à `GitLab`. Enfin, l'outil propose de configurer l'utilitaire `Putty` (que Git utilise pour générer une connexion sécurisée entre le dépôt distant et le dépôt local) ; il faudra renseigner les éléments suivants :
+
+* Identifiant : idep de l'utilisateur
+* Hôte : gitlab.stable.innovation.insee.eu
+* Port : 22222
+
+Il faut ensuite charger la clé dans le cache de `Putty` ; pour cela, il faut ouvrir `Putty` (dans Menu Démarrer > Tous les programmes > INSEE atelier de développement V2 > utilitaire > putty), sélectionner "gitlab.stable.innvation.insee.eu", "Load", "Open". Le système renvoie une erreur, mais la clé est normalement chargée dans le cache, il reste à configurer Gitlab pour que ce dernier reconnaisse la clé SSH comme étant celle de l'utilisateur.
+
+Pour ce faire, il est nécessaire de retourner sur les paramètres du profil sur `Gitlab` et accéder aux réglages de l'espace personnel : 
+
+![](./pics/setting_ssh.png)
+
+En sélectionnant `SSH Keys` dans le bandeau latéral gauche, il faut copier-coller dans la fenêtre le texte du fichier `.pub` de la clé SSH (en veillant à ne pas laisser l'éventuel texte en fin du type `imported-openssh-key`).
+
+![](./pics/ssh_copy_key.png)
+
+Après avoir cliqué sur le bouton `Add Key` et en modifiant éventuellement le `Title` (nom de la clé), `GitLab` est configuré et il est possible d'échanger avec `GIT` en local. La [documentation de la plateforme Innovation](http://innovation.pages.innovation.insee.eu/documentation-plateforme-innovation/gitlab/clef-ssh/) détaille également la procédure pour l'ajout d'une clé SSH.
+
+## Au lancement de chaque projet 
+
+Cloner un dépôt à partir de GitLab
 
 vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
 
@@ -295,11 +339,13 @@ configuration GIT  :https://git.stable.innovation.insee.eu/formation-git-sndi-li
 
 remote SSH via la plateforme innovation sur AUS.
 
+## D'autres possibilités pour des projets externes
+
 présentation HTTPS sur github.com et giltlab.com ici.
 
 
 
-# Bonnes pratiques de GIT et GITLab 
+# Bonnes pratiques de `GIT` et `GitLab` 
 
 Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
 
