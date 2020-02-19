@@ -277,6 +277,27 @@ cf. Drees : groupes publics et privé, profils, pages projet etc.
 rebase
 push force
 
+# Configurer un projet GIT avec Rstudio à l'Insee
+
+créer un compte sur la plateforme innovation/ Accéder à Gitlab
+
+Générer une clé SSH
+
+Ajout de la clé SSH sous Gitlab
+
+https://git.stable.innovation.insee.eu/animation-ateliers-r-dsds/atelier-1/wikis/Utiliser-Git-et-Gitlab-%C3%A0-l'Insee 
+
+Cloner un dépôt à partir de Gitlab
+
+vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
+
+configuration GIT  :https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git
+
+remote SSH via la plateforme innovation sur AUS.
+
+présentation HTTPS sur github.com et giltlab.com ici.
+
+
 
 # Bonnes pratiques de GIT et GITLab 
 
@@ -433,26 +454,6 @@ EXERCICE : ouvrir une MR, l'assigner, la résoudre sur GitLab
 Usage des issues et ToDo
 
 EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork
-
-# Configurer un projet GIT avec Rstudio à l'Insee
-
-créer un compte sur la plateforme innovation/ Accéder à Gitlab
-
-Générer une clé SSH
-
-Ajout de la clé SSH sous Gitlab
-
-https://git.stable.innovation.insee.eu/animation-ateliers-r-dsds/atelier-1/wikis/Utiliser-Git-et-Gitlab-%C3%A0-l'Insee 
-
-Cloner un dépôt à partir de Gitlab
-
-vidéo installation du SNDI : http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ 
-
-configuration GIT  :https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git
-
-remote SSH via la plateforme innovation sur AUS.
-
-présentation HTTPS sur github.com et giltlab.com ici.
 
 
     
