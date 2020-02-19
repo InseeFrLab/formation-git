@@ -341,9 +341,23 @@ remote SSH via la plateforme innovation sur AUS.
 
 ## D'autres possibilités pour des projets externes
 
-présentation HTTPS sur github.com et giltlab.com ici.
+En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés sur la plateforme innovation, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `https`.
 
+Par exemple, en ayant un profil sur `github.com` ou `giltlab.com`, il suffit alors de copier l'url : 
 
+![](./pics/clone_https.png)
+
+et d'indiquer à `Rstudio` comment s'y connecter. Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
+
+![](./pics/Rproj.png)
+
+Il suffit ensuite de remplir les trois paramètres : 
+
+* *Repository URL* : coller l'adresse `https` copiée depuis la plateforme.
+* *Projet directory name* : le nom du dossier où va sera la copie locale du `repository`, c'est là où vous allez modifier les programmes et où se situera votre code
+* *Create project as subdirectory of* : le chemin physique où se situera le projet, par exemple `D:/idep`.
+
+Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `Rstudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
 
 # Bonnes pratiques de `GIT` et `GitLab` 
 
