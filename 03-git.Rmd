@@ -7,7 +7,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ## Pourquoi utiliser la gestion de version ?
 
-Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, le maintien de la qualité de nos chaînes de traitement nécessitent un archivage détaillé et facilement accessible. 
+Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, le maintien de la qualité de nos chaînes de traitement nécessite un archivage détaillé et facilement accessible. 
 
 Tous les statisticiens se sont déjà demandé (ou à leurs collègues) : 
 
@@ -35,7 +35,7 @@ En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R
 
 Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui constitue le projet (par exemple, le modèle Ines).
 
-Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique. Les modifications transmises au dépôt sont appelées **commit**.
+Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif^[Plus précisément, chaque modification est identifiée de manière unique par un code `SHA` auquel est associé l'auteur, l'horodatage et des méta-données (par exemple le message descriptif associé)]. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique. Les modifications transmises au dépôt sont appelées **commit**.
 
 **Un exemple d'historique d'un projet sur GitLab**
 ![histoGIT](./pics/03_git/historique_gitlab.png){width=100%}  
@@ -59,12 +59,12 @@ correction
 **Exemple de détails d'une modification**
 ![](./pics/03_git/commit_Rstudio.png){width=100%} 
 
-L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tards le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
+L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année). Même lorsqu'on travaille tout seul, on collabore avec un *moi* futur qui peut ne plus se souvenir de la modification des fichiers. 
 
 
 ### Améliorer la qualité des codes
 
-Le fonctionnement du gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. 
+Le fonctionnement du gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. C'est pour cette raison que le contrôle de version ne doit pas être considéré comme un outil réservé à des développeurs: toute personne travaillant sur des programmes informatiques, `SAS` y compris, gagne à utiliser du contrôle de version. 
 
 Quand il s'agit de modèles statistiques, ou de chaînes de traitement statistique, constitués de nombreux programmes, la gestion de version permet :
 
@@ -76,9 +76,15 @@ Lors de l'ouverture des modèles, leur diffusion publique correspond aux standar
 
 ### Usage quotidien : un exemple avec le modèle Ines
 
-Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une forge qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs. Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
+Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront développés dans la partie ***). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
 
-Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponible en temps réel.
+Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponible en temps réel. Il existe plusieurs manières d'utiliser le contrôle de version: 
+
+* en ligne de commande, via [git bash](https://gitforwindows.org/) ;
+* avec une interface graphique spécialisée, par exemple [tortoise git](https://tortoisegit.org/)
+* avec un logiciel de développement: la plupart des logiciels de développement ([Rstudio](https://rstudio.com/) pour `R`, [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/) ou [jupyter](https://jupyter.org/) pour `python`, [atom](https://atom.io/), etc.) proposent tous des modules graphiques facilitant l'usage de `git` dont les fonctionnalités sont très proches
+
+Dans ce chapitre, nous proposons d'utiliser le contrôle de version via `Rstudio`. Cela rend le recours à la ligne de commande marginal. 
 
 **Envoi d'une modification avec TortoiseSVN : commit**
 
@@ -119,24 +125,26 @@ lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, e
 
 ## Des bases de GIT 
 
-Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant, en raison de plusieurs avantages. 
+Les deux langages de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant en raison de plusieurs avantages. 
 
-GIT est un logiciel qui est installé sur son poste et celui de ses collaborateurs. Il est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type 'stackoverflow' (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme 'github', la (page de tutoriel)[http://try.github.io/] regroupe différents supports. Des vidéos pédagogiques sont fournies sur (git-scm.com)[https://git-scm.com/videos]
+GIT est un logiciel qui est installé sur son poste et celui de ses collaborateurs. Il est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type `stackoverflow` (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme `github`, la [page de tutoriel](http://try.github.io/) regroupe différents supports. Des vidéos pédagogiques sont fournies sur [git-scm.com](https://git-scm.com/videos)
 
-Cependant, face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les donnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis. C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec R studio à l'Insee.
+Cependant, face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les bonnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis. C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec R studio à l'Insee.
 
 La genèse de Git correspond au noyau du système d'exploitation Linux qui gérait les patchs et les archives pendant les années 1990. À partir de 2005, Linus Torvalds, aussi inventeur de Linux, développe un successeur avec pour objectifs, la vitesse, la simplicité, la possibilité de développements en parallèle (les futures **branches**), le tout avec un usage compact des données. Depuis, son usage a largement dépassé celui de SVN.
 
 SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notamment que chaque collaborateur possède une copie en propre de l'ensemble du projet sur son poste de travail. Cela implique un avantage important de GIT en terme de sécurité des codes (qui risquent beaucoup moins d'être perdus) et la  rapidité des partages des modifications. En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
 
-Enfin, un des grands avantages pratiques de GIT est son intégration naïve dans l’interface RStudio ainsi que dans les plateformes de forme Github et Gitlab (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
+Enfin, un des grands avantages pratiques de GIT est son intégration native dans l’interface RStudio ainsi que dans les plateformes Github et Gitlab (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
+
+![](./pics/03_git/gitsvn.png)
 
 
 ### Le B.A-BA
 
 Les programmes s’organisent sur un répertoire distant commun
 (dépôt ou **repository**) et sont manipulés sur les postes indidivuels dans des
-dossiers locaux (**working directory**). Le dépôt peut par exemple être hébergé sur une plateforme de type **GitLab**.
+dossiers locaux (**working directory**). Le dépôt distant peut par exemple être hébergé sur une plateforme de type **GitLab**.
 
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
@@ -147,10 +155,10 @@ Les trois manipulations les plus courantes sont les suivantes et représentées 
 
 ![](./pics/03_git/push_pull_Drees.png){width=100%} 
 
-De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (commit) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
+De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (*commit*) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
 
 * `diff` : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés
-* `staging area` : sélection des modifications 
+* `staging area` : sélection des modifications. L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: on peut découper les modifications d'un fichier en plusieurs morceaux cohérents
 * `commit` :  validation des modifications sélectionnées (avec commentaire).
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
@@ -158,22 +166,30 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 ![](./pics/03_git/trois_états_fichier.png){width=100%} 
 
 ![](./pics/03_git/statut_fichiers.png){width=100%} 
-Lors d'un 'commit', le message de validation est très important.
-– décrit brièvement les modifications contenues dans le commit
-– importance de l’homogénéité des modifications contenues dans un commit
-– à l’attention des autres développeurs
 
-Chaque commit est identifié de façon unique par un **hash**, c'est ce qui permet les différentes manipulations.
 
-Ensuite, les deux fonctions 'push' et 'pull' permettent la mise à jour du local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent exister, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
+Lors d'un `commit`, le message de validation est très important:
 
-Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications ('commit') :
+* décrit brièvement les modifications contenues dans le commit
+* importance de l’homogénéité des modifications contenues dans un commit
+* à l’attention des autres développeurs
+
+Chaque `commit` est identifié de façon unique par un **hash** (ex: `441300764de91c376`), un numéro peu intelligible pour un humain mais qui permet au système de contrôle de version de gérer proprement chaque modification.
+
+Ensuite, les deux fonctions `push` et `pull` permettent la mise à jour du projet local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent exister, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
+
+Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications (`commit`) :
 
 * par petits lots homogènes et en préférant peu de fichiers
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
-* Mettre à jour sa copie locale régulièrement via 'pull', voire dès qu'on commencer à travailler sur un projet.
+* Mettre à jour sa copie locale régulièrement via `pull` ou `fetch`, voire dès qu'on commencer à travailler sur un projet.
 
-De manière générale, il ne faut pas avoir peur des conflits. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec 'GIT', il est très rare de faire des bétises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme 'git push --force'. 
+
+:::: {.rmdimportant data-latex=""}
+
+De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer. Mais il n'est justement pas recommandé d'utiliser les commandes de la forme `git push --force`. 
+
+::::
 
 ### Les branches
 
@@ -199,9 +215,15 @@ Une des commandes les plus utiles pour un travail collaboratif pour les statisti
 
 * `git ignore` : modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
 
-Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`.
+Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé `.gitignore` (ex [ici](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/blob/master/.gitignore)). Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, vous pouvez le package `usethis` avec lequel vous deviendrez familier dans la partie @ref(#package):
 
-La Cnil fournit ainsi des conseils aux développeurs pour compléter ces bonnes pratiques : https://linpricnil.github.io/Guide-RGPD-du-developpeur/ 
+```{r, eval = FALSE}
+# Taper dans la console Rstudio
+usethis::use_git_ignore("*.csv")
+```
+
+La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://linpricnil.github.io/Guide-RGPD-du-developpeur/)).
+
 
 D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
 
@@ -211,7 +233,7 @@ D'autres fonctionnalités plus avancées existent et pourront être mises à pro
 Le `git blame` permet ainsi de filtrer sur les différences précédentes afin de régler des problèmes ou trouver un commit particulier à l'origine d'un bug ou d'une erreur. `git log` peut aussi permettre de filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
 
 
-D'autres commandes, plus périlleuses peuvent permettre un retour en arrière dans l'historique, appelé rebasage. La réécriture de l'historique est un usage non recommandé pour une utilisation non approfondie comme un projet statistique en équipe. En cas de manipulations s'écartant des sentiers battus, il est toujours possible de revenir à des sauvegardes manuelles des fichiers et à des déplacements par copié-collé des programmes à modifier ou à récupérer.
+D'autres commandes, plus périlleuses peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La réécriture de l'historique est un usage non recommandé pour une utilisation non approfondie comme un projet statistique en équipe. En cas de manipulations s'écartant des sentiers battus, il est toujours possible de revenir à des sauvegardes manuelles des fichiers et à des déplacements par copié-collé des programmes à modifier ou à récupérer.
 
 Pour aller plus loin, des ressources internes existent (plutôt destinés à des développeurs) :
 
@@ -225,53 +247,120 @@ Les ressources externes très complètes sont disponibles, citons notamment un [
 
 En résumé, voilà les principaux concepts présentés et qui seront utiles pour la pratique de la gestion de version :
 
-`repository` : le dossier partagé qui contient toutes les informations
+* `repository` : le dossier partagé qui contient toutes les informations
+* `commit` : modification validée à un instant donné, par extension l'état du projet à cet instant
+* `hash` : un identifiant unique pour chaque commit, contenant notamment l'horodatage
+* `checkout` : un déplacement vers un commit
+* `branche` : un projet parallèle au sein du dossier
+* `merge` : la fusion de une ou plusieurs branches
+* `remote` : un serveur distant ayant une copie de repository
+* `clone` : récupération du dossier depuis le remote (pour la première fois)
+* `pull` : récupération des nouveaux commits en local depuis le remote
+* `push` : envoi de ses nouveaux commit vers le remote
 
-`commit` : modification validée à un instant donné, par extension l'état du projet à cet instant
 
-`hash` : un identifiant unique pour chaque commit, contenant notamment l'horodatage
-
-`checkout` : un déplacement vers un commit
-
-`branche` : un projet parallèle au sein du dossier
-
-`merge` : la fusion de une ou plusieurs branches
-
-`remote` : un serveur distant ayant une copie de repository
-
-`clone` : récupération du dossier depuis le remote (pour la première fois)
-
-`pull` : récupération des nouveaux commits en local depuis le remote
-
-`push` : envoi de ses nouveaux commit vers le remote
-
-## Gitlab, aperçu de la plateforme de partage de code 
+## Gitlab, aperçu de la plateforme de partage de code
 
 Gitlab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Un réseau social du code
 
-Principales fonctionnalités :
+Un projet sous gitlab se présente de la manière suivante:
 
-Inspecter un dépôt distant : onglet branches, commits etc
+![Interface gitlab](pics/03_git/readme.png)
 
-[documentation](https://docs.gitlab.com/ee/user/index.html)  `GitLab`
+Le fichier `README.md` s'affiche automatiquement, mis en forme. Il présente des informations utiles pour la compréhension de l'objectif du projet, son installation, etc. On peut naviguer dans l'arborescence d'un dépôt facilement mais certains types de fichiers s'affichent mal (ex: `html` car ils n'ont pas vocation à être partagé).
 
-cf. Drees : groupes publics et privé, profils, pages projet etc.
+Les principales fonctionalités sont présentes dans les onglets: 
+
+1. `Repository`: coeur du contrôle de version
+2. `Issues`: espace de discussion, de suggestions ou demandes. 
+3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
+2. `CI/CD`: espace dédié à l'intégration continue (cf. Section avancée ** sur le sujet)
+2. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. 
+2. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/snippets))
+
+Arrêtons-nous sur les trois premiers points
+
+### `Repository`
+
+Le coeur des fonctionalités reliées au contrôle de version. C'est notamment pratique pour visualiser les branches et leur trajectoire. On peut notamment comparer les branches entre elles avant de proposer une `merge request` (cf. suite).
+
+
+### `Issues`
+
+L'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Il s'agit de l'espace où on peut 
+
+* faire connaître des *bugs* (à la manière d'un *ticket*)
+* discuter des évolutions d'un projet
+* évoquer des pistes de modification qui sont à creuser
+* regrouper et explorer les *issues* grâce à des labels 
+
+![](pics/03_git/issues_list.PNG)
+
+Pour ouvrir une nouvelle *issue*, on clique en haut à droite sur le bouton dédié:
+
+![](pics/03_git/new_issue.png)
+
+On peut faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe dièse, par exemple `#12`. Dans ce cas, automatiquement, `gitlab` affichera une référence au `commit` dans la page de l'*issue*. 
+
+On peut aussi avoir un affichage en tableau en cliquant à gauche sur `Boards`. On peut associer des *issues* à des `milestones` qui sont des jalons pour faire évoluer le projet
+
+
+![](pics/03_git/milestones.PNG)
+
+L'affichage est similaire à celui de [Trello](https://trello.com/) mais a l'avantage d'évoluer de manière automatique au grès des ouvertures et fermetures *d'issues*. 
+
+
+### Merge requests
+
+Espace pour gérer des fusions de branches. Normalement, on a arrive dans un deuxième temps dans cet espace:
+
+* une ou plusieurs *issues* sont créées et discutées
+* si on possède une solution, on crée une branche et propose une `merge request`
+
+
+`gitlab` facilite énormément le travail de fusion de branches par rapport à la ligne de commande. Si les modifications proposées sont propres, on évite souvent le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
+
+![](./pics/03_git/MR2.png)
+
+On clique sur `Compare branches and continue`. On arrive sur la page permettant de décrire la `merge request`. On aide le(s) gestionnaire(s) du projet en faisant en sorte d'être explicite sur l'objectif de la `merge request`. On peut notamment faire référence à des *issues* comme `#19` dans l'exemple ci-dessous. On donne un titre explicite à la merge request en ajoutant le préfixe `WIP` si celle-ci n'est pas encore finalisée (permet de mentionner précocément au gestionnaire qu'on avance sur le développement d'une branche)
+
+Une bonne pratique est de proposer les options:
+
+* `Delete source branch when merge request is accepted`: effacer la MR sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité. 
+* `Squash commits when merge request is accepted`: Regrouper tous les `commit` (potentiellement très nombreux) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de *commits*.
+
+![](./pics/03_git/MR3.png)
+
+Vous pouvez voir, en dessous, les changements induits si la MR est acceptée. Lorsque la `MR` est soumise, `gitlab` inspecte les conflits entre les fichiers. S'il n'y a pas de conflit, la `MR` peut être acceptée directement depuis `gitlab` en cliquant sur le bouton vert `Merge`:
+
+![](./pics/03_git/MR4.png)
+
+En cas de conflit, `gitlab` refuse le `merge` automatique et propose des commandes:
+
+![](./pics/03_git/MR5.png)
+
+Il y a deux philosophies dans le domaine:
+
+* C'est à la personne qui propose la `merge request` de proposer une copie propre
+* C'est au(x) gestionnaire(s) de nettoyer et harmoniser 
+
+Les gros projets *open-source* fonctionnent plutôt de la première manière. 
+
+
+### Les groupes
+
+
+Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de fichiers:
 
 ![](./pics/03_git/page_Drees_gitlab.png){width=100%} 
 
-![](./pics/03_git/projet_gitlab.png){width=100%} 
+:::: {.rmdcaution data-latex=""}
+Le rôle de gestionnaire des `merge request` dans un projet collaboratif est important. Il faut **absolument** bannir les usages de `push force` qui peuvent déstabiliser les copies locales des collaborateurs. S'il est nécessaire de faire un `push force`, c'est qu'il y a un problème dans la branche, à identifier et régler **sans** faire `push force`
 
-* Explorations du code
+![](pics/03_git/push_force.jpg)
+::::
 
-* Tickets
 
-* Fusion de branches : MR et merge en pratique (exemples des PR avec commentaires etc.)
-
- à éviter pour un usage néophyte :  à éviter pour un usage néophyte
- si vous avez peur de faire une bêtise, commencez par faire une copie locale de votre clone
-
-rebase
-push force
 
 ## Configurer un projet `GIT` avec Rstudio à l'Insee
 

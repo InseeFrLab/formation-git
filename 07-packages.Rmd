@@ -1,4 +1,4 @@
-# Créer un package `R` par la pratique
+# Créer un package `R` par la pratique {#package}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
