@@ -1,17 +1,22 @@
 variables:
   GIT_SSL_NO_VERIFY: "1"
 
-
-before_script:
-  - Rscript -e "devtools::install_deps(dependencies = TRUE)"
+build_image:
+  stage: build
+  tags: 
+    - maven
+  script:
+    - docker build --build-arg BASE_IMAGE=git-registry.stable.innovation.insee.eu/innovation/rstudio --pull -t $CI_REGISTRY_IMAGE .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE
+  only:
+    - master
 
 pages:
   stage: deploy
-  image: git-registry.stable.innovation.insee.eu/innovation/rstudio
+  image: $CI_REGISTRY_IMAGE
   script:
-  - Rscript -e "install.packages('webshot')"
-  - Rscript -e "webshot::install_phantomjs()"
-  - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
+    - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
   artifacts:
     paths:
       - public
