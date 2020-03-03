@@ -570,8 +570,8 @@ Peut-on pousser directement sur `master` ? oui, pour des petites corrections, de
 
 Au moindre doute, créez une branche. Les branches sont utilisées pour des travaux significatifs :
 
-- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis)
-- vous travaillez sur une fonctionnalité nouvelle et vous souhaiterez recueillir l'avis de vos collègues avant de modifier `master`
+- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis);
+- vous travaillez sur une fonctionnalité nouvelle et vous souhaiterez recueillir l'avis de vos collègues avant de modifier `master`;
 - vous n'êtes pas certain de réussir vos modifications du premier coup et préférez faire des tests en parallèle.
 
 Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `rebase` est interdit. Le push force est également interdit.** (carton rouge)
@@ -585,29 +585,41 @@ Comment nommer les branches ? Là encore, il y a énormément de conventions dif
 
 N'hésitez pas à aller encore plus loin dans la normalisation  !
 
-but de l'exercice : on va faire un cadavre exquis
+But de l'exercice : on va faire un cadavre exquis.
 
-**Question a.** *Création d'une branche*
+**Question a.** *Création d'une branche locale*
 
-projet commun, branche individuelle
+Placez-vous sur la branche `master` dans votre dépôt local. Créez une branche dans le dépôt local, en lui donnant un nom comportant votre prénom.
 
 **Question b.** *Modification au sein d'une branche*
 
-deux prhrases sans ponctuation sur votre branche
+Ouvrez le fichier **A COMPLETER** figurant dans le dépôt local, et ajoutez-y deux phrases sans aucune ponctuation. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible.
 
-**Question c.** *Changer de branche*
+**Question c.** *Publication d'une branche*
 
-changer pour votre voisin, corriger et revenir à votre branche initiale
+Poussez votre branche vers le dépôt commun (avec `push`).
+
+**Question d.** *Récupération de la branche créée par votre voisin*
+
+Récupérez la branche créée par votre voisin (avec `pull`).
+
+**Question e.** *Modifier une autre branche*
+
+Placez-vous sur la branche créée par votre voisin. Ouvrez le fichier **A COMPLETER** figurant dans votre dépôt local. Vous devez normalement voir les deux phrases écrites par votre voisin. Ajoutez la ponctuation à ces deux phrases. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible. Publiez cette modification sur le dépôt distant (avec `push`).
+
+**Question f.** *Récupération des corrections de l'autre personne du binôme*
+
+Placez-vous sur la branche que vous avez créée à la question a. Récupérer les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que les deux phrases que vous avez écrites ont maintenant une ponctuation correcte.
+
 
 ### Exercice 4 : Fusionner les travaux avec des `Merge Requests`
 
 Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
 
-- donner un titre explicite (comme on donne un objet à un mail)
-- donner des détails dans le message (comme pour les `commit`)
+- donner un titre explicite (comme on donne un objet à un mail);
+- donner des détails dans le message (comme pour les `commit`).
 
-
-Le cas échéant, il est très pratique d'ajouer dans le corps du message `close #xx` où `xx` est le numéro de l'issue décrivant la fonctionnalité que la MR implémente. Lorsque la MR sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la MR. Cela vous permettra de comprendre, plusieurs mois ou années plus tard comment et pourquoi telle ou telle fonctionnalité a été implémentée
+Le cas échéant, il est très pratique d'ajouer dans le corps du message `close #xx` où `xx` est le numéro de l'*issue* décrivant la fonctionnalité que la MR implémente. Lorsque la MR sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la MR. Cela vous permettra de comprendre, plusieurs mois ou années plus tard comment et pourquoi telle ou telle fonctionnalité a été implémentée.
 
 Une fois une MR ouverte, il est précieux de solliciter une relecture. En effet, personne (même les meilleurs!) n'est à l'abri d'une erreur. 
 
@@ -617,18 +629,18 @@ Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un com
 
 **Question a.** *Ouvrir une MR*
 
-créer une MR proprement avec GitLab (indications à ajouter)
+Créez une `merge request` dans GitLab. Dans cette `merge request`, vous devez proposer d'ajouter à la branche `master` du dépôt commun les modifications qui ont été développées dans la branche que vous avez créée au cours de l'exercice 2. Autrement dit, vous proposez d'ajouter au fichier **A COMPLETER** les deux phrases que vous avez écrites dans votre branche, et que votre voisin a corrigées.
 
 **Question b.** *Contribuer à une MR*
 
-Choisissez une autre MR et contribuez-y via GitLab.
+Dans GitLab, allez dans la `merge request` créée par votre voisin, et contribuez à la discussion par un message donnant votre avis sur les modifications proposées.
 
 **Question c.** *Régler une MR*
 
-Fusionner la branche de votre voisin en réglant la MR.
+Dans GitLab, fusionnez la branche de votre voisin avec la branche `master`. Retournez dans Rstudio. Placez-vous sur la branche `master` de votre dépôt local, puis récupérez depuis le dépôt commun les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que le fichier contient désormais les phrases que vous et votre voisin avez écrites.
 
 
-Usuellement, c'est la seule responsabilité des mainteneurs : seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la bonne qualité des `merge requests`.
+Usuellement, c'est la seule responsabilité spécifique des mainteneurs : seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la bonne qualité des `merge requests`.
 
 Notes : 
 - suppression branche 

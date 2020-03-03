@@ -8,6 +8,16 @@ La formation vise à présenter la manière dont un projet collaboratif peut êt
 * Utiliser `Git`;
 * Développer des packages.
 
+CommOM: Il serait utile d'avoir une liste détaillée de ce qu'on va apprendre à faire dans la formation. Quelque chose comme ça:
+
+* Bien utiliser `Rstudio` en utilisant les `Rprojects`;
+* RMarkdown;
+* Bien programmer en `R`;
+* Utiliser `Git`;
+* Développer des packages.
+
+Il serait également utile de faire un tour d'horizon de l'écosystème: c'est quoi et à quoi servent `R`, `Rstudio`, `Git`, etc, avec une description en une ligne. Ca permettrait aux utilisateurs de bien voir comment les différents outils se combinent entre eux.
+
 <!--------------
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 
