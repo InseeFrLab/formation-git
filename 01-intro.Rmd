@@ -1,6 +1,12 @@
 # Objectif de la formation {#intro}
 
-La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. 
+La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. Les compétences acquises au cours de cette formation sont les suivantes: 
+
+* Bien utiliser `Rstudio` en utilisant les `Rprojects`;
+* RMarkdown;
+* Bien programmer en `R`;
+* Utiliser `Git`;
+* Développer des packages.
 
 <!--------------
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
