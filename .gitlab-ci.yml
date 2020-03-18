@@ -43,9 +43,7 @@ buildbookdown:
   stage: deploy
   image: $CONTAINER_TEST_IMAGE
   script:
-#    - docker run -v ${SHARED_PATH}:/usr/local/src/project/public $CONTAINER_TEST_IMAGE Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
     - Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
-#    - docker run -v ${SHARED_PATH}:/usr/local/src/project/public $CONTAINER_TEST_IMAGE Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
     - Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
   artifacts:
     paths:
