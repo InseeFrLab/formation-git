@@ -26,17 +26,16 @@ build_image:
     - docker push $CONTAINER_TEST_IMAGE
 
 
-pages:
-  stage: deploy
-  image: $CONTAINER_TEST_IMAGE
-  script:
-#    - docker run -v ${SHARED _PATH}:/usr/local/src/project/public $CONTAINER_TEST_IMAGE Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
-    - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
+# pages:
+#  stage: deploy
+#  image: $CONTAINER_TEST_IMAGE
+#  script:
+#    - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
+#  artifacts:
+#    paths:
+#      - public
+#  only:
+#    - master
 
 
 
