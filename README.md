@@ -1,8 +1,6 @@
 # collaboratif
 
 
-Dépôt temporaire servant à la conception du cours `Travail Collaboratif sous R`. Pour accéder à la dernière version compilée, rendez-vous [ici pour les utilisateurs Insee](http://formationsd2e.pages.innovation.insee.eu/collaboratif/) et [ici pour les autres](https://linogaliana.gitlab.io/collaboratif/). Cette formation est associée à un guide des bonnes pratiques disponible [ici](https://linogaliana.gitlab.io/bonnespratiques/). 
-
 Une image comprenant les packages utilisés dans ce support est également mise à disposition sur la plateforme innovation. Elle est accessible [au travers de ce lien](https://onyxia.beta.innovation.insee.eu/my-lab/catalogue/inno/rstudio/deploiement?git.enable=true&rstudio.shiny=false&rstudio.image_docker=git-registry.stable.innovation.insee.eu/formationsd2e/collaboratif:master&advanced.sudo=false&onyxia.friendly_name=collaboratif). Cette image peut être utilisée en formation ou bien pour générer le support de formation.
 
 # Plan succinct de la formation
