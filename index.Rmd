@@ -13,7 +13,7 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction
 
-Supports associés à la formation nationale `Travail collaboratif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
+Supports associés à la formation nationale `Travail collaboratif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif) ou [ici](https://gitlab.com/linogaliana/collaboratif). 
 
 Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
 
@@ -21,6 +21,7 @@ Pour pré-visualiser en local le résultat de la compilation, vous pouvez utilis
 bookdown::render_book('./index.Rmd', output_dir = 'public')
 ```
 
+Cette formation est associée à un [guide des bonnes pratiques pour le SSP](https://linogaliana.gitlab.io/bonnespratiques/) que nous recommandons de consulter. 
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
