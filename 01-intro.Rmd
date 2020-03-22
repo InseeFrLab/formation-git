@@ -1,5 +1,7 @@
 # Objectif de la formation {#intro}
 
+`r colorize("Version provisoire et temporaire de la formation Insee 'Travail collaboratif avec R'","red")`
+
 La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. Les compétences acquises au cours de cette formation sont les suivantes: 
 
 * Bien utiliser `Rstudio` en utilisant les `Rprojects`;
