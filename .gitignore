@@ -3,8 +3,6 @@
 .RData
 .Ruserdata
 .Renviron
-*supports/**/*.pdf
-*supports/**/*.html
 html/*
 *_cache/
 
@@ -15,7 +13,6 @@ _book/
 *bookdown.tex
 
 # Avoid committing bookdown generated files
-supports/bookdown/*.md
 public/
 render*
 libs/

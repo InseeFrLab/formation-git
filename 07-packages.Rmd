@@ -2,13 +2,6 @@
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-if (system.file(package = "klippy") == '') 
-  remotes::install_github("rlesur/klippy", upgrade = "never")
-```
-
-```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy()
 ```
 
 ```{css, echo=FALSE}

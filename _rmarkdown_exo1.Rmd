@@ -34,4 +34,3 @@ Avec la syntaxe `<mon url>`
 ## Comment générer un mon rapport en html
 * A l'aide du bouton `Knit`
 
-

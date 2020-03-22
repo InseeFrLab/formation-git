@@ -1,9 +1,0 @@
-^\.gitlab-ci\.yml$
-^README\.Rmd$
-^.*\.Rproj$
-^\.Rproj\.user$
-^LICENSE\.md$
-^doc$
-^supports$
-^build\.R$
-^README\.md$

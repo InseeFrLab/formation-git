@@ -192,6 +192,3 @@ Produire le même rapport avec les données millésimées 2018.
 Finalement la maitrise d'ouvrage/le partenaire suggère une analyse par département. Apporter les modifications nécessaires pour produire ce nouveau rapport.
 
 ## Correction
-
-
-
