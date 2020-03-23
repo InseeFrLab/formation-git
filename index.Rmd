@@ -13,6 +13,7 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction
 
+
 Supports associés à la formation nationale `Travail collaboratif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif) ou [ici](https://gitlab.com/linogaliana/collaboratif). 
 
 Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
