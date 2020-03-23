@@ -526,12 +526,13 @@ Une fois les vérifications faites, la fusion conserve l'historique des modifica
 
 ![](./pics/03_git/flow5_merge.png)
 
-### Exercice 1 : `Git` en local
-
 Dans le cadre de cette formation, un projet commun a été créé pour vous. Vous allez travailler en binôme avec votre voisin. La première étape est de le clôner le dépôt qui vous est associé (la page du projet vous sera fournie le jour j).
+
+Exercice 1 : `Git` en local
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
 ![](./pics/03_git/onglet_git.png)
+
 
 **Question a.** *`gitignore`*
 

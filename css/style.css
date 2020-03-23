@@ -21,19 +21,19 @@ pre code {
   background: #f5f5f5 5px center/3em no-repeat;
 }
 .rmdcaution {
-  background-image: url("pics/images/caution.png");
+  background-image: url("../pics/images/caution.png");
 }
 .rmdimportant {
-  background-image: url("pics/images/important.png");
+  background-image: url("../pics/images/important.png");
 }
 .rmdnote {
-  background-image: url("pics/images/note.png");
+  background-image: url("../pics/images/note.png");
 }
 .rmdtip {
-  background-image: url("pics/images/tip.png");
+  background-image: url("../pics/images/tip.png");
 }
 .rmdwarning {
-  background-image: url("pics/images/warning.png");
+  background-image: url("../pics/images/warning.png");
 }
 
 
