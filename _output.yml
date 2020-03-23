@@ -1,9 +1,8 @@
 bookdown::gitbook:
-  css: css/style.css
+  css: ./css/style.css
   config:
     toc:
       before: |
         <li><a href="./">Travail collaboratif avec R</a></li>
       after: |
         <li><a href="./">Formation INSEE</a></li>
-    download: ["pdf", "epub"]
