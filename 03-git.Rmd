@@ -143,23 +143,23 @@ Enfin, un des grands avantages pratiques de GIT est son intégration native dans
 ### Le B.A-BA
 
 Les programmes s’organisent sur un répertoire distant commun
-(dépôt ou **repository**) et sont manipulés sur les postes indidivuels dans des
+(dépôt ou `r with_def("repository")`) et sont manipulés sur les postes indidivuels dans des
 dossiers locaux (**working directory**). Le dépôt distant peut par exemple être hébergé sur une plateforme de type **GitLab**.
 
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
-+ `pull` : je récupère la dernière version des codes du dépôt distant
-+ `commit` : je valide mes modifications avec un message qui les expliquent
-+ `push` : je transmets mes modifications validées au dépôt distant
++ `r with_def("pull")` : je récupère la dernière version des codes du dépôt distant
++ `r with_def("commit")` : je valide mes modifications avec un message qui les expliquent
++ `r with_def("push")` : je transmets mes modifications validées au dépôt distant
 
 
 ![](./pics/03_git/push_pull_Drees.png){width=100%} 
 
-De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (*commit*) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
+De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (`r with_def("commit")`) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
 
 * `diff` : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés
 * `staging area` : sélection des modifications. L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: on peut découper les modifications d'un fichier en plusieurs morceaux cohérents
-* `commit` :  validation des modifications sélectionnées (avec commentaire).
+* `r with_def("commit")` :  validation des modifications sélectionnées (avec commentaire).
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
@@ -168,32 +168,32 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 ![](./pics/03_git/statut_fichiers.png){width=100%} 
 
 
-Lors d'un `commit`, le message de validation est très important:
+Lors d'un `r with_def("commit")`, le message de validation est très important:
 
 * décrit les modifications contenues dans le commit
 * importance de l’homogénéité des modifications contenues dans un commit
 * à l’attention des autres développeurs
 
-Chaque `commit` est identifié de façon unique par un **hash** (ex: `441300764de91c376`), un numéro peu intelligible pour un humain mais qui permet au système de contrôle de version de gérer proprement chaque modification.
+Chaque `r with_def("commit")` est identifié de façon unique par un `r with_def("hash")` (ex: `441300764de91c376`), un numéro peu intelligible pour un humain mais qui permet au système de contrôle de version de gérer proprement chaque modification.
 
-Ensuite, les deux fonctions `push` et `pull` permettent la mise à jour du projet local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent apparaître, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
+Ensuite, les deux fonctions `r with_def("push")` et `r with_def("pull")` permettent la mise à jour du projet local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent apparaître, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
 
 Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications (`commit`) :
 
 * par petits lots homogènes et en préférant peu de fichiers
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
-* mettre à jour sa copie locale régulièrement via `pull` ou `fetch`, voire dès qu'on commencer à travailler sur un projet.
+* mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet.
 
 
 :::: {.rmdimportant data-latex=""}
 
-De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`commit`, `push`, `pull` et `merge`). Cependant, il existe des commandes qui peuvent définitivement endommager votre projet, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et comprennent ces commandes "à risque". 
+De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`). Cependant, il existe des commandes qui peuvent définitivement endommager votre projet, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et comprennent ces commandes "à risque". 
 
 ::::
 
 ### Les branches
 
-C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de branches dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans perturber le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
+C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans perturber le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
 <blockquote class="twitter-tweet"><p lang="fr" dir="ltr">Petite révélation du jour : <a href="https://twitter.com/hashtag/git?src=hash&amp;ref_src=twsrc%5Etfw">#git</a>, c&#39;est le meilleur outil pour te rappeler que nous sommes proches des singes : si t&#39;es pas sur une branche, t&#39;es dans la merde</p>&mdash; Nicolas Delsaux (@riduidel) <a href="https://twitter.com/riduidel/status/1229768054109855747?ref_src=twsrc%5Etfw">February 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
@@ -248,7 +248,7 @@ D'autres fonctionnalités plus avancées existent et pourront être mises à pro
 Le `git blame` permet ainsi de filtrer sur les différences précédentes afin de régler des problèmes ou trouver un commit particulier à l'origine d'un bug ou d'une erreur. `git log` peut aussi permettre de filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
 
 
-D'autres commandes, **plus périlleuses** peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La **réécriture de l'historique** est un usage **non recommandé** pour une utilisation non approfondie comme un projet statistique en équipe. Si vous souhaitiez toutefois vous écarter des sentiers battus et tester ces commandes (telles que `git rebase` ou `git push --force`), appliquez le **conseil de survie** suivant avant toute manipulation : effectuez une sauvegarde manuelle de votre repository. Sans cela, vous risqueriez d'endommager votre repository et de perdre définitivement des informations.
+D'autres commandes, **plus périlleuses** peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La **réécriture de l'historique** est un usage **non recommandé** pour une utilisation non approfondie comme un projet statistique en équipe. Si vous souhaitiez toutefois vous écarter des sentiers battus et tester ces commandes (telles que `git rebase`^[Le `r with_def("rebase")` est un type particulier de `merge` qui réécrit l'histoire d'une branche ([plus de détails](https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing)). C'est donc une pratique **dangereuse** car elle risque de rrendre obsolète les branches de vos collaborateurs sur lesquelles ils ont potentiellement déjà travailler.] ou `git push --force`), appliquez le **conseil de survie** suivant avant toute manipulation : effectuez une sauvegarde manuelle de votre repository. Sans cela, vous risqueriez d'endommager votre repository et de perdre définitivement des informations.
 
 Pour aller plus loin, des ressources internes existent (plutôt destinées à des développeurs) :
 
@@ -258,6 +258,7 @@ Pour aller plus loin, des ressources internes existent (plutôt destinées à de
 Les ressources externes très complètes sont disponibles, citons notamment un [livre en français](https://git-scm.com/book/fr/v2) accessible en ligne et la [documentation en ligne](https://git-scm.com/doc) de `GIT`.
 
 
+<!----
 ### Vocabulaire 
 
 En résumé, voilà les principaux concepts présentés et qui seront utiles pour la pratique de la gestion de version :
@@ -272,7 +273,7 @@ En résumé, voilà les principaux concepts présentés et qui seront utiles pou
 * `clone` : récupération du dossier depuis le remote (pour la première fois)
 * `pull` : récupération des nouveaux commits en local depuis le remote
 * `push` : envoi de ses nouveaux commit vers le remote
-
+------>
 
 ## GitLab, aperçu de la plateforme de partage de code
 
@@ -289,7 +290,7 @@ Les principales fonctionalités sont présentes dans les onglets:
 1. `Repository`: coeur du contrôle de version
 2. `Issues`: espace de discussion, de suggestions ou demandes. 
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
-2. `CI/CD`: espace dédié à l'intégration continue (cf. Section avancée ** sur le sujet)
+2. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
 2. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
 2. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/snippets))
 
