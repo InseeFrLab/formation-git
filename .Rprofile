@@ -13,6 +13,24 @@ colorize <- function(x, color) {
 
 
 
+
+with_def <- (function() {
+  
+  glossary <- yaml::read_yaml("glossary.yml")
+  glossary <- as.data.frame(do.call(rbind, glossary), stringsAsFactors = FALSE)
+  
+  function(term, def) {
+    if (missing(def)) {
+      def <- unlist(glossary[glossary$name == term, "desc"])
+    }
+    sprintf('<abbr title="%s"><b>%s</b></abbr>', def, term)
+  }
+  
+})()
+
+
+
+
 options(htmltools.dir.version = FALSE)
 
 collaboratif_format = function(...) {
