@@ -36,6 +36,27 @@ pre code {
   background-image: url("../pics/images/warning.png");
 }
 
+titreexo {
+  background: #B8C1C8;
+  border-bottom: 1px solid #989EA4;
+  border-top: 1px solid #717D85;
+  color: #FFF;
+  margin: 0;
+  padding: 2px 0 0 12px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+}
+
+
+.exercice {
+  padding: 1em;
+  border: 2px solid #4169e1;
+  border-radius: 10px;
+  scrollbar-base-color:gold;
+  height:300px;
+  overflow:auto;
+}
 
 
 .exercice {
@@ -47,16 +68,4 @@ pre code {
 
 .center {
   text-align: center;
-}
-
-
-.btn {
-    border-width: 0 0px 0px 0px;
-    font-weight: normal;
-    text-transform: ;
-}
-.btn-default {
-    color: #2ecc71;
-    background-color: #ffffff;
-    border-color: #ffffff;
 }

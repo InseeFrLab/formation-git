@@ -526,9 +526,17 @@ Une fois les vérifications faites, la fusion conserve l'historique des modifica
 
 ![](./pics/03_git/flow5_merge.png)
 
+### Exercices
+
+#### Exercice 1: Premiers pas avec `git` en local
+
 Dans le cadre de cette formation, un projet commun a été créé pour vous. Vous allez travailler en binôme avec votre voisin. La première étape est de le clôner le dépôt qui vous est associé (la page du projet vous sera fournie le jour j).
 
-Exercice 1 : `Git` en local
+
+:::: {.exercice data-latex=""}
+
+<titreexo>Exercice 1 : Git en local</titreexo>
+
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
 ![](./pics/03_git/onglet_git.png)
@@ -558,7 +566,11 @@ Récupérer les modifications du dépôt commun (= le fichier de votre voisin à
 
 Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre voisin. Compléter le texte par une autre phrase.
 
-### Exercice 2 : Ouvrir et organiser les *issues*
+:::: 
+
+
+
+#### Exercice 2 : Ouvrir et organiser les *issues* {-}
 
 Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
 
@@ -567,6 +579,10 @@ Ces *issues* seront fermées au fur et à mesure que les fonctionnalités seront
 Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
 
 ![](./pics/03_git/new_issue.png)
+
+:::: {.exercice data-latex=""}
+
+<titreexo>Exercice 2 : Premiers pas sur Gitlab </titreexo>
 
 **Question a.** *Ouverture et attribution*
 
@@ -580,8 +596,10 @@ Corriger votre fichier `votre-idep.md` par un `commit` puis un `push`.
 
 Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*issue* sur `GitLab`.
 
+::::
 
-### Exercice 3 : Branches et `master`
+
+#### Exercice 3 : Branches et `master` {-}
 
 La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
 
@@ -605,6 +623,10 @@ Comment nommer les branches ? Là encore, il y a énormément de conventions dif
 N'hésitez pas à aller encore plus loin dans la normalisation  !
 
 But de l'exercice : on va faire un cadavre exquis.
+
+:::: {.exercice data-latex=""}
+
+<titreexo>Exercice 3 : Cadavre exquis</titreexo>
 
 **Question a.** *Création d'une branche locale*
 
@@ -630,8 +652,9 @@ Placez-vous sur la branche créée par votre voisin. Ouvrez le fichier **A COMPL
 
 Placez-vous sur la branche que vous avez créée à la question a. Récupérer les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que les deux phrases que vous avez écrites ont maintenant une ponctuation correcte.
 
+::::
 
-### Exercice 4 : Fusionner les travaux avec des `Merge Requests`
+#### Exercice 4 : Fusionner les travaux avec des `Merge Requests` {-}
 
 Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
 
@@ -646,6 +669,10 @@ Une fois une MR ouverte, il est précieux de solliciter une relecture. En effet,
 
 Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
 
+:::: {.exercice data-latex=""}
+
+<titreexo>Exercice 4 : Merge Request </titreexo>
+
 **Question a.** *Ouvrir une MR*
 
 Créez une `merge request` dans GitLab. Dans cette `merge request`, vous devez proposer d'ajouter à la branche `master` du dépôt commun les modifications qui ont été développées dans la branche que vous avez créée au cours de l'exercice 2. Autrement dit, vous proposez d'ajouter au fichier **A COMPLETER** les deux phrases que vous avez écrites dans votre branche, et que votre voisin a corrigées.
@@ -658,6 +685,7 @@ Dans GitLab, allez dans la `merge request` créée par votre voisin, et contribu
 
 Dans GitLab, fusionnez la branche de votre voisin avec la branche `master`. Retournez dans Rstudio. Placez-vous sur la branche `master` de votre dépôt local, puis récupérez depuis le dépôt commun les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que le fichier contient désormais les phrases que vous et votre voisin avez écrites.
 
+::::
 
 Usuellement, c'est la seule responsabilité spécifique des mainteneurs : seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la bonne qualité des `merge requests`.
 
@@ -666,7 +694,7 @@ Notes :
 -  squash and merge ou pas ?  
 Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
 
-### Exercice 5 : Résoudre les conflits, c'est facile.
+#### Exercice 5 : Résoudre les conflits, c'est facile. {-}
 
 Si vous adoptez les règles précédentes, master sera surtout modifié via des merge requests. Vous ne devriez donc jamais avoir de conflits sur master.
 
