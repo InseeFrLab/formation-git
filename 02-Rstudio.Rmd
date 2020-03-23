@@ -1,4 +1,4 @@
-# Projets collaboratifs avec Rstudio
+# Projets collaboratifs avec Rstudio {#rstudio}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

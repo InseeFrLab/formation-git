@@ -95,7 +95,7 @@ Un package vous permettra de réutiliser aisément des "bouts de code" entre dif
 _**Question** : si je n'ai qu'une seule fonction que je souhaite réutiliser entre plusieurs analyses ou partager avec un collègue, est-il nécessaire de créer un package ?_  
 Oui, c'est même fortement recommandé. Il est très facile de créer un package qui ne comprend qu'une seule fonction. Cela ne prend pas beaucoup de temps et structurera votre travail. 
 
-**Créer un package doit donc devenir une habitude de travail et une bonne pratique**.
+**Créer un package doit donc devenir une habitude de travail et une bonne pratique**. En cas de doute ou d'oubli, vous pouvez toujours retourner consulter le petit livre rouge des packages R [@wickham2015r]
 
 ### Le concept de package {-}
 

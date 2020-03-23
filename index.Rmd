@@ -13,8 +13,7 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction
 
-
-Supports associés à la formation nationale `Travail collaboratif avec R`. Le code source est disponible [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif) ou [ici](https://gitlab.com/linogaliana/collaboratif). 
+Supports associés à la formation nationale `Travail collaboratif avec R`. `r colorize("Version provisoire et non définitive des supports", "red")`. Le code source est disponible  [ici](https://gitlab.com/linogaliana/collaboratif) ou [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
 
 Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
 
@@ -31,4 +30,14 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
+## Contributeurs {-}
 
+* Chapitre \@ref(rstudio): [Lino Galiana](https://linogaliana.netlify.com/)
+* Chapitre \@ref(git): [Mathias André](https://gitlab.com/mathias.andre), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin), 
+* Chapitre \@ref(rmd): [Annie Moineau](https://gitlab.com/annieMoineau), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin)
+* Chapitre \@ref(fonctions):  [Lino Galiana](https://linogaliana.netlify.com/)
+* Chapitre \@ref(package):  [Romain Lesur](https://github.com/RLesur)
+
+Relecteurs: [Olivier Meslin](https://gitlab.com/oliviermeslin), George Pavlov, [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
+
+Mise en forme: [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur), [Olivier Meslin](https://gitlab.com/oliviermeslin)

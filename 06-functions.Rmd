@@ -1,4 +1,4 @@
-# Programmation fonctionnelle avec `R` et `Rstudio`
+# Programmation fonctionnelle avec `R` et `Rstudio` {#fonctions}
 
 
 ```{r setup, include=FALSE}
@@ -18,7 +18,8 @@ La seconde partie du cours adopte la structure suivante, tournée autour de la n
 1. Introduction à l'utilisation des fonctions en `R`;
 2. Présentation et constitution d'un premier *package*.
 
-[Le guide des bonnes pratiques](https://linogaliana.gitlab.io/bonnespratiques/) propose des règles complémentaires pour renforcer la reproductibilité des programmes. 
+[Le guide des bonnes pratiques](https://linogaliana.gitlab.io/bonnespratiques/) propose des règles complémentaires pour renforcer la reproductibilité des programmes. Une partie des exemples et illustration de se cours proviennent des ouvrages de @wickham2019advanced et @wickham2015r 
+
 
 ## Introduction
 
