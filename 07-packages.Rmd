@@ -1,4 +1,4 @@
-# Créer un package `R` par la pratique {#package}
+# Créer un *package* `R` par la pratique {#package}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -17,17 +17,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### Connaissances {-}
 
-- savoir installer et utiliser des packages
-- savoir créer un nouveau projet sur une forge git
-- savoir réaliser des commits et les pousser vers la forge
+- savoir installer et utiliser des *packages*;
+- savoir créer un nouveau projet sur une forge git;
+- savoir réaliser des commits et les pousser vers la forge.
 
 #### Compétences {-}
 
-- rigueur
+- rigueur.
 
 #### Configuration {-}
 
-Vous aurez besoin des packages suivants : 
+Vous aurez besoin des *packages* suivants : 
 **available**, 
 **desc**, 
 **usethis** (version `1.5.1` au minimum), 
@@ -62,76 +62,70 @@ lapply(req_pkgs, function(pkg) {
 
 ### Brisons quelques mythes ! {-}
 
-Créer un package peut sembler intimidant de prime abord. En effet, on peut utiliser R pendant des années, utiliser des dizaines de packages sans avoir appris à en créer un. Dès lors, un grand nombre de mythes sont présents autour de la création de packages.
+Créer un *package* peut sembler intimidant de prime abord. En effet, on peut utiliser `R` pendant des années, utiliser des dizaines de *packages* sans avoir appris à en créer un. Dès lors, un grand nombre de mythes sont présents autour de la création de *packages*.
 
 Voici quelques uns de ces mythes :
 
-- créer un package est difficile
-- la création de packages est réservée aux informaticiens
-- il faut être un expert de R pour créer un package
-- créer un package fera de moi une star
+- créer un *package* est difficile;
+- la création de *packages* est réservée aux informaticiens;
+- il faut être un expert de `R` pour créer un *package*;
+- créer un *package* fera de moi une star;
 - ...
 
 Certaines personnes se plaisent à véhiculer ces mythes. Bien évidemment, toutes ces idées sont fausses :
 
-- créer un package n'est pas difficile : il y a quelques années, c'était relativement pénible. Cependant, un grand nombre d'outils que nous allons voir et utiliser ont rendu facile la création de package.
-- créer un package est pour tous. Cependant, la création d'un package va peut-être vous amener à vous poser des questions que vous ne vous étiez jamais posées auparavant ou au contraire vous apporter des réponses à des questions que vous vous posiez. Étant donné que ces questions portent sur la façon dont on écrit et structure ses programmes tout en y apportant de la rigueur, vous aurez peut-être l'impression d'être en train de faire du développement informatique. Mais c'est faux : la rigueur n'est pas réservée aux informaticiens. Les statisticiens sont aussi rigoureux.
-- créer un package ne nécessite pas d'expertise en R. Il s'agit simplement d'une façon (très) rigoureuse d'organiser son travail.
-- créer un package ne fera pas malheureusement pas de vous une star car comme vous allez le voir c'est quelque chose à la portée de tout le monde.
+- **créer un *package* n'est pas difficile** : il y a quelques années, c'était relativement pénible. Cependant, un grand nombre d'outils que nous allons voir et utiliser ont rendu facile la création de *package*.
+- **créer un *package* est pour tous**. Cependant, la création d'un *package* va peut-être vous amener à vous poser des questions que vous ne vous étiez jamais posées auparavant, ou au contraire vous apporter des réponses à des questions que vous vous posiez. Étant donné que ces questions portent sur la façon dont on écrit et structure ses programmes tout en y apportant de la rigueur, vous aurez peut-être l'impression d'être en train de faire du développement informatique. Mais c'est faux : la rigueur n'est pas réservée aux informaticiens. Les statisticiens sont aussi rigoureux.
+- **créer un *package* ne nécessite pas d'expertise en `R`**. Il s'agit simplement d'une façon (très) rigoureuse d'organiser son travail.
+- **créer un *package* ne fera pas malheureusement pas de vous une star** car comme vous allez le voir c'est quelque chose à la portée de tout le monde.
 
-Certes, la création de packages nécessite d'acquérir de nouvelles connaissances et notions mais elles ne sont pas particulièrement complexes. De plus, ces notions sont largement transposables d'un langage de programmation à un autre car la plupart des langages utilisent la notion de packages (parfois appelés librairies ou modules dans d'autres langages). 
+Certes, la création de *packages* nécessite d'acquérir de nouvelles connaissances et de nouvelles notions, mais elles ne sont pas particulièrement complexes. De plus, ces notions sont largement transposables d'un langage de programmation à un autre, car la plupart des langages utilisent la notion de *packages* (parfois appelés librairies ou modules dans d'autres langages). 
 
-Un avantage de la création de packages est que cela va permettre de structurer vos programmes et d'y ajouter beaucoup de rigueur. La principale compétence à laquelle on fera donc appel lors de la réalisation d'un package est **la rigueur**.
+Un avantage de la création de *packages* est que cela va permettre de structurer vos programmes et d'y ajouter beaucoup de rigueur. La principale compétence à laquelle on fera donc appel lors de la réalisation d'un *package* est **la rigueur**.
 
-## Quand créer un package ? {-}
+## Quand créer un *package* ? {-}
 
-Voici une règle d'or qui devrait vous guider pour savoir quand vous **devez** créer un package:
+Voici une règle d'or qui devrait vous guider pour savoir quand vous **devez** créer un *package*:
 
-- lorsque vous réalisez une analyse, si vous utilisez plus de deux fois une même portion de code (que vous avez "copié-collé"), vous devez créer une fonction
-- si vous réutilisez une fonction entre deux analyses (en "copiant-collant" le code source de cette fonction), vous devez faire un package
+- lorsque vous réalisez une analyse, si vous utilisez plus de deux fois une même portion de code (que vous avez "copié-collé"), vous devez créer une fonction;
+- si vous réutilisez une fonction entre deux analyses (en "copiant-collant" le code source de cette fonction), vous devez faire un *package*.
 
-Un package vous permettra de réutiliser aisément des "bouts de code" entre différentes analyses et vous obligera à adopter toute la rigueur nécessaire à ce type d'exercice. Réaliser un package est un moyen simple de partager votre code : combien de fois avez-vous échangé des bouts de code par mail avec un collègue ? C'est précisément pour répondre à cette problématique lié au travail collaboratif que les packages ont été créés.
+Un *package* vous permettra de réutiliser aisément des "bouts de code" entre différentes analyses et vous obligera à adopter toute la rigueur nécessaire à ce type d'exercice. Réaliser un *package* est un moyen simple de partager votre code : combien de fois avez-vous échangé des bouts de code par mail avec un collègue ? C'est précisément pour répondre à cette problématique lié au travail collaboratif que les *packages* ont été créés.
 
-_**Question** : si je n'ai qu'une seule fonction que je souhaite réutiliser entre plusieurs analyses ou partager avec un collègue, est-il nécessaire de créer un package ?_  
-Oui, c'est même fortement recommandé. Il est très facile de créer un package qui ne comprend qu'une seule fonction. Cela ne prend pas beaucoup de temps et structurera votre travail. 
+_**Question** : si je n'ai qu'une seule fonction que je souhaite réutiliser entre plusieurs analyses ou partager avec un collègue, est-il nécessaire de créer un *package* ?_  
+Oui, c'est même fortement recommandé. Il est très facile de créer un *package* qui ne comprend qu'une seule fonction. Cela ne prend pas beaucoup de temps et structurera votre travail. 
 
-**Créer un package doit donc devenir une habitude de travail et une bonne pratique**. En cas de doute ou d'oubli, vous pouvez toujours retourner consulter le petit livre rouge des packages R [@wickham2015r]
+**Créer un *package* doit donc devenir une habitude de travail et une bonne pratique**. En cas de doute ou d'oubli, vous pouvez toujours retourner consulter le petit livre rouge des *packages* `R` [@wickham2015r].
 
-### Le concept de package {-}
+### Le concept de *package* {-}
 
-Dans cette partie, nous introduisons la notion de package.
+Dans cette partie, nous introduisons la notion de *package*.
 
 #### Exportation et importation {-}
 
-Un package offre des fonctions prêtes à l'emploi. Ces fonctions sont disponibles après un appel à `library()` ou bien en utilisant `::`. Ces fonctions "prêtes à l'emploi" sont des fonctions dites **exportées** par le package.
+Un *package* offre des fonctions prêtes à l'emploi. Ces fonctions sont disponibles après un appel à `library()` ou bien en utilisant `::`. Ces fonctions "prêtes à l'emploi" sont des fonctions dites **exportées** par le *package*. Cette notion est à distinguer des fonctions **internes** à un *package* auxquelles l'utilisateur ne peut accéder.^[il existe une technique pour accéder aux fonctions internes d'un *package* mais il n'est jamais recommandé de l'utiliser. Nous ne la présenterons donc pas.] C'est le créateur du *package* qui décide des fonctions qu'il souhaite exporter ou bien conserver pour une utilisation interne sachant que l'utilisateur extérieur ne pourra accéder qu'aux fonctions exportées
 
-Cette notion est à distinguer des fonctions **internes** à un package auxquelles l'utilisateur ne peut accéder.^[il existe une technique pour accéder aux fonctions internes d'un package mais il n'est jamais recommandé de l'utiliser. Nous ne la présenterons donc pas.]
+On peut se représenter un *package* comme un ensemble clos qui par défaut n'a aucun échange avec l'extérieur. Pour qu'une fonction du *package* soit disponible pour un utilisateur, il faut que le créateur du *package* décide de l'exporter. De façon symétrique, lorsque vous créez un *package*, si vous souhaitez utiliser une fonction d'un autre *package*, vous allez devoir le préciser. Il s'agit d'un mécanisme nommé **importation**.
 
-C'est le créateur du package qui décide des fonctions qu'il souhaite exporter ou bien conserver pour une utilisation interne sachant que l'utilisateur extérieur ne pourra accéder qu'aux fonctions exportées
-
-On peut se représenter un package comme un ensemble clos qui par défaut n'a aucun échange avec l'extérieur. Pour qu'une fonction du package soit disponible pour un utilisateur, il faut que le créateur du package décide de l'exporter. De façon symétrique, lorsque vous créez un package, si vous souhaitez utiliser une fonction d'un autre package, vous allez devoir le préciser. Il s'agit d'un mécanisme nommé **importation**.
-
-Cette notion (exportation et importation) est le principal concept nouveau. Il peut paraître relativement abstrait au début. Retenez que par défaut, un package est isolé du monde extérieur : il n'exporte aucune fonction et n'en importe aucune. Ce sera à vous de décider et de préciser quelles fonctions seront exportées par votre package et quelles fonctions devront être importées pour que votre code puisse fonctionner.
+Cette notion (exportation et importation) est le principal concept nouveau. Il peut paraître relativement abstrait au début. Retenez que par défaut, un *package* est isolé du monde extérieur : il n'exporte aucune fonction et n'en importe aucune. Ce sera à vous de décider et de préciser quelles fonctions seront exportées par votre *package* et quelles fonctions devront être importées pour que votre code puisse fonctionner.
 
 #### Contrôle de conformité {#check .unnumbered}
 
-Un package doit répondre à un ensemble de **normes**. L'objectif de la formation n'est pas d'apprendre l'ensemble de ces normes qui sont décrites dans le manuel officiel de R [_Writing R Extensions_ ](https://cran.r-project.org/doc/manuals/r-release/R-exts.html).^[vous pouvez y accéder directement depuis R en exécutant `RShowDoc("R-exts")`.] 
+Un *package* doit répondre à un ensemble de **normes**. L'objectif de la formation n'est pas d'apprendre l'ensemble de ces normes qui sont décrites dans le manuel officiel de `R` [_Writing `R` Extensions_ ](https://cran.r-project.org/doc/manuals/r-release/R-exts.html).^[vous pouvez y accéder directement depuis `R` en exécutant `RShowDoc("R-exts")`.] 
 
-En effet, nous utiliserons un ensemble d'outils (principalement les packages **devtools** et **usethis**) qui nous permettront de gérer correctement la création d'un package. Cependant, nous contrôlerons en permanence que notre package est conforme aux normes attendues par R en effectuant **des contrôles de conformité**.
+En effet, nous utiliserons un ensemble d'outils (principalement les *packages* **devtools** et **usethis**) qui nous permettront de gérer correctement la création d'un *package*. Cependant, nous contrôlerons en permanence que notre *package* est conforme aux normes attendues par `R` en effectuant **des contrôles de conformité**.
 
-Dans le jargon R, un contrôle de conformité s'appelle un **check**. Cette étape est **fondamentale**. **Vous ne devrez jamais la négliger.**
+Dans le jargon `R`, un contrôle de conformité s'appelle un **check**. Cette étape est **fondamentale**. **Vous ne devrez jamais la négliger.**
 
-Il s'agit de passer une batterie de contrôles pour voir si les modifications que vous opérez à votre package sont conformes :
+Il s'agit de passer une batterie de contrôles pour voir si les modifications que vous opérez à votre *package* sont conformes :
 
-- aux normes exigées par R
-- aux tests que vous aurez vous mêmes définis
+- aux normes exigées par `R`;
+- aux tests que vous aurez vous-mêmes définis.
 
-Il s'agit de l'action que vous réaliserez le plus fréquemment. Si vous négligiez de le faire, vous pourriez à terme vous retrouver dans des situations très délicates.
+Il s'agit de l'action que vous réaliserez le plus fréquemment. Si vous négligiez de le faire, vous pourriez à terme vous retrouver dans des situations très délicates. Il y a trois façons de réaliser ce contrôle de conformité :
 
-Il y a 3 façons de réaliser ce contrôle de conformité :
-
-- dans l'onglet _Build_, cliquer sur le bouton _Check_
-- utiliser le raccourci clavier `Ctrl+Shift+E`
+- dans l'onglet _Build_, cliquer sur le bouton _Check_;
+- utiliser le raccourci clavier `Ctrl+Shift+E`;
 - dans la console de R, exécuter :
   ```r
   devtools::check()
@@ -140,22 +134,22 @@ Il y a 3 façons de réaliser ce contrôle de conformité :
 **Il s'agit de l'étape la plus importante**.\
 Notez-là dès maintenant, car vous allez l'utiliser très souvent.
 
-### Feuille de route pour créer un package {-}
+### Feuille de route pour créer un *package* {-}
 
-Comme la création de package est une pratique très courante, il existe des packages pour nous assister dans la création de packages... Nous pourrions évidemment tout créer à la main mais cela ne présente pas d'intérêt particulier à part celui de nous faire perdre du temps avec des tâches à faible valeur ajoutée.
+Comme la création de *package* est une pratique très courante, il existe des *packages* pour nous assister dans la création de *packages*... Nous pourrions évidemment tout créer à la main, mais cela ne présente pas d'intérêt particulier à part celui de nous faire perdre du temps avec des tâches à faible valeur ajoutée.
 
-Voici la feuille de route pour créer un package :
+Voici la feuille de route pour créer un *package* :
 
 ```{r, eval=FALSE, code=readLines("./pgm/cheatsheet.R", encoding="UTF-8")}
 ```
 
-#### Démonstration par les formateurs : créer un package en moins de 10 minutes {-}
+#### Démonstration par les formateurs : créer un *package* en moins de 10 minutes {-}
 
-Afin de démystifier la création de package, nous demandons aux formateurs de réaliser une première démonstration devant les stagiaires. Cette démonstration doit prendre le moins de temps possible, entre 5 et 10 minutes.
+Afin de démystifier la création de *package*, nous demandons aux formateurs de réaliser une première démonstration devant les stagiaires. Cette démonstration doit prendre le moins de temps possible, entre 5 et 10 minutes.
 
-Vous utiliserez le déroulé précédent (voir ci-dessus). Effectuez les étapes 1 à 4.a suivies de l'étape 6.a (vous adapterez l'url du serveur GitLab et éventuellement le nom du package). Vous créerez une fonction simple de votre choix et écrirez également un test. Vous pouvez utiliser l'interface RStudio pour réaliser certaines étapes plus aisément si vous le souhaitez. Mais l'objectif est de réaliser rapidement un package avec une fonction documentée.
+Vous utiliserez le déroulé précédent (voir ci-dessus). Effectuez les étapes 1 à 4.a suivies de l'étape 6.a (vous adapterez l'url du serveur GitLab et éventuellement le nom du *package*). Vous créerez une fonction simple de votre choix et écrirez également un test. Vous pouvez utiliser l'interface RStudio pour réaliser certaines étapes plus aisément si vous le souhaitez. Mais l'objectif est de réaliser rapidement un *package* avec une fonction documentée.
 
-Une fois le package installé, vous exécuterez la fonction créée et montrerez la page d'aide de la fonction.
+Une fois le *package* installé, vous exécuterez la fonction créée et montrerez la page d'aide de la fonction.
 
 Vous pousserez également votre travail sur GitLab et montrerez le rapport de couverture de code accessible sur GitLab Pages.
 
@@ -169,20 +163,17 @@ L'objectif de la formation n'est pas de dispenser toutes les informations compri
 
 TODO : à définir
 
-Une idée (à discuter dans le groupe de conception) serait d'intégrer le travail fait en RMarkdown dans un template puis de basculer certaines fonctions dans le code source du package. 
+Une idée (à discuter dans le groupe de conception) serait d'intégrer le travail fait en RMarkdown dans un template puis de basculer certaines fonctions dans le code source du *package*. 
 
-## Initier un package
+## Initier un *package*
 
 ### Choisir un nom
 
-C'est sans doute l'étape la plus délicate. **Il faut trouver un nouveau nom de package qui est disponible**.\
-En effet, si vous aviez l'idée de créer un nouveau package avec le nom `dplyr` et que vous l'installiez, vous écraseriez le package `dplyr` que vous utilisez régulièrement.
+C'est sans doute l'étape la plus délicate. **Il faut trouver un nouveau nom de *package* qui est disponible**. En effet, si vous aviez l'idée de créer un nouveau *package* avec le nom `dplyr` et que vous l'installiez, vous écraseriez le *package* `dplyr` que vous utilisez régulièrement.
 
-Sachant qu'il existe plusieurs milliers de packages sur le CRAN, Bioconductor^[Bioconductor est un registre de packages essentiellement dédiés à la bioinformatique. Il est très populaire dans ce domaine. Le CRAN et Bioconductor sont deux registres "officiels" qui présentent bien plus de garanties que GitHub.] et GitHub, cette vérification pourrait être fastidieuse. Cependant, Jim Hester a créé le package **available** pour vous assister dans cette vérification. 
+Sachant qu'il existe plusieurs milliers de *packages* sur le CRAN, Bioconductor^[Bioconductor est un registre de *packages* essentiellement dédiés à la bioinformatique. Il est très populaire dans ce domaine. Le CRAN et Bioconductor sont deux registres "officiels" qui présentent bien plus de garanties que GitHub.] et GitHub, cette vérification pourrait être fastidieuse. Cependant, Jim Hester a créé le *package* **available** pour vous assister dans cette vérification. 
 
-Les principales fonctions du package **available** sont `available_on_cran()`, `available_on_bioc()` et `available_on_github()`.
-
-Par exemple, pour vérifier si le nom de package `dplyr` est disponible, exécutez :
+Les principales fonctions du *package* **available** sont `available_on_cran()`, `available_on_bioc()` et `available_on_github()`. Par exemple, pour vérifier si le nom de *package* `dplyr` est disponible, exécutez :
 
 ```{r}
 available::available_on_cran('dplyr')
@@ -190,11 +181,11 @@ available::available_on_bioc('dplyr')
 available::available_on_github('dplyr')
 ```
 
-Vous ne devez **jamais choisir** comme nom de package un nom qui est déjà utilisé sur le **CRAN**.
+Vous ne devez **jamais choisir** comme nom de *package* un nom qui est déjà utilisé sur le **CRAN**.
 
-Si votre package a vocation à être rendu public, vous ne devez **jamais choisir** un nom de package qui ne serait pas disponible sur **Bioconductor**. Dans le cas d'un package interne à l'Insee, cela n'est pas recommandé non plus (les packages de Bioconductor étant principalement dédié à la bioinformatique, il est cependant peu probable que cela pose un problème au sein de l'Insee).   
+Si votre *package* a vocation à être rendu public, vous ne devez **jamais choisir** un nom de *package* qui ne serait pas disponible sur **Bioconductor**. Dans le cas d'un *package* interne à l'Insee, cela n'est pas recommandé non plus (les *packages* de Bioconductor étant principalement dédié à la bioinformatique, il est cependant peu probable que cela pose un problème au sein de l'Insee).   
 
-Si vous constatez que le nom n'est pas disponible sur GitHub, il est préférable également de trouver un autre nom pour éviter toute difficulté aux utilisateurs qui souhaiteraient tester votre package ainsi que l'autre en cours de développement.
+Si vous constatez que le nom n'est pas disponible sur GitHub, il est préférable également de trouver un autre nom pour éviter toute difficulté aux utilisateurs qui souhaiteraient tester votre *package* ainsi que l'autre en cours de développement.
 
 Vous pouvez obtenir les adresses des projets ayant un nom identique ou proche sur GitHub de la façon suivante :
 ```{r}
@@ -202,7 +193,7 @@ res <- available::available_on_github('dplyr')
 res$close[[1]]$url
 ```
 
-Imaginons que nous envisagions d'appeler notre package `monpetitpaquet`. Vérifiez que le nom est bien disponible.
+Imaginons que nous envisagions d'appeler notre *package* `monpetitpaquet`. Vérifiez que le nom est bien disponible.
 
 ```{r, fold="o s"}
 available::available_on_cran('monpetitpaquet')
@@ -213,7 +204,7 @@ available::available_on_github('monpetitpaquet')
 #### Pour aller plus loin {-}
 
 TODO Préciser les règles de nommage (caractères autorisés) et les recommandations (minuscules, pas de point).  
-Extrait de la documentation de R :  
+Extrait de la documentation de `R` :  
 
 > This should contain only (ASCII) letters, numbers and dot, have at least two characters and start with a letter and not end in a dot.
 
@@ -221,7 +212,7 @@ Extrait de la documentation de R :
 
 Nous allons créer le projet à la racine de votre répertoire personnel (`~`).  
 Evidemment, vous pouvez le créer à un autre emplacement mais celui-ci est généralement sans risque.  
-Si nous voulons créer un package s'appelant `monpetitpaquet`, nous allons exécuter :
+Si nous voulons créer un *package* s'appelant `monpetitpaquet`, nous allons exécuter :
 
 ```{r, eval=FALSE}
 usethis::create_package(file.path("~" , "monpetitpaquet"))
@@ -253,13 +244,13 @@ LazyData: true
 
 Vous devriez voir RStudio ouvrir le projet `monpetitpaquet`.
 
-**Ca y est, vous avez créé la structure de votre package**.
+**Ca y est, vous avez créé la structure de votre *package***.
 
 Comme vous le voyez, ce n'était pas très compliqué...
 
 #### Contrôle de conformité {-}
 
-Le contrôle de conformité doit devenir une habitude. Vous devez effectuer ce contrôle après chaque modification substantielle. Nous allons donc effectuer un premier contrôle de conformité de notre package. Si besoin, [relisez ce qu'est un contrôle de conformité](#check).
+Le contrôle de conformité doit devenir une habitude. Vous devez effectuer ce contrôle après chaque modification substantielle. Nous allons donc effectuer un premier contrôle de conformité de notre *package*. Si besoin, [relisez ce qu'est un contrôle de conformité](#check).
 
 ```r
 devtools::check()
@@ -373,13 +364,13 @@ Non-standard license specification:
   What license it uses
 ```
 
-L'avertissement que nous obtenons concerne la licence de notre package, méta-donnée déclarée dans un fichier qui se nomme `DESCRIPTION` et qui se trouve à la racine de notre projet.
+L'avertissement que nous obtenons concerne la licence de notre *package*, méta-donnée déclarée dans un fichier qui se nomme `DESCRIPTION` et qui se trouve à la racine de notre projet.
 
 Nous allons aborder dans la partie suivante le contenu de ce fichier.
 
-### Renseigner les méta-données du package : le fichier `DESCRIPTION`
+### Renseigner les méta-données du *package* : le fichier `DESCRIPTION`
 
-Un package comprend un certain nombre de méta-données. Celles-ci sont fondamentales. Elles sont toutes précisées dans un fichier nommé `DESCRIPTION` situé à la racine du projet.
+Un *package* comprend un certain nombre de méta-données. Celles-ci sont fondamentales. Elles sont toutes précisées dans un fichier nommé `DESCRIPTION` situé à la racine du projet.
 
 **Ouvrez le fichier `DESCRIPTION`**.
 
@@ -387,7 +378,7 @@ Il devrait avoir ce contenu :
 
 ```
 Package: monpetitpaquet
-Title: What the Package Does (One Line, Title Case)
+Title: What the *package* Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "First",
@@ -405,13 +396,13 @@ Nous allons passer en revue les différentes méta-données et les modifier si b
 
 #### Champ `Package` {-}
 
-C'est le nom de votre package. Normalement, **vous n'avez pas besoin de le modifier**.
+C'est le nom de votre *package*. Normalement, **vous n'avez pas besoin de le modifier**.
 
 #### Champ `Title` {-}
 
-**Vous devez modifier ce champ** pour donner un titre à votre package. Pour être publié sur le CRAN, il est exigé un titre formaté avec des majuscules (sauf conjonctions). 
+**Vous devez modifier ce champ** pour donner un titre à votre *package*. Pour être publié sur le CRAN, il est exigé un titre formaté avec des majuscules (sauf conjonctions). 
 
-Vous pouvez modifier le fichier `DESCRIPTION` à la main ou bien utiliser le package **desc** comme suit :
+Vous pouvez modifier le fichier `DESCRIPTION` à la main ou bien utiliser le *package* **desc** comme suit :
 
 ```{r, eval=FALSE}
 desc::desc_set(Title = "Mon Premier Paquet")
@@ -419,11 +410,11 @@ desc::desc_set(Title = "Mon Premier Paquet")
 
 #### Champ `Version` {-}
 
-Le numéro de version de votre package. Vous le changerez régulièrement. **Ne le modifiez pas maintenant**. Nous verrons cela dans la partie consacrée à la gestion des versions.
+Le numéro de version de votre *package*. Vous le changerez régulièrement. **Ne le modifiez pas maintenant**. Nous verrons cela dans la partie consacrée à la gestion des versions.
 
 #### Champ `Authors@R` {-}
 
-**Vous devez modifier ce champ** pour indiquer les personnes qui ont créé le package, la personne en charge de sa maintenance et les personnes ou organismes qui possèdent des droits de propriété intellectuelle sur le code source.  
+**Vous devez modifier ce champ** pour indiquer les personnes qui ont créé le *package*, la personne en charge de sa maintenance et les personnes ou organismes qui possèdent des droits de propriété intellectuelle sur le code source.  
 
 Voici un exemple :
 
@@ -439,11 +430,11 @@ Authors@R: c(
 
 Quelques détails sur le champ `role` : 
   
-* **`"cre"`** fait référence à la personne en charge de la maintenance du package. Il s'agit de la personne à qui l'on doit s'adresser si on détecte un bug, par exemple ; son adresse mail est obligatoire. Ce n'est pas nécessairement la personne qui a créé le package mais c'est la personne qui est responsable de le maintenir (suite à une mobilité par exemple). 
+* **`"cre"`** fait référence à la personne en charge de la maintenance du *package*. Il s'agit de la personne à qui l'on doit s'adresser si on détecte un bug, par exemple ; son adresse mail est obligatoire. Ce n'est pas nécessairement la personne qui a créé le *package* mais c'est la personne qui est responsable de le maintenir (suite à une mobilité par exemple). 
 
-* **`"aut"`** signifie auteur : il s'agit des personnes qui ont eu une contribution importante dans le code source du package. 
+* **`"aut"`** signifie auteur : il s'agit des personnes qui ont eu une contribution importante dans le code source du *package*. 
 
-* **`"ctb"`** signifie contributeur : il s'agit des personnes qui ont eu une contribution, même minime, dans le code source du package (ou sa documentation). 
+* **`"ctb"`** signifie contributeur : il s'agit des personnes qui ont eu une contribution, même minime, dans le code source du *package* (ou sa documentation). 
 
 * **`"cph"`** signifie _copyright holder_ soit détenteur des droits de propriété intellectuelle. En tant qu'agent de l'Insee, le travail que vous produisez ne vous appartient pas : il appartient à l'Insee.
 
@@ -462,9 +453,9 @@ Authors@R: c(
   )
 ```
 
-**Remplissez le champ `Authors@R`** : si vous travaillez en groupe, prenez bien soin de renseigner l'ensemble des noms et de préciser qui sera en charge de la maintenance de votre package.
+**Remplissez le champ `Authors@R`** : si vous travaillez en groupe, prenez bien soin de renseigner l'ensemble des noms et de préciser qui sera en charge de la maintenance de votre *package*.
 
-Vous pouvez modifier directement le fichier `DESCRIPTION` à la main ou bien vous aider du package **desc** comme suit :
+Vous pouvez modifier directement le fichier `DESCRIPTION` à la main ou bien vous aider du *package* **desc** comme suit :
 
 ```{r, eval=FALSE}
 desc::desc_set_authors(c(
@@ -483,12 +474,13 @@ desc::desc_set_authors(c(
 
 #### Champ `Description` {-}
 
-**Vous devez modifier ce champ**. Il s'agit d'une description résumée de ce que fait le package (un seul paragraphe, plusieurs phrases autorisées).\
-Si vous modifiez le fichier `DESCRIPTION` à la main, prenez bien soin d'indenter chaque ligne avec 2 espaces au minimum. Sinon, vous pouvez vous aider du package **desc** comme suit :
+**Vous devez modifier ce champ**. Il s'agit d'une description résumée de ce que fait le *package* (un seul paragraphe, plusieurs phrases autorisées).\
+Si vous modifiez le fichier `DESCRIPTION` à la main, prenez bien soin d'indenter chaque ligne avec 2 espaces au minimum. Sinon, vous pouvez vous aider du *package* **desc** comme suit :
 
 ```{r, eval=FALSE}
 desc::desc_set(
-  Description = "J'ai créé ce package pour apprendre. Ne l'installez pas il ne fait rien d'intéressant pour l'instant."
+  Description = "J'ai créé ce package pour apprendre. 
+  Ne l'installez pas il ne fait rien d'intéressant pour l'instant."
 )
 ```
 
@@ -507,7 +499,7 @@ usethis::use_mit_license(
 )
 ```
 
-Pour utiliser une licence avec copyleft (c'est-à-dire sans droit de réutilisation commerciale de votre travail), vous pouvez choisir la licence GPL-3 :
+Pour utiliser une licence avec *copyleft* (c'est-à-dire sans droit de réutilisation commerciale de votre travail), vous pouvez choisir la licence GPL-3 :
 
 ```{r, eval=FALSE}
 usethis::use_gpl3_license(
@@ -517,7 +509,7 @@ usethis::use_gpl3_license(
 
 #### Pour aller plus loin {-}
 
-R reconnaît un certain nombre de licences. Voici une fonction pour récupérer la liste exhaustive des licences reconnues par R dans un tibble.
+R reconnaît un certain nombre de licences. Voici une fonction pour récupérer la liste exhaustive des licences reconnues par `R` dans un `tibble`.
 
 ```{r, fold="s o"}
 get_licenses <- function() {
@@ -548,15 +540,15 @@ get_licenses()
 
 #### Champ `LazyData` {-}
 
-**N'y touchez pas**, cela rend plus facile l'accès aux données du package (si vous incluez des données).
+**N'y touchez pas**, cela rend plus facile l'accès aux données du *package* (si vous incluez des données).
 
 #### Les autres champs que vous pouvez ajouter {-}
 
-De nombreux autres champs optionnels peuvent être ajoutés ([voir le manuel officiel](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) de R). Nous ne mentionnerons ici que ceux qui peuvent être utiles.
+De nombreux autres champs optionnels peuvent être ajoutés ([voir le manuel officiel](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file) de `R`). Nous ne mentionnerons ici que ceux qui peuvent être utiles.
 
 ##### Champ `Language` {-}
 
-Si la documentation de votre package est en français, vous devez le préciser en rajoutant dans le ficher `DESCRIPTION` :
+Si la documentation de votre *package* est en français, vous devez le préciser en rajoutant dans le ficher `DESCRIPTION` :
 
 ```
 Language: fr
@@ -568,7 +560,7 @@ Si la documentation est en français et en anglais, le champ `Language` sera :
 Language: en, fr
 ```
 
-Vous pouvez rajouter ce champ en vous aidant du package **desc** :
+Vous pouvez rajouter ce champ en vous aidant du *package* **desc** :
 
 ```{r, eval=FALSE}
 desc::desc_set(Language = "fr")
@@ -619,17 +611,15 @@ Champs requis mais manquants ou vides :
 
 ### Créer un dépôt vide dans GitLab
 
-Le package que nous allons créer s'appelle `monpetitpaquet`. Sous GitLab, créez un nouveau projet public s'appelant `monpetitpaquet`.  
+Le *package* que nous allons créer s'appelle `monpetitpaquet`. Sous GitLab, créez un nouveau projet public s'appelant `monpetitpaquet`.  
 
 **N'incluez aucun fichier par défaut (`README`, ...).**
 
 #### Pour aller (beaucoup) plus loin {-}
 
-Il est possible de créer un nouveau dépôt GitLab directement depuis R. En effet, GitLab propose une API REST : cela permet d'exécuter des tâches grâce à l'envoi de requêtes de type web.
+Il est possible de créer un nouveau dépôt GitLab directement depuis `R`. En effet, GitLab propose une API REST : cela permet d'exécuter des tâches grâce à l'envoi de requêtes de type web.
 
-Bien évidemment, il faut posséder l'équivalent du couple identifiant/mot de passe pour pouvoir effectuer une telle modification sur votre profil. Cet équivalent s'appelle un jeton d'accès privé (_private access token_).
-
-Pour générer un jeton d'accès privé, dans l'interface de GitLab, vous devez aller dans la rubrique _Settings_, puis le menu _Access Tokens_.
+Bien évidemment, il faut posséder l'équivalent du couple identifiant/mot de passe pour pouvoir effectuer une telle modification sur votre profil. Cet équivalent s'appelle un jeton d'accès privé (_private access token_). Pour générer un jeton d'accès privé, dans l'interface de GitLab, vous devez aller dans la rubrique _Settings_, puis le menu _Access Tokens_.
 
 ![](./pics/07_packages/gitlab_pat.png)
 
@@ -649,7 +639,7 @@ GITLAB_PAT=tdsqf4fhEfE12fUF7F5Z # copiez votre token privé ici
 
 Vous devez ensuite redémarrer votre session R.
 
-Une fois ce paramétrage effectué, vous pouvez créer depuis R un nouveau dépôt GitLab comme suit (voir [la documentation de l'API de GitLab](https://docs.gitlab.com/ee/api/projects.html#create-project)) :
+Une fois ce paramétrage effectué, vous pouvez créer depuis `R` un nouveau dépôt GitLab comme suit (voir [la documentation de l'API de GitLab](https://docs.gitlab.com/ee/api/projects.html#create-project)) :
 
 ```{r, eval=FALSE}
 res <- httr::POST(
@@ -666,7 +656,7 @@ httr::stop_for_status(res)
 httr::content(res)
 ```
 
-De façon équivalente, vous pouvez tester le package **gitlabr** (attention, il n'est plus activement maintenu) :
+De façon équivalente, vous pouvez tester le *package* **gitlabr** (attention, il n'est plus activement maintenu):
 
 ```{r, eval=FALSE}
 library(gitlabr)
@@ -755,7 +745,7 @@ git push -u origin master
 
 ### Utiliser `testthat` pour les tests
 
-Nous allons maintenant créer les dossiers et fichiers nécessaires pour tester notre code. Nous allons utiliser le package **testthat** pour nous aider à écrire des tests.
+Nous allons maintenant créer les dossiers et fichiers nécessaires pour tester notre code. Nous allons utiliser le *package* **testthat** pour nous aider à écrire des tests.
 
 ```{r, eval=FALSE}
 usethis::use_testthat()
@@ -772,13 +762,13 @@ test_check("monpetitpaquet")
 
 #### Pour aller plus loin {-}
 
-Vous pouvez utiliser d'autres packages pour écrire et gérer vos tests tels que **tinytest** ou **testit**. Le choix du package de gestion de test n'est pas important, l'essentiel étant que votre package comprenne des tests. 
+Vous pouvez utiliser d'autres *packages* pour écrire et gérer vos tests tels que **tinytest** ou **testit**. Le choix du *package* de gestion de test n'est pas important, l'essentiel étant que votre *package* comprenne des tests. 
 
 ### Utiliser l'intégration continue de GitLab
 
 Afin de sécuriser notre travail, nous allons utiliser le service d'intégration continue de GitLab. L'idée est la suivante : ce sera un filet de sécurité au cas où on oublierait de réaliser un contrôle de conformité avant de pousser notre travail.
 
-L'intégration continue fonctionne de la façon suivante : à chaque _push_, un serveur va automatiquement exécuter `devtools::check()`. Si le résultat est OK, une coche verte apparaîtra dans le projet GitLab. Si le package n'est pas conforme, ce sera une croix rouge (vous recevrez également un mail vous avertissant qu'il y a un problème). 
+L'intégration continue fonctionne de la façon suivante : à chaque _push_, un serveur va automatiquement exécuter `devtools::check()`. Si le résultat est OK, une coche verte apparaîtra dans le projet GitLab. Si le *package* n'est pas conforme, ce sera une croix rouge (vous recevrez également un mail vous avertissant qu'il y a un problème). 
 
 Le rapport du contrôle de conformité sera bien évidemment disponible afin que vous puissiez comprendre quel est le problème.
 
@@ -788,7 +778,7 @@ Pour utiliser l'intégration continue de GitLab, exécutez :
 usethis::use_gitlab_ci()
 ```
 
-Attention, vérifiez bien que le package **usethis** a une version supérieure ou égale à `1.5.1`. Cette commande a normalement créé un fichier nommé `.gitlab-ci.yml` à la racine de votre projet. 
+Attention, vérifiez bien que le *package* **usethis** a une version supérieure ou égale à `1.5.1`. Cette commande a normalement créé un fichier nommé `.gitlab-ci.yml` à la racine de votre projet. 
 
 Nous allons l'ouvrir pour vérifier son contenu. Si votre version de RStudio est trop ancienne, vous ne le verrez pas dans l'explorateur de fichier de RStudio (ce qui n'est vraiment pas pratique pour l'ouvrir). Dans ce cas, ouvrez-le en exécutant `rstudioapi::navigateToFile(".gitlab-ci.yml")`.
 
@@ -801,19 +791,19 @@ cat(paste(c("```yaml", content, "```\n\n"), collapse = "\n"))
 
 #### Pour aller plus loin
 
-TODO : expliquer le fonctionnement de GitLab CI, ce qu'est une image docker, les particularités des images rocker qui utilisent les snapshots MRAN, les tags (car le seul problème de ce fichier c'est qu'il utilise `latest` implicitement, ce qu'il faut éviter avec les images docker)... ça pourrait être une formation en soit mais il y a sans doute un minimum à expliquer dans ce support aux curieuses et curieux qui aiment comprendre. Parce que l'intégration continue, c'est quand même génial !
+TODO : expliquer le fonctionnement de GitLab CI, ce qu'est une image docker, les particularités des images rocker qui utilisent les snapshots MRAN, les tags (car le seul problème de ce fichier c'est qu'il utilise `latest` implicitement, ce qu'il faut éviter avec les images docker)... ça pourrait être une formation en soi mais il y a sans doute un minimum à expliquer dans ce support aux curieuses et curieux qui aiment comprendre. Parce que l'intégration continue, c'est quand même génial !
 
-## Développer un package
+## Développer un *package*
 
 ### Inclure du code, le documenter et le tester
 
-On a effectué plusieurs tâches jusqu'ici (création du package, de ses méta-données et mise en place des outils de développement) mais on n'a toujours pas mis de code R dans notre package. Une bonne habitude à prendre est d'écrire en même temps le code source de la fonction, sa documentation et les tests. Allons-y.
+On a effectué plusieurs tâches jusqu'ici (création du *package*, de ses méta-données et mise en place des outils de développement) mais on n'a toujours pas mis de code `R` dans notre *package*. Une bonne habitude à prendre est d'écrire en même temps le code source de la fonction, sa documentation et les tests. Allons-y.
 
 #### Inclure du code {-}
 
-Le code source de votre package va se trouver dans le répertoire `R` du projet. Ce répertoire comprendra des fichiers source avec l'extension `.R`. Il est interdit de créer des sous-répertoires à ce dossier (si vous le faîtes, le contrôle de conformité sera en erreur).
+Le code source de votre *package* va se trouver dans le répertoire `R` du projet. Ce répertoire comprendra des fichiers source avec l'extension `.R`. Il est interdit de créer des sous-répertoires à ce dossier (si vous le faîtes, le contrôle de conformité sera en erreur).
 
-L'exercice que nous vous proposons est d'inclure dans notre package une fonction vue précédemment pour recoder une valeur d'un vecteur :
+L'exercice que nous vous proposons est d'inclure dans notre *package* une fonction vue précédemment pour recoder une valeur d'un vecteur :
 
 ```{r, eval=FALSE}
 fix_missing <- function(x, na.value) {
@@ -830,15 +820,9 @@ Pour créer ce fichier, nous pouvons exécuter la commande suivante :
 usethis::use_r("fix_missing")
 ```
 
-Cette commande crée le fichier `R/fix_missing.R` et l'ouvre.
+Cette commande crée le fichier `R/fix_missing.R` et l'ouvre. Il ne vous reste plus qu'à inclure le code source de cette fonction.
 
-Il ne vous reste plus qu'à inclure le code source de cette fonction.
-
-Comme nous l'avons vu précédemment, nous devons documenter cette fonction.
-
-Pour cela, nous pouvons inclure un squelette de documentation grâce à la commande RStudio _Code > Insert Roxygen Skeleton_.
-
-Vous devriez obtenir ceci :
+Comme nous l'avons vu précédemment, nous devons documenter cette fonction. Pour cela, nous pouvons inclure un squelette de documentation grâce à la commande RStudio _Code > Insert Roxygen Skeleton_. Vous devriez obtenir ceci :
 
 ```{r, eval=FALSE}
 #' Title
@@ -856,7 +840,7 @@ fix_missing <- function(x, na.value) {
 }
 ```
 
-Vous devez remplir les différents champs. Pour vous aider à formater la documentation, il est possible d'utiliser markdown^[cela nécessite au moins la version `6.0.0` du package **roxygen2**.]. Pour cela, vous devez exécuter :
+Vous devez remplir les différents champs. Pour vous aider à formater la documentation, il est possible d'utiliser markdown^[cela nécessite au moins la version `6.0.0` du *package* **roxygen2**.]. Pour cela, vous devez exécuter :
 
 ```{r, eval=FALSE}
 usethis::use_roxygen_md()
@@ -909,9 +893,9 @@ fix_missing <- function(x, na.value) {
 }
 ```
 
-Maintenant que nous avons réalisé la documentation `roxygen` de la fonction, nous devons générer les fichiers de documentation attendus par R (ce sont des fichiers `Rd` situés dans le répertoire `man`.)
+Maintenant que nous avons réalisé la documentation `roxygen` de la fonction, nous devons générer les fichiers de documentation attendus par `R` (ce sont des fichiers `Rd` situés dans le répertoire `man`.)
 
-Nous allons exécuter la commande suivante (nous exécuterons très souvent cette commande) :
+Nous allons exécuter la commande suivante (nous exécuterons très souvent cette commande):
 
 ```{r, eval=FALSE}
 devtools::document()
@@ -919,13 +903,10 @@ devtools::document()
 
 Cette commande va avoir deux effets principaux :  
 
-- constuire les fichiers de documentation au format attendu par R (les fichiers `Rd` qui se trouve dans le répertoire `man` du projet)
+- constuire les fichiers de documentation au format attendu par `R` (les fichiers `Rd` qui se trouve dans le répertoire `man` du projet);
+- mettre à jour le fichier `NAMESPACE`.
 
-- mettre à jour le fichier `NAMESPACE`
-
-Qu'est ce que le fichier `NAMESPACE` ?
-
-Voici le fichier `NAMESPACE`que nous avons à ce stade :
+Qu'est ce que le fichier `NAMESPACE`? Voici le fichier `NAMESPACE`que nous avons à ce stade :
 
 ```{r, eval=FALSE}
 # Generated by roxygen2: do not edit by hand
@@ -933,12 +914,12 @@ Voici le fichier `NAMESPACE`que nous avons à ce stade :
 export(fix_missing)
 ```
 
-Le fichier `NAMESPACE` comprend l'ensemble des fonctions exportées par votre package ainsi que les fonctions importées d'autres packages.  
+Le fichier `NAMESPACE` comprend l'ensemble des fonctions exportées par votre *package* ainsi que les fonctions importées d'autres *packages*.  
 Notez bien le mot clé `@export` dans l'exemple précédent : cela signifie que vous souhaitez que la fonction `fix_missing()` soit mise à disposition des utilisateurs de **monpetitpaquet**, autrement dit elle est exportée. Lorsque nous avons exécuté `devtools::document()`, le fichier `NAMESPACE` a été actualisé en conséquence.
 
-**Attention aux noms des fonctions exportées par votre package !** Vous devez évitez d'utiliser les mêmes noms que d'autres packages. Par exemple, ce serait une très mauvaise idée d'exporter des fonctions s'appelant `select()`, `mutate()` ou `filter()` car ce sont des noms déjà mis à disposition par le package **dplyr**. Si vous faites cela, vous risquez de provoquer le mécontentement de vos utilisateurs. Une pratique répandue est de préfixer les noms de fonctions : regardez par exemple les noms des fonctions des packages **stringr** (`str_*`) et **stringi** (`stri_*`).
+**Attention aux noms des fonctions exportées par votre *package* !** Vous devez évitez d'utiliser les mêmes noms que d'autres *packages*. Par exemple, ce serait une très mauvaise idée d'exporter des fonctions s'appelant `select()`, `mutate()` ou `filter()` car ce sont des noms déjà mis à disposition par le *package* **dplyr**. Si vous faites cela, vous risquez de provoquer le mécontentement de vos utilisateurs. Une pratique répandue est de préfixer les noms de fonctions : regardez par exemple les noms des fonctions des *packages* **stringr** (`str_*`) et **stringi** (`stri_*`).
 
-Pour mieux organiser votre travail, vous pouvez bien évidemment créer des fonctions à seul but interne. Dans ce cas, retirez la directive `@export`. Ces fonctions pourront être utilisées seulement à l'intérieur de votre package.
+Pour mieux organiser votre travail, vous pouvez bien évidemment créer des fonctions à seul but interne. Dans ce cas, retirez la directive `@export`. Ces fonctions pourront être utilisées seulement à l'intérieur de votre *package*.
 
 ##### Trucs et astuces pour éviter de s'arracher les cheveux {-}
 
@@ -986,17 +967,16 @@ fix_missing <- function(x, na.value) {
 
 #### Inclure des tests {-}
 
-Cette partie est absolument fondamentale. Elle va consister à rajouter des tests à votre package. Ces tests seront exécutés durant le contrôle de conformité.
+Cette partie est absolument fondamentale. Elle va consister à rajouter des tests à votre *package*. Ces tests seront exécutés durant le contrôle de conformité.
 
-Il existe deux **règles d'or**. La première est que **toute fonctionnalité non testée comprend un bug**. Cette règle a beau être connue par tous, tout le monde a un biais de surconfiance qui le pousse à ne pas tout tester. Et "comme par hasard", les programmes plantent toujours là où on n'a pas implémenté de tests. Tout le monde se fait avoir, **même les développeurs les plus aguerris**. Au cas où vous hésiteriez à écrire des tests, vous voilà prévenus.
+Au sujet des tests, il existe deux **règles d'or**:
 
-La seconde règle d'or est : tout bug que vous avez détecté doit donner lieu à l'écriture d'un test. Cela évite de se faire prendre plusieurs fois au même endroit.
+- La première règle est que **toute fonctionnalité non testée comprend un bug**. Cette règle a beau être connue par tous, tout le monde a un biais de surconfiance qui le pousse à ne pas tout tester. Et "comme par hasard", les programmes plantent toujours là où on n'a pas implémenté de tests. Tout le monde se fait avoir, **même les développeurs les plus aguerris**. Au cas où vous hésiteriez à écrire des tests, vous voilà prévenus.
+- La seconde règle d'or est : **tout bug que vous avez détecté doit donner lieu à l'écriture d'un test**. Cela évite de se faire prendre plusieurs fois au même endroit.
 
-Enfin, le dernier intérêt des tests est d'éviter que votre package se brise si vous faites des petites modifications ultérieurement (si, si, ça arrive...).
+Enfin, le dernier intérêt des tests est d'éviter que votre *package* se brise si vous faites des petites modifications ultérieurement (si, si, ça arrive...).
 
-Mais vous allez voir, écrire des tests est quelque chose de simple et amusant. Nous allons utiliser le package **testthat** pour nous aider à les écrire et générer de beaux rapports.
-
-Nous allons écrire des tests pour la fonction `fix_missing()` de notre package. Pour créer un nouveau fichier qui comprendra nos tests, nous allons utiliser la fonction `usethis::use_test()`. Exécutez la commande :
+Mais vous allez voir, écrire des tests est quelque chose de simple et amusant. Nous allons utiliser le *package* **testthat** pour nous aider à les écrire et générer de beaux rapports. Nous allons écrire des tests pour la fonction `fix_missing()` de notre *package*. Pour créer un nouveau fichier qui comprendra nos tests, nous allons utiliser la fonction `usethis::use_test()`. Exécutez la commande :
 
 ```{r, eval=FALSE}
 usethis::use_test("fix_missing")
@@ -1010,7 +990,7 @@ test_that("multiplication works", {
 })
 ```
 
-L'ensemble des fonctions (`test_that()`, `expect_*()`...) sont issues du package **testthat**. 
+L'ensemble des fonctions (`test_that()`, `expect_*()`...) sont issues du *package* **testthat**. 
 
 Ecrivons un premier test. Il s'agit d'un bon exercice. Vous pouvez lire en parallèle la documentation que nous avons écrite pour la fonction `fix_missing()` et les tests ci-dessous.
 
@@ -1065,7 +1045,7 @@ R/fix_missing.R: 100.00%
 
 Une première étape a été franchie : nous avons écrit une fonction, nous l'avons documentée, avons inclus des tests et avons un taux de couverture de code de 100%. Nous sommes satisfaits. **C'est le moment de faire un _commit_ suivi d'un _push_.**
 
-_La suite de cette histoire est imaginaire mais arrive souvent dans la réalité. En effet, nous allons voir qu'il y a un méchant bug de caché..._
+_La suite de cette histoire est imaginaire mais arrive souvent dans la réalité. En effet, nous allons voir qu'il y a un méchant bug caché..._
 
 Notre fonction `fix_missing()` est tellement pratique que nous nous mettons à l'utiliser régulièrement. Un jour nous rencontrons la situation suivante. Nous devons traiter ces données :
 
@@ -1143,7 +1123,7 @@ Nous vous laissons corriger la fonction `fix_missing()` jusqu'à ce que les test
 
 Remarquez enfin que nous avons d'abord écrit un test avant de modifier le code de la fonction `fix_missing()`. Cette approche s'appelle le _test driven development_...
 
-On voit ici tout l'intérêt de mettre son code dans un package : on peut facilement y inclure des tests et l'améliorer au fur et à mesure. Alors que si vous réutilisez des bouts de code de programme en programme, la détection d'un bug rend le travail de correction quasi-impossible (et imaginez si vous avez passé vos programmes à des collègues qui les ont déjà réutilisés...). **La seule façon sérieuse de réutiliser du code pour soi-même ou quelqu'un d'autre est donc au travers d'un package que vous aurez documenté et qui pourra être amélioré.**
+On voit ici tout l'intérêt de mettre son code dans un *package* : on peut facilement y inclure des tests et l'améliorer au fur et à mesure. Alors que si vous réutilisez des bouts de code de programme en programme, la détection d'un bug rend le travail de correction quasi-impossible (et imaginez si vous avez passé vos programmes à des collègues qui les ont déjà réutilisés...). **La seule façon sérieuse de réutiliser du code pour soi-même ou quelqu'un d'autre est donc au travers d'un *package* que vous aurez documenté et qui pourra être amélioré.**
 
 En guise d'exercice, vous pouvez également chercher les autres bugs qui restent dans `fix_missing()`.^[indice : nous n'avons pas testé `fix_missing()` sur un facteur.]
 
@@ -1180,19 +1160,19 @@ fix_missing_df <- function(x, na.value) {
 }
 ```
 
-L'objectif de cette partie va être d'apprendre à utiliser une fonction fournie par un autre package. En l'occurrence, il s'agit ici de la fonction `purrr::map()`.
+L'objectif de cette partie va être d'apprendre à utiliser une fonction fournie par un autre *package*. En l'occurrence, il s'agit ici de la fonction `purrr::map()`.
 
 Mais tout d'abord, nous allons appliquer ce que nous avons vu précédemment :
 
-- créer un nouveau fichier pour le code source : `usethis::use_r("fix_missing_df")` 
-- créer un nouveau fichier pour les tests : `usethis::use_test("fix_missing_df")`.
-- documenter la fonction
-- construire la documentation attendue par R : `devtools::document()`
-- écrire des tests
-- lancer les tests : `devtools::test()`
-- lancer les contrôles de conformité : `devtools::check()`
+- créer un nouveau fichier pour le code source : `usethis::use_r("fix_missing_df")`;
+- créer un nouveau fichier pour les tests : `usethis::use_test("fix_missing_df")`;
+- documenter la fonction;
+- construire la documentation attendue par `R` : `devtools::document()`;
+- écrire des tests;
+- lancer les tests : `devtools::test()`;
+- lancer les contrôles de conformité : `devtools::check()`.
 
-Essayez de le faire par vous-même. Pour la documentation de la fonction, vous pouvez utiliser l'astuce suivante : il est possible de réutiliser la documentation d'un paramètre d'une fonction grâce à la directive `@inheritParams nomdelafonction`^[pour réutiliser la documentation d'un autre package, utilisez `@inheritParams package::nomdelafonction`]. Dans notre exemple, cela peut être utile pour documenter le paramètre `na.value` de la fonction `fix_missing_df` en réutilisant celle de la fonction `fix_missing`. Vous évitez ainsi de faire des copier-coller et votre documentation sera plus facile à mettre à jour. **Utilisez cette astuce le plus souvent possible**. Pour le paramètre `...`, la directive est `@inheritDotParams`.
+Essayez de le faire par vous-même. Pour la documentation de la fonction, vous pouvez utiliser l'astuce suivante: il est possible de réutiliser la documentation d'un paramètre d'une fonction grâce à la directive `@inheritParams nomdelafonction`^[pour réutiliser la documentation d'un autre *package*, utilisez `@inheritParams package::nomdelafonction`]. Dans notre exemple, cela peut être utile pour documenter le paramètre `na.value` de la fonction `fix_missing_df` en réutilisant celle de la fonction `fix_missing`. Vous évitez ainsi de faire des copier-coller et votre documentation sera plus facile à mettre à jour. **Utilisez cette astuce le plus souvent possible**. Pour le paramètre `...`, la directive est `@inheritDotParams`.
 
 Voici une solution possible pour la fonction `fix_missing_df()` :
 
@@ -1258,22 +1238,22 @@ Normalement, vous obtenez un _warning_ au moment du contrôle de conformité. Ce
 0 errors ✔ | 1 warning ✖ | 0 notes ✔
 ```
 
-Le contrôle de conformité a détecté que vous souhaitiez utiliser une fonction issue du package **purrr**.
+Le contrôle de conformité a détecté que vous souhaitiez utiliser une fonction issue du *package* **purrr**.
 
-Contrairement à vos programmes habituels, **vous ne devez jamais utiliser `library()` dans le code source d'un package**. Cela est aussi valable pour `require()`.
+Contrairement à vos programmes habituels, **vous ne devez *jamais* utiliser `library()` dans le code source d'un *package***. Cela est aussi valable pour `require()`.
 
-Si vous souhaitez utiliser une fonction fournie par un autre package que le votre, **vous devez déclarer explicitement l'utilisation de ce package**. Cette déclaration peut s'effectuer grâce à la fonction `usethis::use_package()`.
+Si vous souhaitez utiliser une fonction fournie par un autre *package* que le votre, **vous devez déclarer explicitement l'utilisation de ce *package***. Cette déclaration peut s'effectuer grâce à la fonction `usethis::use_package()`.
 
-Comme nous souhaitons utiliser une fonction du package `purrr`, notre package doit le déclarer. Donc, il faut que vous exécutiez `usethis::use_package("purrr")`. Cela va mettre à jour le fichier `DESCRIPTION` et rajouter `purrr` dans la rubrique `Imports`.
+Comme nous souhaitons utiliser une fonction du *package* `purrr`, notre *package* doit le déclarer. Donc, il faut que vous exécutiez `usethis::use_package("purrr")`. Cela va mettre à jour le fichier `DESCRIPTION` et rajouter `purrr` dans la rubrique `Imports`.
 
-Note : vous pouvez également spécifier un numéro de version minimale pour le package `purrr` en tapant par exemple, `usethis::use_package("purrr", min_version = "0.3.0")`. 
-Que signifie exactement la rubrique `Imports` ? Au moment où un utilisateur va installer votre package, R va vérifier si les packages déclarés dans `Imports` sont bien présents avec la version minimale requise. Si ce n'est pas le cas, R va les installer. C'est le mécanisme le plus robuste qui permet d'assurer que votre utilisateur dispose bien des packages indispensables à l'exécution de vos programmes.
+Note : vous pouvez également spécifier un numéro de version minimale pour le *package* `purrr` en tapant par exemple, `usethis::use_package("purrr", min_version = "0.3.0")`. 
+Que signifie exactement la rubrique `Imports` ? Au moment où un utilisateur va installer votre *package*, `R` va vérifier si les *packages* déclarés dans `Imports` sont bien présents avec la version minimale requise. Si ce n'est pas le cas, `R` va les installer. C'est le mécanisme le plus robuste qui permet d'assurer que votre utilisateur dispose bien des *packages* indispensables à l'exécution de vos programmes.
 
-En revanche, un package déclaré dans la rubrique `Imports` n'est pas équivalent à un appel à `library()`. Il existe bien la rubrique `Depends` qui est très proche d'un appel à `library()` mais **attention, l'utilisation de `Depends` est désormais considérée comme une très mauvaise pratique : ne l'utilisez jamais !**
+En revanche, un *package* déclaré dans la rubrique `Imports` n'est pas équivalent à un appel à `library()`. Il existe bien la rubrique `Depends` qui est très proche d'un appel à `library()` mais **attention, l'utilisation de `Depends` est désormais considérée comme une très mauvaise pratique : ne l'utilisez jamais!**
 
-Une fois un package déclaré dans la rubrique `Imports` du fichier `DESCRIPTION`, vous devez donc utiliser `::` pour utiliser ses fonctions dans votre code source. Cependant, il y a des cas où l'utilisation de `::` n'est vraiment pas aisée et peut dégrader la lisibilité de votre code.
+Une fois qu'un *package* est déclaré dans la rubrique `Imports` du fichier `DESCRIPTION`, vous devez donc utiliser `::` pour utiliser ses fonctions dans votre code source. Cependant, il y a des cas où l'utilisation de `::` n'est vraiment pas aisée et peut dégrader la lisibilité de votre code.
 
-Dans ce cas, vous pouvez importer une fonction de ce package grâce au mot clé roxygen2 `@importFrom`. Vous n'aurez alors plus besoin d'utiliser `::` pour cette fonction.
+Dans ce cas, vous pouvez importer une fonction de ce *package* grâce au mot clé roxygen2 `@importFrom`. Vous n'aurez alors plus besoin d'utiliser `::` pour cette fonction.
 
 Voici un exemple à partir de la fonction `fix_missing_df()` :
 
@@ -1306,7 +1286,7 @@ fix_missing_df <- function(x, na.value) {
 
 L'utilisation de `NULL` après la ligne comprenant `@importFrom` est une petite astuce permettant de sécuriser le fonctionnement de roxygen2.
 
-Une fois que vous avez inclus la directive `@importFrom package fonction`, vous devez mettre à jour le `NAMESPACE` en exécutant la commande `devtools::document()`. Le fichier `NAMESPACE` aura alors ce contenu :
+Une fois que vous avez inclus la directive `@importFrom *package* fonction`, vous devez mettre à jour le `NAMESPACE` en exécutant la commande `devtools::document()`. Le fichier `NAMESPACE` aura alors ce contenu :
 
 ```{r, eval=FALSE}
 # Generated by roxygen2: do not edit by hand
@@ -1316,31 +1296,28 @@ export(fix_missing_df)
 importFrom(purrr,map)
 ```
 
-N'oubliez pas de relancer le contrôle de conformité (`devtools::check()`) pour vérifier que vous avez bien résolu le warning. Puis effectuer un _commit_ suivi d'un _psuh_.
-
-Dès lors, la fonction `map()` du package **purrr** pourra être utilisée telle quelle dans le code source de votre package.
+N'oubliez pas de relancer le contrôle de conformité (`devtools::check()`) pour vérifier que vous avez bien résolu le warning. Puis effectuer un _commit_ suivi d'un _push_. Dès lors, la fonction `map()` du *package* **purrr** pourra être utilisée telle quelle dans le code source de votre *package*.
 
 **N'importez des fonctions que lorsque vous les utilisez à de nombreuses reprises**. En effet, vous devez privilégier l'utilisation de `::`.
 
 #### Importation de `%>%`
 
-Si vous souhaitez utiliser le pipe (`%>%`) du package **magrittr** dans votre code source, vous devez également l'importer. Etant donné que ce besoin est très fréquent, le package **usethis** fournit une fonction utilitaire :
+Si vous souhaitez utiliser le pipe (`%>%`) du *package* **magrittr** dans votre code source, vous devez également l'importer. Etant donné que ce besoin est très fréquent, le *package* **usethis** fournit une fonction utilitaire :
 
 ```{r, eval=FALSE}
 usethis::use_pipe(export = FALSE)
 ```
 
-Si vous souhaitez ré-exporter le pipe pour qu'il soit disponible pour les utilisateurs de votre package, utilisez `usethis::use_pipe(export = TRUE)`.
+Si vous souhaitez ré-exporter le pipe pour qu'il soit disponible pour les utilisateurs de votre *package*, utilisez `usethis::use_pipe(export = TRUE)`.
 
 Après cette opération, n'oubliez pas d'actualiser le `NAMESPACE` en exécutant `devtools::document()`. Effectuez le contrôle de conformité. Lorsqu'il est OK faites un _commit_ suivi d'un _push_.
 
-### Charger l'ensemble des fonctions de son package
+### Charger l'ensemble des fonctions de son *package*
 
-Au bout d'un moment, vous aurez dans votre package :
+Au bout d'un moment, vous aurez dans votre *package* :
 
-- des fonctions exportées (déclarées grâce à la directive `@export`)
-
-- des fonctions internes
+- des fonctions exportées (déclarées grâce à la directive `@export`);
+- des fonctions internes.
 
 Il est fort probable qu'au cours du travail, vous ayez besoin de charger l'ensemble de vos fonctions. Dans ce cas, vous pouvez utiliser la commande :
 
@@ -1348,9 +1325,9 @@ Il est fort probable qu'au cours du travail, vous ayez besoin de charger l'ensem
 devtools::load_all()
 ```
 
-## Installer le package
+## Installer le *package*
 
-Avant d'installer un package ou de le distribuer, exécuter une dernière fois le contrôle de conformité avec `devtools::check()`.
+Avant d'installer un *package* ou de le distribuer, exécuter une dernière fois le contrôle de conformité avec `devtools::check()`.
 
 ### Installer sur sa machine
 
@@ -1358,15 +1335,14 @@ Dans l'onglet `Build`, cliquer sur `Install and restart` ou de façon équivalen
 
 ### Générer le fichier compressé 
 
-Pour générer le fichier `.tar.gz` nécessaire à une installation sous AUS par exemple, exécuter `devtools::build()`. Il est recommandé d'incrémenter systématiquement le numéro de version de votre package avant d'effectuer cette opération.
+Pour générer le fichier `.tar.gz` nécessaire à une installation sous AUS par exemple, exécuter `devtools::build()`. Il est recommandé d'incrémenter systématiquement le numéro de version de votre *package* avant d'effectuer cette opération.
 
-## Documenter un package
+## Documenter un *package*
 
 ### Créer un fichier `README` (obligatoire)
 
-Le fichier `README` est le premier fichier qui s'affiche lorsque vous consultez votre projet sous GitLab. Tous les projets doivent disposer d'un fichier `README` : cela fait partie du B.A.-BA.  
-Ne pas disposer d'un tel fichier est considéré comme un manque de professionnalisme important. **Vous devez donc le créer**.  
-Il comprendra une brève description de votre package, son objectif, les instructions pour l'installer et les consignes pour contribuer au code source. C'est en quelque sorte la page d'accueil de votre projet.
+Le fichier `README` est le premier fichier qui s'affiche lorsque vous consultez votre projet sous GitLab. Tous les projets doivent disposer d'un fichier `README` : cela fait partie du B.A.-BA. Ne pas disposer d'un tel fichier est considéré comme un manque de professionnalisme important. **Vous devez donc le créer**.  
+Il comprendra une brève description de votre *package*, son objectif, les instructions pour l'installer et les consignes pour contribuer au code source. C'est en quelque sorte la page d'accueil de votre projet.
 
 Le fichier `README` s'écrit en markdown, son extension est donc `README.md`.
 
@@ -1386,9 +1362,9 @@ Cette commande crée deux fichiers : `README.Rmd` et `README.md`.
 
 Le processus est alors le suivant :
 
-- vous écrivez dans le fichier `README.Rmd`
-- vous générez le fichier `README.md` grâce au bouton _Knit_ de RStudio
-- vous faites un _commit_ des deux fichiers `README.Rmd` et `README.md` puis un _push_
+- vous écrivez dans le fichier `README.Rmd`;
+- vous générez le fichier `README.md` grâce au bouton _Knit_ de RStudio;
+- vous faites un _commit_ des deux fichiers `README.Rmd` et `README.md` puis un _push_.
 
 Seul le fichier `README.md` s'affiche sous GitLab.
 
@@ -1396,9 +1372,9 @@ Seul le fichier `README.md` s'affiche sous GitLab.
 
 Jusqu'ici nous avons appris à générer la documentation de chaque fonction. Cette documentation est plutôt à vocation technique. Il existe une autre forme de documentation que vous connaissez certainement : les vignettes.
 
-Les vignettes sont des documentations à vocation plus fonctionnelle : elles expliquent aux utilisateurs comment utiliser en pratique votre package. Pour lister les vignettes offertes par un package, la commande est `vignette(package = "dplyr")`. La vignette principale a usuellement le même nom que le package. Elle est donc aisément accessible est tapant `vignette("dplyr")`.
+Les vignettes sont des documentations à vocation plus fonctionnelle : elles expliquent aux utilisateurs comment utiliser en pratique votre *package*. Pour lister les vignettes offertes par un *package*, la commande est `vignette(package = "dplyr")`. La vignette principale a usuellement le même nom que le *package*. Elle est donc aisément accessible est tapant `vignette("dplyr")`.
 
-L'intérêt des vignettes est qu'elles sont intégrées aux packages. Elles sont donc consultables sans connexion internet directement depuis RStudio.
+L'intérêt des vignettes est qu'elles sont intégrées aux *packages*. Elles sont donc consultables sans connexion internet directement depuis RStudio.
 
 Pour créer une nouvelle vignette, rien de plus simple. Il faut exécuter :
 
@@ -1406,9 +1382,9 @@ Pour créer une nouvelle vignette, rien de plus simple. Il faut exécuter :
 usethis::use_vignette("monpetitpaquet")
 ```
 
-Cette commande crée un nouveau fichier intitulé `monpetitpaquet.Rmd` dans le répertoire `vignettes`. Il s'agit d'un fichier R Markdown. Expliquez dans ce fichier à quoi sert votre package et comment on l'utilise.
+Cette commande crée un nouveau fichier intitulé `monpetitpaquet.Rmd` dans le répertoire `vignettes`. Il s'agit d'un fichier R Markdown. Expliquez dans ce fichier à quoi sert votre *package* et comment on l'utilise.
 
-Si dans votre vignette vous utilisez un package qui n'est pas recensé dans la rubrique `Imports` de votre package, vous devez absolument le mentionner dans la rubrique `Suggests` du fichier `DESCRIPTION` en utilisant `usethis::use_package(type = "Suggests")`. Par exemple, si votre package n'importe aucune fonction de `dplyr` mais la vignette décrit comme l'utiliser avec `dplyr`, vous devez exécuter :
+Si dans votre vignette vous utilisez un *package* qui n'est pas recensé dans la rubrique `Imports` de votre *package*, vous devez absolument le mentionner dans la rubrique `Suggests` du fichier `DESCRIPTION` en utilisant `usethis::use_package(type = "Suggests")`. Par exemple, si votre *package* n'importe aucune fonction de `dplyr` mais la vignette décrit comme l'utiliser avec `dplyr`, vous devez exécuter:
 
 ```{r, eval=FALSE}
 usethis::use_package("dplyr", type = "Suggests")
@@ -1422,13 +1398,13 @@ devtools::build_vignettes()
 
 ## Créer un modèle de document R Markdown
 
-Votre package peut proposer un modèle de document R Markdown prêt à l'emploi. Cette option est très pratique si vous souhaitez avoir sous la main un document type que vous pouvez ensuite adapter.
+Votre *package* peut proposer un modèle de document R Markdown prêt à l'emploi. Cette option est très pratique si vous souhaitez avoir sous la main un document type que vous pouvez ensuite adapter.
 
-Lorsqu'on inclut un modèle de document R Markdown dans un package, celui est alors disponible dans RStudio au travers du menu `File > New File > R Markdown... > From Template`.
+Lorsqu'on inclut un modèle de document R Markdown dans un *package*, celui est alors disponible dans RStudio au travers du menu `File > New File > R Markdown... > From Template`.
 
-Comme exemple d'utilisation, imaginez que vous réalisez une même note tous les mois. Si vous la mettez à disposition dans un package, vous ou vos collègues seront en capacité de la réutiliser aisément. De plus comme il s'agit d'un document R Markdown, l'actualisation ne nécessite que très peu de travail (et aucun copier-coller). 
+Comme exemple d'utilisation, imaginez que vous réalisez une même note tous les mois. Si vous la mettez à disposition dans un *package*, vous ou vos collègues seront en capacité de la réutiliser aisément. De plus comme il s'agit d'un document R Markdown, l'actualisation ne nécessite que très peu de travail (et aucun copier-coller). 
 
-Pour créer un modèle de document R Markdown dans votre package, exécutez :
+Pour créer un modèle de document R Markdown dans votre *package*, exécutez :
 
 ```{r, eval=FALSE}
 usethis::use_rmarkdown_template("note-mensuelle")
@@ -1442,7 +1418,7 @@ En paramétrant ingénieusement l'intégration continue de GitLab, vous pouvez m
 
 ### Créer un changelog
 
-Il est fortement recommandé de tenir un journal de bord retraçant tous les changements intervenus dans votre package. Cela vous permettra de retrouver aisément quand une modification a été faite.
+Il est fortement recommandé de tenir un journal de bord retraçant tous les changements intervenus dans votre *package*. Cela vous permettra de retrouver aisément quand une modification a été faite.
 
 L'habitude est de nommer ce fichier `NEWS.md`. Pour le créer, exécutez :
 
@@ -1463,33 +1439,28 @@ Il s'agit du numéro de version. La gestion des numéros de version est une affa
 Il faut comprendre les numéros de version de la façon suivante `major.minor.patch.dev`. Voici quelques règles communnément partagées :
 
 - lorsque vous voyez une séquence de 4 numéros, il s'agit d'une version en cours de développement, par exemple : `1.0.3.9003`. Les versions "publiées" ont au maximum 3 numéros. Pourquoi le dernier nombre est si élevé (9003) ? C'est pour signaler qu'on prépare la version suivante, qui sera supérieure à `1.0.3` (il y a des chances pour que ce soit la `1.0.4`).
-
 - il faut très souvent incrémenter les numéros de version (dès que vous faites une petite modification sur votre code source). C'est pour cela que beaucoup de personnes utilisent la 4ème position. 
-
 - à un moment ou à un autre, vous devez publier une version qui ne soit pas une version de développement (3 positions maximum).
-
-- s'agissant des versions publiées (3 positions maximum), n'incrémentez la version majeure que si vous avez des bouleversements importants. Il est fréquent de croiser des packages en version `0.x`. Le fait de rester en version majeure 0 est le signe que l'auteur du package considère que son oeuvre n'est pas terminée. En effet, beaucoup de personnes considèrent que la version 1 est un travail presque parfait. Il s'agit d'un réel aboutissement.
+- s'agissant des versions publiées (3 positions maximum), n'incrémentez la version majeure que si vous avez des bouleversements importants. Il est fréquent de croiser des *packages* en version `0.x`. Le fait de rester en version majeure 0 est le signe que l'auteur du *package* considère que son oeuvre n'est pas terminée. En effet, beaucoup de personnes considèrent que la version 1 est un travail presque parfait. Il s'agit d'un réel aboutissement.
 
 Pour vous aider, vous pouvez utiliser `usethis::use_version()` ou `usethis::use_dev_version()`. Cette commande actualise automatiquement le fichier `NEWS.md`.
 
 ## Conclusion - Pour aller plus loin
 
-Voilà, vous connaissez l'essentiel pour réaliser des packages.
+Voilà, vous connaissez l'essentiel pour réaliser des *packages*.
 
-Comme vous avez pu le constater, un package c'est du code R avec beaucoup de documentation autour ainsi que des tests.
+Comme vous avez pu le constater, un *package* c'est du code `R` avec beaucoup de documentation autour ainsi que des tests. L'intérêt de regrouper votre travail dans un *package* est que cela vous obligera à documenter au fur et à mesure (sinon le contrôle de conformité sera en erreur), ce qui est moins pénible que de tout documenter à la fin d'un projet.
 
-L'intérêt de regrouper votre travail dans un package est que cela vous obligera à documenter au fur et à mesure (sinon le contrôle de conformité sera en erreur), ce qui est moins pénible que de tout documenter à la fin d'un projet.
+Voici quelques références si vous souhaitez approfondir vos connaissances sur la création de *packages* :
 
-Voici quelques références si vous souhaitez approfondir vos connaissances sur la création de packages :
+- _Créer un package `R` en quelques minutes_, par ThinkR, <https://thinkr.fr/creer-package-r-quelques-minutes>.
 
-- _Créer un package R en quelques minutes_, par ThinkR, <https://thinkr.fr/creer-package-r-quelques-minutes/>.
-
-- Présentation sur le développement de packages avec RStudio et git, par Martin Chevalier, <https://git.stable.innovation.insee.eu/formation/r_dev/raw/master/presentation/presentation.pdf>.
+- Présentation sur le développement de *packages* avec RStudio et git, par Martin Chevalier, <https://git.stable.innovation.insee.eu/formation/r_dev/raw/master/presentation/presentation.pdf>.
 
 - _Package Development Cheat Sheet_, <https://github.com/rstudio/cheatsheets/raw/master/package-development.pdf>.
 
 - _R Packages_, par Hadley Wickham, <http://r-pkgs.had.co.nz/>.
 
-- La documentation officielle : _Writing R Extensions_, <https://cran.r-project.org/doc/manuals/r-release/R-exts.html>. 
+- La documentation officielle : _Writing `R` Extensions_, <https://cran.r-project.org/doc/manuals/r-release/R-exts.html>. 
 
-Et si vous souhaitez voir comment on devait faire avant les packages **devtools**, **usethis** et **testthat** : <https://cran.r-project.org/doc/contrib/Genolini-ConstruireUnPackage.pdf>.
+Et si vous souhaitez voir comment on devait faire avant les *packages* **devtools**, **usethis** et **testthat** : <https://cran.r-project.org/doc/contrib/Genolini-ConstruireUnPackage.pdf>.
