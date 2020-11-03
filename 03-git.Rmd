@@ -374,7 +374,7 @@ Quand un projet est important, on peut créer un groupe qui permet d'avoir une a
 :::: {.rmdcaution data-latex=""}
 Le rôle de gestionnaire des `merge request` dans un projet collaboratif est important. Il faut **absolument** bannir les usages de `push force` qui peuvent déstabiliser les copies locales des collaborateurs. S'il est nécessaire de faire un `push force`, c'est qu'il y a un problème dans la branche, à identifier et régler **sans** faire `push force`
 
-![](pics/03_git/push_force.jpg)
+![](https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg)
 ::::
 
 
