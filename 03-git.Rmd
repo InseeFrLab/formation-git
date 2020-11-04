@@ -1,7 +1,8 @@
-# Utiliser GIT avec R à l'Insee {#git}
+# Utiliser `GIT` avec <i class="fab fa-r-project"></i>{#git}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
 
@@ -37,11 +38,11 @@ Une des principales fonctionnalités de la gestion de version est conserver l'en
 
 Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif^[Plus précisément, chaque modification est identifiée de manière unique par un code `SHA` auquel est associé l'auteur, l'horodatage et des méta-données (par exemple le message descriptif associé)]. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique. Les modifications transmises au dépôt sont appelées **commit**.
 
-**Un exemple d'historique d'un projet sur GitLab**
+**Un exemple d'historique d'un projet sur GitLab issu du projet [utilitR](https://gitlab.com/linogaliana/documentationR/-/commits/master/)**
 ![histoGIT](./pics/03_git/historique_gitlab.png){width=100%}  
 
 **Un exemple d'historique d'un projet via RStudio**
-![histR](./pics/03_git/historique_Rstudio.png "texte pour le titre, facultatif"){width=100%} 
+![histR](./pics/03_git/historique_Rstudio.png){width=100%} 
 
 Sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
 
@@ -59,7 +60,14 @@ correction
 **Exemple de détails d'une modification**
 ![](./pics/03_git/commit_Rstudio.png){width=100%} 
 
-L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année). Même lorsqu'on travaille tout seul, on collabore avec un *moi* futur qui peut ne plus se souvenir de la modification des fichiers. 
+:::: {.remarque data-latex=""}
+
+
+L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
+
+Même lorsqu'on travaille tout seul, on collabore avec un *moi* futur qui peut ne plus se souvenir de la modification des fichiers. 
+
+::::
 
 
 ### Améliorer la qualité des codes
@@ -76,7 +84,7 @@ Lors de l'ouverture des modèles, leur diffusion publique correspond aux standar
 
 ### Usage quotidien : un exemple avec le modèle Ines
 
-Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront développés dans la partie ***). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
+Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront présentés [plus loin](#gitlab)). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
 
 Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponibles en temps réel. Il existe plusieurs manières d'utiliser le contrôle de version : 
 
@@ -123,28 +131,39 @@ En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur s
 La gestion de version est donc le meilleur moyen de partager du code (entre équipes internes,
 lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent de l'informatique et de la création des logiciels et applications. Les traitements statistiques sont également des chaînes informatiques et sont donc pleinement adaptés pour être traités avec les outils de gestion de version.
 
-## Des bases de GIT 
+## Des bases de GIT <i class="fas fa-code-branch"></i>
 
 Les deux outils de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant en raison de plusieurs avantages. 
 
 GIT est un logiciel qui est installé sur son poste et celui de ses collaborateurs. Il est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type `stackoverflow` (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme `GitHub`, la [page de tutoriel](http://try.github.io/) regroupe différents supports. Des vidéos pédagogiques sont fournies sur [git-scm.com](https://git-scm.com/videos).
 
-Cependant, face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les bonnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis. C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec RStudio à l'Insee.
+:::: {.conseil data-latex=""}
 
-La genèse de Git correspond au noyau du système d'exploitation Linux qui gérait les patchs et les archives pendant les années 1990. À partir de 2005, Linus Torvalds, aussi inventeur de Linux, développe un successeur avec pour objectifs, la vitesse, la simplicité, la possibilité de développements en parallèle (les futures **branches**), le tout avec un usage compact des données. Depuis, son usage a largement dépassé celui de SVN.
+Face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les bonnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis.
 
-SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notamment que chaque collaborateur possède une copie en propre de l'ensemble du projet sur son poste de travail. Cela implique un avantage important de GIT en terme de sécurité des codes (qui risquent beaucoup moins d'être perdus) et la  rapidité des partages des modifications. En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
+C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec RStudio à l'Insee.
 
-Enfin, un des grands avantages pratiques de GIT est son intégration native dans l’interface RStudio ainsi que dans les plateformes GitHub et GitLab (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
+::::
 
-![](./pics/03_git/gitsvn.png)
+
+La genèse de Git correspond au noyau du système d'exploitation Linux qui gérait les patchs et les archives pendant les années 1990. À partir de 2005, Linus Torvalds, aussi inventeur de Linux, développe un successeur avec pour objectifs, la vitesse, la simplicité, la possibilité de développements en parallèle (les futures **`r with_def("branche")`s**), le tout avec un usage compact des données. Depuis, son usage a largement dépassé celui de SVN.
+
+
+:::: {.remarque data-latex=""}
+SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notamment que chaque collaborateur possède une copie en propre de l'ensemble du projet sur son poste de travail. Cela implique un avantage important de GIT en terme de sécurité des codes (qui risquent beaucoup moins d'être perdus) et la  rapidité des partages des modifications.
+
+En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
+::::
+
+Enfin, un des grands avantages pratiques de `GIT` est son intégration native dans l’interface `RStudio` ainsi que dans les plateformes `GitHub` et `GitLab` (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
+
 
 
 ### Le B.A-BA
 
 Les programmes s’organisent sur un répertoire distant commun
 (dépôt ou `r with_def("repository")`) et sont manipulés sur les postes indidivuels dans des
-dossiers locaux (**working directory**). Le dépôt distant peut par exemple être hébergé sur une plateforme de type **GitLab**.
+dossiers locaux (**working directory**). Le dépôt distant peut par exemple être hébergé sur une plateforme de type **GitLab** <i class="fab fa-gitlab"></i> ou **GitHub** <i class="fab fa-github"></i>.
 
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
@@ -185,9 +204,11 @@ Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en 
 * mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet.
 
 
-:::: {.rmdimportant data-latex=""}
+:::: {.recommandation data-latex=""}
 
-De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir EXERCICE). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`). Cependant, il existe des commandes qui peuvent définitivement endommager votre projet, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et comprennent ces commandes "à risque". 
+De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`).
+
+Cependant, **il existe des commandes qui peuvent définitivement endommager votre projet**, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et comprennent ces commandes "à risque". 
 
 ::::
 
@@ -196,6 +217,8 @@ De manière générale, **il ne faut pas avoir peur des conflits**. Les outils s
 C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans perturber le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
 <blockquote class="twitter-tweet"><p lang="fr" dir="ltr">Petite révélation du jour : <a href="https://twitter.com/hashtag/git?src=hash&amp;ref_src=twsrc%5Etfw">#git</a>, c&#39;est le meilleur outil pour te rappeler que nous sommes proches des singes : si t&#39;es pas sur une branche, t&#39;es dans la merde</p>&mdash; Nicolas Delsaux (\@riduidel) <a href="https://twitter.com/riduidel/status/1229768054109855747?ref_src=twsrc%5Etfw">February 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+
 
 Les branches peuvent avoir des durées de vie plus ou moins longues selon leurs objectifs : nouvelle fonctionnalité, résolution de bugs, environnement de développement ou de production, etc.
 
@@ -211,34 +234,37 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ### Quelques compléments de GIT 
 
-L'outil GIT permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée.
+L'outil `GIT` permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée.
 
 Une des commandes les plus utiles pour un travail collaboratif pour les statisticiens permet de ne pas partager les bases de données ou tout type de fichier, soit trop volumineux, soit confidentiel : 
 
 * `git ignore` : modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
 
-Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé `.gitignore` (ex [ici](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/blob/master/.gitignore)). Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, vous pouvez le package `usethis` avec lequel vous deviendrez familier dans la partie \@ref(#package):
+Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
 
 ```{r, eval = FALSE}
 # Taper dans la console RStudio
 usethis::use_git_ignore("*.csv")
 ```
 
-:::: {.rmdimportant data-latex=""}
+:::: {.recommandation data-latex=""}
 
-On ne met sous contrôle de version avec git que les fichiers "source" qui sont des fichiers texte.
+On ne met sous contrôle de version avec git que les fichiers "source" qui sont des fichiers textes.
 
 En particulier, il ne faut pas mettre sous contrôle de version et il faut donc inclure dans le fichier `.gitignore` :
 
 - les données (`.csv`, `.xlsx`, `.sas7bdat`, `.Rdata`...)
 - les fichiers produits grâce au code source (`.pdf`, `.html`, `.odt`, `.docx`, `.xlsx`...)
 
-Il faut être **extrêmement vigilant** à **ne jamais** mettre sous contrôle de version **des mots de passe** ou des jetons d'accès à des API.
+Il faut être **extrêmement vigilant** à **ne jamais** mettre sous contrôle de version **des mots de passe** ou des **jetons d'accès** à des API.
 
 ::::
 
 La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://linpricnil.github.io/Guide-RGPD-du-developpeur/)).
 
+:::: {.conseil data-latex=""}
+Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des modèles de fichiers `.gitignore` selon le langage utilisé. Ils peuvent servir de base à enrichir en fonction des besoins.
+::::
 
 D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
 
@@ -275,9 +301,9 @@ En résumé, voilà les principaux concepts présentés et qui seront utiles pou
 * `push` : envoi de ses nouveaux commit vers le remote
 ------>
 
-## GitLab, aperçu de la plateforme de partage de code
+## `GitLab` <i class="fab fa-gitlab"></i>, aperçu de la plateforme de partage de code {#gitlab}
 
-GitLab est une plateforme facilitant l’utilisation de git, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer.
+`GitLab` est une plateforme facilitant l’utilisation de `Git`, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer.
 
 Un projet sous GitLab se présente de la manière suivante:
 
@@ -316,7 +342,21 @@ Pour ouvrir une nouvelle *issue*, on clique en haut à droite sur le bouton déd
 
 ![](pics/03_git/new_issue.png)
 
-On peut faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe dièse, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue*. 
+On peut faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue*. 
+
+:::: {.conseil data-latex=""}
+Il est possible de fermer automatiquement une *issue* en faisant précéder l'appel d'une *issue* par le terme `Closes`. Cela peut être fait dans un message de commit ou dans la description d'une *merge request*. Par exemple,
+
+```shell
+Le problème des données manquantes est réglé
+
+Closes #12
+```
+
+fermera automatiquement l'*issue* `12`. 
+
+Il existe une astuce pour automatiquement fermer une `issue`. Si comme nom de branche, on donne `xx-blabla` où `xx` est le numéro de l'*issue*, alors au moment de la création de la *merge request*, le commentaire sera automatiquement alimenté par `Closes #xx`. Lorsque cette *merge request* sera validée, `#xx` sera automatiquement fermée
+::::
 
 On peut aussi avoir un affichage en tableau en cliquant à gauche sur `Boards`. On peut associer des *issues* à des `milestones` qui sont des jalons pour faire évoluer le projet
 
@@ -328,7 +368,7 @@ L'affichage est similaire à celui de [Trello](https://trello.com/) mais a l'ava
 
 ### Merge requests
 
-Espace pour gérer des fusions de branches. Normalement, on arrive dans un deuxième temps dans cet espace:
+c'est l'espace pour gérer des fusions de branches. Normalement, on arrive dans un deuxième temps dans cet espace:
 
 * une ou plusieurs *issues* sont créées et discutées
 * si on possède une solution, on crée une branche et propose une `merge request`
@@ -364,6 +404,14 @@ Les gros projets *open-source* fonctionnent plutôt de la première manière. Il
 
 La capture d'écran ci-dessus correspond à la seconde. Si vous l'utilisez, n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre repository.
 
+
+:::: {.recommandation data-latex=""}
+Le rôle de gestionnaire des `merge request` dans un projet collaboratif est important. Il faut **absolument** bannir les usages de `push force` qui peuvent déstabiliser les copies locales des collaborateurs. S'il est nécessaire de faire un `push force`, c'est qu'il y a un problème dans la branche, à identifier et régler **sans** faire `push force`
+
+![Attention au --force: https://estl.tech/a-gentler-force-push-on-git-force-with-lease-fb15701218df](https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg)
+::::
+
+
 ### Les groupes
 
 
@@ -371,17 +419,92 @@ Quand un projet est important, on peut créer un groupe qui permet d'avoir une a
 
 ![](./pics/03_git/page_Drees_gitlab.png){width=100%} 
 
-:::: {.rmdcaution data-latex=""}
-Le rôle de gestionnaire des `merge request` dans un projet collaboratif est important. Il faut **absolument** bannir les usages de `push force` qui peuvent déstabiliser les copies locales des collaborateurs. S'il est nécessaire de faire un `push force`, c'est qu'il y a un problème dans la branche, à identifier et régler **sans** faire `push force`
+## Organiser le travail collaboratif {#orgagit}
 
-![](https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg)
+Cette section propose une synthèse des usages de `Git` dans la communauté `R`,
+adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
+Quand on rentre dans le détail de toutes les fonctionnalités,
+il existe de multiples façon de travailler avec les outils de gestion de version. 
+
+:::: {.remarque data-latex=""}
+
+Cette formation adopte le parti pris de suivre le `GitHub Flow` dont une rapide description peut être trouvée sur [cette page](https://guides.github.com/introduction/flow/) et qui a pour mérite d'être le plus simple.  
+En effet, vous devez savoir que des "habitudes" se sont imposées dans la
+communauté R, essentiellement au travers des collaborations sur la plateforme
+`GitHub` (GitLab fonctionne de la même façon mais est open source contrairement à GitHub).
+
+Au fur et à mesure des collaborations, une forme de "norme sociale"
+s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `Git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
+
+Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git` (_flow_, en anglais). Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (`Git flow`, `GitHub flow`, `GitLab flow`...). Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents,...).
 ::::
 
+Voici la marche à suivre lors de la création d'un nouveau projet :
+
+- Vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Mainteneur_ (droits d'écriture sur `master`).
+- Chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repository à la légère, vous pourriez le regretter.
+- C'est au(x) mainteneur(s) du `r with_def("repository")` de définir les règles d'organisation du travail (ici, ce sera le `GitHub flow`).
+- Idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet. Il permettra à toute personne rejoignant le projet en cours de route de comprendre les différentes modalités de contribution.
+- Il est essentiel que chaque personne qui contribue au projet se conforme à ces règles.
+
+
+`Git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail.
+Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `Git`
+mais à une mauvaise définition de l'organisation du travail ou bien
+à son non-respect par les mainteneurs. 
+
+D'expérience, si vous n'avez pas réfléchi à l'organisation du travail,
+il est à peu près certain que vous rencontrerez des problèmes.
+Des difficultés peuvent en particulier apparaître dans une
+équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionalités
+de `Gitlab`, toutes les contributeurs d'un projet n'ont pas besoin de connaître
+`Git`. Néanmoins, il est mieux que ceux ayant la responsabilité suprême, à savoir
+les droits d'écriture dans `master`, aient des connaissances en `Git` pour
+ne pas mettre en péril un projet par une manipulation hasardeuse
+(ça n'arrive pas souvent et il y a des filets de sécurité avant de le faire).
+
+
+Pour les modifications quotidiennes,
+il est possible d'effectuer un `commit` sur `master`.
+Cela est possible si dans l'organisation du travail, vous avez les droits
+de type _Mainteneur_. Le premier exercice [**`Git` en local**](#gitlocal) en
+donne un exemple. Cependant, pour des changements plus profonds,
+il est recommandé d'organiser le travail selon les cinq étapes Suivantes.
+
+### Créer une branche
+
+Une branche permet de développer "dans son coin" (seul ou à plusieurs) et d'expérimenter des modifications et des améliorations avant de les proposer au dépôt commun.
+
+![](./pics/03_git/flow1_branch.png)
+
+### Modifier et valider ces changements 
+
+C'est l'étape des `commits`. Le travail se fait sur la branche en veillant à bien commenter les modifications et à bien les distinguer (il vaut mieux trop de `commit` que pas assez). 
+
+![](./pics/03_git/flow2_commit.png)
+
+### Ouvrir une demande de fusion 
+
+Une fois la série de modifications terminée ou le temps venu de rassembler les différents travaux, c'est par l'intermédiaire de la fusion entre la branche et le `master` (`Pull Request` sur `GitHub` ou `Merge Request` sur `GitLab`). Il faut alors "demander" de fusionner et c'est très bien intégré dans l'environnement `GitLab` (cf. ci-après). Cela initie un échange sur les modifications apportées.
+
+![](./pics/03_git/flow3_MR.png)
+
+### Échanger entre collaborateurs et vérifier le code
+
+Une fois la `Merge Request` ouverte, il est possible d'échanger des images, de commenter, de poser des questions et d'y répondre. Il est par exemple possible de mentionner un membre de l'équipe par l'intermédiaire de `@personne`.
+
+![](./pics/03_git/flow4_discuss.png)
+
+### Fusionner la branche avec `master`
+
+Une fois les vérifications faites, la fusion conserve l'historique des modifications et l'ensemble des `commits`.
+
+![](./pics/03_git/flow5_merge.png)
 
 
 ## Configurer un projet `GIT` avec RStudio à l'Insee
 
-Dans une configuration classique, la première étape constisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle se déroulera donc sur le serveur de calcul `AUS`. Il est également possible de collaborer à des projets via son poste local. Nous présentons cette configuration dans un premier temps.
+Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle se déroulera donc sur le serveur de calcul `AUS`. Il est également possible de collaborer à des projets via son poste local. Nous présentons cette configuration dans un premier temps puis la configuration spécifique à AUS. 
 
 La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil) qui héberge un [`GitLab` interne](https://git.stable.innovation.insee.eu/).
 
@@ -391,7 +514,7 @@ Il est d'abord nécessaire de créer son accès à la plateforme et ensuite de c
 
 #### Accéder au `GitLab` de la plateforme
 
-Le `GitLab` est accessible via ce lien : [git.stable.innovation.insee.eu/](https://git.stable.innovation.insee.eu/). Après avoir créé un compte sur la plateforme en y accédant pour la première fois, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
+Le `GitLab` est accessible via ce lien : [git.stable.innovation.insee.eu/](https://git.stable.innovation.insee.eu/).  Après avoir créé un compte sur la plateforme en y accédant pour la première fois, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
@@ -399,7 +522,7 @@ L'authentification sur la plateforme est alors automatique depuis le poste de tr
 
 ![](./pics/03_git/login_sso.png){width=100%} 
 
-#### Générer et ajouter une clé SSH
+#### Générer et ajouter une clé SSH [pour une utilisation en local]
 
 La deuxième étape pour mener à bien la configuration initiale revient à permettre le dialogue entre la plateforme (ici `GitLab`) et le logiciel `GIT` en local. Pour ce faire, le contrôle de version repose sur un protocole sécurisé, chiffrant les échanges. Ce processus d'authenfication s'appuie sur les clés SSH, l'une publique qu'on envoie à la plateforme distante, l'autre privée que l'on conserve sur son poste. C'est la combinaison des deux qui identifie un utilisateur de façon unique et sécurise les échanges. Un utilisateur peut générer autant de clés SSH qu'il souhaite, par exemple pour échanger avec plusieurs systèmes distants.
 
@@ -409,7 +532,7 @@ Ensuite, le logiciel "Paramétrage SSH" permet de créer une clé sur son poste 
 
 ![](./pics/03_git/ssh_keygen.png)
 
-On sélectionne ensuite "Générer une nouvelle clé" ; cette clé sera créée et sauvegardée en général dans le chemin suivant : D:/idep/Données d'application/.ssh, et sera constituée de deux fichiers texte :
+On sélectionne ensuite "Générer une nouvelle clé" ; cette clé sera créée et sauvegardée en général dans le chemin suivant : `D:/idep/Données d'application/.ssh`, et sera constituée de deux fichiers texte :
 
 * un fichier en .pub, qui fournit la partie publique de la clé, et qui a vocation à être diffusée (donc c'est ce fichier qu'on chargera sur `GitLab` pour permettre l'authentification) ;
 * un fichier .ppk (comme Private Key) qui est la partie privée de la clé, et qui ne doit en aucun cas être diffusée.
@@ -420,7 +543,14 @@ L'outil propose ensuite de télécharger la partie publique de la clé sur un d�
 * Hôte : gitlab.stable.innovation.insee.eu
 * Port : 22222
 
-Il faut ensuite charger la clé dans le cache de `Putty` ; pour cela, il faut ouvrir `Putty` (dans Menu Démarrer > Tous les programmes > INSEE atelier de développement V2 > utilitaire > putty), sélectionner "gitlab.stable.innvation.insee.eu", "Load", "Open". Le système renvoie une erreur, mais la clé est normalement chargée dans le cache, il reste à configurer GitLab pour que ce dernier reconnaisse la clé SSH comme étant celle de l'utilisateur.
+Il faut ensuite charger la clé dans le cache de `Putty` ; pour cela, il faut ouvrir `Putty` (dans Menu Démarrer > Tous les programmes > INSEE atelier de développement V2 > utilitaire > putty), sélectionner "gitlab.stable.innvation.insee.eu", "Load", "Open". Le système renvoie une erreur, mais la clé est normalement chargée dans le cache, il reste à configurer GitLab pour que ce dernier reconnaisse la clé SSH comme étant celle de l'utilisateur (voir étape [suivante](#configSSHgitlab)).
+
+
+#### Générer et ajouter une clé SSH [pour une utilisation sur AUS]
+
+La marche à suivre, pas à pas, est décrite sous AUS, dans le fichier `Y:/Documentation/AUSV3/Git_Utiliser git sous AUSv3.pdf`
+
+#### Enregistrement de la clé SSH dans `Gitlab` {#configSSHgitlab}
 
 Pour ce faire, il est nécessaire de retourner sur les paramètres du profil sur `GitLab` et accéder aux réglages de l'espace personnel : 
 
@@ -432,14 +562,14 @@ En sélectionnant `SSH Keys` dans le bandeau latéral gauche, il faut copier-col
 
 Après avoir cliqué sur le bouton `Add Key` et en modifiant éventuellement le `Title` (nom de la clé), `GitLab` est configuré et il est possible d'échanger avec `GIT` en local. La [documentation de la plateforme Innovation](http://innovation.pages.innovation.insee.eu/documentation-plateforme-innovation/gitlab/clef-ssh/) détaille également la procédure pour l'ajout d'une clé SSH.
 
+
 ### Au lancement de chaque projet 
 
+Les étapes précédentes étaient des configurations à ne faire qu'une fois.
 
-Afin de pouvoir travailler avec les outils intégrés de `GIT` , il est nécessaire d'accéder à une version améliorée de `RStudio` disponible via le chemin `Y:\Logiciels\R\RStudio avec git et Rtools` (cliquer sur le raccourci afin de lancer l'application).
+Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé. Il est disponible via le bouton `clone` du projet. Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` via le projet disponible sur [cette page du `GitLab`](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
 
-La première étape consister à récupérer le chemin du dossier partagé. Il est disponible via le bouton `clone` du projet. Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` via le projet disponible sur [cette page du `GitLab`](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
-
-Pour récupérer (*cloner* en vocabulaire `GIT`) le dossier partagé, copier l'adresse indiquée sous la boîte *Clone with SSH*.
+Pour récupérer (**`r with_def("clone")`** en vocabulaire `GIT`) le dossier partagé, copier l'adresse indiquée sous la boîte *Clone with SSH*.
 
 ![](./pics/03_git/clone_ssh.png)
 
@@ -459,263 +589,12 @@ La section qui suit décrit la même configuration pour un dépôt externe. Si v
 
 ### Pour des projets externes
 
-En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés en interne, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `https`.
+En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés en interne, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `HTTPS`.
 
 Par exemple, en ayant un profil sur `github.com` ou `gitlab.com`, il suffit alors de copier l'url : 
 
 ![](./pics/03_git/clone_https.png)
 
 Ensuite, les étapes sont identiques à la section précédente: à partir du menu "File / New Project", sélectionner `Version control` puis `GIT`; remplir les paramètres du dossier local et cliquer sur `Create project`.
-
-
-## Bonnes pratiques de `GIT` et `GitLab` 
-
-Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec R et GIT via RStudio et GitLab. 
-
-
-### Pré-requis : organiser le travail collaboratif
-
-Cette section propose une synthèse des usages de `Git` dans la communauté R, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens. Quand on rentre dans le détail de toutes les fonctionnalités, il existe de multiples façon de travailler avec les outils de gestion de version. 
-
-Cette formation adopte le parti pris de suivre le `GitHub flow` dont une rapide description peut être trouvée sur [cette page](https://guides.github.com/introduction/flow/) et qui a pour mérite d'être le plus simple.  
-En effet, vous devez savoir que des "habitudes" se sont imposées dans la communauté R, essentiellement au travers des collaborations sur la plateforme GitHub (GitLab fonctionne de la même façon mais est open source contrairement à GitHub). Au fur et à mesure des collaborations, une forme de "norme sociale" s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
-
-Voici la marche à suivre lors de la création d'un nouveau projet :
-
-- Vous devez identifier les responsables de la maintenance du projet. Dans `GitLab`, c'est facile, c'est le rôle de _Maintener_ (droits d'écriture sur `master`).
-- Chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repository à la légère, vous pourriez le regretter.
-- C'est au(x) mainteneur(s) du repository de définir les règles d'organisation du travail (ici, ce sera le `GitHub flow`).
-- Idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet.
-- Il est essentiel que chaque personne qui contribue au projet se conforme à ces règles.
-- `git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail. Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `git` mais à une mauvaise définition de l'organisation du travail ou bien à son non respect par les mainteneurs. 
-- D'expérience, si vous n'avez pas réfléchi à l'organisation du travail, il est à peu près certain que vous rencontrerez des problèmes. Des difficultés peuvent en particulier apparaître dans une équipe dont personne n'aurait d'expérience avec `git`.
-- Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git` (_flow_, en anglais). Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (`Git flow`, `GitHub flow`, `GitLab flow`...). Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents,...).
-
-
-Pour les modifications quotidiennes, il est possible d'effectuer un `commit` sur `master`. Cela est possible si dans l'organisation du travail, vous avez les droits de type _Maintener_. C'est l'objet de la première section **`Git` en local**.
-
-Cependant, pour des changements plus profonds, il est recommandé d'organiser le travail selon les cinq étapes Suivantes.
-
-#### Créer une branche
-
-Une branche permet de développer "dans son coin" (seul ou à plusieurs) et d'expérimenter des modifications et des améliorations avant de les proposer au dépôt commun.
-
-![](./pics/03_git/flow1_branch.png)
-
-#### Modifier et valider ces changements 
-
-C'est l'étape des `commits`. Le travail se fait sur la branche en veillant à bien commenter les modifications et à bien les distinguer (il vaut mieux trop de `commit` que pas assez). 
-
-![](./pics/03_git/flow2_commit.png)
-
-#### Ouvrir une demande de fusion 
-
-Une fois la série de modifications terminée ou le temps venu de rassembler les différents travaux, c'est par l'intermédiaire de la fusion entre la branche et le `master` (`Pull Request` sur `GitHub` ou `Merge Request` sur `GitLab`). Il faut alors "demander" de fusionner et c'est très bien intégré dans l'environnement `GitLab` (cf. ci-après). Cela initie un échange sur les modifications apportées.
-
-![](./pics/03_git/flow3_MR.png)
-
-#### Échanger entre collaborateurs et vérifier le code
-
-Une fois la `Merge Request` ouverte, il est possible d'échanger des images, de commenter, de poser des questions et d'y répondre. Il est par exemple possible de mentionner un membre de l'équipe par l'intermédiaire de `@personne`.
-
-![](./pics/03_git/flow4_discuss.png)
-
-#### Fusionner la branche avec `master`
-
-Une fois les vérifications faites, la fusion conserve l'historique des modifications et l'ensemble des `commits`.
-
-![](./pics/03_git/flow5_merge.png)
-
-### Exercices
-
-#### Exercice 1: Premiers pas avec `git` en local
-
-Dans le cadre de cette formation, un projet commun a été créé pour vous. Vous allez travailler en binôme avec votre voisin. La première étape est de le clôner le dépôt qui vous est associé (la page du projet vous sera fournie le jour j).
-
-
-:::: {.exercice data-latex=""}
-
-<titreexo>Exercice 1 : Git en local</titreexo>
-
-
-Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
-![](./pics/03_git/onglet_git.png)
-
-
-**Question a.** *`gitignore`*
-
-Après avoir clôné le dossier de votre projet, modifier le fichier `gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
-
-**Question b.** *`staging`*
-
-Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
-
-**Question c.** *`commit`*
-
-Valider cet ajout via le bouton `commit` en ajoutant un message clair mais bref.
-
-**Question d.** *`push`*
-
-Envoyer cette modification au projet partagé via le bouton `push` (flèche verte montante).
-
-**Question e.** *`pull`*
-
-Récupérer les modifications du dépôt commun (= le fichier de votre voisin à ce stade) via le bouton `pull` (flèche bleue descendante).
-
-**Question f.** *`commit-push-pull`*
-
-Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre voisin. Compléter le texte par une autre phrase.
-
-:::: 
-
-
-
-#### Exercice 2 : Ouvrir et organiser les *issues* {-}
-
-Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
-
-Ces *issues* seront fermées au fur et à mesure que les fonctionnalités seront implémentées ou bien que vous aurez abandonné vos idées. Des labels peuvent être utilisés pour classer les *issues*. Il est possible de les affecter à une personne en particulier, fixer une date de rendu, etc.
-
-Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
-
-![](./pics/03_git/new_issue.png)
-
-:::: {.exercice data-latex=""}
-
-<titreexo>Exercice 2 : Premiers pas sur Gitlab </titreexo>
-
-**Question a.** *Ouverture et attribution*
-
-Ouvrir une *issue* concernant le fichier de votre voisin et indiquant qu'il faut corriger les majuscules et la ponctuation. Lui attribuer l'*issue* via `@idep`.
-
-**Question b.** *Règlement*
-
-Corriger votre fichier `votre-idep.md` par un `commit` puis un `push`.
-
-**Question c.** *Clôture*
-
-Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*issue* sur `GitLab`.
-
-::::
-
-
-#### Exercice 3 : Branches et `master` {-}
-
-La branche `master` est la branche principale. Elle se doit d'être "propre". On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
-
-Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. N'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master` (voir section précédente), cela obligera l'équipe projet à travailler professionnellement. 
-
-Au moindre doute, créez une branche. Les branches sont utilisées pour des travaux significatifs :
-
-- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis);
-- vous travaillez sur une fonctionnalité nouvelle et vous souhaiterez recueillir l'avis de vos collègues avant de modifier `master`;
-- vous n'êtes pas certain de réussir vos modifications du premier coup et préférez faire des tests en parallèle.
-
-Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `rebase` est interdit. Le push force est également interdit.** (carton rouge)
-
-**Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement (carton rouge).
-
-Comment nommer les branches ? Là encore, il y a énormément de conventions différentes. Une fréquemment observée est :
-
-- pour les nouvelles fonctionnalités : `feature/nouvelle-fonctionnalite` où `nouvelle-fontionnalite` est un nom court résumant la fonctionnalité
-- pour les corrections de bug : `issue-num` où `num` est le numéro de l'issue
-
-N'hésitez pas à aller encore plus loin dans la normalisation  !
-
-But de l'exercice : on va faire un cadavre exquis.
-
-:::: {.exercice data-latex=""}
-
-<titreexo>Exercice 3 : Cadavre exquis</titreexo>
-
-**Question a.** *Création d'une branche locale*
-
-Placez-vous sur la branche `master` dans votre dépôt local. Créez une branche dans le dépôt local, en lui donnant un nom comportant votre prénom.
-
-**Question b.** *Modification au sein d'une branche*
-
-Ouvrez le fichier **A COMPLETER** figurant dans le dépôt local, et ajoutez-y deux phrases sans aucune ponctuation. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible.
-
-**Question c.** *Publication d'une branche*
-
-Poussez votre branche vers le dépôt commun (avec `push`).
-
-**Question d.** *Récupération de la branche créée par votre voisin*
-
-Récupérez la branche créée par votre voisin (avec `pull`).
-
-**Question e.** *Modifier une autre branche*
-
-Placez-vous sur la branche créée par votre voisin. Ouvrez le fichier **A COMPLETER** figurant dans votre dépôt local. Vous devez normalement voir les deux phrases écrites par votre voisin. Ajoutez la ponctuation à ces deux phrases. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible. Publiez cette modification sur le dépôt distant (avec `push`).
-
-**Question f.** *Récupération des corrections de l'autre personne du binôme*
-
-Placez-vous sur la branche que vous avez créée à la question a. Récupérer les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que les deux phrases que vous avez écrites ont maintenant une ponctuation correcte.
-
-::::
-
-#### Exercice 4 : Fusionner les travaux avec des `Merge Requests` {-}
-
-Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
-
-- donner un titre explicite (comme on donne un objet à un mail);
-- donner des détails dans le message (comme pour les `commit`).
-
-Le cas échéant, il est très pratique d'ajouer dans le corps du message `close #xx` où `xx` est le numéro de l'*issue* décrivant la fonctionnalité que la MR implémente. Lorsque la MR sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la MR. Cela vous permettra de comprendre, plusieurs mois ou années plus tard comment et pourquoi telle ou telle fonctionnalité a été implémentée.
-
-Une fois une MR ouverte, il est précieux de solliciter une relecture. En effet, personne (même les meilleurs!) n'est à l'abri d'une erreur. 
-
-**Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
-
-Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
-
-:::: {.exercice data-latex=""}
-
-<titreexo>Exercice 4 : Merge Request </titreexo>
-
-**Question a.** *Ouvrir une MR*
-
-Créez une `merge request` dans GitLab. Dans cette `merge request`, vous devez proposer d'ajouter à la branche `master` du dépôt commun les modifications qui ont été développées dans la branche que vous avez créée au cours de l'exercice 2. Autrement dit, vous proposez d'ajouter au fichier **A COMPLETER** les deux phrases que vous avez écrites dans votre branche, et que votre voisin a corrigées.
-
-**Question b.** *Contribuer à une MR*
-
-Dans GitLab, allez dans la `merge request` créée par votre voisin, et contribuez à la discussion par un message donnant votre avis sur les modifications proposées.
-
-**Question c.** *Régler une MR*
-
-Dans GitLab, fusionnez la branche de votre voisin avec la branche `master`. Retournez dans Rstudio. Placez-vous sur la branche `master` de votre dépôt local, puis récupérez depuis le dépôt commun les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier **A COMPLETER**. Vous devez normalement constater que le fichier contient désormais les phrases que vous et votre voisin avez écrites.
-
-::::
-
-Usuellement, c'est la seule responsabilité spécifique des mainteneurs : seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la bonne qualité des `merge requests`.
-
-Notes : 
-- suppression branche 
--  squash and merge ou pas ?  
-Là, vous devrez faire preuve de discernement. L'habitude est de faire des squash and merge (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
-
-#### Exercice 5 : Résoudre les conflits, c'est facile. {-}
-
-Si vous adoptez les règles précédentes, master sera surtout modifié via des merge requests. Vous ne devriez donc jamais avoir de conflits sur master.
-
-Tous les conflits devraient donc survenir dans les branches. Les merge requests en conflit sont impossibles à merger. Il n'y a donc pas de possibilité de commettre un erreur par mégarde (c'est la raison pour laquelle il est interdit de merger dans master localement).
-
-Si votre branche est en conflit, **le conflit doit être résolu dans la branche et pas dans master**. Voici la marche à suivre :
-
-- appliquez le conseil de survie : faites une copie de sauvegarde de votre clone (avec l'expérience, vous pourrez vous passer de cette étape)
-- dans votre clone, placez vous sur la branche en question `git checkout nom-de-la-branche`
-- mergez master dans la branche `git merge master`
-- résolvez les conflits
-- finalisez le commit de merge
-- poussez vers GitLab
-
-Rappel : **Il est interdit de faire l'inverse (merger localement la branche dans master)**
-
-Une référence sur GitHub : https://happygitwithr.com/ 
-
-EXERCICE : ouvrir une MR, l'assigner, la résoudre sur GitLab
-Usage des issues et ToDo
-
-EXERCICE : comment on peut contribuer à un repo pour lequel on n'a pas les droits en écriture à l'aide d'un fork
 
 
