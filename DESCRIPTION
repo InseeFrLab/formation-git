@@ -31,6 +31,7 @@ Imports:
     questionr,
     purrr,
     rmarkdown,
+    reshape2,
     roxygen2 (>= 6.0.0),
     roxygen2md,
     testthat,

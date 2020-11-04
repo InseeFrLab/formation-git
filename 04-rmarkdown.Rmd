@@ -209,7 +209,7 @@ ce qui donne le résultat suivant dans la mise en forme:
 
 ![](./pics/04_markdown/CaptureInsee.png)
 
-:::: {.exercice data-latex=""}
+:::: {.exercise data-latex=""}
 ::: {.center data-latex=""}
 **Exercice 1**
 :::
@@ -316,7 +316,7 @@ knitr::kable(res, caption = "hdv2003 - bricol x cuisine - affichage avec la fonc
 ```
 
 
-:::: {.exercice data-latex=""}
+:::: {.exercise data-latex=""}
 ::: {.center data-latex=""}
 **Exercice 2**
 :::
@@ -516,7 +516,7 @@ Pour le temps 2 :
 
     
 
-:::: {.exercice data-latex=""}
+:::: {.exercise data-latex=""}
 ::: {.center data-latex=""}
 **Exercice 3**
 :::

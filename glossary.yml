@@ -32,4 +32,5 @@
   desc: Déplacement des commits d'une branche vers une autre. C'est une pratique dangereuse, à éviter ! 
 - name: repository
   desc: Dossier partagé qui contient toutes les informations
-
+- name: fork
+  desc: Copie d'un projet disponible sur un dépôt distant permettant de modifier un projet sans affecter le dépôt d'origine

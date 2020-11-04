@@ -1,0 +1,300 @@
+# Bonnes pratiques de `GIT` et `GitLab` {#gitexo}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+
+
+Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec `R` et `GIT` via `RStudio` et `GitLab`.
+
+L'idée est de former des groupes de deux, chaque groupe représentant une équipe
+
+
+
+## Exercice 1: Premiers pas avec `git` en local {#gitlocal}
+
+Dans le cadre de cette formation, un projet d'exemple a été créé pour vous et
+est disponible à l'adresse 
+<https://git.stable.innovation.insee.eu/formationsd2e/formationgit-projets/template-projet>.
+Vous allez travailler en binôme avec votre voisin.
+
+:::: {.recommandation data-latex=""}
+
+**Préliminaire: forker le projet** Même si c'est techniquement possible, être plus de 10
+à faire des modifications en simultané sur la branche `master` est périlleux. Il convient
+donc d'éviter d'être tous en même temps sur le même projet.
+
+Pour cela, dans chaque équipe
+de 2, une personne doit faire un `r with_def("fork")` (c'est expliqué sur la page 
+d'accueil du projet)
+
+La personne qui a initié le `fork` (pas besoin d'être deux à le faire) doit
+ensuite donner des droits à son/sa camarade (c'est également expliqué sur la page 
+d'accueil du projet)
+
+::::
+
+:::: {.exercise data-latex=""}
+
+<titreexo>Exercice 1 : Git en local</titreexo>
+
+:warning: N'oubliez pas qu'il faut avoir faire un `fork` du projet.
+
+
+Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
+![](./pics/03_git/onglet_git.png)
+
+
+**Question a.** *`.gitignore`*
+
+Après avoir clôné le dossier de votre projet, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+
+**Question b.** *`staging`*
+
+Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
+
+**Question c.** *`commit`*
+
+Valider cet ajout via le bouton `commit` en ajoutant un message clair mais bref.
+
+**Question d.** *`push`*
+    
+Envoyer cette modification au projet partagé via le bouton `push` (flèche verte montante).
+:boom: Un des deux membres du groupe (celui qui a été moins rapide) devrait avoir un rejet
+du `push`. Pas de problème, passer à l'étape suivante (`pull`) puis refaire cette étape (`push`)
+
+**Question e.** *`pull`*
+
+Récupérer les modifications du dépôt commun (= le fichier de votre voisin à ce stade) via le bouton `pull` (flèche bleue descendante).
+
+**Question f.** *`commit-push-pull`*
+
+Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre voisin. Compléter le texte par une autre phrase.
+
+:::: 
+
+
+
+## Exercice 2 : Ouvrir et organiser les *issues*
+
+Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
+
+Ces *issues* seront fermées au fur et à mesure que les fonctionnalités seront implémentées ou bien que vous aurez abandonné vos idées. Des *labels* peuvent être utilisés pour classer les *issues*. Il est possible de les affecter à une personne en particulier, fixer une date de rendu, etc.
+
+Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
+
+![](./pics/03_git/new_issue.png)
+
+:::: {.exercise data-latex=""}
+
+<titreexo>Exercice 2 : Premiers pas sur Gitlab </titreexo>
+
+**Question a.** *Ouverture et attribution*
+
+Ouvrir une *issue* concernant le fichier de votre voisin et indiquant qu'il faut corriger les majuscules et la ponctuation. Lui attribuer l'*issue* via `@idep`.
+
+**Question b.** *Règlement*
+
+Corriger votre fichier `votre-idep.md` par un `commit` puis un `push`.
+
+**Question c.** *Clôture*
+
+Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*issue* sur `GitLab`.
+
+::::
+
+
+## Exercice 3 : Branches et `master`
+
+La branche `master` est la branche principale. Elle se doit d'être "propre".
+On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
+
+Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit.
+N'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
+(cf. [section précédente](#orgagit)), cela obligera l'équipe
+projet à travailler professionnellement. 
+
+Au moindre doute, créez une branche. Les branches sont utilisées pour des travaux significatifs :
+
+- vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis);
+- vous travaillez sur une fonctionnalité nouvelle et vous souhaiteriez recueillir l'avis de vos collègues avant de modifier `master`;
+- vous n'êtes pas certain de réussir vos modifications du premier coup et préférez faire des tests en parallèle.
+
+:::: {.recommandation data-latex=""}
+
+(:no_entry:) Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `r with_def("rebase")` est interdit. Le `r with_def("push")` force est également interdit.** 
+
+(:no_entry:) **Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement.
+
+::::
+
+Comment nommer les branches ? Là encore, il y a énormément de conventions différentes. Une fréquemment observée est :
+
+- pour les nouvelles fonctionnalités : `feature/nouvelle-fonctionnalite` où `nouvelle-fontionnalite` est un nom court résumant la fonctionnalité
+- pour les corrections de bug : `issue-num` où `num` est le numéro de l'issue
+- pour les branches liées à une issue: `num-blabla` où `num` est le numéro de l'issue et `blabla` un titre permettant de comprendre l'objet de la merge request.
+
+N'hésitez pas à aller encore plus loin dans la normalisation  !
+
+
+Jusqu'à présent, vous ne travailliez pas simultanément sur un fichier. Les conflits
+étaient donc limités. A partir de maintenant, vous allez découvrir l'une des
+forces de `Git`: on peut travailler sur le même fichier en même temps. 
+
+:::: {.exercise data-latex=""}
+
+<titreexo>Exercice 3 : Cadavre exquis</titreexo>
+
+
+**Question a.** *Création d'une branche locale*
+
+Placez-vous sur la branche `master` dans votre dépôt local.
+Créez une branche dans le dépôt local, en lui donnant un nom comportant votre prénom.
+
+**Question b.** *Modification au sein d'une branche*
+
+Ouvrez le fichier `cadavre_exquis.md` figurant dans le dépôt local, et ajoutez-y deux phrases sans aucune ponctuation. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible.
+
+**Question c.** *Publication d'une branche*
+
+Poussez votre branche vers le dépôt commun (avec `push`).
+
+**Question d.** *Récupération de la branche créée par votre voisin*
+
+Récupérez la branche créée par votre voisin (avec `pull`).
+
+**Question e.** *Modifier une autre branche*
+
+Placez-vous sur la branche créée par votre voisin. Ouvrez le fichier `cadavre_exquis.md` figurant dans votre dépôt local. Vous devez normalement voir les deux phrases écrites par votre voisin. Ajoutez la ponctuation à ces deux phrases. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible. Publiez cette modification sur le dépôt distant (avec `push`).
+
+**Question f.** *Récupération des corrections de l'autre personne du binôme*
+
+Placez-vous sur la branche que vous avez créée à la question `a`. Récupérer les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier `cadavre_exquis.md`. Vous devez normalement constater que les deux phrases que vous avez écrites ont maintenant une ponctuation correcte.
+
+::::
+
+## Exercice 4 : Fusionner les travaux avec des `Merge Requests`
+
+Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
+
+- donner un titre explicite (comme on donne un objet à un mail);
+- donner des détails dans le message (comme pour les `commit`).
+
+Le cas échéant, il est très pratique d'ajouter dans le corps du message `close #xx` où `xx` est le numéro de l'*issue* décrivant la fonctionnalité que la `MR` implémente. Lorsque la `MR` sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la `MR`. Cela vous permettra de comprendre, plusieurs mois ou années plus tard, comment et pourquoi telle ou telle fonctionnalité a été implémentée.
+
+Une fois une `MR` ouverte, il est précieux de solliciter une relecture. En effet, personne ([même les meilleurs!](https://twitter.com/hadleywickham/status/589068687669243905)) n'est à l'abri d'une erreur. 
+
+**Les merge requests sont des espaces de discussion**. Vous pouvez commenter une proposition de modification en particulier ou bien suggérer une modification.
+
+Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
+
+:::: {.exercise data-latex=""}
+Exercice 4 : Merge Request
+
+
+**Question a.** *Ouvrir une MR*
+
+Créez une `merge request` dans GitLab. Dans cette `merge request`, vous devez proposer d'ajouter à la branche `master` du dépôt commun les modifications qui ont été développées dans la branche que vous avez créée au cours de l'exercice 2. Autrement dit, vous proposez d'ajouter au fichier `cadavre_exquis.md` les deux phrases que vous avez écrites dans votre branche, et que votre voisin a corrigées.
+
+**Question b.** *Contribuer à une MR*
+
+Dans GitLab, allez dans la `merge request` créée par votre voisin, et contribuez à la discussion par un message donnant votre avis sur les modifications proposées.
+**N'acceptez pas les MR, c'est l'objet du prochain exercice**
+
+<!---
+**Question c.** *Régler une MR*
+
+Dans GitLab, fusionnez la branche de votre voisin avec la branche `master`. Retournez dans Rstudio. Placez-vous sur la branche `master` de votre dépôt local, puis récupérez depuis le dépôt commun les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier `cadavre_exquis.md`. Vous devez normalement constater que le fichier contient désormais les phrases que vous et votre voisin avez écrites.
+----->
+
+::::
+
+Usuellement, c'est la seule responsabilité spécifique des mainteneurs :
+seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la
+bonne qualité des `merge requests`.
+
+Gitlab propose deux options lors du *merge* : 
+* `Delete source branch when merge request is accepted`: supprimer la branche. C'est fortement recommandé car cela évite qu'un contributeur reprenne, après plusieurs mois d'inactivité d'une branche, qui aurait accumulé du retard par rapport à `master`, une branche. 
+* `Squash commits when merge request is accepted`: Là, vous devrez faire preuve de discernement. L'habitude est de faire des `squash and merge` (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
+
+## Exercice 5 : Résoudre les conflits, c'est facile.
+
+Si vous adoptez les règles précédentes, `master` sera surtout modifié via des `merge requests`. Vous ne devriez donc jamais avoir de conflits sur master.
+
+Tous les conflits devraient donc survenir dans les branches. Les `merge requests` en conflit sont impossibles à merger. Il n'y a donc pas de possibilité de commettre un erreur par mégarde (c'est la raison pour laquelle il est interdit de merger dans master localement).
+
+Si votre branche est en conflit, **le conflit doit être résolu dans la branche et pas dans master**. Voici la marche à suivre :
+
+- appliquez le conseil de survie : faites une copie de sauvegarde de votre clone (avec l'expérience, vous pourrez vous passer de cette étape)
+- dans votre clone, placez vous sur la branche en question `git checkout nom-de-la-branche`
+- mergez master dans la branche `git merge master`
+- résolvez les conflits
+- finalisez le commit de merge
+- poussez vers GitLab
+
+Rappel : **Il est interdit de faire l'inverse (merger localement la branche dans master)**
+
+:::: {.exercise data-latex=""}
+Exercice 5 : Gérer des conflits dans une branche
+
+**Question a.** Revenez sur la branche `master`. Vous êtes subitement atteint
+d'une double personnalité :dizzy_face:
+et oubliez que vous avez déjà proposé des changements. 
+Vous ouvrez une branche. Refaire l'exercice 3
+(questions `a` à `d`) avec une branche nommée `nom-prenom-double` et ouvrir une
+*merge request*. 
+
+**Question b.** Vous revenez tous deux à votre état normal. Sur `Gitlab`, une première personne
+valide sa *merge request*
+
+**Question c.** En local, vous faites tous deux un `pull` pour récupérer la modification
+du dépôt:
+
+* La personne qui n'a pas fait le `merge` de sa branche se place sur sa branche. Elle doit mettre à jour
+sa branche pour tenir compte des modifications de `master`:
+    + Il faut taper dans l'invite de commande `git merge master` 
+    + Un conflit doit apparaître: il se résout en éditant directement le fichier. Ne pas supprimer la phrase
+de votre camarade mais accoler votre texte à celle-ci
+
+* La personne qui a fait le `merge` retombe dans sa deuxième personnalité et se place dans sa branche `*-double`. Elle doit mettre à jour
+sa branche `*-double` pour tenir compte des modifications de `master`:
+    + Il faut taper dans l'invite de commande `git merge master` 
+    + Un conflit doit apparaître: il se résout en éditant directement le fichier. Ne pas supprimer la phrase
+de votre première personnalité mais accoler votre nouveau texte à celle-ci
+
+**Question d.** Sur Gitlab, valider la *merge request* de la personne qui n'a pas eu de MR validée jusqu'à présent.
+Regarder dans l'interface Gitlab, le fichier `cadavre_exquis.md`
+
+**Question e.** Retour dans la deuxième personnalité aussi pour la deuxième personne. Chacun sur sa branche `-double`, suivre
+la procédure de nettoyage du conflit pour être raccord avec `master`. La personne la plus rapide à régler le conflit valide sa
+*merge request*, la suivante devra à nouveau harmoniser sa version avec `master`
+
+::::
+
+## Exercice 6 : Contribuer à un dépôt sans droits sur `master`
+
+
+A l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour garder trace de ces monuments de littérature, vous allez les 
+soumettre au dépôt d'exemple. Il est tout à fait possible de soumettre des modifications à un dépôt sur lequel on n'a pas le droit d'écriture
+par l'intermédiaire d'un `fork`:
+
+:::: {.exercise data-latex=""}
+1. Se trouver un nom de groupe qui va servir à nommer le fichier. 
+L'une des personnes du groupe crée une branche `finalisation`. Elle se place dessus et change le nom du `cadavre-exquis.md`. Par exemple, si vous avez décidé d'être l'équipe Oulipo, nommer le fichier `oulipo.md`
+2. Ne pas oublier de faire add, commit, push 
+3. Dans le dépôt d'[exemple](https://git.stable.innovation.insee.eu/formationsd2e/formationgit-projets/template-projet), ouvrir une `merge request` en mettant votre dépôt et la branche `finalisation` dans la partie `Source branch` . Remplir la *merge request*
+
+![Interface GitLab](pics/03_git/mrfork.png)
+
+::::
+
+:::: {.recommandation data-latex=""}
+Faire une *merge request* via la branche `master` d'un `fork` est très mal vu. En effet,
+il faut souvent faire des contorsionnements pour réussir à faire coïncider deux histoires
+qui n'ont pas de raison de coïncider.
+[L'aide officielle de `GitHub`](https://gist.github.com/Chaser324/ce0505fbed06b947d962#submitting-a-pull-request)
+recommande de faire un `rebase`: souvenez-vous, on vous a dit que c'était mal de faire ça ! On s'évite beaucoup
+de peine (et on évite une grosse galère au mainteneur du dépôt forké) en évitant simplement de faire le
+merge depuis son propre `master`. L'astuce de le faire depuis une branche différente fonctionne très bien.
+::::
