@@ -36,10 +36,9 @@ d'accueil du projet)
 ::::
 
 :::: {.exercise data-latex=""}
-
 Exercice 1 : Git en local
 
-:warning: N'oubliez pas qu'il faut avoir faire un `fork` du projet.
+:warning: N'oubliez pas qu'il faut avoir fait un `fork` du projet.
 
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
@@ -87,7 +86,6 @@ Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
 ![](./pics/03_git/new_issue.png)
 
 :::: {.exercise data-latex=""}
-
 Exercice 2 : Premiers pas sur Gitlab
 
 **Question a.** *Ouverture et attribution*
@@ -143,7 +141,6 @@ Jusqu'à présent, vous ne travailliez pas simultanément sur un fichier. Les co
 forces de `Git`: on peut travailler sur le même fichier en même temps. 
 
 :::: {.exercise data-latex=""}
-
 Exercice 3 : Cadavre exquis
 
 
@@ -190,7 +187,6 @@ Une fois une `MR` ouverte, il est précieux de solliciter une relecture. En effe
 Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
 
 :::: {.exercise data-latex=""}
-
 Exercice 4 : Merge Request
 
 
@@ -237,7 +233,6 @@ Si votre branche est en conflit, **le conflit doit être résolu dans la branche
 Rappel : **Il est interdit de faire l'inverse (merger localement la branche dans master)**
 
 :::: {.exercise data-latex=""}
-
 Exercice 5 : Gérer des conflits dans une branche
 
 **Question a.** Revenez sur la branche `master`. Vous êtes subitement atteint
