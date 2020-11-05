@@ -38,7 +38,7 @@ d'accueil du projet)
 :::: {.exercise data-latex=""}
 Exercice 1 : Git en local
 
-:warning: N'oubliez pas qu'il faut avoir fait un `fork` du projet.
+emo::ji("warning") N'oubliez pas qu'il faut avoir fait un `fork` du projet.
 
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
@@ -121,9 +121,9 @@ Au moindre doute, créez une branche. Les branches sont utilisées pour des trav
 
 :::: {.recommandation data-latex=""}
 
-(:no_entry:) Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `r with_def("rebase")` est interdit. Le `r with_def("push")` force est également interdit.** 
+(`r emo::ji("no_entry")`) Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `r with_def("rebase")` est interdit. Le `r with_def("push")` force est également interdit.** 
 
-(:no_entry:) **Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement.
+(`r emo::ji("no_entry")`) **Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement.
 
 ::::
 
