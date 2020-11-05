@@ -129,10 +129,8 @@ dérouler):
 Ne pas oublier les bonnes pratiques évoquées précédemment et celles, plus génériques, évoquées dans la documentation [utilitR](https://www.book.utilitr.org/).
 :::
 
-:::: {.exercise data-latex=""}
-::: {.center data-latex=""}
+:::: {.exo data-latex=""}
 **Exercice 3**
-:::
 
 Réaliser ce premier document qui contiendra à la fois résultats et commentaires associés.
 
@@ -159,11 +157,11 @@ document. Nous allons voir comment intégrer facilement :
 * amélioration
 * modification
 
-#### Cas d'une demande d'amélioration
+### Cas d'une demande d'amélioration {-}
 
 Il est peu coûteux de changer des paramètres de mise en forme avec `R Markdown`
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 1. Imaginons qu'on vous demande finalement de numéroter les sections. Faire la modification
 2. On vous demande de revoir le thème `ggplot` pour utiliser le thème `theme_bw` sur tous les graphiques
 ::::
@@ -177,16 +175,16 @@ html_document:
 ggplot2::theme_set(ggplot2::theme_bw())
 ```
 
-#### Cas d'une demande d'évolution
+### Cas d'une demande d'évolution {-}
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Reproduire le même rapport avec les données 2015 : avez-vous fait un programme reproductible ?
 ::::
 
 
-#### Cas d'une demande de modification
+### Cas d'une demande de modification {-}
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Ajouter une partie sur l'évolution entre 2015 et 2016 du revenu de chaque commune
 ::::
 

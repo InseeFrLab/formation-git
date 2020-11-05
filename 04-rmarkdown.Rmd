@@ -360,6 +360,7 @@ render_rmd("resources/rmarkdown/chunk06.Rmd")
 hist(iris$Sepal.Length)
 ```
 
+::: {.exo data-latex=""}
 
 
 **Exercice 1: Créer un fichier `R Markdown` produisant la sortie suivante :** 
@@ -369,7 +370,7 @@ hist(iris$Sepal.Length)
 ![](resources/rmarkdown/_rmarkdown_exo1.html)
 
 
-::::
+:::
 
 
 
@@ -419,14 +420,14 @@ knitr::kable(res, caption = "hdv2003 - bricol x cuisine - affichage avec la fonc
 ```
 
 
-:::: {.exercise data-latex=""}
+::: {.exo data-latex=""}
 
 **Exercice 2**
 
 
 Modifier le fichier précédent en ajoutant une instruction R pour ajouter un tableau de votre choix.
 Vous pourrez par exemple utiliser les données `mtcars`.
-::::
+:::
 
 
 ## Conclusion

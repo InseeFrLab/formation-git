@@ -57,7 +57,7 @@ pre code {
 */
 
 .recommandation,
-.exercise,
+.exo,
 .conseil,
 .remarque {
   margin:20px;
@@ -69,7 +69,7 @@ pre code {
   transition:color .25s,background-color .25s,border-color .25s
 }
 
-.exercise{
+.exo{
   scrollbar-base-color:gold;
   max-height: 300px;
   overflow:auto;
@@ -102,7 +102,7 @@ pre code {
   /*background: #ffbaba;*/
   /*border: 5px solid #ff0000;*/
 }
-.exercise {
+.exo {
   border-left:.2rem solid #008000;
   /*background: #ffbaba;*/
   /*border: 5px solid #ff0000;*/
@@ -166,7 +166,7 @@ pre code {
   content: "Rédacteurs: ";
   background-color:#f1ffdc
 }
-.exercise::before {
+.exo::before {
   position: relative;
   display: inline-block;
   margin:0 -.6rem!important;

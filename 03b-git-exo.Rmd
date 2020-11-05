@@ -16,8 +16,9 @@ L'idée est de former des groupes de deux, chaque groupe représentant une équi
 
 Dans le cadre de cette formation, un projet d'exemple a été créé pour vous et
 est disponible à l'adresse 
-<https://git.stable.innovation.insee.eu/formationsd2e/formationgit-projets/template-projet>.
-Vous allez travailler en binôme avec votre voisin.
+<https://gitlab.com/linogaliana/template-projet>.
+Vous allez travailler en binôme avec votre voisin (ou avec une personne de la
+visio si la formation n'a pas lieu en présentiel).
 
 :::: {.recommandation data-latex=""}
 
@@ -35,10 +36,10 @@ d'accueil du projet)
 
 ::::
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Exercice 1 : Git en local
 
-emo::ji("warning") N'oubliez pas qu'il faut avoir fait un `fork` du projet.
+`r emo::ji("warning")` N'oubliez pas qu'il faut avoir fait un `fork` du projet.
 
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
@@ -85,7 +86,7 @@ Tout se passe sur la page du projet `GitLab` (menu déroulant à gauche) :
 
 ![](./pics/03_git/new_issue.png)
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Exercice 2 : Premiers pas sur Gitlab
 
 **Question a.** *Ouverture et attribution*
@@ -121,9 +122,9 @@ Au moindre doute, créez une branche. Les branches sont utilisées pour des trav
 
 :::: {.recommandation data-latex=""}
 
-(`r emo::ji("no_entry")`) Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `r with_def("rebase")` est interdit. Le `r with_def("push")` force est également interdit.** 
+`r emo::ji("no_entry")` Les branches ne sont pas personnelles : **Toutes les branches sont publiées, le `r with_def("rebase")` est interdit. Le `r with_def("push")` force est également interdit.** 
 
-(`r emo::ji("no_entry")`) **Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement.
+`r emo::ji("no_entry")` **Tous les merges dans `master` doivent se faire par l'intermédiaire d'une merge request dans `GitLab`**. En effet, il est très mal vu de merger une branche dans master localement.
 
 ::::
 
@@ -140,7 +141,7 @@ Jusqu'à présent, vous ne travailliez pas simultanément sur un fichier. Les co
 étaient donc limités. A partir de maintenant, vous allez découvrir l'une des
 forces de `Git`: on peut travailler sur le même fichier en même temps. 
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Exercice 3 : Cadavre exquis
 
 
@@ -186,7 +187,7 @@ Une fois une `MR` ouverte, il est précieux de solliciter une relecture. En effe
 
 Lorsqu'elles sont acceptées, les suggestions sont appliquées au moyen d'un commit. Cela permet une parfaite traçabilité des modifications.
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Exercice 4 : Merge Request
 
 
@@ -232,11 +233,11 @@ Si votre branche est en conflit, **le conflit doit être résolu dans la branche
 
 Rappel : **Il est interdit de faire l'inverse (merger localement la branche dans master)**
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 Exercice 5 : Gérer des conflits dans une branche
 
 **Question a.** Revenez sur la branche `master`. Vous êtes subitement atteint
-d'une double personnalité :dizzy_face:
+d'une double personnalité `r emo::ji("dizzy_face")`
 et oubliez que vous avez déjà proposé des changements. 
 Vous ouvrez une branche. Refaire l'exercice 3
 (questions `a` à `d`) avec une branche nommée `nom-prenom-double` et ouvrir une
@@ -276,11 +277,11 @@ A l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour ga
 soumettre au dépôt d'exemple. Il est tout à fait possible de soumettre des modifications à un dépôt sur lequel on n'a pas le droit d'écriture
 par l'intermédiaire d'un `fork`:
 
-:::: {.exercise data-latex=""}
+:::: {.exo data-latex=""}
 1. Se trouver un nom de groupe qui va servir à nommer le fichier. 
 L'une des personnes du groupe crée une branche `finalisation`. Elle se place dessus et change le nom du `cadavre-exquis.md`. Par exemple, si vous avez décidé d'être l'équipe Oulipo, nommer le fichier `oulipo.md`
 2. Ne pas oublier de faire add, commit, push 
-3. Dans le dépôt d'[exemple](https://git.stable.innovation.insee.eu/formationsd2e/formationgit-projets/template-projet), ouvrir une `merge request` en mettant votre dépôt et la branche `finalisation` dans la partie `Source branch` . Remplir la *merge request*
+3. Dans le dépôt d'[exemple](https://gitlab.com/linogaliana/template-projet), ouvrir une `merge request` en mettant votre dépôt et la branche `finalisation` dans la partie `Source branch` . Remplir la *merge request*
 
 ![Interface GitLab](pics/03_git/mrfork.png)
 
