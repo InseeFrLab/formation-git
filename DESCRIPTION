@@ -37,12 +37,14 @@ Imports:
     testthat,
     usethis (>= 1.5.1),
     import,
-    DT
+    DT,
+    doremifasolData
 Suggests:
     emo,
     callr,
     knitr
 Remotes:
     hadley/emo,
-    r-lib/roxygen2md
+    r-lib/roxygen2md,
+    InseeFrLab/doremifasolData
 VignetteBuilder: knitr

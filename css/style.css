@@ -71,7 +71,7 @@ pre code {
 
 .exercise{
   scrollbar-base-color:gold;
-  height:300px;
+  max-height: 300px;
   overflow:auto;
 }
 

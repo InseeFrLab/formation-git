@@ -28,6 +28,7 @@ with_def <- (function() {
   
 })()
 
+render_rmd <- function(x) return(cat(htmltools::includeText(x)))
 
 
 

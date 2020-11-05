@@ -11,265 +11,368 @@ library(knitr)
 
 ## Présentation générale de `R Markdown`
 
-Grâce au cadavre exquis du chapitre précédent, vous avez découvert le format `Markdown`. Le présent chapitre vise à aller plus loin dans cet apprentissage en présentant les `R markdown` qui sont, comme le nom l'indique, une manière de lier du texte avec du code `R` (permettant de produire des sorties, d'expliciter du code...):
-
-* `Markdown` est un système d'édition doté d'une syntaxe simplifiée souvent utilisé pour faire de la documentation de projet. Le format de fichier est `.md`;
-* Un fichier `R Markdown` est suffixé `.Rmd`.
-
-Un fichier `R Markdown`, à la différence d'un fichier `Markdown` classique, ne fait pas que présenter un code `R`, il l'exécute également, et peut intégrer les sorties du code `R` (par exemple un graphique produit avec `ggplot2`). Cela donne, par exemple, le rendu suivant:
-
-![](./pics/04_markdown/rmd-temp.png)
-
-`Rmarkdown` est une extension de `R` qui se présente sous la forme d'un package. `Rmarkdown` permet ainsi d'intégrer nativement du code `R` dans un document (pour le rendre public, pour générer des sorties...). Pour la reproductibilité des publications, il s'agit d'une innovation fondamentale car elle réduit le nombre de gestes manuels. Plutôt qu'avoir un code `SAS` ou `stata` ayant généré des sorties `excel`/`calc` intégrées dans un document `word` ou transformées en table `latex`, on dispose d'un seul document qui interprète et compile code et texte. 
-ce qui réduit la difficulté à articuler un document. 
+Grâce au cadavre exquis du chapitre précédent, vous avez découvert le format `Markdown`. Le présent chapitre vise à aller plus loin dans cet apprentissage en présentant les `R markdown` qui sont, comme le nom l'indique, une manière de lier du texte avec du code `R` (permettant de produire des sorties, d'expliciter du code...)
 
 
-### Que peut produire `R markdown` ?
+`R Markdown` est une extension de `R` qui se présente sous la forme d'un _package_. `R Markdown` permet de produire des documents texte en y intégrant nativement des morceaux de code `R` (pour le rendre public, pour générer des sorties...). `R Markdown` permet de fluidifier le processus de rédaction d'une publication, en réduisant fortement le nombre de gestes manuels nécessaires pour inclure des graphiques ou du code dans un document: plutôt qu'avoir un code `SAS` ou `Stata` ayant généré des sorties `Excel`/`Calc` intégrées dans un document `Word` ou transformées en table `LaTeX`, on dispose d'un unique document-source qui contient à la fois le texte et les codes qui produisent les sorties du document final. L'utilisation de `R Markdown` facilite la production de publications reproductibles.
 
-![](./pics/04_markdown/types_sorties.png)
+### De `Markdown` à `R Markdown`
 
-Il y a une grande liberté dans les formats de sortie disponibles pour un fichier `markdown`: 
+**`Markdown` est un système d'édition doté d'une syntaxe simplifiée souvent utilisé pour faire de la documentation de projet.** Le format est utilisé sur de nombreux sites internet, notamment `Wikipedia`, `Gitlab` et `Stackoverflow`. L'extension de ce type de fichier est `.md`. `Markdown` présente deux avantages. D'une part, il est facile d'inclure des blocs de code informatique et des équations mathématiques dans un document `Markdown`. D'autre part, le formatage de blocs de code est simple et très bien fait (et beaucoup plus léger qu'en LaTeX par exemple).
+ 
+**Comme son nom l'indique, `R Markdown` permet de lier du texte (`Markdown`) avec du code `R`.** A la différence d'un fichier `Markdown` classique, un document `R Markdown` peut à la fois présenter **et** exécuter du code `R`, et peut donc intégrer facilement les sorties de ce code (graphiques, tableaux, cartes...). La présente documentation est ainsi entièrement rédigée avec `R Markdown`, comme on peut le voir en jetant un coup d'oeil au [code source de cette fiche](https://gitlab.com/linogaliana/documentationR/-/tree/master/03_Fiches_thematiques). 
 
-* Des rapports en pdf, en html;
-* Des présentations sous forme de slides;
-* Des sites *web* (comme celui-ci);
-* ...
+**Il est toutefois possible de produire un document `R Markdown` sans exécuter les codes `R` qu'il contient** (comme dans un `Markdown` classique). En outre, `R Markdown` propose de [plus en plus de langages](https://bookdown.org/yihui/rmarkdown/language-engines.html#shell-scripts) pour aller au-delà de `R`, parmi lesquels `Python`, `SQL`, `C++`...
+
+::: {.remarque data-latex=""}
+`R Markdown` est une alternative aux [notebooks Jupyter](https://jupyter.org/) qui permettent de lier du code et du texte. Du point de vue de la reproductibilité des résultats, les fichiers `R Markdown` sont préférables car l'exécution du code dans le document est linéaire alors que les blocs de code des `notebook jupyter` peuvent être exécutés dans le désordre. 
+:::
 
 
-### Comment fonctionne `R markdown` ? 
+### Que peut produire `R Markdown` ?
+
+Il y a une grande liberté dans les formats de sortie disponibles pour un fichier `Markdown`. Parmi les principaux types de sorties :
+
+* Des rapports ou articles en `pdf`, `html`, `doc`, `odt`, etc. ;
+* Des présentations sous forme de slides `pdf` ou `html` ;
+* Des sites *web* (comme celui associé à [cet ouvrage](https://linogaliana.gitlab.io/documentationR/index.html) ou comme [la page d'accueil d'utilitR](https://www.utilitr.org)).
+
+::: {.remarque data-latex=""}
+
+Pour la génération d'un document au format `pdf`, vous devez avoir une installation fonctionnelle de LaTeX sur votre système. Si ça n’est pas le cas, le _package_ `tinytex` de Yihui Xie vise à faciliter l’installation d’une distribution LaTeX minimale quel que soit le système d’exploitation de votre machine. Pour l’utiliser il vous faut d’abord installer le _package_ `tinytex`, puis lancer l"installation de LaTeX (prévoir un téléchargement d’environ 200Mo). Voici les instructions à exécuter:
+
+```{r, eval = FALSE}
+install.packages("tinytex")
+tinytex::install_tinytex() 
+```
+:::
 
 
-`R markdown` fonctionne : 
+### Pourquoi utiliser `R Markdown`? 
 
-* différemment de la suite Office, et de Word en particulier. C’est un éditeur qui n'est pas *WYSIWYG* (*What you see is what you get*) : le fichier est composé de texte brut et éventuellement de code informatique, et doit compilé pour produire le fichier de sortie. Le document final ne peut être visualisé qu'après compilation.
-* en dissociant le fond de la forme. Le fichier `.Rmd` contient donc à la fois le texte brut et des commandes de mise en forme. On parle de *WYSIWYW* (*What you see is what you want*). A noter que les illustrations sont générées dynamiquement à partir des blocs de code `R` intégrés, ou insérées par des liens.
-   
-Les connaisseurs du format `LaTeX` reconnaîtront une grande proximité entre `LaTeX` et `Markdown`. En effet, dans les deux cas, la mise en forme est appelée par des commandes spéciales. Toutefois, `Markdown` se distingue de `LaTeX` par des commandes de mise en forme beaucoup plus légères. Par exemple, il faut utiliser la fonction `\textit{italique}` en `LaTeX` pour mettre du texte en italique, alors qu'en `Markdown` il suffit de mettre le texte entre deux astériques `*italique*`.
+`R Markdown` présente plusieurs avantages pour la production de documents statistiques:
 
-## Pourquoi utiliser `R markdown`, quels sont ses avantages ? 
-
-1. `R markdown` dissocie le fond et la forme du document, ce qui:
-
-* allège les mises à jour ou correctifs;
-* donne de la visibilité au code ayant généré les résultats et illustrations.
-
-2. Il est possible de mettre des commentaires partout dans le document, ce qui:
-
-* permet de détailler un résultat spécifique, d'expliquer les choix d'analyse faits;
-* facilite le suivi de l'analyse, ou son appropriation par une personne externe à l'équipe projet (un membre intervenant ponctuellement à titre d'expert sur un sujet, ou encore un nouveau membre venu en renfort).
-
-3. La syntaxe `R markdown` a été pensée pour avoir deux grandes qualités:
-
-* Elle est simple et rapide à prendre en main; il est notamment beaucoup plus simple que la syntaxe `html`;
-* Elle est très légère visuellement, ce qui fait qu'un code brut `R Markdown` reste lisible même pour des personnes qui ne connaissent la syntaxe (contrairement à `LaTeX`...).
-
-4. Lorsqu'on associe `R markdown` et un outil de *versioning* (git par exemple), les modifications successives apportées au document sont facilement traçables, ce qui permet de:
+1. L'utilisation de `R Markdown` amène l'utilisateur à se préoccuper de la reproductibilité des productions statistiques.
+2. La dissociation du fond et de la forme du document permise par `R Markdown` a de nombreuses vertus, parmi lesquelles:
+    * elle allège les mises à jour ou correctifs du texte ou du code générant des sorties;
+    * elle donne de la visibilité au code ayant généré les résultats et illustrations ;
+    * il est facile de changer le format du document final (par exemple produire un fichier `html` plutôt que `pdf`), et la gestion de multiples formats de publication est peu coûteuse (puisque le document source reste le même pour tous les formats).
+3. Il est possible de mettre des commentaires partout dans le document, ce qui permet de détailler les résultats et les choix de méthode, et facilite le suivi de l'analyse ou l'appropriation par une personne extérieure.
+4. La syntaxe `R Markdown` a été pensée pour avoir deux grandes qualités:
+    * Elle est simple et rapide à prendre en main; elle est notamment beaucoup plus simple que la syntaxe `html`;
+    * Elle est très légère visuellement, ce qui fait qu'un code brut `R Markdown` reste lisible même pour des personnes qui ne connaissent pas la syntaxe (contrairement à `LaTeX`...).
+5. Lorsqu'on associe `R Markdown` et un outil de *versioning* tel que Git, les modifications successives apportées au document sont facilement traçables, ce qui permet de:
     * maîtriser l'évolution du document, par exemple sur la succession de corrections, apportées tout au long d'un circuit de relecture;
     * ne pas multiplier les versions d'un même document;
     * combiner facilement les modifications apportées par plusieurs utilisateurs.
-
-5. `R Markdown` est bien intégré à `Rstudio`. Les extensions `.Rmd` sont reconnues automatiquement par `Rstudio` ce qui permet d'avoir de l'autocomplétion également lors de la rédaction de blocs de texte, la possibilité d'exécuter des bouts de code uniquement lors d'une phase d'exploration...
-
-
-![](./pics/04_markdown/final_doc.png)
-
-`R markdown` est une alternative aux [notebook jupyter](https://jupyter.org/) qui permettent de lier du code et du texte. Pour la reproductibilité, les `R markdown` sont préférables car l'exécution du code dans le document est linéaire alors que les blocs de code des `notebook jupyter` peuvent être exécutés dans le désordre. 
+6. `R Markdown` est bien intégré à `Rstudio`. Les extensions `.Rmd` sont reconnues automatiquement par `Rstudio` ce qui permet d'avoir de l'autocomplétion également lors de la rédaction de blocs de texte, la possibilité d'exécuter des bouts de code uniquement lors d'une phase d'exploration...
 
 
 
-### Outils de révision avec `R markdown`
+### Comment fonctionne `R Markdown` ? 
 
-**TO DO**
+#### Dissociation du fond et de la forme
+
+**`R Markdown` dissocie le fond et la forme du document, contrairement aux logiciels de type Office qui fonctionnent selon le principe du *WYSIWYG* ** (*What you see is what you get*). Le fichier `.Rmd` contient donc à la fois le texte brut et des commandes de mise en forme. On parle de *WYSIWYW* (*What you see is what you want*). Le fichier est composé de texte brut et éventuellement de code informatique, et doit être compilé pour produire le fichier de sortie. **Le document final ne peut être visualisé qu'après compilation.** A noter que les illustrations (graphiques, tableaux, cartes) peuvent être générées dynamiquement à partir des blocs de code `R` intégrés dans le document `Rmd`, ou insérées par des liens.
+   
+Les connaisseurs du format `LaTeX` reconnaîtront une grande proximité entre `LaTeX` et `Markdown`. En effet, dans les deux cas, la mise en forme est appelée par des commandes spéciales. Toutefois, `Markdown` se distingue de `LaTeX` par des commandes de mise en forme beaucoup plus légères. Par exemple, il faut utiliser la fonction `\textit{italique}` en `LaTeX` pour mettre du texte en italique, alors qu'en `Markdown` il suffit de mettre le texte entre deux astériques `*italique*`.
+
+#### Comment `R Markdown` produit-il un document?
+
+**La compilation d'un document `R Markdown` se déroule en deux étapes qui sont gérées de manière interne par le package `rmarkdown`**:
+
+* Transformation du `.Rmd` (`R Markdown`) en `.md` (`Markdown`): le _package_ `knitr` se charge de transformer le texte et les sorties `R` en un document `markdown` standard. 
+* Transformation du `.md` en un format de sortie standard (`html`, `pdf`, etc.): tâche effectuée par le logiciel nommé `pandoc`. Ce dernier est automatiquement installé lorsqu'on a installé le package `rmarkdown`, il n'y a donc pas à le télécharger.
+
+![Interaction entre rmarkdown et ses dépendances, emprunté à [ce site](https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html)](./pics/rmarkdown/schema_rmd.png)
+
+Pour obtenir la sortie désirée d'un document `R Markdown` on peut utiliser deux méthodes:
+
+* Pour les usages courants, le bouton `Knit` de Rstudio convient bien: 
+
+![](./pics/rmarkdown/knit.png) 
+
+* Pour des processus de production des fichiers plus complexes, il est possible d'exécuter la commande `rmarkdown::render` pour générer de manière automatique un fichier `R Markdown`.
+
+
 
 ## Avant de commencer
 
-### Les points de vigilance lorsqu'on débute 
+::: {.conseil data-latex=""}
+Les points de vigilance lorsqu'on débute :
 
 * `R Markdown` est un outil collaboratif en plus dont l'utilisation nécessite l'adhésion de l'ensemble de l'équipe. 
 * L'ensemble des contributeurs doit donc s'approprier à la fois ses principes et sa syntaxe (hors contexte collaboratif, ses avantages demeurent pour un document réalisé seul).
 * Il faut paramétrer le correcteur automatique de document. Pour le paramétrer en français, aller dans le menu `Tools > Global Options > Spelling` et dans le menu déroulant _Main dictionary language_, sélectionner _Français_.
 * les outils ne remplacent pas la communication dans l'équipe projet. La production collaborative d'un document R Markdown nécessite de se mettre d'accord sur sa structure. Il est donc nécessaire de faire des points d'équipe. Pour vous aider, il existe un [chat Insee] (https://rocket-chat.stable.innovation.insee.eu)
+:::
 
-Pour le moment, il n'existe pas d'outil pour intégrer automatiquement la charte graphique Insee dans un document `Markdown`. Des thèmes `ggplot` et des feuilles de style (*template*) adaptées aux différents formats de publication Insee permettraient de rédiger des publications en `R Markdown`. Elles seraient plus faciles à faire évoluer au fil des relectures et plus reproductibles que les publications actuellement construites sur LibreOffice.
+::: {.conseil data-latex=""}
+Pour assurer la **reproductibilité** des résultats, le document doit pouvoir être généré par chacun des membres de l'équipe projet. Voici quelques bonnes pratiques pour y parvenir:
 
-### Quelques bonnes pratiques
-
-Il faut viser la **reproductibilité** : le document doit pouvoir être généré par chacun des membres de l'équipe projet. Voici quelques bonnes pratiques pour y parvenir:
-
-* Tout comme pour un script R, les ressources (images, données, ...) doivent être appelées via des chemins d'accès relatifs au dossier du projet. Il faut donc utiliser des chemins relatifs, et non absolus:
-    - **A ne pas faire : ** inclure un lien vers "D:/projets gitlab/couverturenumerique/donnees/depReg16.txt";
-    - **mais faire plutôt : ** inclure un lien vers "./donnees/depReg16.txt";
+* Tout comme pour un script `R`, les ressources (images, données...) doivent être appelées via des chemins d'accès relatifs au dossier du projet. Il faut donc utiliser des chemins relatifs, et non absolus:
+    - **A ne pas faire:** inclure un lien vers `D:/projets_Gitlab/my_project/donnees/mesdonnees.csv`;
+    - **mais faire plutôt:** inclure un lien vers `./donnees/mesdonnees.csv`;
 * L'emplacement de ces ressources doit respecter une arborescence connue et utilisée par tous.
+:::
 
-Les fichiers `.Rmd` s'intègrent bien avec `git` car il s'agit de fichiers textes. En revanche, on évite de mettre sous contrôle de version les output (`.pdf`, `.html`). Dans ce cas, on ajoute au fichier `.gitignore` les extensions associées, par exemple `*.pdf` ou `*.html`
+::: {.conseil data-latex=""}
+Les fichiers `.Rmd` s'intègrent bien avec `git` car il s'agit de fichiers texte. En revanche, il faut éviter de mettre sous contrôle de version les fichiers de sortie (`pdf`, `html`). Pour ce faire, on peut ajouter au fichier `.gitignore` les extensions associées, par exemple `*.pdf` ou `*.html`
+:::
 
 
-## Comment construire un document `Rmarkdown`?
+<!---- Le bloc suivant n'est pas dans utilitR ----->
+::: {.remarque data-latex=""}
+Pour le moment, il n'existe pas d'outil pour intégrer automatiquement la charte graphique Insee dans un document `Markdown`. Des thèmes `ggplot` et des feuilles de style (*template*) adaptées aux différents formats de publication Insee permettraient de rédiger des publications en `R Markdown`. Elles seraient plus faciles à faire évoluer au fil des relectures et plus reproductibles que les publications actuellement construites sur LibreOffice.
+:::
 
-### Produire son premier document en trois étapes
 
-1. **Créer** un nouveau fichier `Rmarkdown`: `File > New File > R Markdown...`.
 
-![](./pics/04_markdown/crea_premier_fic.png)
 
-2. **Saisir** du texte en l'habillant avec des commandes de mise en forme : 
-* titres de niveaux différents avec `#`;
-* liste non ordonnnée avec `*`;
-* liste ordonnée avec `1.`;
-* mise en italique en encadrant le texte avec `*`, par exemple `*youpi*`;
-* mise en gras en encadrant le texte avec `**`, par exemple `**youpi**`.
-
-3. **Tricoter** (*knit*) pour visualiser le résultat (avec la mise en forme) dans l'onglet `Viewer`.
-
-![](./pics/04_markdown/knit.png)
-
+## Comment construire un document `R Markdown`?
 
 ### Anatomie de la structure d'un document `R Markdown`
 
-Un document `R Markdown` comprend un **En-tête**. Il est délimité par deux lignes de pointillés et sert à contient les métadonnées du document (titre, auteurs, options générales de mise en page...). il contient au minimum le titre du document et le format de sortie. L'en-tête est parfois appelé `YAML header`. Voici par exemple l'en-tête général du fichier `.Rmd` de la formation *Travail collaboratif avec R*:
+Un document `R Markdown` comprend deux parties principales:
 
-```
+* L'en-tête (*YAML header*) qui gère les éléments de style;
+* Le contenu qui gère le fond et permet d'alterner librement texte et code.
+
+#### L'en-tête
+
+L'en-tête d'un document `R Markdown` (arfois appelé `YAML header`) est délimité par deux lignes de pointillés et contient les métadonnées du document (titre, auteurs, options générales de mise en page...). Il contient au minimum le titre du document et le format de sortie. Il peut être enrichi d'autres champs pour modifier certaines métadonnées (par exemple la date) ou le style du document compilé. Voici un exemple d'en-tête:
+
+```yaml
 --- 
-title: "Travail collaboratif avec R"
-author: "Lino Galiana"
+title: "Produire des documents avec R Markdown"
+author: "Daffy Duck"
 date: "`r Sys.Date()`"
-knit: "bookdown::render_book"
-site: bookdown::bookdown_site
-documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
-description: "Support associé à la formation Travail collaboratif avec R"
+output: 
+  html_document:
+    keep_md: true
+    self_contained: true
+bibliography: book.bib
+description: "Un document où je révèle que je ne suis pas un canard"
 ---
 ```
-Ensuite, le corps d'un document `R Markdown` comprend deux types de **blocs**:
 
-3. Des **blocs de texte brut**:
-    * Habillage (mise en forme) selon la syntaxe markdown;
-2. Des **blocs de code `R`** (appelés *chunks*) encadrés par les balises ```
-    - ces *chunks* peuvent être nommés;
-    - des options peuvent être spécifiées (par exemple: ne pas intégrer l'output du code dans le document final);
-    - Il est possible d'ajouter en dessous de l'en-tête un *chunk* de *set up* pour définir les options par défaut de tous les *chunks*.
+Les éléments obligatoires sont présents (titres et format de sortie, dans le cas un livre) mais de nombreux champs supplémentaires peuvent être ajoutés. Par exemple, les références bibliograhiques sont listées dans un fichier séparé et c'est `R Markdown` lui-même qui se charge de la mettre en forme et de la lier à des références dans le texte.
 
-Deux points importants sur la structure des documents `R Markdown`:
+#### Corps d'un document `R Markdown`
 
-* On peut alterner librement les blocs de texte et les blocs de code `R`;
-* On peut ajouter des commentaires et commenter des morceaux du document:
+Le corps d'un document `R Markdown` comprend deux types de **blocs**, qu'on peut alterner librement:
 
-    - Dans le texte, pour activer/désactiver un commentaire c'est facile (balises de commentaire équivalentes à celle du format `html`) : **Ctrl + Shift + C**;
-        ```
-    Un paragraphe sur les avantages de `R Markdown`.
-    <!-- Un commentaire très utile -->
-    Un autre paragraphe sur la syntaxe de `R Markdown`.
-    ```
-    - à l'intérieur des blocs de code `R`, les commentaires se font comme dans un script `R` (avec le commentaire classique en `R`: `#`). Voici un exemple de bloc de code `R` avec un commentaire:
+* Des **blocs de texte brut** mis en forme selon la syntaxe _markdown_; 
+* Des **blocs de code `R`** (appelés *chunks*) encadrés par les balises ```:
+    - ces *chunks* peuvent être nommés (il est même recommandé de le faire);
+    - des options peuvent être spécifiées. Ces options (détaillées plus bas) permettent par exemple de ne pas faire figurer l'*output* du code dans le document final ou inversement de ne montrer que l'*output* du code et non le code l'ayant généré.
 
-~~~markdown
-`r ''````{r}
-# Commentaire: charger le package ggplot2
-library(ggplot2)
-`r ''````
-~~~
+::: {.remarque data-latex=""}
+Il est possible d'ajouter en dessous de l'en-tête un tout premier *chunk* nommé *setup*, qui permet de définir des options par défaut pour tous les *chunks* du document. Par exemple, on peut souhaiter par défaut ne pas afficher le code `R` de chaque bloc dans le document final.
 
-### Mise en forme de texte
-
-![](./pics/04_markdown/syntaxe.png)
-
-Quand des niveaux de titre ont été définis, une table des matières dans laquelle on peut naviguer avec Rstudio est générée automatiquement.
-
-![](./pics/04_markdown/table_matiere.png)
-
-
-### Insérer un lien hypertexte
-
-Il y a deux manières de faire, selon qu'on désire que le lien soit apparent ou non:
-
-
-1. Lien apparent: une adresse utile <https://rmarkdown.rstudio.com/>.
-
-~~~markdown
-1. Lien apparent: une adresse utile <https://rmarkdown.rstudio.com/>.
-~~~
-
-2. En remplaçant l'url par un alias: une adresse utile [ici](https://rmarkdown.rstudio.com).
-
-~~~markdown
-2. En remplaçant l'url par un alias: une adresse utile [ici](https://rmarkdown.rstudio.com).
-~~~
-
-### Insérer une image
-
-Pour insérer une image, on utilise la syntaxe suivante: 
-
-~~~markdown
-![](./pics/04_markdown/CaptureInsee.png)
-~~~
-
-ce qui donne le résultat suivant dans la mise en forme:
-
-![](./pics/04_markdown/CaptureInsee.png)
-
-:::: {.exercise data-latex=""}
-::: {.center data-latex=""}
-**Exercice 1**
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/setup.Rmd")
+```
 :::
 
-**Créer un fichier `R Markdown` produisant la sortie suivante :** 
-![](./pics/04_markdown/capture_exo1.png)
-::::
-
-### Insérer du code `R`
-
-Il y a trois méthodes pour insérer du code `R` dans un document `R Markdown`. 
 
 
-#### Insertion dans le texte d'une petite instruction `R` 
+### Ecrire des blocs de texte en `R Markdown`
 
-On utilise la syntaxe suivante (le délimiteur \` s'obtient avec `Alt Gr + 7`):
-
-![](./pics/04_markdown/inserer_Rsimple.png)
-
-* Exemple 1 : Voici le résultat de l'instruction `R` `dim(mtcar)` : `r dim(mtcars)`;
-
-* Exemple 2 : 
-    * On peut aussi insérer la date du jour comme ceci : `r format (Sys.time(), '%d %B, %Y')`.
-    
-    * Ou comme cela : nous sommes le jour `r format (Sys.time(), '%d')`, du mois `r format (Sys.time(), '%B')` , de l'année `r format (Sys.time(), '%Y')`.
-
-
-#### Insertion d'un bloc de code `R` : les * **chunks** *.
-
-Pour insérer des instructions plus longues ou moins élémentaires dans un fichier `R Markdown`, le code doit être délimité avec \`\`\` de la façon suivante :
-
+Le corps d'un document contient presque toujours des blocs de texte
+qui suivent la syntaxe `Markdown`. Voici un exemple:
 
 ~~~markdown
-`r ''````{r, message = FALSE}
-# Insérer du code R dans un fichier R Markdown c est facile
-dim(mtcars) 
-`r ''````
+Ceci est du texte avec *de l'italique* et **du gras**.
+
+On peut définir des listes à puces :
+
+- premier élément
+- deuxième élément
 ~~~
 
-Le résultat ci-dessous:
+Ce code génèrera le texte mis en forme suivant :
 
-```{r, message = FALSE}
-# Insérer du code R dans un fichier R Markdown c est facile
-dim(mtcars) 
+> Ceci est du texte avec de l’_italique_ et du __gras__.
+> 
+> On peut définir des listes à puces :
+>
+> - premier élément
+> - deuxième élément
 
+On peut définir des titres de différents niveaux en faisant débuter une ligne par un ou plusieurs `#` :
+
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/titres.Rmd")
 ```
 
-Quelques remarques sur l'utilisation des *chunks*:
+Quand des titres ont été définis, si vous cliquez sur l’icône `Show document outline` totalement à droite de la barre d’outils associée au fichier `R Markdown`, une table des matières générée automatiquement à partir des titres s’affiche et vous permet de naviguer facilement dans le document :
 
-* **à chaque compilation du document `R Markdown`, une nouvelle session R est lancée, vierge de tout objet créé**. Par conséquent, les premiers blocs de code `R` d'un document sont souvent dédiés au chargement des packages, à l'importation des données, à la définition de l'environnement et au recodage. Sinon ça plante...
-* Par défaut, le document final contient l'instruction demandée, ainsi que le résultat de son exécution;
-* Raccourci clavier pour insérer un bloc de code `R` : **Ctrl + Alt + I**;
-* Remarque pratique: dans le cas du format de sortie html, par défaut le fichier `.html` est créé. Ce dernier contient le résultat du code (mise en forme, illustrations), et peut être facilement transmis.
-* On peut contrôler l'exécution de chaque *chunk* par des options qui s'écrivent sur la première ligne du *chunk*. Plusieurs options sont disponibles: 
-    
-    - **echo** mis à `FALSE` permet de ne pas afficher l'instruction `R`;
-    - **eval** mis à `FALSE` permet de ne pas exécuter le code du *chunk*;
-    - **message** mis à `FALSE` permet de ne pas afficher les messages d'information;
-    - **warning** mis à `FALSE` permet de ne pas afficher les messages de warning;
-    - **cache** mis à `TRUE` permet de mettre le résultat du *chunk* en cache. En effet, il est à la fois coûteux et inutile d'exécuter certaines instructions `R` à chaque fois (l'importation de grosses tables par exemple). Dans ce cas, au moment d'une première exécution, le résultat d'un *chunk* peut être mis en cache, c'est-à-dire en mémoire grâce à l'option **cache = TRUE**. Attention si vous utilisez le cache : vous ne devez jamais le *pusher* sur GitLab et donc ajouter la ligne `*_cache/` au fichier `.gitignore` de votre projet.
+![](./pics/rmarkdown/toc.png)
+
+La syntaxe Markdown permet d’autres mises en forme, comme la possibilité d’insérer des liens ou des images. Par exemple, le code suivant :
+
+~~~markdown
+[Exemple de lien](https://example.com)
+~~~
+
+Prendra la forme suivante, une fois compilé :
+
+> [Exemple de lien](https://example.com)
+
+Dans RStudio, le menu `Help > Markdown quick reference` donne un aperçu plus complet de la syntaxe.
+
+::: {.conseil data-latex=""}
+La version 1.4 de `Rstudio` qui devrait devenir version officielle d'ici peu, 
+propose de nombreux outils pour faciliter l'édition de fichiers `R Markdown`.
+La principale innovation est 
+[l'éditeur visuel de Markdown](https://rstudio.github.io/visual-markdown-editing/#/)
+qui propose une pré-visualisation du document compilé en *live* mais aussi 
+des fonctionnalités qui facilitent l'écriture de `Markdown`
+(correcteur orthographique amélioré, ajout de citations bibliographiques
+facilité, plus de raccourcis claviers, etc.).
+
+En attendant l'officialisation de cette version,
+l'*addin* `Remedy` facilite l'écriture de fichiers `R Markdown` grâce à un
+menu qui permet de cliquer directement sur le type de balise désiré:
+
+`r if(knitr::is_html_output()){"![Présentation de l'addin disponible sur github](https://raw.githubusercontent.com/ThinkR-open/remedy/master/reference/figures/remedy_example.gif)"}`
+
+Pour l'installer
+
+```{r, eval = FALSE}
+remotes::install_github("ThinkR-open/remedy")
+```
+
+Pour compter le nombre de mots dans un fichier `.Rmd`, on peut utiliser le
+très pratique *addin* nommé `Wordcountaddin`:
+
+```{r, eval = FALSE}
+devtools::install_github("benmarwick/wordcountaddin")
+```
+:::
+
+### Insérer un résultat `R` dans du texte
+
+Pour renforcer la reproductibilité d'un document `R Markdown`, il est possible de faire appel à `R` pour insérer des résultats dans du texte. C'est le principe du *inline code* dans `R Markdown`.
+
+Il suffit, pour cela, d'adopter la structure suivante: `r knitr::inline_expr("2+2")`. Le résultat sera automatiquement inséré par `R` en substitution de l'expression. `r ` 
+
+> 2 + 2 = ``` `r knitr::inline_expr("2+2")` ```
+
+deviendra ainsi 
+
+> 2 + 2 = `r 2+2`
+
+
+### Ecrire des blocs de code
+
+#### Insérer un bloc de code
+
+Outre du texte libre au format `Markdown`, un document `R Markdown` peut également contenir du code `R`. Celui-ci est inclus dans des blocs (*chunks*) délimités par la syntaxe suivante :
+
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/chunk01.Rmd")
+```
+
+Vous pouvez utiliser le menu `Code > Insert Chunk` de Rstudio ou utiliser le raccourci clavier `Ctrl+Alt+I` pour automatiquement insérer un bloc `R` à remplir. Quand votre curseur se trouve dans un bloc, vous pouvez saisir le code `R` que vous souhaitez, l’exécuter, utiliser l’autocomplétion, etc... exactement comme si vous vous trouviez dans un script `R`. Vous pouvez également exécuter l’ensemble du code contenu dans un bloc à l’aide du raccourci clavier `Ctrl+Maj+Entrée`.
+
+#### Exécuter des blocs de code
+
+Dans `RStudio` les blocs de code `R` sont en général affichés avec une couleur de fond légèrement différente pour les distinguer du reste du document. En haut à droite du bloc, des boutons sont disponibles si on désire:
+
+1. ajouter des options au bloc;
+2. exécuter tous les blocs avant celui-ci;
+3. exécuter ce bloc exclusivement.
+
+![](./pics/rmarkdown/chunk.png)
+
+Lorsque le document est compilé au format HTML, PDF ou docx, chaque bloc est exécuté tour à tour, et le résultat inclus dans le document final, qu’il s’agisse de texte, d’un tableau ou d’un graphique. Les blocs sont liés entre eux, dans le sens où les données importées ou calculées dans un bloc sont accessibles aux blocs suivants. On peut donc aussi concevoir un document `R Markdown` comme un script `R` dans lequel on aurait intercalé des blocs de texte au format `Markdown`.
+
+::: {.remarque data-latex=""}
+
+Le bouton `Knit` ou le raccourci clavier `CTRL+SHIFT+K` lancent automatiquement l'exécution du code `R` dans une nouvelle session. Cela signifie que les objets appartenant à l'environnement global de l'utilisateur sont ignorés, par défaut. C'est une bonne pratique parce qu'elle aboutit à des documents plus reproductibles. 
+
+Par défaut, la commande `rmarkdown::render` n'utilise pas cette option. Si le fichier `R Markdown` est compilé en utilisant `rmarkdown::render`, il est recommandé d'utiliser la syntaxe `rmarkdown::render(..., envir = new.env())` 
+:::
+
+::: {.conseil data-latex=""}
+Par défaut, dans `Rstudio`, le résultat du bloc de code ne s'affiche pas dans la console mais sous le bloc, dans l'interface visuelle du document. Si vous n'appréciez pas ce fonctionnement, vous pouvez le modifier de la façon suivante: aller dans le panneau `Tools > Global Options...`, onglet `R Markdown`, puis décocher l'option `Show output inline for all R Markdown documents`.
+:::
+
+#### Définir les options des blocs de code
+
+**Il est possible (et recommandé) de nommer un bloc en utilisant un _label_ avant les options.** Le nom du bloc se place dans la première ligne du bloc, juste après la lettre `r`: `{r nom_du_bloc}`.
+
+Un point important est que deux blocs ne peuvent pas porter le même nom, il faut donc être rigoureux dans le choix du nom. Nommer les blocs de code présente plusieurs avantages :
+
+* en cas d'erreur lors de la compilation du document, `R` donne le nom du bloc qui provoque l'erreur. Avec des blocs non nommés, on a pour seule information `unnamed-chunk-XX` ce qui rend difficile d'identifier la source de l'erreur dans un document très long;
+* le bloc peut facilement être retrouvé dans l'arborescence Rstudio (voir capture d'écran).
+
+![Le nom des blocs figure dans l'arboresence Rstudio](./pics/rmarkdown/namedbloc.png)
+
+**Outre un nom, on peut passer à un bloc une série d’options sous la forme `option = valeur`.** Ces options permettent de contrôler le comportement du bloc lors de la compilation du document. Les blocs de code acceptent de nombreuses options. Les principales options sont les suivantes:
+
+
+| Option  | 	Valeurs possibles | 	Valeur par défaut |	Description |
+|---------|---------------------|-------------|
+| echo    | `TRUE/FALSE`  | `TRUE` | Afficher ou non le code `R` dans le document |
+| eval 	  | `TRUE/FALSE` 	| `TRUE` | Exécuter ou non le code `R` à la compilation |
+| include |	`TRUE/FALSE` 	| `TRUE` | Inclure ou non le code `R` et ses résultats dans le document |
+| results |	*`'hide'/'asis'/'markup'/'hold'`* | `'markup'`	| Type de résultats renvoyés par le bloc de code |
+| error |	`TRUE/FALSE` 	| `TRUE` | Afficher ou non les erreurs générées par le bloc |
+| warning |	`TRUE/FALSE` 	| `TRUE` | Afficher ou non les avertissements générés par le bloc |
+| message |	`TRUE/FALSE` 	| `TRUE` | Afficher ou non les messages générés par le bloc |
+
+
+::: {.remarque data-latex=""}
+
+**cache** mis à `TRUE` permet de mettre le résultat du *chunk* en cache. En effet, il est à la fois coûteux et inutile d'exécuter certaines instructions `R` à chaque fois (l'importation de grosses tables par exemple). Dans ce cas, au moment d'une première exécution, le résultat d'un *chunk* peut être mis en cache, c'est-à-dire en mémoire grâce à l'option **cache = TRUE**. Attention si vous utilisez le cache : vous ne devez jamais le *pusher* sur GitLab et donc ajouter la ligne `*_cache/` au fichier `.gitignore` de votre projet.
+
+:::
+
+Voici un exemple de bloc avec un nom et des options :
+
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/chunk02.Rmd")
+```
+
+Dans ce bloc, l'option `echo = FALSE` implique que le code `R` n’est pas inséré dans le document compilé, et que seul le résultat du code est visible; l'option `warning = TRUE` implique que les éventuels avertissements générés par l'exécution du code sont insérés dans le document compilé.
+
+
+**Les options permettent également de contrôler la nature de la sortie `R`.** En particulier, les options `fig.height` et `fig.width` permettent de définir la taille de la sortie. Par exemple, le bloc suivant génèrera un graphique plus large que haut:
+
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/chunk05.Rmd")
+```
+
+```{r, fig.width=6, fig.height=4, echo = FALSE}
+hist(iris$Sepal.Length)
+```
+
+alors que le bloc suivant génèrera une figure aux dimensions différentes:
+
+```{r echo = FALSE, comment = ""}
+render_rmd("resources/rmarkdown/chunk06.Rmd")
+```
+
+```{r, fig.width=3, fig.height=6, echo = FALSE}
+hist(iris$Sepal.Length)
+```
+
+
+
+**Exercice 1: Créer un fichier `R Markdown` produisant la sortie suivante :** 
+
+`r emo::ji("warning")` Ne pas écrire la date avec du texte mais utiliser une mise en forme appropriée avec du code *inline* de la date détectée par `R` (`Sys.Date()`) avec la fonction `format`
+
+![](resources/rmarkdown/_rmarkdown_exo1.html)
+
+
+::::
+
+
+
 
     
 #### Appeler un script
@@ -317,30 +420,17 @@ knitr::kable(res, caption = "hdv2003 - bricol x cuisine - affichage avec la fonc
 
 
 :::: {.exercise data-latex=""}
-::: {.center data-latex=""}
-**Exercice 2**
-:::
 
-Modifier le fichier précédent en ajoutant une instruction R de votre choix.
+**Exercice 2**
+
+
+Modifier le fichier précédent en ajoutant une instruction R pour ajouter un tableau de votre choix.
 Vous pourrez par exemple utiliser les données `mtcars`.
 ::::
 
-### [Avancé] Utilisation d'un *template*
 
-`TO DO`
+## Conclusion
 
-### Boîte à outils 
-
-* Vous pouvez consulter la **Cheat sheet** `R Markdown` disponible sur le site de [R Studio](https://rstudio.com).
-
-![](./pics/04_markdown/cheat_sheet_Rmarkdown.png)
-
-* Il existe un éditeur de `markdown` (pas de `R markdown`) sur la plateforme innovation: [`CodiMD`](https://hackmd.beta.innovation.insee.eu). Par rapport à une approche via `Rstudio`, l'avantage de `CodiMD`, permet de visualiser immédiatement le résultat sur le même écran.
-
-![](./pics/04_markdown/CodiMD.png)
-
-
-### Résumé
 > 
 >- Réaliser un document `R Mardown` est simple, mais la visualisation du résultat final requiert une étape de compilation du fichier `.Rmd`;
 >- Un fichier `.Rmd` mélange :
@@ -348,280 +438,33 @@ Vous pourrez par exemple utiliser les données `mtcars`.
 >     * des bouts de code `R`;
 >- Le résultat d'une instruction `R` peut soit s'insérer directement dans le texte, soit être contenu dans un bloc de code appelé *chunk*.
 
+Pour aller plus loin sur certains aspects, notamment sur la question des
+modèles de documents, vous pouvez vous référer à la fiche sur 
+`R Markdown` dans la [documentation utilitR](www.book.utilitr.org).
 
--------------------
+* Il existe un éditeur de `Markdown` (pas de `R Markdown`) sur la plateforme innovation: [`CodiMD`](https://hackmd.beta.innovation.insee.eu). L'avantage de `CodiMD`, permet de visualiser immédiatement le résultat sur le même écran.
 
-## Exercice: créer son propre document 
+![](./pics/04_markdown/CodiMD.png)
 
-<!----
----
-title: "monProjet_enonce"
-author: "Annie Moineau"
-date: "`r format (Sys.time(), '%d %B, %Y')`"
-output: html_document
----
-------->
+Vous pouvez consulter la **Cheat sheet** `R Markdown` disponible sur le site de [R Studio](https://rstudio.com).
 
+![](./pics/04_markdown/cheat_sheet_Rmarkdown.png)
 
-### Objectif
 
-L'objectif est d'exploiter et analyser les données sur les naissances 2017. L'analyse sera centrée sur les 3 axes définis dans l'expression des besoins. Le travail sera réalisé en mode collaboratif par des équipes de 2 à 4 personnes.
 
-* Un premier temps sera consacré à la production d'une première version de document
-* Un second temps sera consacré aux modifications  (amélioration, évolution, modifications).
+## Pour aller plus loin
 
+* Les ouvrages [Cookbook R Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/) et
+[R Markdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/);
+* Le [manuel de référence bookdown](https://bookdown.org/);
+* La partie `R Markdown` de la formation [Travail collaboratif avec `R`](https://linogaliana.gitlab.io/collaboratif/rmd.html);
+* [Guide de la syntaxe `R Markdown`](https://rmarkdown.rstudio.com/authoring_basics.html);
+* [`R Markdown Cheatsheet`](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+* [Cours de Julien Barnier sur le sujet](https://juba.github.io/tidyverse/13-rmarkdown.html);
+* [Chapitre sur le sujet dans le livre *`R` For Data Science*](https://r4ds.had.co.nz/r-markdown.html);
+* [Tutoriel de ThinkR sur les tableaux](https://thinkr.fr/les-tableaux-statiques-pour-vos-rapports-en-r/)
 
-### Le produit attendu
 
-* Un rapport au format `html` centralisant les résutats attendus. Ce rapport sera généré par un fichier `.Rmd`
-* Le rapport final ainsi que les fichiers constitutifs du projet seront contenus dans un projet `monprojet.Rproj`. 
-* Ce projet sera d'une part stocké sur `Gitlab`, d'autre part accédé via `R Studio` par chaque contributeur. 
 
 
-### Expression des besoins
 
-L'étude des naissances sera réalisée sur une région au choix. Elle devra comporter les éléments suivants : 
-
-* Un rapide descriptif de la source 
-* Nombre de naissance dans la région choisie et comparaison avec les autres régions de France hexagonale
-* Part des naissances hors mariage pour chaque région
-* Part des naissances hors mariage par tranche d'âge de la mère pour la région de votre choix, avec comparaison France métropolitaine.
-
-
-Les 3 derniers parties devront intégrer des illustrations de votre choix ou celles proposées. 
-Le texte devra contenir au moins un résulat d'une instruction R.
-
-
-### Données mobilisées
-
-* Fichier des naissances 2017 présent sous GEN, également déposé dans le répertoire données situé à la racine du projet (_attention, il y a un piège à éviter_).
-
-
-### Organisation de l'équipe projet
-
-####  Comment s'organiser ?
-
-... Proposition des stagiaires ...
-
-####  Comment s'organiser ?
-
-Pour le temps un :
-
-* A. Se mettre d'accord sur la trame qui sera le squelette du rapport
-* B. Identifier les tâches
-* C. Se mettre d'accord sur l'organisation des fichiers, et les branches à créer
-* D. Affecter les tâches (possibilité de le faire sur Trello si l'équipe est d'accord)
-* E. (si nécessaire prioriser les tâches)
-* F. Assembler les pièces
-
-Pour le temps 2 : 
-
-* A. Mettre en oeuvre les modifications demandées.
-* B. Mettre à jour le dépôt distant
-
-
-### Organisation de l'équipe projet - étape 1/4
-
-
-* **A. se mettre d'accord sur une trame de travail qui sera le squelette du rapport:** 
-
-    1. Source et définition : quelles naissances (naissances vivantes)
-    2. Nombre de naissances vivantes en 2017 par région ?
-        * tableau
-        * histogramme, carte ... 
-    3. Part de naissances vivantes, hors mariage en 2017 par région ?
-        * tableau
-        * histogramme, carte ...
-    4. Nombre de naissances vivantes en 2017 par tranche d'âge ?
-        * tableau
-        * histogramme  
-* B. Identifier les tâches 
-* C. Se mettre d'accord sur l'organisation des fichiers, et les branches à créer
-* D. Affecter les tâches
-* E. (prioriser les tâches)
-* F. Assembler les pièces
-
-### Organisation de l'équipe projet - étape 2/4 
-
-* A. se mettre d'accord sur une trame de travail qui sera le squelette du rapport 
-* **B. Identifier les tâches : ** 
-    * Créer le projet 
-    * Initier le document Rmardown avec le squelette  de la trame de travail
-    * récupérer et vérifier les données 
-    * préparer les données 
-    * produire les données pour la carte de naissance 
-    * produire les données sur les part de naissance hors mariage ?
-    * produire les données sur les parts de naissances hors mariage par tranche d'âge 
-    * fonction qui génère la carte des naissances vivantes 2017 
-    * fonction qui génère l'histogramme des part de naissance hors mariage par région 
-    * `Remarque :`  
-    `Lors de cette étape penser : 1. reproductibilité. 2. quelles instructions externaliser du fichier Rmd ?`
-    
-* C. Se mettre d'accord sur l'organisation des fichiers, et les branches à créer
-* D. Affecter les tâches
-* E. (si nécessaire, prioriser les tâches)
-* F. Assembler les pièces
-
-### Organisation de l'équipe projet - étape 2/4 bis
-
-* A. se mettre d'accord sur une trame de travail qui sera le squelette du rapport 
-* **B. Identifier les tâches : ** 
-    * Créer le projet 
-    * Initier le document Rmardown avec le squelette  de la trame de travail
-    * récupérer et vérifier les données **--> coeur de l'instruction R dans un chunk ou dans un script R ?**
-    * préparer les données **--> même question **
-    * produire les données pour la carte de naissance **--> même question **
-    * produire les données sur les part de naissance hors mariage **--> même question **
-    * produire les données sur les parts de naissances hors mariage par tranche d'âge **--> même question **
-    * fonction qui génère la carte des naissances vivantes 2017 **--> même question **
-    * fonction qui génère l'histogramme des part de naissance hors mariage par région **--> même question **
-    * `Remarque : `  
-    `Lors de cette étape penser : 1. reproductibilité. 2. quelles instructions externaliser du fichier Rmd ?`
-    
-* C. Se mettre d'accord sur l'organisation des fichiers, et les branches à créer
-* D. Affecter les tâches
-* E. (si nécessaire, prioriser les tâches)
-* F. Assembler les pièces
-
-## Organisation de l'équipe projet - étape 3/4
-
-* A. se mettre d'accord sur une trame de travail qui sera le squelette du rapport 
-* B. Identifier les tâches 
-* **C. Se mettre d'accord sur l'organisation des fichiers, , et les branches à créer**
-
-    * Un exemple d'arborescence de projet
-    
-    ![](./pics/04_markdown/exple_arborescence.png)
-    
-    * Créer une branche par partie
-    
-    
-* **D. Affecter les tâches**
-* **E. (si nécessaire, prioriser les tâches)**
-* F. Assembler les pièces
-
-### Organisation de l'équipe projet - étape 4/4
-
-* A. se mettre d'accord sur une trame de travail qui sera le squelette du rapport 
-* B. Identifier les tâches  
-* C. Se mettre d'accord sur l'organisation des fichiers, et les branches à créer
-* D. Affecter les tâches
-* E. (si nécessaire, prioriser les tâches)
-* **F. Assembler les pièces**
-    
-    * Intégerer les éléments dans le document squelette Rmd
-        * quelles instructions R externaliser du fichier R Markdown
-    * commiter via Git depuis RStudio (_attention, il y a un piège_)
-    * mettre à jour le dépôt via Git depuis RStudio et Gitlab
-
-    
-
-:::: {.exercise data-latex=""}
-::: {.center data-latex=""}
-**Exercice 3**
-:::
-
-Réaliser ce premier document qui contiendra à la fois résultats et commentaires associés.
-
-A vous de jouer !
-::::
-    
-
-
-
-![](./pics/04_markdown/partonsalaventure.gif)
-
-
-
-## Correction de l'exercice
-
-Le fichier **METTRE LIEN VERS CORRECTION** 
-
-### Demande de modifications
-
-L'un des avantages de `R Mardown` est la mise à jour dynamique de document. Nous allons voir comment intégrer facilement : 
-
-* d'évolution
-* amélioration
-* modification
-
-#### Cas d'une demande d'amélioration
-
-Améliorer les illustrations : Titre, étiquette des données, couleurs, ... 
-
-#### Cas d'une demande d'évolution
-
-Produire le même rapport avec les données millésimées 2018.
-
-#### Cas d'une demande de modification
-
-Finalement la maitrise d'ouvrage/le partenaire suggère une analyse par département. Apporter les modifications nécessaires pour produire ce nouveau rapport.
-
-## Correction
-
-**METTRE UN LIEN **
-
-<!----------
-
----
-title: "exercice"
-author: "Nom Prénom"
-date: "`r format (Sys.time(), '%d %B, %Y')`"
-output: html_document
----
-
-# R Markdown
-## Comment insérer du texte
-
-Saisir le texte.
-
-## Comment habiller le texte
-
-* Tricher. Consulter la **Cheat sheet** R Markdown disponible sur le site de R Studio **https://rstudio.com**
-
-* Mettre en **gras** avec `**`
-
-* Faire des puces avec `*`
-
-* etc ...
-
-## Comment insérer une image
-Avec la syntaxe `![](mon chemin relatif)`
-
-## Comment insérer un lien http
-
-Avec la syntaxe `<mon url>`
-
-## Comment générer un mon rapport en html
-* A l'aide du bouton `Knit`
-
-
----
-title: "Mon premier fichier R Markdown"
-author: "Prénom Nom"
-date: "`r format (Sys.time(), '%d %B, %Y')`"
-output: html_document
----
-
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
----->
