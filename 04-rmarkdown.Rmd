@@ -84,7 +84,7 @@ Les connaisseurs du format `LaTeX` reconnaîtront une grande proximité entre `L
 * Transformation du `.Rmd` (`R Markdown`) en `.md` (`Markdown`): le _package_ `knitr` se charge de transformer le texte et les sorties `R` en un document `markdown` standard. 
 * Transformation du `.md` en un format de sortie standard (`html`, `pdf`, etc.): tâche effectuée par le logiciel nommé `pandoc`. Ce dernier est automatiquement installé lorsqu'on a installé le package `rmarkdown`, il n'y a donc pas à le télécharger.
 
-![Interaction entre rmarkdown et ses dépendances, emprunté à [ce site](https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html)](./pics/rmarkdown/schema_rmd.png)
+![Interaction entre rmarkdown et ses dépendances, emprunté à [utilitR](https://www.book.utilitr.org/produire-des-documents-avec-r-markdown.html)](https://www.book.utilitr.org/pics/rmarkdown/schema_rmd.png)
 
 Pour obtenir la sortie désirée d'un document `R Markdown` on peut utiliser deux méthodes:
 
