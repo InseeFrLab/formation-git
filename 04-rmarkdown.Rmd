@@ -468,4 +468,3 @@ Vous pouvez consulter la **Cheat sheet** `R Markdown` disponible sur le site de 
 
 
 
-

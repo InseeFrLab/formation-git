@@ -6,3 +6,5 @@ bookdown::gitbook:
         <li><a href="./">Travail collaboratif avec R</a></li>
       after: |
         <li><a href="./">Formation INSEE</a></li>
+  includes:
+    in_header: ./js/callscripts.html
