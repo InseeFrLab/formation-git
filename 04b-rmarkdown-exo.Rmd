@@ -91,10 +91,10 @@ dérouler):
 <summary>**Identifier les tâches**</summary>
 * Créer le projet 
 * Initier le document Rmardown avec le squelette  de la trame de travail
-* récupérer et vérifier les données *--> coeur de l'instruction R dans un chunk ou dans un script R ?*
+* récupérer et vérifier les données &#8594 *coeur de l'instruction R dans un chunk ou dans un script R ?*
 * quels packages choisir ?
-* préparer les données *--> même question *
-* construire les statistiques *--> même question *
+* préparer les données &#8594 *même question *
+* construire les statistiques &#8594 *même question *
 * peut-on modulariser ?
 * Lors de cette étape penser :
     + reproductibilité.
