@@ -13,7 +13,7 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction
 
-Supports associés à la formation nationale `Travail collaboratif avec R`. `r colorize("Version provisoire et non définitive des supports", "red")`. Le code source est disponible  [ici](https://gitlab.com/linogaliana/collaboratif) ou [ici (lien interne)](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
+Supports associés à la formation nationale `Travail collaboratif avec R`. `r colorize("Version provisoire et non définitive des supports", "red")`. Le code source est disponible sur Gitlab <i class="fab fa-gitlab"></i> [ici](https://gitlab.com/linogaliana/collaboratif) 
 
 Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
 
@@ -21,7 +21,7 @@ Pour pré-visualiser en local le résultat de la compilation, vous pouvez utilis
 bookdown::render_book('./index.Rmd', output_dir = 'public')
 ```
 
-Cette formation est associée à un [guide des bonnes pratiques pour le SSP](https://linogaliana.gitlab.io/bonnespratiques/) que nous recommandons de consulter. 
+Cette formation est associée à un guide des bonnes disponible dans la documentation [utilitR](https://www.book.utilitr.org) que nous recommandons de consulter. 
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -33,11 +33,11 @@ knitr::write_bib(c(
 ## Contributeurs {-}
 
 * Chapitre \@ref(rstudio): [Lino Galiana](https://linogaliana.netlify.com/)
-* Chapitre \@ref(git): [Mathias André](https://gitlab.com/mathias.andre), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin), 
-* Chapitre \@ref(rmd): [Annie Moineau](https://gitlab.com/annieMoineau), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin)
+* Chapitres \@ref(git) et \@ref(gitexo): [Mathias André](https://gitlab.com/mathias.andre), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin), 
+* Chapitres \@ref(rmd) et \@ref(rmdexo): [Annie Moineau](https://gitlab.com/annieMoineau), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin)
 * Chapitre \@ref(fonctions):  [Lino Galiana](https://linogaliana.netlify.com/)
 * Chapitre \@ref(package):  [Romain Lesur](https://github.com/RLesur)
 
 Relecteurs: [Olivier Meslin](https://gitlab.com/oliviermeslin), George Pavlov, [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
 
-Mise en forme: [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur), [Olivier Meslin](https://gitlab.com/oliviermeslin)
+Mise en forme: [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
