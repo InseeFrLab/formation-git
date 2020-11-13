@@ -65,14 +65,14 @@ correction
 
 L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
 
-Même lorsqu'on travaille tout seul, on collabore avec un *moi* futur qui peut ne plus se souvenir de la modification des fichiers. 
+Même en travaillant seul sur un projet, on collabore avec un *moi* futur qui oubliera vraisemblablement le contenu ou la raison de la modification des fichiers.
 
 ::::
 
 
 ### Améliorer la qualité des codes
 
-Le fonctionnement de la gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. C'est pour cette raison que le contrôle de version ne doit pas être considéré comme un outil réservé à des développeurs : toute personne travaillant sur des programmes informatiques, `SAS` y compris, gagne à utiliser du contrôle de version. 
+Le fonctionnement de la gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. C'est pour cette raison que le contrôle de version est un outil puissant pour toute production statistique : toute personne travaillant sur des programmes, `SAS` y compris, gagne à utiliser du contrôle de version. 
 
 Quand il s'agit de modèles statistiques, ou de chaînes de traitement statistique, constitués de nombreux programmes, la gestion de version permet :
 
@@ -92,7 +92,7 @@ Les chargés d'étude ont une copie locale du projet sur leur poste de travail. 
 * avec une interface graphique spécialisée, par exemple [tortoise git](https://tortoisegit.org/) ou [GitHub Desktop](https://desktop.github.com/) ;
 * avec un logiciel de développement : la plupart des logiciels de développement ([RStudio](https://rstudio.com/) pour `R`, [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/) ou [jupyter](https://jupyter.org/) pour `python`, [atom](https://atom.io/), etc.) proposent tous des modules graphiques facilitant l'usage de `git` dont les fonctionnalités sont très proches.
 
-Dans ce chapitre, nous proposons d'utiliser le contrôle de version via `RStudio`. Cela rend le recours à la ligne de commande marginal. 
+Dans ce chapitre, nous proposons d'utiliser le contrôle de version via `RStudio`. Cela rend le recours à la ligne de commande marginal voire inutile.
 
 **Envoi d'une modification avec TortoiseSVN : commit**
 
@@ -177,8 +177,10 @@ Les trois manipulations les plus courantes sont les suivantes et représentées 
 De manière plus précise, il y a trois étapes avant d'envoyer les modifications validées (`r with_def("commit")`) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :
 
 * `diff` : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés
-* `staging area` : sélection des modifications. L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: on peut découper les modifications d'un fichier en plusieurs morceaux cohérents
+* `staging area` : sélection des modifications. 
 * `r with_def("commit")` :  validation des modifications sélectionnées (avec commentaire).
+
+L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: il est possible de découper les modifications d'un fichier en plusieurs morceaux cohérents. 
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
@@ -189,9 +191,11 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 
 Lors d'un `r with_def("commit")`, le message de validation est très important:
 
-* décrit les modifications contenues dans le commit
-* importance de l’homogénéité des modifications contenues dans un commit
-* à l’attention des autres développeurs
+* il décrit les modifications contenues dans le commit
+* il s'adresse aux autres et doit donc être intelligible
+
+Chaque commit doit rassembler des modifications homogènes. Il ne faut donc pas hésiter à séparer les changements qui ne sont pas directement reliés car il est plus facile de rechercher au sein de plusieurs modifications différentes qu'une seule trop vaste.
+
 
 Chaque `r with_def("commit")` est identifié de façon unique par un `r with_def("hash")` (ex: `441300764de91c376`), un numéro peu intelligible pour un humain mais qui permet au système de contrôle de version de gérer proprement chaque modification.
 
@@ -311,9 +315,9 @@ Un projet sous GitLab se présente de la manière suivante:
 
 Le fichier `README.md` s'affiche automatiquement, mis en forme. Il présente des informations utiles pour la compréhension de l'objectif du projet, son installation, etc. On peut naviguer dans l'arborescence d'un dépôt facilement mais certains types de fichiers s'affichent mal (ex: `html` car ils n'ont pas vocation à être partagé).
 
-Les principales fonctionalités sont présentes dans les onglets: 
+Les principales fonctionnalités sont présentes dans les onglets d'un projet sous GitLab: 
 
-1. `Repository`: coeur du contrôle de version
+1. `Repository`: le dépôt, c'est le centre du contrôle de version
 2. `Issues`: espace de discussion, de suggestions ou demandes. 
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
 2. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
@@ -324,17 +328,18 @@ Arrêtons-nous sur les trois premiers points
 
 ### `Repository`
 
-Le coeur des fonctionalités reliées au contrôle de version. C'est notamment pratique pour visualiser les branches et leur trajectoire. On peut notamment comparer les branches entre elles avant de proposer une `merge request` (cf. suite).
+Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commit par ordre chronologique. Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
 
 
 ### `Issues`
 
-L'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Il s'agit de l'espace où on peut 
+C'est l'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Il s'agit de l'espace permettant de :
 
-* faire connaître des *bugs* (à la manière d'un *ticket*)
-* discuter des évolutions d'un projet
-* évoquer des pistes de modification qui sont à creuser
-* regrouper et explorer les *issues* grâce à des labels 
+* signaler des *bugs* (à la manière d'un *ticket*)
+* discuter des évolutions d'un projet et proposer des changements
+* évoquer des pistes de modifications qui sont à creuser
+
+Ces échanges prennent la forme d'un forum où les sujets sont regroupés sous la forme d'*issues* (problèmes) qui peuvent être identifiées grâce à des labels. Un des avantages est de pouvoir intégrer des passages de code ou de faire des références croisées entre les issues.
 
 ![](pics/03_git/issues_list.png)
 
@@ -355,32 +360,29 @@ Closes #12
 
 fermera automatiquement l'*issue* `12`. 
 
-Il existe une astuce pour automatiquement fermer une `issue`. Si comme nom de branche, on donne `xx-blabla` où `xx` est le numéro de l'*issue*, alors au moment de la création de la *merge request*, le commentaire sera automatiquement alimenté par `Closes #xx`. Lorsque cette *merge request* sera validée, `#xx` sera automatiquement fermée
+Il existe une astuce pour automatiquement fermer une `issue`. Si comme nom de branche, on donne `xx-blabla` où `xx` est le numéro de l'*issue*, alors au moment de la création de la *merge request*, le commentaire sera automatiquement alimenté par `Closes #xx`. Lorsque cette *merge request* sera validée, `#xx` sera automatiquement fermée.
 ::::
 
-On peut aussi avoir un affichage en tableau en cliquant à gauche sur `Boards`. On peut associer des *issues* à des `milestones` qui sont des jalons pour faire évoluer le projet
+Il est possible d'avoir un affichage en tableau en cliquant à gauche sur `Boards` ou encore d'associer des *issues* à des `milestones` (jalons) qui sont des étapes permettant de suivre l'évolution d'un projet.
 
 
 ![](pics/03_git/milestones.png)
 
-L'affichage est similaire à celui de [Trello](https://trello.com/) mais a l'avantage d'évoluer de manière automatique au gré des ouvertures et fermetures *d'issues*. 
+### Merge requests (MR)
+
+C'est l'espace pour gérer des fusions de branches qui est utile dans un second temps, à la suite : 
+
+* d'une ou plusieurs *issues* qui ont été créées et discutées
+* d'une création de branche afin de propose de l'intégrer 
 
 
-### Merge requests
-
-c'est l'espace pour gérer des fusions de branches. Normalement, on arrive dans un deuxième temps dans cet espace:
-
-* une ou plusieurs *issues* sont créées et discutées
-* si on possède une solution, on crée une branche et propose une `merge request`
-
-
-`GitLab` facilite énormément le travail de fusion de branches par rapport à la ligne de commande. Si les modifications proposées sont propres, on évite souvent le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
+`GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
 
 ![](./pics/03_git/MR2.png)
 
-On clique sur `Compare branches and continue`. On arrive sur la page permettant de décrire la `merge request`. On aide le(s) gestionnaire(s) du projet en faisant en sorte d'être explicite sur l'objectif de la `merge request`. On peut notamment faire référence à des *issues* comme `#19` dans l'exemple ci-dessous. On donne un titre explicite à la merge request en ajoutant le préfixe `WIP:` si celle-ci n'est pas encore finalisée (permet de mentionner précocément au gestionnaire qu'on avance sur le développement d'une branche)
+On clique sur `Compare branches and continue` pour arriver sur la page permettant de décrire la `merge request`. On aide le(s) gestionnaire(s) du projet en faisant en sorte d'être explicite sur l'objectif de la `merge request`. On peut notamment faire référence à des *issues* comme `#19` dans l'exemple ci-dessous. On donne un titre explicite à la merge request en ajoutant le préfixe `WIP:` si celle-ci n'est pas encore finalisée (permet de mentionner précocément au gestionnaire qu'on avance sur le développement d'une branche)
 
-Une bonne pratique est de proposer les options:
+Une bonne pratique est de proposer les options suivantes:
 
 * `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité. 
 * `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de *commits*.
@@ -402,7 +404,7 @@ Il y a deux philosophies dans le domaine:
 
 Les gros projets *open-source* fonctionnent plutôt de la première manière. Il s'agit de la pratique la plus prudente. 
 
-La capture d'écran ci-dessus correspond à la seconde. Si vous l'utilisez, n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre repository.
+La capture d'écran ci-dessus correspond à la seconde. Si vous l'utilisez, n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre dépôt.
 
 
 :::: {.recommandation data-latex=""}
@@ -456,7 +458,7 @@ mais à une mauvaise définition de l'organisation du travail ou bien
 D'expérience, si vous n'avez pas réfléchi à l'organisation du travail,
 il est à peu près certain que vous rencontrerez des problèmes.
 Des difficultés peuvent en particulier apparaître dans une
-équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionalités
+équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionnalités
 de `Gitlab`, toutes les contributeurs d'un projet n'ont pas besoin de connaître
 `Git`. Néanmoins, il est mieux que ceux ayant la responsabilité suprême, à savoir
 les droits d'écriture dans `master`, aient des connaissances en `Git` pour
