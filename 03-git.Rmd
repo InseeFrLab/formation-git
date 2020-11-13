@@ -32,6 +32,8 @@ Il existe un outil informatique puissant afin de répondre à tous ces besoins :
 
 En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R, Python, SAS, $\LaTeX$, Java, etc.) car reposent sur la comparaison des lignes et des caractères des programmes.
 
+En bref, c'est LA bonne manière pour partager des codes et travailler à plusieurs sur un projet statistique (études ou production).
+
 ### Conserver et archiver du code
 
 Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui constitue le projet (par exemple, le modèle Ines).
@@ -44,7 +46,7 @@ Tout repose dans la gestion et la présentation de l'historique des modification
 **Un exemple d'historique d'un projet via RStudio**
 ![histR](./pics/03_git/historique_Rstudio.png){width=100%} 
 
-Sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
+Sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt à une date donnée, généralement la plus récente. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
 
 ### Travailler efficacement en équipe
 
@@ -65,7 +67,7 @@ correction
 
 L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
 
-Même en travaillant seul sur un projet, on collabore avec un *moi* futur qui oubliera vraisemblablement le contenu ou la raison de la modification des fichiers.
+Même en travaillant seul sur un projet, on collabore avec un *moi* futur (qui aura vraisemblablement oublié le contenu ou la raison de la modification des fichiers).
 
 ::::
 
@@ -80,19 +82,11 @@ Quand il s'agit de modèles statistiques, ou de chaînes de traitement statistiq
 * un gain de place pour stocker les historiques,
 * leur diffusion simplifiée et harmonisée. 
 
-Lors de l'ouverture des modèles, leur diffusion publique correspond aux standards des communautés de logiciels libres et aux usages recommandés pour documenter des programmes informatiques. Cela permet aux utilisateurs ou aux agents découvrant des chaînes de traitement de mieux s'approprier les programmes.
+En outre, lors de l'ouverture des modèles au format *open source* par exemple, leur diffusion publique correspond aux standards des communautés de logiciels libres et aux usages recommandés pour documenter des programmes informatiques. Cela permet aux utilisateurs ou aux agents découvrant des chaînes de traitement de mieux s'approprier les programmes.
 
 ### Usage quotidien : un exemple avec le modèle Ines
 
-Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront présentés [plus loin](#gitlab)). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple).
-
-Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponibles en temps réel. Il existe plusieurs manières d'utiliser le contrôle de version : 
-
-* en ligne de commande, via [git bash](https://gitforwindows.org/), par exemple ;
-* avec une interface graphique spécialisée, par exemple [tortoise git](https://tortoisegit.org/) ou [GitHub Desktop](https://desktop.github.com/) ;
-* avec un logiciel de développement : la plupart des logiciels de développement ([RStudio](https://rstudio.com/) pour `R`, [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/) ou [jupyter](https://jupyter.org/) pour `python`, [atom](https://atom.io/), etc.) proposent tous des modules graphiques facilitant l'usage de `git` dont les fonctionnalités sont très proches.
-
-Dans ce chapitre, nous proposons d'utiliser le contrôle de version via `RStudio`. Cela rend le recours à la ligne de commande marginal voire inutile.
+Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront présentés [plus loin](#gitlab)). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple). Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponibles en temps réel. 
 
 **Envoi d'une modification avec TortoiseSVN : commit**
 
@@ -104,10 +98,17 @@ Dans ce chapitre, nous proposons d'utiliser le contrôle de version via `RStudio
 **Recherche efficace une erreur : blame**
 ![](./pics/03_git/blame_ines.png){width=100%}  
 
+D'une manière générale, il existe plusieurs manières d'utiliser le contrôle de version : 
+
+* en ligne de commande, via [git bash](https://gitforwindows.org/), par exemple ;
+* avec une interface graphique spécialisée, par exemple [tortoise git](https://tortoisegit.org/) ou [GitHub Desktop](https://desktop.github.com/) ;
+* avec un logiciel de développement : la plupart des logiciels de développement ([RStudio](https://rstudio.com/) pour `R`, [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/) ou [jupyter](https://jupyter.org/) pour `python`, [atom](https://atom.io/), etc.) proposent tous des modules graphiques facilitant l'usage de `git` dont les fonctionnalités sont très proches.
+
+Dans ce support, nous présentons le contrôle de version via `RStudio`, la solution que nous recommandons en raison de sa simplicité. Elle rend le recours à la ligne de commande marginal voire inutile.
 
 ### Avec ou sans gestion de versions
 
-Le tableau suivant compare les usages au temps (pré-historique ?) de la programmation sans gestion de version avec les modes de travail si on y a recours.
+Le tableau suivant compare les usages au temps (pré-historique ?) de la programmation sans gestion de version avec les modes de travail si on y a recours :
 
 |                      |      Avant            |  Gestion de version  |
 |:---------------------|----------------------:|---------------------:|
@@ -129,17 +130,17 @@ En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur s
 * à des outils généralisés et documentés en ligne.
 
 La gestion de version est donc le meilleur moyen de partager du code (entre équipes internes,
-lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent de l'informatique et de la création des logiciels et applications. Les traitements statistiques sont également des chaînes informatiques et sont donc pleinement adaptés pour être traités avec les outils de gestion de version.
+lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent du développement informatique et de la création des logiciels et applications. Les traitements statistiques sont également des chaînes informatiques et sont donc pleinement adaptés pour s'appuyer sur les outils de gestion de version.
 
 ## Des bases de GIT <i class="fas fa-code-branch"></i>
 
-Les deux outils de gestion de version les plus répandus sont GIT et SVN. L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant en raison de plusieurs avantages. 
+Les deux outils de gestion de version les plus répandus sont GIT et SVN (pour Subversion). L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant en raison de plusieurs avantages, comme le travail hors ligne plus stable, une meilleure flexibilité et une plus grande vitesse (cf. infra).
 
 GIT est un logiciel qui est installé sur son poste et celui de ses collaborateurs. Il est open source, gratuit et très répandu. Ainsi, une vaste documentation est disponible en ligne ou les forums d'entraide de type `stackoverflow` (voir par exemple le tag ['GIT'](https://stackoverflow.com/questions/tagged/git) ). Sur la plateforme `GitHub`, la [page de tutoriel](http://try.github.io/) regroupe différents supports. Des vidéos pédagogiques sont fournies sur [git-scm.com](https://git-scm.com/videos).
 
 :::: {.conseil data-latex=""}
 
-Face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les bonnes pratiques pour chaque projet. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans notre cas précis.
+Face au foisonnement des pratiques et des ressources en ligne, il est recommandé d'adopter et suivre les bonnes pratiques pour chaque projet, et de prendre avec vigilance ce qui est trouvé en ligne. Les configurations et les habitudes diffèrent et une solution proposée sur un forum ou dans un livre peut ne pas être adaptée dans votre cas précis. 
 
 C'est l'objectif de ce support de rassembler les pratiques les plus courantes et présenter l'utilisation recommandée de la gestion de version avec RStudio à l'Insee.
 
@@ -155,8 +156,7 @@ SVN est dit centralisé alors que GIT est dit distribué. Cela signifie notammen
 En outre, contrairement à SVN pour lequel il faut être connecté à un serveur, il n'est pas besoin d'être connecté avec GIT et on peut travailler en local. Ainsi, on transmet ses modifications quand on le souhaite ou peut et cela facilite le travail distant.
 ::::
 
-Enfin, un des grands avantages pratiques de `GIT` est son intégration native dans l’interface `RStudio` ainsi que dans les plateformes `GitHub` et `GitLab` (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
-
+Enfin, un des grands avantages pratiques de `GIT` est son intégration native dans l’interface `RStudio` (et réciproquement) ainsi que dans les plateformes `GitHub` et `GitLab` (voir parties ci-après). À l'origine utilisé en ligne de commandes (et utilisé comme tel par les développeurs), les interfaces graphiques actuelles permettent de s'en passer dans l'immense majorité des situations.
 
 
 ### Le B.A-BA
@@ -191,34 +191,36 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 
 Lors d'un `r with_def("commit")`, le message de validation est très important:
 
-* il décrit les modifications contenues dans le commit
+* il décrit brièvement les modifications contenues dans le commit
 * il s'adresse aux autres et doit donc être intelligible
 
 Chaque commit doit rassembler des modifications homogènes. Il ne faut donc pas hésiter à séparer les changements qui ne sont pas directement reliés car il est plus facile de rechercher au sein de plusieurs modifications différentes qu'une seule trop vaste.
 
-
 Chaque `r with_def("commit")` est identifié de façon unique par un `r with_def("hash")` (ex: `441300764de91c376`), un numéro peu intelligible pour un humain mais qui permet au système de contrôle de version de gérer proprement chaque modification.
 
-Ensuite, les deux fonctions `r with_def("push")` et `r with_def("pull")` permettent la mise à jour du projet local par rapport au distant et réciproquement. Lors de ces étapes des **conflits** peuvent apparaître, c'est par exemple le cas lors que deux personnes ont modifié le même programme simultanément. 
+Ensuite, les deux fonctions `r with_def("push")` et `r with_def("pull")` permettent la mise à jour du projet local par rapport au distant et réciproquement. C'est donc avec un `r with_def("push")` qu'on envoie les modifications qui ont été sélectionnées puis validées.
+
+Lors des étapes de push et pull, des **conflits** peuvent apparaître, par exemple lorsque deux personnes ont modifié le même programme simultanément. 
 
 Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications (`commit`) :
 
-* par petits lots homogènes et en préférant peu de fichiers
+* en commençant par mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet
+* en regroupant les commit par petits lots homogènes et en préférant peu de fichiers
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
-* mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet.
+
 
 
 :::: {.recommandation data-latex=""}
 
 De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`).
 
-Cependant, **il existe des commandes qui peuvent définitivement endommager votre projet**, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et comprennent ces commandes "à risque". 
+Cependant, **il existe des commandes qui peuvent définitivement endommager votre projet**, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et recommandent ces commandes "à risque". 
 
 ::::
 
 ### Les branches
 
-C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans perturber le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
+C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans modifier le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
 <blockquote class="twitter-tweet"><p lang="fr" dir="ltr">Petite révélation du jour : <a href="https://twitter.com/hashtag/git?src=hash&amp;ref_src=twsrc%5Etfw">#git</a>, c&#39;est le meilleur outil pour te rappeler que nous sommes proches des singes : si t&#39;es pas sur une branche, t&#39;es dans la merde</p>&mdash; Nicolas Delsaux (\@riduidel) <a href="https://twitter.com/riduidel/status/1229768054109855747?ref_src=twsrc%5Etfw">February 18, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
@@ -226,7 +228,7 @@ C'est une des fonctionnalités les plus pratiques de la gestion de version. La c
 
 Les branches peuvent avoir des durées de vie plus ou moins longues selon leurs objectifs : nouvelle fonctionnalité, résolution de bugs, environnement de développement ou de production, etc.
 
-Trois principales fonctionnalités existent :
+Trois principales fonctionnalités existent, définies par leur nom de commande :
 
 * `git branch` : création d'une branche
 * `git checkout` : pour changer de branche
