@@ -423,22 +423,16 @@ Quand un projet est important, on peut créer un groupe qui permet d'avoir une a
 
 ## Organiser le travail collaboratif {#orgagit}
 
-Cette section propose une synthèse des usages de `Git` dans la communauté `R`,
-adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
-Quand on rentre dans le détail de toutes les fonctionnalités,
-il existe de multiples façon de travailler avec les outils de gestion de version. 
+Les outils de gestion de version permettent des usages multiples. Cette section propose une synthèse des usages de `Git` dans la communauté `R`, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
 
 :::: {.remarque data-latex=""}
 
 Cette formation adopte le parti pris de suivre le `GitHub Flow` dont une rapide description peut être trouvée sur [cette page](https://guides.github.com/introduction/flow/) et qui a pour mérite d'être le plus simple.  
-En effet, vous devez savoir que des "habitudes" se sont imposées dans la
+En effet, des habitudes se sont imposées peu à peu dans la
 communauté R, essentiellement au travers des collaborations sur la plateforme
-`GitHub` (GitLab fonctionne de la même façon mais est open source contrairement à GitHub).
+`GitHub` (plateforme de gestion de code similaire à GitLab). Ces usages, semblables à des normes sociales, vous permettront d'acquérir une certaine maîtrise de `Git`. Ensuite, au fur et à mesure de l'avancée de vos projets, vous pourrez adapter plus finenement ce fonctionnement à vos besoins et exploiter les nombreuses possibilités offertes par le contrôle de version. Cela n'est absolument pas gênant, à partir du moment où vous comprenez ce que vous faites.
 
-Au fur et à mesure des collaborations, une forme de "norme sociale"
-s'est peu à peu imposée. Nous allons vous décrire ces habitudes. Cela vous donnera une première base, autant de points de repères. Vous pourrez ainsi contribuer à vos packages préférés sur GitHub. Au fur et à mesure de vos projets et quand vous aurez acquis une certaine maîtrise de `Git`, vous adapterez certainement ces règles à vos besoins. Cela n'est absolument pas gênant... à partir du moment où vous comprenez ce que vous faites.
-
-Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git` (_flow_, en anglais). Vous pourrez trouvez des dizaines d'articles et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (`Git flow`, `GitHub flow`, `GitLab flow`...). Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents,...).
+Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git` (_flow_, en anglais). Vous pourrez trouvez des dizaines d'articles en ligne et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (`Git flow`, `GitHub flow`, `GitLab flow`...). Ne lisez pas trop ces livres ou articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents ou les conseils pour devenir millionnaires).
 ::::
 
 Voici la marche à suivre lors de la création d'un nouveau projet :
@@ -447,20 +441,20 @@ Voici la marche à suivre lors de la création d'un nouveau projet :
 - Chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repository à la légère, vous pourriez le regretter.
 - C'est au(x) mainteneur(s) du `r with_def("repository")` de définir les règles d'organisation du travail (ici, ce sera le `GitHub flow`).
 - Idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet. Il permettra à toute personne rejoignant le projet en cours de route de comprendre les différentes modalités de contribution.
-- Il est essentiel que chaque personne qui contribue au projet se conforme à ces règles.
+- Il est essentiel que chaque personne qui contribue au projet se conformer à ces règles.
 
 
-`Git` est un outil extrêmement puissant et flexible, adaptable à tout type d'organisation du travail.
-Dès lors, les problèmes que vous rencontrerez ne seront pas liés à `Git`
-mais à une mauvaise définition de l'organisation du travail ou bien
+`Git` est un outil puissant et flexible, adaptable à un grand nombre d'organisation du travail.
+Dès lors, les problèmes rencontrés ne sont généralement pas liés à `Git`
+mais à une mauvaise définition en amont de l'organisation du travail ou bien
 à son non-respect par les mainteneurs. 
 
-D'expérience, si vous n'avez pas réfléchi à l'organisation du travail,
+L'expérience enseigne que si vous n'avez pas réfléchi à l'organisation du travail,
 il est à peu près certain que vous rencontrerez des problèmes.
 Des difficultés peuvent en particulier apparaître dans une
 équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionnalités
 de `Gitlab`, toutes les contributeurs d'un projet n'ont pas besoin de connaître
-`Git`. Néanmoins, il est mieux que ceux ayant la responsabilité suprême, à savoir
+`Git`. Néanmoins, il est mieux que ceux ayant la responsabilité la plus élevés, à savoir
 les droits d'écriture dans `master`, aient des connaissances en `Git` pour
 ne pas mettre en péril un projet par une manipulation hasardeuse
 (ça n'arrive pas souvent et il y a des filets de sécurité avant de le faire).
@@ -471,7 +465,7 @@ il est possible d'effectuer un `commit` sur `master`.
 Cela est possible si dans l'organisation du travail, vous avez les droits
 de type _Mainteneur_. Le premier exercice [**`Git` en local**](#gitlocal) en
 donne un exemple. Cependant, pour des changements plus profonds,
-il est recommandé d'organiser le travail selon les cinq étapes Suivantes.
+il est recommandé d'organiser le travail selon les cinq étapes suivantes.
 
 ### Créer une branche
 
