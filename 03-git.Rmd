@@ -240,13 +240,15 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ### Quelques compléments de GIT 
 
-L'outil `GIT` permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée.
+L'outil `GIT` permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée à RStudio.
 
 Une des commandes les plus utiles pour un travail collaboratif pour les statisticiens permet de ne pas partager les bases de données ou tout type de fichier, soit trop volumineux, soit confidentiel : 
 
 * `git ignore` : modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
 
-Ainsi, il est crucial de ne pas partager les données et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
+Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" ou alors tous les fichiers au format xls en ajoutant "*.xls".
+
+Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
 
 ```{r, eval = FALSE}
 # Taper dans la console RStudio
@@ -255,14 +257,14 @@ usethis::use_git_ignore("*.csv")
 
 :::: {.recommandation data-latex=""}
 
-On ne met sous contrôle de version avec git que les fichiers "source" qui sont des fichiers textes.
+On ne met sous contrôle de version avec git que les fichiers de programmes, semblables à des fichiers texte ( `.Sas `,  `.R `). Il est important d'exclure les fichiers volumineux (données ou résultats) et bien sûr, les fichiers confidentiels.
 
-En particulier, il ne faut pas mettre sous contrôle de version et il faut donc inclure dans le fichier `.gitignore` :
+En particulier, il ne faut pas mettre sous contrôle de version, c'est-à-dire qu'il faut inclure dans le fichier `.gitignore` :
 
-- les données (`.csv`, `.xlsx`, `.sas7bdat`, `.Rdata`...)
-- les fichiers produits grâce au code source (`.pdf`, `.html`, `.odt`, `.docx`, `.xlsx`...)
+- les données (`.csv`, `.xlsx`, `.sas7bdat`, `.Rdata`, etc.)
+- les fichiers produits grâce au code source (`.pdf`, `.html`, `.odt`, `.docx`, `.xlsx`, etc.)
 
-Il faut être **extrêmement vigilant** à **ne jamais** mettre sous contrôle de version **des mots de passe** ou des **jetons d'accès** à des API.
+En particulier, il faut être **extrêmement vigilant** à **ne jamais** mettre sous contrôle de version **des mots de passe** ou des **jetons d'accès** à des API.
 
 ::::
 
@@ -275,14 +277,15 @@ Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des 
 D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
 
 * `git tag` : sauvegarder une version figée, comme une "photographie" à un instant donné
+* `git log` : filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
 * `git blame` : lister les modifications d'un fichier donné à une ligne donnée
 
-Le `git blame` permet ainsi de filtrer sur les différences précédentes afin de régler des problèmes ou trouver un commit particulier à l'origine d'un bug ou d'une erreur. `git log` peut aussi permettre de filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
+Le `git blame` est très pratique car il permet de filtrer sur les différences précédentes afin de régler des problèmes ou trouver un commit particulier à l'origine d'un bug ou d'une erreur. Il est facilement accessible sur `gitlab.com` en cliquant sur les fichiers (*files*) du dépôt (*repository*), en haut à droite pour chaque fichier de programme (cf. infra).
 
 
-D'autres commandes, **plus périlleuses** peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La **réécriture de l'historique** est un usage **non recommandé** pour une utilisation non approfondie comme un projet statistique en équipe. Si vous souhaitiez toutefois vous écarter des sentiers battus et tester ces commandes (telles que `git rebase`^[Le `r with_def("rebase")` est un type particulier de `merge` qui réécrit l'histoire d'une branche ([plus de détails](https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing)). C'est donc une pratique **dangereuse** car elle risque de rrendre obsolète les branches de vos collaborateurs sur lesquelles ils ont potentiellement déjà travailler.] ou `git push --force`), appliquez le **conseil de survie** suivant avant toute manipulation : effectuez une sauvegarde manuelle de votre repository. Sans cela, vous risqueriez d'endommager votre repository et de perdre définitivement des informations.
+D'autres commandes plus périlleuses peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La réécriture de l'historique est un **usage non recommandé** pour une utilisation non approfondie comme un projet statistique en équipe. Si vous souhaitiez toutefois vous écarter des sentiers battus et tester ces commandes (telles que `git rebase`^[Le `r with_def("rebase")` est un type particulier de `merge` qui réécrit l'histoire d'une branche ([plus de détails](https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing)). C'est donc une pratique dangereuse car elle risque de rendre obsolète les branches de vos collaborateurs sur lesquelles ils ont potentiellement déjà travaillr.] ou `git push --force`), appliquez le **conseil de survie** suivant avant toute manipulation : effectuez une sauvegarde manuelle de votre repository, par l'intermédiaire d'un copié-collé dans un autre dossier de votre ordinateur. Sans cela, vous risqueriez d'endommager votre repository et de perdre définitivement des informations.
 
-Pour aller plus loin, des ressources internes existent (plutôt destinées à des développeurs) :
+Pour aller plus loin, des ressources internes au SSP existent (plutôt destinées à des développeurs) :
 
 * [`GIT` au quotidien](https://romain-warnan.github.io/git-au-quotidien) par Romain Warnan  
 * des supports du SNDI sur les [bases de `GIT`](http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/)
@@ -298,8 +301,8 @@ En résumé, voilà les principaux concepts présentés et qui seront utiles pou
 * `repository` : le dossier partagé qui contient toutes les informations
 * `commit` : modification validée à un instant donné, par extension l'état du projet à cet instant
 * `hash` : un identifiant unique pour chaque commit, contenant notamment l'horodatage
-* `checkout` : un déplacement vers un commit
-* `branche` : une ligne de développement parallèle au sein du dossier
+* `checkout` : un déplacement de votre version locale vers un commit donné
+* `branche` : une ligne de développement parallèle au sein du projet
 * `merge` : la fusion de une ou plusieurs branches
 * `remote` : un serveur distant ayant une copie de repository
 * `clone` : récupération du dossier depuis le remote (pour la première fois)
@@ -309,33 +312,33 @@ En résumé, voilà les principaux concepts présentés et qui seront utiles pou
 
 ## `GitLab` <i class="fab fa-gitlab"></i>, aperçu de la plateforme de partage de code {#gitlab}
 
-`GitLab` est une plateforme facilitant l’utilisation de `Git`, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer.
+`GitLab` est une plateforme facilitant l’utilisation de `Git`, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer. Les utilisateurs ont par exemple un profil qui rassemble leurs différents projets.
 
 Un projet sous GitLab se présente de la manière suivante:
 
 ![Interface GitLab](pics/03_git/readme.png)
 
-Le fichier `README.md` s'affiche automatiquement, mis en forme. Il présente des informations utiles pour la compréhension de l'objectif du projet, son installation, etc. On peut naviguer dans l'arborescence d'un dépôt facilement mais certains types de fichiers s'affichent mal (ex: `html` car ils n'ont pas vocation à être partagé).
+Le fichier `README.md` s'affiche automatiquement et il est mis en forme par défaut. Il présente des informations utiles pour la compréhension de l'objectif du projet, son installation, etc. On peut naviguer dans l'arborescence d'un dépôt facilement mais certains types de fichiers s'affichent mal (ex: `html` car ils n'ont pas vocation à être partagés).
 
 Les principales fonctionnalités sont présentes dans les onglets d'un projet sous GitLab: 
 
 1. `Repository`: le dépôt, c'est le centre du contrôle de version
 2. `Issues`: espace de discussion, de suggestions ou demandes. 
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
-2. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
-2. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
-2. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/snippets))
+4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
+5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
+6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/snippets))
 
-Arrêtons-nous sur les trois premiers points
+Ce sont sur les trois premiers points que reposent l'immense majorité des fonctionnalités. 
 
 ### `Repository`
 
-Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commit par ordre chronologique. Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
+Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier /commiter directement en ligne. Pour un fichie donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
 
 
 ### `Issues`
 
-C'est l'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Il s'agit de l'espace permettant de :
+C'est l'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
 
 * signaler des *bugs* (à la manière d'un *ticket*)
 * discuter des évolutions d'un projet et proposer des changements
@@ -345,11 +348,11 @@ Ces échanges prennent la forme d'un forum où les sujets sont regroupés sous l
 
 ![](pics/03_git/issues_list.png)
 
-Pour ouvrir une nouvelle *issue*, on clique en haut à droite sur le bouton dédié:
+Pour ouvrir une nouvelle *issue*, par exemple pour discuter d'une modification avant de la proposer ou signaler un problème qu'on ne résoud pas immédiatement, on clique en haut à droite sur le bouton dédié:
 
 ![](pics/03_git/new_issue.png)
 
-On peut faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue*. 
+Un aspect très pratique est qu'il est possible de faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue* (et le lien url cliquable associé).
 
 :::: {.conseil data-latex=""}
 Il est possible de fermer automatiquement une *issue* en faisant précéder l'appel d'une *issue* par le terme `Closes`. Cela peut être fait dans un message de commit ou dans la description d'une *merge request*. Par exemple,
@@ -360,23 +363,22 @@ Le problème des données manquantes est réglé
 Closes #12
 ```
 
-fermera automatiquement l'*issue* `12`. 
+fermera automatiquement l'*issue 12* sur la page sur `gitlab.com` du projet.
 
-Il existe une astuce pour automatiquement fermer une `issue`. Si comme nom de branche, on donne `xx-blabla` où `xx` est le numéro de l'*issue*, alors au moment de la création de la *merge request*, le commentaire sera automatiquement alimenté par `Closes #xx`. Lorsque cette *merge request* sera validée, `#xx` sera automatiquement fermée.
+Il existe une astuce bien pratique pour automatiquement fermer une `issue` quand on travaille avec une branche. Si comme nom de branche, on donne `xx-blabla` où `xx` est le numéro de l'*issue*, alors au moment de la création de la *merge request*, le commentaire sera automatiquement alimenté par `Closes #xx`. Lorsque cette *merge request* sera validée, `#xx` sera automatiquement fermée.
 ::::
 
-Il est possible d'avoir un affichage en tableau en cliquant à gauche sur `Boards` ou encore d'associer des *issues* à des `milestones` (jalons) qui sont des étapes permettant de suivre l'évolution d'un projet.
+Enfin, il est possible d'avoir un affichage en tableau en cliquant à gauche sur `Boards` ou encore d'associer des *issues* à des `milestones` (jalons) qui sont des étapes permettant de suivre l'évolution d'un projet.
 
 
 ![](pics/03_git/milestones.png)
 
 ### Merge requests (MR)
 
-C'est l'espace pour gérer des fusions de branches qui est utile dans un second temps, à la suite : 
+C'est l'espace pour gérer des fusions de branches, à la suite : 
 
 * d'une ou plusieurs *issues* qui ont été créées et discutées
 * d'une création de branche afin de propose de l'intégrer 
-
 
 `GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
 
@@ -387,7 +389,7 @@ On clique sur `Compare branches and continue` pour arriver sur la page permettan
 Une bonne pratique est de proposer les options suivantes:
 
 * `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité. 
-* `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de *commits*.
+* `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux dans l'ancienne branche) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de *commits*.
 
 ![](./pics/03_git/MR3.png)
 
@@ -425,11 +427,12 @@ Quand un projet est important, on peut créer un groupe qui permet d'avoir une a
 
 ## Organiser le travail collaboratif {#orgagit}
 
-Les outils de gestion de version permettent des usages multiples. Cette section propose une synthèse des usages de `Git` dans la communauté `R`, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
+Les outils de gestion de version permettent des usages multiples afin d'organiser efficacement la collaboration. Cette section propose une synthèse des usages de `Git` dans la communauté `R`, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
 
 :::: {.remarque data-latex=""}
 
 Cette formation adopte le parti pris de suivre le `GitHub Flow` dont une rapide description peut être trouvée sur [cette page](https://guides.github.com/introduction/flow/) et qui a pour mérite d'être le plus simple.  
+
 En effet, des habitudes se sont imposées peu à peu dans la
 communauté R, essentiellement au travers des collaborations sur la plateforme
 `GitHub` (plateforme de gestion de code similaire à GitLab). Ces usages, semblables à des normes sociales, vous permettront d'acquérir une certaine maîtrise de `Git`. Ensuite, au fur et à mesure de l'avancée de vos projets, vous pourrez adapter plus finenement ce fonctionnement à vos besoins et exploiter les nombreuses possibilités offertes par le contrôle de version. Cela n'est absolument pas gênant, à partir du moment où vous comprenez ce que vous faites.
@@ -466,8 +469,9 @@ Pour les modifications quotidiennes,
 il est possible d'effectuer un `commit` sur `master`.
 Cela est possible si dans l'organisation du travail, vous avez les droits
 de type _Mainteneur_. Le premier exercice [**`Git` en local**](#gitlocal) en
-donne un exemple. Cependant, pour des changements plus profonds,
-il est recommandé d'organiser le travail selon les cinq étapes suivantes.
+donne un exemple. Cependant, pour des changements plus profonds ou 
+avec des collaborateurs moins réguliers, il est recommandé d'organiser le
+ travail selon les cinq étapes suivantes.
 
 ### Créer une branche
 
@@ -502,7 +506,7 @@ Une fois les vérifications faites, la fusion conserve l'historique des modifica
 
 ## Configurer un projet `GIT` avec RStudio à l'Insee
 
-Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle se déroulera donc sur le serveur de calcul `AUS`. Il est également possible de collaborer à des projets via son poste local. Nous présentons cette configuration dans un premier temps puis la configuration spécifique à AUS. 
+Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul `AUS` interne à l'Insee ou sur le [datalab du SSP](https://datalab.sspcloud.fr). Nous présentons cette configuration dans un premier temps puis la configuration spécifique à AUS.  Il est également possible de collaborer à des projets via son poste local. 
 
 La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil) qui héberge un [`GitLab` interne](https://git.stable.innovation.insee.eu/).
 
