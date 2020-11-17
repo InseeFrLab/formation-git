@@ -524,6 +524,19 @@ L'authentification sur la plateforme est alors automatique depuis le poste de tr
 
 ![](./pics/03_git/login_sso.png){width=100%} 
 
+::: {.remarque}
+Pour débuter, il est plus simple d'utiliser l'authentification `HTTPS`
+que `SSH` lorsqu'on interagit avec `Gitlab`. Cette 
+dernière nécessite de configurer une clé SSH ce qui peut demander une
+quantité disproportionnée d'effort par rapportà simplement rentrer 
+`login/password` lorsqu'on interagit avec un dépôt. 
+
+La suite présente ainsi
+les étapes nécessaires pour configurer une clé SSH à l'Insee mais il est
+recommandé de privilégier l'authentification HTTPS.
+:::
+
+
 #### Générer et ajouter une clé SSH
 
 
