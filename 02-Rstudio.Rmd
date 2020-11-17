@@ -250,6 +250,31 @@ Pour gagner du temps, il est important d'utiliser les raccourcis pour les comman
 
 ## Addins `Rstudio`
 
+::: {.remarque}
+Les *addins* Rstudio sont disponibles sur le
+[datalab](https://datalab.sspcloud.fr/accueil). En local, si on se trouve
+derrière un proxy, ce qui est commun dans les administrations ou entreprises,
+il est nécessaire de configurer des variables
+d'environnement `https_proxy` et `http_proxy` dans un fichier `.Renviron`. 
+Pour éditer ce fichier, taper dans la console `R`:
+
+```{r, eval = FALSE}
+file.edit("~/.Renviron")
+```
+
+et assigner aux variables `https_proxy` et `http_proxy` l'adresse du proxy.
+Contrairement à ce qui est indiqué
+[ici](https://support.rstudio.com/hc/en-us/articles/200488488-Configuring-R-to-Use-an-HTTP-or-HTTPS-Proxy),
+il n'est néanmoins pas nécessaire d'ajouter les variables `http_proxy_user` et
+`https_proxy_user` où seraient stockées d'hypothétiques mots de passe.
+
+Enfin, à l'Insee, sous AUS, il est certes possible d'installer des *addins*
+présents sur le CRAN mais le package `addinslist` ne fonctionnera pas car
+il va chercher la liste des *addins* disponibles sur internet, ce qui n'est
+pas possible sur AUS.
+
+:::
+
 ### Addins
 
 Les `addins` sont des outils pratiques pour gagner du temps dans l'édition du code. Ils génèrent automatiquement du code ou du texte utile pour les *markdown*. Par exemple, il est possible d'utiliser un `addin` pour construire un graphique avec le package `ggplot2`, puis de récupérer le code qui produit le graphique.
