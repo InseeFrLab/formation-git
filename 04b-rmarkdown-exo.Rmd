@@ -54,7 +54,7 @@ utiliser `doremifasolData` qui ne nécessite pas, une fois installé, de connexi
 internet pour accéder aux données. Pour l'installer:
 
 ```{r, eval = FALSE, echo = TRUE}
-devtools::install_github('inseeFrLab/doremifasoldata')
+devtools::install_github('inseeFrLab/doremifasoldata', ref = "main")
 ```
 
 
