@@ -333,7 +333,7 @@ Ce sont sur les trois premiers points que reposent l'immense majorité des fonct
 
 ### `Repository`
 
-Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier /commiter directement en ligne. Pour un fichie donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
+Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier /commiter directement en ligne. Pour un fichier donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
 
 
 ### `Issues`
