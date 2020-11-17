@@ -327,7 +327,7 @@ Les principales fonctionnalités sont présentes dans les onglets d'un projet so
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
 4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
 5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
-6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/snippets))
+6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://gitlab.com/linogaliana/collaboratif/-/snippets))
 
 Ce sont sur les trois premiers points que reposent l'immense majorité des fonctionnalités. 
 
@@ -338,7 +338,7 @@ Le dépôt regroupe les principales fonctionnalités reliées au contrôle de ve
 
 ### `Issues`
 
-C'est l'espace de discussion du projet. Un [exemple](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
+C'est l'espace de discussion du projet. Un [exemple](https://gitlab.com/linogaliana/collaboratif/-/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
 
 * signaler des *bugs* (à la manière d'un *ticket*)
 * discuter des évolutions d'un projet et proposer des changements
