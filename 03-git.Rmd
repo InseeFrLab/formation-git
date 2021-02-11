@@ -803,43 +803,43 @@ merge depuis son propre `master`. L'astuce de le faire depuis une branche diffé
 
 ## Configurer un projet `GIT` avec RStudio à l'Insee
 
-Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul `AUS` interne à l'Insee ou sur le [datalab du SSP](https://datalab.sspcloud.fr). Nous présentons cette configuration dans un premier temps puis la configuration spécifique à AUS.  Il est également possible de collaborer à des projets via son poste local. 
+Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [datalab du SSP](https://datalab.sspcloud.fr). C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet sur poste local. 
 
-La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil) qui héberge un [`GitLab` interne](https://git.stable.innovation.insee.eu/).
+La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur le [`GitLab` interne](https://git.stable.innovation.insee.eu/). Pour des utilisations plus avancées, il également possible d'utiliser la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil). 
 
-Il est d'abord nécessaire de créer son accès à la plateforme et ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une seule fois pour un poste de travail. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples. C'est l'étape fondamentale pour pouvoir lire et modifier un dossier partagé.
+Que ce soit sur les sites externes de type `gitlab.com` ou la plateforme innovation, il est d'abord nécessaire de créer son accès puis ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une et une seule fois pour un poste de travail donné, ce sont les étapes de configuration. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples et automatisées. 
 
-### La première fois 
+### La première fois
 
-#### Accéder au `GitLab` de la plateforme
+La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`.
 
-Le `GitLab` est accessible via ce lien : [git.stable.innovation.insee.eu/](https://git.stable.innovation.insee.eu/).  Après avoir créé un compte sur la plateforme en y accédant pour la première fois, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
+#### Accéder au `GitLab` de l'Insee
+
+Le `GitLab` est accessible via ce lien : [gitlab.insee.fr](https://gitlab.insee.fr).  Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
-L'authentification sur la plateforme est alors automatique depuis le poste de travail Insee via le login `Insee SSO`. Il suffit alors de cliquer pour être connecté en tant qu'utilisateur:
+L'authentification est alors automatique depuis le poste de travail Insee via le login. Il en est de même sur la plateforme innovation via le login `Insee SSO`, si tant est qu'un profil utilisateur a été préalablemen créé. Il suffira alors de cliquer à chaque pour être connecté en tant qu'utilisateur et accéder à son profil :
 
 ![](./pics/03_git/login_sso.png){width=100%} 
 
-::: {.remarque}
-Pour débuter, il est plus simple d'utiliser l'authentification `HTTPS`
-que `SSH` lorsqu'on interagit avec `Gitlab`. Cette 
-dernière nécessite de configurer une clé SSH ce qui peut demander une
-quantité disproportionnée d'effort par rapportà simplement rentrer 
-`login/password` lorsqu'on interagit avec un dépôt. 
-
-La suite présente ainsi
-les étapes nécessaires pour configurer une clé SSH à l'Insee mais il est
-recommandé de privilégier l'authentification HTTPS.
-:::
-
-
 #### Générer et ajouter une clé SSH
 
+L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
+
+::: {.remarque}
+Pour débuter, il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`, notamment lorsqu'on interagit avec `Gitlab.com` car il suffit de rentrer `login/password` lorsqu'on interagit avec un dépôt. Cependant, l'usage du `Gitlab` interne à l'Insee nécessite de configurer une clé SSH.
+
+La section suivant présente ainsi les étapes nécessaires pour configurer une clé SSH à l'Insee pour pouvoir utiliser `GIT` sur AUSv3 notamment.
+:::
 
 ::: {.tab}
-<button class="tablinks" onclick="unrolltab(event, 'local')">En local</button>
 <button class="tablinks" onclick="unrolltab(event, 'AUS')">Sur AUS</button>
+<button class="tablinks" onclick="unrolltab(event, 'local')">En local</button>
+:::{#AUS .tabcontent}
+#### Sur AUSv3 {-}
+La marche à suivre, pas à pas, est décrite sous AUSv3, dans le fichier `Y:/Documentation/AUSV3/Git_Utiliser git sous AUSv3.pdf`
+:::
 ::: {#local .tabcontent}
 #### En local {-}
 
@@ -864,19 +864,12 @@ L'outil propose ensuite de télécharger la partie publique de la clé sur un d�
 
 Il faut ensuite charger la clé dans le cache de `Putty` ; pour cela, il faut ouvrir `Putty` (dans `Menu Démarrer > Tous les programmes > INSEE atelier de développement V2 > utilitaire > putty`), sélectionner *"gitlab.stable.innvation.insee.eu", "Load", "Open"*. Le système renvoie une erreur, mais la clé est normalement chargée dans le cache, il reste à configurer GitLab pour que ce dernier reconnaisse la clé SSH comme étant celle de l'utilisateur (voir étape [suivante](#configSSHgitlab)).
 :::
-::: {#AUS .tabcontent}
-#### Sur AUS {-}
-La marche à suivre, pas à pas, est décrite sous AUS, dans le fichier `Y:/Documentation/AUSV3/Git_Utiliser git sous AUSv3.pdf`
-:::
 
 :::
 
+#### Enregistrer une clé SSH dans `Gitlab` {#configSSHgitlab}
 
-
-
-#### Enregistrement de la clé SSH dans `Gitlab` {#configSSHgitlab}
-
-Pour ce faire, il est nécessaire de retourner sur les paramètres du profil sur `GitLab` et accéder aux réglages de l'espace personnel : 
+Dans le cas d'une configuration d'une projet vie SSH, après avoir créé la clef, il est nécessaire de retourner sur les paramètres du profil sur `GitLab` et accéder aux réglages de l'espace personnel : 
 
 ![](./pics/03_git/setting_ssh.png)
 
@@ -889,7 +882,7 @@ Après avoir cliqué sur le bouton `Add Key` et en modifiant éventuellement le 
 
 ### Au lancement de chaque projet 
 
-Les étapes précédentes étaient des configurations à ne faire qu'une fois.
+Les étapes précédentes étaient des configurations à ne faire qu'une seule fois.
 
 Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé. Il est disponible via le bouton `clone` du projet. Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` via le projet disponible sur [cette page du `GitLab`](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
 
@@ -903,9 +896,9 @@ Ensuite, il est nécessaire d'indiquer à `RStudio` comment s'y connecter. Dans 
 
 Il suffit ensuite de remplir les trois paramètres : 
 
-* *Repository URL* : coller l'adresse `https` copiée depuis la plateforme.
+* *Repository URL* : coller l'adresse `SSH` copiée depuis le `GitLab`
 * *Projet directory name* : le nom du dossier où va sera la copie locale du `repository`, c'est là où vous allez modifier les programmes et où se situera votre code
-* *Create project as subdirectory of* : le chemin physique où se situera le projet, par exemple `D:/idep`.
+* *Create project as subdirectory of* : le chemin physique où se situera le projet, par exemple `D:/idep` dans le cas d'un projet local.
 
 Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `RStudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
 
