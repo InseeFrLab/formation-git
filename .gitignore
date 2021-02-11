@@ -5,14 +5,13 @@
 .Renviron
 html/*
 *_cache/
-
 _bookdown_files/
 _book/
 *bookdown.log
 *bookdown.rds
 *bookdown.tex
-
 # Avoid committing bookdown generated files
 public/
 render*
 libs/
+.DS_Store
