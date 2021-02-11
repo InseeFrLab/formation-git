@@ -221,7 +221,7 @@ Cependant, **il existe des commandes qui peuvent définitivement endommager votr
 
 
 
-## Exercice 1: Premiers pas avec `git` en local {#gitlocal}
+### Exercice 1: Premiers pas avec `git` en local {#gitlocal}
 
 Dans le cadre de cette formation, un projet d'exemple a été créé pour vous et
 est disponible à l'adresse 
@@ -310,7 +310,7 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ![](./pics/03_git/branches_tree.png){width=100%} 
 
-## Exercice 3 : Branches et `master`
+### Exercice 2 : Branches et `master`
 
 La branche `master` est la branche principale. Elle se doit d'être "propre".
 On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
@@ -515,7 +515,7 @@ Enfin, il est possible d'avoir un affichage en tableau en cliquant à gauche sur
 ![](pics/03_git/milestones.png)
 
 
-## Exercice 2 : Ouvrir et organiser les *issues*
+### Exercice 3 : Ouvrir et organiser les *issues*
 
 Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
 
@@ -588,7 +588,7 @@ Le rôle de gestionnaire des `merge request` dans un projet collaboratif est imp
 
 
 
-## Exercice 4 : Fusionner les travaux avec des `Merge Requests`
+### Exercice 4 : Fusionner les travaux avec des `Merge Requests`
 
 Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
 
@@ -718,7 +718,7 @@ Une fois les vérifications faites, la fusion conserve l'historique des modifica
 ![](./pics/03_git/flow5_merge.png)
 
 
-## Exercice 5 : Résoudre les conflits, c'est facile.
+### Exercice 5 : Résoudre les conflits, c'est facile.
 
 Si vous adoptez les règles précédentes, `master` sera surtout modifié via des `merge requests`. Vous ne devriez donc jamais avoir de conflits sur master.
 
@@ -774,7 +774,7 @@ la procédure de nettoyage du conflit pour être raccord avec `master`. La perso
 
 
 
-## Exercice 6 : Contribuer à un dépôt sans droits sur `master`
+### Exercice 6 : Contribuer à un dépôt sans droits sur `master`
 
 
 A l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour garder trace de ces monuments de littérature, vous allez les 
