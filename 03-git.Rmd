@@ -381,6 +381,44 @@ Placez-vous sur la branche que vous avez créée à la question `a`. Récupérer
 
 ::::
 
+L'un des avantages de `Git` est qu'on peut toujours revenir en arrière. Ce
+filet de sécurité permet d'oser des expérimentations, y compris au sein
+d'une branche. Il faut être prêt à aller dans la ligne de commande pour cela
+mais l'exercice suivant permettra de dédramatiser ceci. 
+
+:::: {.exo data-latex=""}
+Exercice 3: J'ai fait une bêtise ? Ouf, j'utilise Git
+
+Maintenant, on va montrer que `Git` vous évitera une crise de panique
+si vous supprimez un fichier sans faire exprès. 
+
+1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
+contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
+2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
+Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
+3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois:
+  + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
+  + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
+4. Ouvrir un `terminal` (plus de détails dans la Section XXX) et taper
+
+```shell
+git remote --hard HEAD
+```
+
+vous retrouvez vos deux fichiers.
+
+Maintenant, 
+
+1. Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
+2. Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
+3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper
+
+```shell
+git checkout <commit hash> -- fichier_important.md
+```
+
+:::: 
+
 
 ### Quelques compléments de GIT 
 
