@@ -5,6 +5,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
+La documentation [utilitR](www.book.utilitr.org) constitue une ressource
+qu'il peut être intéressant de consulter en complément. 
+
 
 ## Pourquoi utiliser la gestion de version ?
 
