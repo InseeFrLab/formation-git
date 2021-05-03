@@ -860,65 +860,23 @@ Le `GitLab` est accessible via ce lien : [gitlab.insee.fr](https://gitlab.insee.
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
-L'authentification est alors automatique depuis le poste de travail Insee via le login. Il en est de même sur la plateforme innovation via le login `Insee SSO`, si tant est qu'un profil utilisateur a été préalablemen créé. Il suffira alors de cliquer à chaque pour être connecté en tant qu'utilisateur et accéder à son profil :
+L'authentification est alors automatique depuis le poste de travail Insee via le login. Il en est de même sur la plateforme innovation via le login `Insee SSO`, si tant est qu'un profil utilisateur a été préalablement créé. Il suffira alors de cliquer à chaque pour être connecté en tant qu'utilisateur et accéder à son profil :
 
 ![](./pics/03_git/login_sso.png){width=100%} 
 
-#### Générer et ajouter une clé SSH
+#### Authentification: SSH vs HTTPS
 
 L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
+Il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`,
+notamment lorsqu'on interagit avec `Gitlab.com` car il suffit
+de rentrer `login/password` lorsqu'on interagit avec un dépôt.
 
-::: {.remarque}
-Pour débuter, il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`, notamment lorsqu'on interagit avec `Gitlab.com` car il suffit de rentrer `login/password` lorsqu'on interagit avec un dépôt. Cependant, l'usage du `Gitlab` interne à l'Insee nécessite de configurer une clé SSH.
+Pour sécuriser son compte, il est recommandé de ne pas utiliser son mot de passe à chaque push/pull (c'est d'ailleurs interdit sur Github depuis quelques temps) mais de créer un jeton d'accès (*token*) qui est un mot de passe aléatoire, qui peut être révoqué à tout moment, mais bénéficiant de moins de droits qu'un mot de passe habituel (seules certaines opérations sont autorisées avec ce mot de passe). La fiche [utilitR](https://www.book.utilitr.org/git-config.html) présente avec plus de détails ces concepts et des recommandations de sécurité adaptées, par exemple sur la manière d'enregistrer ce
+jeton pour ne pas avoir à le fournir à chaque authentification. 
 
-La section suivant présente ainsi les étapes nécessaires pour configurer une clé SSH à l'Insee pour pouvoir utiliser `GIT` sur AUSv3 notamment.
-:::
-
-::: {.tab}
-<button class="tablinks" onclick="unrolltab(event, 'AUS')">Sur AUS</button>
-<button class="tablinks" onclick="unrolltab(event, 'local')">En local</button>
-:::{#AUS .tabcontent}
-#### Sur AUSv3 {-}
-La marche à suivre, pas à pas, est décrite sous AUSv3, dans le fichier `Y:/Documentation/AUSV3/Git_Utiliser git sous AUSv3.pdf`
-:::
-::: {#local .tabcontent}
-#### En local {-}
-
-La deuxième étape pour mener à bien la configuration initiale revient à permettre le dialogue entre la plateforme (ici `GitLab`) et le logiciel `GIT` en local. Pour ce faire, le contrôle de version repose sur un protocole sécurisé, chiffrant les échanges. Ce processus d'authenfication s'appuie sur les clés SSH, l'une publique qu'on envoie à la plateforme distante, l'autre privée que l'on conserve sur son poste. C'est la combinaison des deux qui identifie un utilisateur de façon unique et sécurise les échanges. Un utilisateur peut générer autant de clés SSH qu'il souhaite, par exemple pour échanger avec plusieurs systèmes distants.
-
-Il est d'abord nécessaire de télécharger des utilitaires  via l'application `Si@moi`, et de suivre le chemin suivant : `"Faire une demande" > "Catalogue à l'usage de tous les agents" > "3 Installation de logiciels" > Rubrique "Développement" > "Git Pack"`.
-
-Ensuite, le logiciel *"Paramétrage SSH"* permet de créer une clé sur son poste local :
-
-![](./pics/03_git/ssh_keygen.png)
-
-On sélectionne ensuite *"Générer une nouvelle clé"* ; cette clé sera créée et sauvegardée en général dans le chemin suivant : `D:/idep/Données d'application/.ssh`, et sera constituée de deux fichiers texte :
-
-* un fichier en `.pub`, qui fournit la partie publique de la clé, et qui a vocation à être diffusée (donc c'est ce fichier qu'on chargera sur `GitLab` pour permettre l'authentification) ;
-* un fichier `.ppk` (comme Private Key) qui est la partie privée de la clé, et qui ne doit en aucun cas être diffusée.
-
-L'outil propose ensuite de télécharger la partie publique de la clé sur un dépôt distant à spécifier ; un message d'erreur s'affiche dans certains cas mais il ne faut pas s'y fier. Nous allons confirmer manuellement après l'accès à `GitLab`. Enfin, l'outil propose de configurer l'utilitaire `Putty` (que Git utilise pour générer une connexion sécurisée entre le dépôt distant et le dépôt local) ; il faudra renseigner les éléments suivants :
-
-* Identifiant : idep de l'utilisateur
-* Hôte : gitlab.stable.innovation.insee.eu
-* Port : 22222
-
-Il faut ensuite charger la clé dans le cache de `Putty` ; pour cela, il faut ouvrir `Putty` (dans `Menu Démarrer > Tous les programmes > INSEE atelier de développement V2 > utilitaire > putty`), sélectionner *"gitlab.stable.innvation.insee.eu", "Load", "Open"*. Le système renvoie une erreur, mais la clé est normalement chargée dans le cache, il reste à configurer GitLab pour que ce dernier reconnaisse la clé SSH comme étant celle de l'utilisateur (voir étape [suivante](#configSSHgitlab)).
-:::
-
-:::
-
-#### Enregistrer une clé SSH dans `Gitlab` {#configSSHgitlab}
-
-Dans le cas d'une configuration d'une projet vie SSH, après avoir créé la clef, il est nécessaire de retourner sur les paramètres du profil sur `GitLab` et accéder aux réglages de l'espace personnel : 
-
-![](./pics/03_git/setting_ssh.png)
-
-En sélectionnant `SSH Keys` dans le bandeau latéral gauche, il faut copier-coller dans la fenêtre le texte du fichier `.pub` de la clé SSH (en veillant à ne pas laisser l'éventuel texte en fin du type `imported-openssh-key`).
-
-![](./pics/03_git/ssh_copy_key.png)
-
-Après avoir cliqué sur le bouton `Add Key` et en modifiant éventuellement le `Title` (nom de la clé), `GitLab` est configuré et il est possible d'échanger avec `GIT` en local. La [documentation de la plateforme Innovation](http://innovation.pages.innovation.insee.eu/documentation-plateforme-innovation/gitlab/clef-ssh/) détaille également la procédure pour l'ajout d'une clé SSH.
+Si vous désirez tout de même utiliser l'authentification SSH, la
+fiche [utilitR](https://www.book.utilitr.org/git-config.html) déjà citées
+présente la démarche. 
 
 
 ### Au lancement de chaque projet 
