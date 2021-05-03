@@ -4,11 +4,24 @@
 
 La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. Les compétences acquises au cours de cette formation sont les suivantes: 
 
-* Bien utiliser `Rstudio` en utilisant les `Rprojects`;
 * RMarkdown;
 * Bien programmer en `R`;
 * Utiliser `Git`;
 * Développer des packages.
+
+Accessoirement, cette formation donne quelques conseils pour mieux utiliser
+les projets RStudio qui sont devenus prédominants dans la communauté `R`. 
+
+## Environnement
+
+Dans ce cours, le parti pris est l'utilisation de `R` via `RStudio`. Il s'agit
+d'un choix peu suprenant puisque `RStudio` propose énormément de fonctionalités
+favorisant l'utilisation de `R` en conjonction avec `Git`. 
+
+**Il est important d'utiliser des projets RStudio plutôt que des scripts individuels**. 
+Dans l'ensemble de cette formation, on va supposer qu'un projet R est mené via
+un projet RStudio. Plus d'information sur les RProjects sont disponibles 
+dans la documentation [utilitR](https://www.book.utilitr.org/). 
 
 <!--------------
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
