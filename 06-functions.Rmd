@@ -724,40 +724,6 @@ identical(df2,df2_map)
 ```
 
 
-Il y aurait une autre manière de traiter ce problème évitant d'appliquer la fonction `lapply` mais qui, ici, ne produit pas de résultats plus rapide. En transformant le format du *dataframe* de *wide* (beaucoup de colonnes) en *long* (beaucoup de lignes), on évite le *lapply* et on peut ainsi appliquer la fonction `fix_missing` facilement. 
-
-
-```{r, fold="s"}
-#' Version alternative du programme évitant une boucle \code{lapply}
-#' 
-#' @param df Dataframe
-#' @return \code{df} avec les valeurs manquantes transformées
-
-fix_missing_long <- function(df){
-  
-  # On transforme les données au format 'long'
-  df2 <- reshape2::melt(df)
-  
-  # On applique la transformation au vecteur de 'valeurs'
-  # CommOM: je commente la ligne suivante car elle plante depuis que je l'ai déplacée
-  # df2$value <- fix_missing(df2$value)
-  
-  # On utilise une fonction de 'base' pour numéroter les lignes par variable (une approche avec 'dplyr' serait plus simple)
-  df2$id <- ave(df2$val, df2$variable, FUN = seq_along)
-  
-  # On revient au format 'wide' initial
-  df2 <- reshape2::dcast(df2, id~variable, value.var = "value")[,-1]
-  
-  return(df2)
-}
-
-fix_missing_long(df)
-
-identical(fix_missing_long(df),df2_good)
-
-```
-
-Néanmoins, ici, ce n'est pas la méthode la plus appropriée car le jeu n'en vaut pas la chandelle. C'est une opération couteuse de reformater un *dataframe* et, ici, l'opération vectorielle n'est pas assez complexe pour que la répétition $K$ fois de celle-ci prenne plus de temps que deux formatage de données (*wide* -> *long* -> *wide*).
 
 A noter qu'il n'est pas obligatoire d'associer un nom à une fonction: on appelle cela une fonction *anonyme* (équivalent des fonctions *lambda* en `python`). C'est une démarche fréquente dans les commandes `lapply`, par exemple `lapply(mtcars, function(x) length(unique(x)))`.^[Les *closures*, qui sont des listes qui capturent l'environnement d'une fonction, fonctionnent aussi sur ce modèle]
 

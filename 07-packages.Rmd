@@ -511,7 +511,7 @@ usethis::use_gpl3_license(
 
 R reconnaît un certain nombre de licences. Voici une fonction pour récupérer la liste exhaustive des licences reconnues par `R` dans un `tibble`.
 
-```{r, fold="s o"}
+```{r, fold="s o", eval = FALSE}
 get_licenses <- function() {
   share_dir <- Sys.getenv('R_SHARE_DIR')
   if (!nzchar(share_dir)) {
