@@ -30,6 +30,7 @@ pages:
   stage: deploy
   image: $CONTAINER_TEST_IMAGE
   script:
+    - Rscript -e "install.packages(c('import', 'questionr', 'available'))"
     - Rscript -e "bookdown::render_book('./index.Rmd', output_dir = 'public')"
   artifacts:
     paths:
@@ -43,6 +44,7 @@ buildbookdown:
   stage: deploy
   image: $CONTAINER_TEST_IMAGE
   script:
+    - Rscript -e "install.packages(c('import', 'questionr', 'available'))"
     - Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
   artifacts:
     paths:
