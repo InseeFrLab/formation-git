@@ -1,4 +1,4 @@
-# librairies
+# on charge les librairies
 
 # ------------------------------------------------------------------------------------------------
 # install.packages("questionr")
