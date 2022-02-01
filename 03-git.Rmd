@@ -5,7 +5,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
-La documentation [utilitR](www.book.utilitr.org) constitue une ressource
+Cette formation ne nécessite pas de connaissances avancées en `R`, voire aucune car elle s'appuie uniquement sur les fonctionnalités de `RStudio`. À toute fin utile, la documentation [utilitR](www.book.utilitr.org) constitue une ressource
 qu'il peut être intéressant de consulter en complément. 
 
 
@@ -21,10 +21,12 @@ Tous les statisticiens se sont déjà demandé (ou à leurs collègues) :
 * comment fusionner des programmes
 * etc.
 
+Souvent l'organisation des programmes partagés est une gageure et ressemble à une longue liste d'archivages manuels et arbitraires.
+
 **Exemple d'une organisation de fichiers à l'ancienne**
 ![](./pics/03_git/fichiers_multiples.png){width=100%}  
 
-Il existe un outil informatique puissant afin de répondre à tous ces besoins : la gestion de version (*version control system* (VCS) en anglais). Ses avantages sont incontestables et permettent de facilement :
+Pourtant, il existe un outil informatique puissant afin de répondre à tous ces besoins : la gestion de version (*version control system* (VCS) en anglais). Ses avantages sont incontestables et permettent de facilement :
 
 * enregistrer l'historique des modifications d'un ensemble de fichiers 
 * revenir à des versions précédentes d'un ou plusieurs fichiers
@@ -33,15 +35,15 @@ Il existe un outil informatique puissant afin de répondre à tous ces besoins :
 * proposer des modifications, les discuter, sans pour autant modifier la dernière version existante
 * identifier les auteurs et la date des modifications
 
-En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R, Python, SAS, $\LaTeX$, Java, etc.) car reposent sur la comparaison des lignes et des caractères des programmes.
+En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R, Python, SAS, $\LaTeX$, Java, etc.) car reposent sur la comparaison des lignes et des caractères des programmes, indépendamment du langage.
 
-En bref, c'est LA bonne manière pour partager des codes et travailler à plusieurs sur un projet statistique (études ou production).
+En bref, c'est **LA** bonne manière pour partager des codes et travailler à plusieurs sur un projet statistique (études ou production).
 
 ### Conserver et archiver du code
 
-Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui constitue le projet (par exemple, le modèle Ines).
+Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui correspond au projet (par exemple, le modèle Ines). C'est là où sont stockéees toutes les informations utiles au partage des codes.
 
-Tout repose dans la gestion et la présentation de l'historique des modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif^[Plus précisément, chaque modification est identifiée de manière unique par un code `SHA` auquel est associé l'auteur, l'horodatage et des méta-données (par exemple le message descriptif associé)]. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique. Les modifications transmises au dépôt sont appelées **commit**.
+Dans la gestion de version, tout repose dans la comparaison des changements dans les programmes et la présentation de l'historique de ces modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif^[Plus précisément, chaque modification est identifiée de manière unique par un code `SHA` auquel est associé l'auteur, l'horodatage et des méta-données (par exemple le message descriptif associé)]. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique par exemple. Les modifications transmises au dépôt commun sont appelées **commit**. Cette étape joue un rôle central et sera détaillée plus loin.
 
 **Un exemple d'historique d'un projet sur GitLab issu du projet [utilitR](https://gitlab.com/linogaliana/documentationR/-/commits/master/)**
 ![histoGIT](./pics/03_git/historique_gitlab.png){width=100%}  
@@ -49,7 +51,7 @@ Tout repose dans la gestion et la présentation de l'historique des modification
 **Un exemple d'historique d'un projet via RStudio**
 ![histR](./pics/03_git/historique_Rstudio.png){width=100%} 
 
-Sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt à une date donnée, généralement la plus récente. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
+Avec la gestion de version, sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt à une date donnée, généralement la plus récente. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si l'on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
 
 ### Travailler efficacement en équipe
 
@@ -70,7 +72,7 @@ correction
 
 L'usage individuel, c'est-à-dire seul sur son projet, permet aussi de "travailler en équipe avec soi même" car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année).
 
-Même en travaillant seul sur un projet, on collabore avec un *moi* futur (qui aura vraisemblablement oublié le contenu ou la raison de la modification des fichiers).
+Même en travaillant seul sur un projet, on collabore avec un *moi* futur (qui aura vraisemblablement oublié le contenu ou la raison de la modification des fichiers). Donc il est également recommandé de travailler en gestion de version sur un projet individuel.
 
 ::::
 
@@ -107,7 +109,7 @@ D'une manière générale, il existe plusieurs manières d'utiliser le contrôle
 * avec une interface graphique spécialisée, par exemple [tortoise git](https://tortoisegit.org/) ou [GitHub Desktop](https://desktop.github.com/) ;
 * avec un logiciel de développement : la plupart des logiciels de développement ([RStudio](https://rstudio.com/) pour `R`, [PyCharm](https://www.jetbrains.com/fr-fr/pycharm/) ou [jupyter](https://jupyter.org/) pour `python`, [atom](https://atom.io/), etc.) proposent tous des modules graphiques facilitant l'usage de `git` dont les fonctionnalités sont très proches.
 
-Dans ce support, nous présentons le contrôle de version via `RStudio`, la solution que nous recommandons en raison de sa simplicité. Elle rend le recours à la ligne de commande marginal voire inutile.
+Dans ce support, nous présentons le contrôle de version via `RStudio`, la solution que nous recommandons en raison de sa simplicité. Elle rend le recours à la ligne de commande marginal voire inutile. Elle est également plus rapide et facilement implémentable à l'Insee.
 
 ### Avec ou sans gestion de versions
 
@@ -122,9 +124,9 @@ Le tableau suivant compare les usages au temps (pré-historique ?) de la program
 |Gestion des erreurs   | à la main             | méthodique           |
 |
 
-Beaucoup de supports existent en ligne, il faut parfois s'en méfier car les usages peuvent différer (cf. *infra*). Cette présentation [*Git for humans*](https://speakerdeck.com/alicebartlett/git-for-humans) didactique courte mais en anglais présente les avantages de l'usage de `GIT`.
+Beaucoup de supports existent en ligne, il faut parfois s'en méfier car les usages peuvent différer et sont souvent spécifiques aux usages et aux installations (cf. *infra*). Cette présentation [*Git for humans*](https://speakerdeck.com/alicebartlett/git-for-humans) didactique courte mais en anglais présente les avantages de l'usage de `GIT`.
 
-En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. L'organisation du travail est efficace grâce :
+En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur ses propres projets individuels, notre temps est consacré à la programmation réellement utile. Plus de temps perdu ! L'organisation du travail est efficace grâce :
 
 * aux améliorations rapides des codes
 * au partage efficace des tâches
