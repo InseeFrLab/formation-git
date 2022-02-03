@@ -1,3 +1,0 @@
-```{r, fig.width=12, fig.height=8}
-hist(iris$Sepal.Length)
-```

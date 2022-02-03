@@ -1,3 +1,0 @@
-```{r, echo=FALSE, out.width="50%", fig.cap="Titre de la Figure"}
-knitr::include_graphics("monfichier.png")
-```
