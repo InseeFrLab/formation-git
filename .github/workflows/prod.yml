@@ -1,3 +1,10 @@
+name: Site web
+
+on:
+  push:
+    branches:
+      - master
+      
 jobs:
   docker:
     if: "!contains(github.event.commits[0].message, '[skip ci]')"
