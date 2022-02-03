@@ -1,0 +1,49 @@
+name: Slides
+
+on:
+  push:
+    branches:
+      - master
+
+
+jobs:
+  xaringan-presentations:
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    container: inseefrlab/utilitr:latest
+    steps:
+      - name: Checkout Repository
+        env:
+          GITHUB_PAT: ${{ secrets.PAT }}
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        env:
+          GITHUB_PAT: ${{ secrets.PAT }}
+        run: |
+          Rscript -e "install.packages(c('remotes','here'))"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+      - name: Render
+        run: |
+          mkdir -p public
+          Rscript -e 'rmarkdown::render("index.Rmd")'
+          Rscript -e "file.copy(here::here('resources'), here::here('public'), recursive = TRUE)"
+          Rscript -e "file.copy(here::here('css'), here::here('public'), recursive = TRUE)"
+          mv index.html public/index.html
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Slides
+          path: ./
+          retention-days: 3
+      - name: Install npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Deploy to Netlify
+        # NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID added in the repo's secrets
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install --unsafe-perm=true netlify-cli -g
+          netlify init
+          netlify deploy --prod --dir="public" --message "Deploy master"
