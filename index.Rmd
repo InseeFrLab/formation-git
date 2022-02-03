@@ -19,6 +19,10 @@ Le code source est disponible sur Github <i class="fab fa-github"></i> [ici](htt
 Le site web est herbergé par  <https://www.netlify.com>, un fournisseur
 de nom de domaine favorisant l'_open-source_
 
+L'[ancien site](https://linogaliana.gitlab.io/collaboratif/git.html)
+continue à proposer plus de chapitres mais n'est plus la version de référence.
+Ce support sera petit à petit transformé en site web autosuffisants. 
+
 
 Cette formation peut être complétée par certaines ressources 
 de la documentation collaborative [utilitR](utilitr.org/)
