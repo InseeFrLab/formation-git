@@ -1,10 +1,20 @@
-bookdown::gitbook:
+bookdown::bs4_book:
+  theme:
+    primary: "#85102d"  
+  repo:
+    base: https://github.com/InseeFrLab/formation-git
+    branch: master
   css: ./css/style.css
-  config:
-    toc:
+  toc:
+    collapse: section
+    before: |
       before: |
         <li><a href="./">Travail collaboratif avec R</a></li>
       after: |
         <li><a href="./">Une formation développée à l'INSEE</a></li>
+    
+bookdown::gitbook:
+  config:
+    toc:
   includes:
     in_header: ./js/callscripts.html

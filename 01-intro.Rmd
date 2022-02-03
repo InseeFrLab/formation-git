@@ -1,7 +1,5 @@
 # Objectif de la formation {#intro}
 
-`r colorize("Version provisoire et temporaire de la formation Insee 'Travail collaboratif avec R'","red")`
-
 ## Objectifs de la formation
 
 Cette formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. L'objectif est d'apprendre les base du contrôle de version qui s'appuie sur le logiciel  `Git` et d'être autonome suite à cette formation. Accessoirement, cette formation donne quelques conseils pour mieux utiliser les projets RStudio qui sont devenus prédominants dans la communauté `R`. 

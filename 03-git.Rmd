@@ -1,4 +1,4 @@
-# Utiliser `GIT` avec <i class="fab fa-r-project"></i>{#git}
+# Utiliser `GIT` avec `R`
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)

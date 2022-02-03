@@ -13,7 +13,8 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction
 
-Supports associés à la formation nationale `Travail collaboratif avec R`. `r colorize("Version provisoire et non définitive des supports", "red")`. Le code source est disponible sur Gitlab <i class="fab fa-gitlab"></i> [ici](https://gitlab.com/linogaliana/collaboratif) 
+Supports associés à la formation nationale `Travail collaboratif avec R`. 
+Le code source est disponible sur Gitlab <i class="fab fa-gitlab"></i> [ici](https://gitlab.com/linogaliana/collaboratif) 
 
 Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
 
