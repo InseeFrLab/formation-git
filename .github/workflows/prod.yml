@@ -39,8 +39,8 @@ jobs:
           push: true
           context: .
           tags: |
-            inseefrlab/travail-collaboratif:latest
-            inseefrlab/travail-collaboratif:0.1.0      
+            inseefrlab/formation-git:latest
+            inseefrlab/formation-git:0.1.0      
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
