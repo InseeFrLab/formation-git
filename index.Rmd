@@ -1,6 +1,6 @@
 --- 
 title: "Travail collaboratif avec R"
-author: "Lino Galiana"
+author: "Lino Galiana et Mathias André"
 date: "`r Sys.Date()`"
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
@@ -14,15 +14,21 @@ description: "Support associé à la formation Travail collaboratif avec R"
 # Introduction
 
 Supports associés à la formation nationale `Travail collaboratif avec R`. 
-Le code source est disponible sur Gitlab <i class="fab fa-gitlab"></i> [ici](https://gitlab.com/linogaliana/collaboratif) 
 
-Pour pré-visualiser en local le résultat de la compilation, vous pouvez utiliser la commande suivante:
+Le code source est disponible sur Github <i class="fab fa-github"></i> [ici](https://github.com/InseeFrLab/formation-git).
+Le site web est herbergé par  <https://www.netlify.com>, un fournisseur
+de nom de domaine favorisant l'_open-source_
 
-```{r, eval = FALSE}
-bookdown::render_book('./index.Rmd', output_dir = 'public')
-```
 
-Cette formation est associée à un guide des bonnes disponible dans la documentation [utilitR](https://www.book.utilitr.org) que nous recommandons de consulter. 
+Cette formation peut être complétée par certaines ressources 
+de la documentation collaborative [utilitR](utilitr.org/)
+que nous recommandons de consulter régulièrement :
+
+- La [documentation principale](book.utilitr.org/),
+notamment les chapitres relatifs à la
+[Configuration de `Git`](https://www.book.utilitr.org/git-config.html)
+et [son usage via `RStudio`](https://www.book.utilitr.org/git.html) ;
+- Le [guide des bonnes disponible utilitR](https://www.book.utilitr.org)
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -33,12 +39,18 @@ knitr::write_bib(c(
 
 ## Contributeurs {-}
 
-* Chapitre \@ref(rstudio): [Lino Galiana](https://linogaliana.netlify.com/)
-* Chapitres \@ref(git) et \@ref(gitexo): [Mathias André](https://gitlab.com/mathias.andre), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin), 
-* Chapitres \@ref(rmd) et \@ref(rmdexo): [Annie Moineau](https://gitlab.com/annieMoineau), [Lino Galiana](https://linogaliana.netlify.com/), [Olivier Meslin](https://gitlab.com/oliviermeslin)
-* Chapitre \@ref(fonctions):  [Lino Galiana](https://linogaliana.netlify.com/)
-* Chapitre \@ref(package):  [Romain Lesur](https://github.com/RLesur)
+Ecriture du support : 
+[Lino Galiana](https://linogaliana.netlify.com/) ;
+[Mathias André](https://gitlab.com/mathias.andre) ;
+[Romain Lesur](https://github.com/RLesur) ;
+[Annie Moineau](https://gitlab.com/annieMoineau) ;
+[Olivier Meslin](https://gitlab.com/oliviermeslin)
 
-Relecteurs: [Olivier Meslin](https://gitlab.com/oliviermeslin), George Pavlov, [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
+Relecteurs : 
+[Lino Galiana](https://linogaliana.netlify.com/) ;
+[Mathias André](https://gitlab.com/mathias.andre) ;
+[Olivier Meslin](https://gitlab.com/oliviermeslin) ;
+Georges Pavlov
 
-Mise en forme: [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
+Mise en forme:
+[Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
