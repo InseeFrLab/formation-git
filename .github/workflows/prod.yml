@@ -48,7 +48,7 @@ jobs:
     if: "!contains(github.event.commits[0].message, '[skip ci]')"
     needs: docker
     runs-on: ubuntu-latest
-    container: inseefrlab/utilitr:latest
+    container: inseefrlab/travail-collaboratif:latest
     steps:
       - name: Checkout Repository
         env:
