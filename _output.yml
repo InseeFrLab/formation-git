@@ -12,9 +12,5 @@ bookdown::bs4_book:
         <li><a href="./">Travail collaboratif avec R</a></li>
       after: |
         <li><a href="./">Une formation développée à l'INSEE</a></li>
-    
-bookdown::gitbook:
-  config:
-    toc:
   includes:
-    in_header: ./js/callscripts.html
+    in_header: [./js/callscripts.html]
