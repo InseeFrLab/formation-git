@@ -1,10 +1,10 @@
-# Mener un projet collaboratif avec `R`: améliorer la coordination avec `Git`
+# Mener un projet collaboratif avec `R`: utiliser `Git` avec `RStudio`
 
 Ce dépôt archive la partie `Git` de la formation __Travail collaboratif avec R__
 ayant été conçue à l'Insee. 
 
 Ce dépôt remplace les supports précédemment déployés sur 
-[https://linogaliana.gitlab.io/collaboratif/]
+[Gitlab Pages](https://linogaliana.gitlab.io/collaboratif/)
 
 ## Accéder aux supports
 
@@ -40,8 +40,6 @@ Les autres chapitres initialement prévus sont présents
 sur l'[ancien site web](https://linogaliana.gitlab.io/collaboratif/)
 
 # Contribuer à l'édition des supports
-
-Les supports sont automatiquement déployés sur cette [page](http://formationsd2e.pages.innovation.insee.eu/collaboratif/) via l'intégration continue de `Gitlab`. Le fichier qui contrôle le *pipeline* est `.gitlab-ci-innov.yml` (resp. `.gitlab-ci.yml`) sur le `Gitlab` interne de l'Insee (resp. sur le `Gitlab` d'internet). Les fichiers propres à chaque chapitre sont des `Rmd` qui sont compilés via [bookdown](https://bookdown.org/yihui/bookdown/). 
 
 Pour contribuer aux supports de formation, vous pouvez vous référez au [guide pour contribuer aux supports](CONTRIBUTING.md). 
 
