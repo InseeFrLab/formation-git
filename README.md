@@ -3,7 +3,7 @@
 Ce dépôt archive la partie `Git` de la formation __Travail collaboratif avec R__
 ayant été conçue à l'Insee. 
 
-Le site de référence est : https://travail-collaboratif-r-formation-insee.netlify.app/
+Le site de référence est : https://collaboratif-git-formation-insee.netlify.app/
 
 Ce dépôt remplace les supports précédemment déployés sur 
 [Gitlab Pages](https://linogaliana.gitlab.io/collaboratif/)
@@ -14,7 +14,7 @@ Ce dépôt remplace les supports précédemment déployés sur
 
 Formation développée à l'Insee pour découvrir `Git` via `RStudio` et  `Gitlab`
 
-Les supports de formation sont accessibles [à cette adresse](https://travail-collaboratif-r-formation-insee.netlify.app/).
+Les supports de formation sont accessibles [à cette adresse](https://collaboratif-git-formation-insee.netlify.app/).
 
 ### Depuis une instance `R` du SSP-Cloud
 
