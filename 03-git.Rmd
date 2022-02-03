@@ -221,6 +221,29 @@ Les programmes s’organisent sur un répertoire distant commun
 (dépôt ou `r with_def("repository")`) et sont manipulés sur les postes indidivuels dans des
 dossiers locaux (**working directory**). Le dépôt distant peut par exemple être hébergé sur une plateforme de type **GitLab** <i class="fab fa-gitlab"></i> ou **GitHub** <i class="fab fa-github"></i>.
 
+:::: {.remarque data-latex=""}
+
+**GitHub, GitLab, quesaquo ?**
+
+Le travail collaboratif avec `Git` s'organise autour d'un serveur auquel chaque contributeur transmet ses modifications et depuis lequel les différents contributeurs récupèrent le travail des collègues.
+
+Comme tout serveur, ceux-ci peuvent être accessibles sur un réseau interne ou être accessibles sur internet. Sur ces serveurs, on installe un logiciel qui offre une interface utilisateur. Il existe différents types d'interface utilisateur, les deux plus populaires s'appelant "GitHub" ou "GitLab".
+
+Dans le contexte de travail de l'Insee, vous pourrez être amenés à travailler avec différents serveurs que nous différencions ici grâce à leurs adresses web : 
+
+- [gitlab.insee.fr](https://gitlab.insee.fr) : serveur interne au réseau de l'Insee avec une interface utilisateur de type "GitLab" maintenu par la DSI de l'Insee (projet SOFA)
+- [git.lab.sspcloud.fr](https://git.lab.sspcloud.fr) : serveur du SSP Cloud exposé sur internet avec une interface utilisateur de type "GitLab" maintenu par la division innovation
+- [github.com](https://github.com) : serveur public exposé sur internet avec une interface utilisateur de type "GitHub" maintenu par Microsoft
+- [gitlab.com](https://gitlab.com) : serveur public exposé sur internet avec une interface utilisateur de type "GitLab" maintenu par l'entreprise GitLab
+
+Tous les serveurs `Git` connaissent une structure similaire : 
+
+- chaque utilisateur possède un espace personnel pour stocker ses projets. Par exemple, sur le serveur GitLab de l'Insee, chaque agent a un espace accessible à l'adresse <https://gitlab.insee.fr/IDEP>
+- il est possible de créer des espaces communs pour une structure ou pour un projet donné. Par exemple, l'Insee dispose d'un espace institutionnel sur GitHub nommé <https://github.com/InseeFr> qui héberge des projets open source de l'Insee utilisés en production ainsi qu'un espace pour les projets open source expérimentaux nommé <https://github.com/InseeFrLab>  
+
+::::
+
+
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
 + `r with_def("pull")` : je récupère la dernière version des codes du dépôt distant
