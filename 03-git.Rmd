@@ -141,50 +141,37 @@ lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, e
 
 Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [datalab du SSP](https://datalab.sspcloud.fr). C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet sur poste local. 
 
-La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur le [`GitLab` interne](https://git.stable.innovation.insee.eu/). Pour des utilisations plus avancées, il également possible d'utiliser la [plateforme innovation](https://onyxia.beta.innovation.insee.eu/accueil). 
+La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Cela peut être sur `github.com`, `gitlab.com` ou une autre forge en ligne. À l'Insee, il est recommandé de s'appuyer sur le [`GitLab` interne](https://gitlab.insee.fr). 
 
 Que ce soit sur les sites externes de type `gitlab.com` ou la plateforme innovation, il est d'abord nécessaire de créer son accès puis ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une et une seule fois pour un poste de travail donné, ce sont les étapes de configuration. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples et automatisées. 
 
 ### La première fois
 
-La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`.
+La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`. Cette plateforme est un outil de stockage et de gestion des projets mis en commun via `Git`. 
 
 #### Accéder au `GitLab` de l'Insee
 
-Une instance interne de `GitLab` est disponible à l'Insee.  Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
+Une version interne de `GitLab` est disponible à l'Insee sur [gitlab.insee.fr](https://gitlab.insee.fr).  Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
-L'authentification est alors automatique depuis le poste de travail Insee via le login. Il en est de même sur la plateforme innovation via le login `Insee SSO`, si tant est qu'un profil utilisateur a été préalablement créé. Il suffira alors de cliquer à chaque pour être connecté en tant qu'utilisateur et accéder à son profil :
-
-![](./pics/03_git/login_sso.png){width=100%} 
-
-#### Authentification: SSH vs HTTPS
+#### Recommandation concernant l'authentification HTTPS vs SSH
 
 L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
-Il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`,
-notamment lorsqu'on interagit avec `Gitlab.com` car il suffit
-de rentrer `login/password` lorsqu'on interagit avec un dépôt.
 
-Pour sécuriser son compte, il est recommandé de ne pas utiliser son mot de passe à chaque push/pull (c'est d'ailleurs interdit sur Github depuis quelques temps) mais de créer un jeton d'accès (*token*) qui est un mot de passe aléatoire, qui peut être révoqué à tout moment, mais bénéficiant de moins de droits qu'un mot de passe habituel (seules certaines opérations sont autorisées avec ce mot de passe). La fiche [utilitR](https://www.book.utilitr.org/git-config.html) présente avec plus de détails ces concepts et des recommandations de sécurité adaptées, par exemple sur la manière d'enregistrer ce
-jeton pour ne pas avoir à le fournir à chaque authentification. 
+En dehors des infrastructures Insee, il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`, notamment lorsqu'on interagit avec `Gitlab.com` car il suffit de rentrer `login/password` lorsqu'on interagit avec un dépôt. La fiche [utilitR](https://www.book.utilitr.org/git-config.html) présente avec plus de détails ces concepts et des recommandations de sécurité adaptées, par exemple sur la manière d'enregistrer un jeton `HTTPS`  pour ne pas avoir à le fournir à chaque authentification ou pour utiliser l'authentification SSH.
 
-Si vous désirez tout de même utiliser l'authentification SSH, la
-fiche [utilitR](https://www.book.utilitr.org/git-config.html) déjà citées
-présente la démarche. 
+À l'Insee, le [wiki d'`AUSV3`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git) décrit toutes les étapes (à suivre à la lettre et pas à pas) pour configurer l'utilisation de `Git` avec AUS par l'intermédiaire `SSH`. Cette manipulation tient lieu d'installation pour pouvoir échanger avec le dépôt distant et est donc à faire une seule fois par poste (local, AUS ou personnel en dehors des projets Insee).
 
+### Au lancement de chaque projet, cloner depuis `gitlab.insee.fr`
 
-### Au lancement de chaque projet 
+Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé, afin de le copier dans son espace de travail (dit local). Il est disponible via le bouton `clone` du projet. 
 
-Les étapes précédentes étaient des configurations à ne faire qu'une seule fois.
-
-Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé. Il est disponible via le bouton `clone` du projet. Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` via le projet disponible sur [cette page du `GitLab`](https://git.stable.innovation.insee.eu/formationsd2e/collaboratif). 
-
-Pour récupérer (**`r with_def("clone")`** en vocabulaire `GIT`) le dossier partagé, copier l'adresse indiquée sous la boîte *Clone with SSH*.
+Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` sur la plateforme innovation. Pour récupérer (**`r with_def("clone")`** en vocabulaire `GIT`) le dossier partagé, il suffit copier l'adresse indiquée sous la boîte *Clone with SSH* avec l'icône entourée.
 
 ![](./pics/03_git/clone_ssh.png)
 
-Ensuite, il est nécessaire d'indiquer à `RStudio` comment s'y connecter. Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
+Ensuite, il est nécessaire d'indiquer à `RStudio` comment se connecter à ce dépôt distant (stocké sur le `Gitlab`). Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
 
 ![](./pics/03_git/Rproj.png) 
 
@@ -196,18 +183,7 @@ Il suffit ensuite de remplir les trois paramètres :
 
 Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `RStudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
 
-La section qui suit décrit la même configuration pour un dépôt externe. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git). 
-
-### Pour des projets externes
-
-En cas de collaboration avec des personnes extérieures ou pour des projets personnels non hébergés en interne, il est possible de s'affranchir de la configuration d'une clé SSH. Le protocole d'échanges sécurisés s'appuie alors sur la technologie `HTTPS`.
-
-Par exemple, en ayant un profil sur `github.com` ou `gitlab.com`, il suffit alors de copier l'url : 
-
-![](./pics/03_git/clone_https.png)
-
-Ensuite, les étapes sont identiques à la section précédente: à partir du menu "File / New Project", sélectionner `Version control` puis `GIT`; remplir les paramètres du dossier local et cliquer sur `Create project`.
-
+Il est également possible de cloner des dépôts en externe via `https` par exemple. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git). 
 
 
 
@@ -302,16 +278,9 @@ Cependant, **il existe des commandes qui peuvent définitivement endommager votr
 
 ### Exercice 1: Premiers pas avec `git` en local {#gitlocal}
 
-Dans le cadre de cette formation, un projet d'exemple a été créé pour vous et
-est disponible à l'adresse 
-<https://gitlab.com/linogaliana/template-projet>.
-Vous allez travailler en binôme avec votre voisin (ou avec une personne de la
-visio si la formation n'a pas lieu en présentiel).
+Dans le cadre de cette formation, un projet d'exemple a été créé pour vous. L'idée est de former des groupes de deux, chaque groupe représentant une équipe. Vous allez donc travailler en binôme avec votre voisin (ou avec une personne de la visio si la formation n'a pas lieu en présentiel).
 
 Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec `R` et `GIT` via `RStudio` et `GitLab`.
-
-L'idée est de former des groupes de deux, chaque groupe représentant une équipe
-
 
 :::: {.recommandation data-latex=""}
 
@@ -320,12 +289,10 @@ L'idée est de former des groupes de deux, chaque groupe représentant une équi
 donc d'éviter d'être tous en même temps sur le même projet.
 
 Pour cela, dans chaque équipe
-de 2, une personne doit faire un `r with_def("fork")` (c'est expliqué sur la page 
-d'accueil du projet)
+de 2, une personne doit faire un `r with_def("fork")` qui revient à dupliquer le projet pour chacune des équipes. Pour cela, il faut cliquer en haut à droite du projet exemple, qui sert de base à l'exercice.
 
 La personne qui a initié le `fork` (pas besoin d'être deux à le faire) doit
-ensuite donner des droits à son/sa camarade (c'est également expliqué sur la page 
-d'accueil du projet)
+ensuite donner des droits à son/sa binôme (dans `members` du menu à gauche ). Accorder le droit de `maintainer` pour commencer.
 
 ::::
 
@@ -339,9 +306,9 @@ Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droit
 ![](./pics/03_git/onglet_git.png)
 
 
-**Question a.** *`.gitignore`*
+**Question a.** *`clone` et modification du fichier`.gitignore`*
 
-Après avoir clôné le dossier de votre projet, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+Clôner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
 
 **Question b.** *`staging`*
 
@@ -369,7 +336,7 @@ Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre v
 
 
 
-### Les branches
+### Les branches : principes
 
 C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans modifier le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
@@ -389,17 +356,16 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ![](./pics/03_git/branches_tree.png){width=100%} 
 
-### Exercice 2 : Branches et `master`
+### Branches et lien avec `master`
 
 La branche `master` est la branche principale. Elle se doit d'être "propre".
-On ne pousse pas des travaux non aboutis sur `master`, c'est très mal vu.  
+On ne pousse pas des travaux non aboutis sur `master`, c'est assez mal vu et sources de futurs problèmes.  
 
-Peut-on pousser directement sur `master` ? oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit.
-N'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
+Peut-on pousser directement sur `master` ? Oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. Il y a justement des meilleurs outils pour proposer des changements substantiels. Dans votre organisation, n'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
 (cf. [section précédente](#orgagit)), cela obligera l'équipe
-projet à travailler professionnellement. 
+projet à travailler avec rigueur. 
 
-Au moindre doute, créez une branche. Les branches sont utilisées pour des travaux significatifs :
+Au moindre doute, créez une branche ! Les branches sont utilisées pour des travaux significatifs :
 
 - vous travaillez seul sur une tâche qui va vous prendre plusieurs heures ou jours de travail (vous ne devez pas pousser sur `master` des travaux non aboutis);
 - vous travaillez sur une fonctionnalité nouvelle et vous souhaiteriez recueillir l'avis de vos collègues avant de modifier `master`;
@@ -427,7 +393,7 @@ Jusqu'à présent, vous ne travailliez pas simultanément sur un fichier. Les co
 forces de `Git`: on peut travailler sur le même fichier en même temps. 
 
 :::: {.exo data-latex=""}
-Exercice 3 : Cadavre exquis
+Exercice 2 : Cadavre exquis
 
 
 **Question a.** *Création d'une branche locale*
@@ -437,7 +403,7 @@ Créez une branche dans le dépôt local, en lui donnant un nom comportant votre
 
 **Question b.** *Modification au sein d'une branche*
 
-Ouvrez le fichier `cadavre_exquis.md` figurant dans le dépôt local, et ajoutez-y deux phrases sans aucune ponctuation. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible.
+Ouvrez (ou créez) le fichier `cadavre_exquis.md` dans le dépôt local, et ajoutez-y deux phrases sans aucune ponctuation. Sauvegardez cette modification en faisant un `commit`. N'oubliez pas de rédiger un message le plus clair possible.
 
 **Question c.** *Publication d'une branche*
 
@@ -456,44 +422,6 @@ Placez-vous sur la branche créée par votre voisin. Ouvrez le fichier `cadavre_
 Placez-vous sur la branche que vous avez créée à la question `a`. Récupérer les modifications apportées à cette branche (avec `pull`). Ouvrez le fichier `cadavre_exquis.md`. Vous devez normalement constater que les deux phrases que vous avez écrites ont maintenant une ponctuation correcte.
 
 ::::
-
-L'un des avantages de `Git` est qu'on peut toujours revenir en arrière. Ce
-filet de sécurité permet d'oser des expérimentations, y compris au sein
-d'une branche. Il faut être prêt à aller dans la ligne de commande pour cela
-mais l'exercice suivant permettra de dédramatiser ceci. 
-
-:::: {.exo data-latex=""}
-Exercice 3: J'ai fait une bêtise ? Ouf, j'utilise Git
-
-Maintenant, on va montrer que `Git` vous évitera une crise de panique
-si vous supprimez un fichier sans faire exprès. 
-
-1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
-contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
-2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
-Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
-3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois:
-  + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
-  + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
-4. Ouvrir un `terminal` (plus de détails dans la Section XXX) et taper
-
-```shell
-git remote --hard HEAD
-```
-
-vous retrouvez vos deux fichiers.
-
-Maintenant, 
-
-1. Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
-2. Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
-3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper
-
-```shell
-git checkout <commit hash> -- fichier_important.md
-```
-
-:::: 
 
 
 ### Quelques compléments de GIT 
@@ -531,6 +459,39 @@ La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiq
 :::: {.conseil data-latex=""}
 Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des modèles de fichiers `.gitignore` selon le langage utilisé. Ils peuvent servir de base à enrichir en fonction des besoins.
 ::::
+
+
+L'un des avantages de `Git` est qu'on peut toujours revenir en arrière. Ce
+filet de sécurité permet d'oser des expérimentations, y compris au sein
+d'une branche. Il faut être prêt à aller dans la ligne de commande pour cela
+mais l'exercice suivant permettra de dédramatiser ceci. 
+
+:::: {.exo data-latex=""}
+Exercice 3 : J'ai supprimé un fichier par erreur ? Ouf, j'utilise Git ! 
+
+Maintenant, on va montrer que `Git` vous évitera une crise de panique
+si vous supprimez un fichier sans faire exprès. 
+
+1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
+contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
+2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
+Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
+3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois :
+  + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
+  + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
+4. Ouvrir le menu `commit` de `RStudio` et faites `Discard All` (fonctionne également avec `Revert`) et répondez oui à la boîte de dialogue qui s'ouvre (après l'avoir lue et comprise). Et vous retrouvez vos deux fichiers.
+
+Maintenant, une manipulation plus avancée mais qui permet de rassurer :
+
+1. Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
+2. Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
+3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper
+
+```shell
+git checkout <commit hash> -- fichier_important.md
+```
+
+:::: 
 
 D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
 
@@ -587,7 +548,7 @@ Les principales fonctionnalités sont présentes dans les onglets d'un projet so
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
 4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
 5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
-6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur ([exemple](https://gitlab.com/linogaliana/collaboratif/-/snippets))
+6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur.
 
 Ce sont sur les trois premiers points que reposent l'immense majorité des fonctionnalités. 
 
@@ -598,7 +559,7 @@ Le dépôt regroupe les principales fonctionnalités reliées au contrôle de ve
 
 ### `Issues`
 
-C'est l'espace de discussion du projet. Un [exemple](https://gitlab.com/linogaliana/collaboratif/-/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
+C'est l'espace de discussion du projet. Un [exemple sur le `GitHub` InseeFrLab](https://github.com/InseeFrLab/utilitR/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
 
 * signaler des *bugs* (à la manière d'un *ticket*)
 * discuter des évolutions d'un projet et proposer des changements
@@ -608,11 +569,13 @@ Ces échanges prennent la forme d'un forum où les sujets sont regroupés sous l
 
 ![](pics/03_git/issues_list.png)
 
-Pour ouvrir une nouvelle *issue*, par exemple pour discuter d'une modification avant de la proposer ou signaler un problème qu'on ne résoud pas immédiatement, on clique en haut à droite sur le bouton dédié:
+Pour ouvrir une nouvelle *issue*, par exemple pour discuter d'une modification avant de la proposer ou signaler un problème qu'on ne résoud pas immédiatement, on clique en haut à droite sur le bouton dédié :
 
 ![](pics/03_git/new_issue.png)
 
-Un aspect très pratique est qu'il est possible de faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue* (et le lien url cliquable associé).
+Il ne faut pas hésiter à ouvrir des `issues` pour prévoir des modifications dans le futur, signaler des points à régler ou à avancer. C'est un outil efficace pour se répartir le travail et cela évite de nombreux échanges mail, avec l'avantage d'être archivé et visible par tous les contributeurs au projet (même ceux qui ne sont pas encore arrivés).
+
+Un aspect très pratique est qu'il est possible de faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue* (et le lien url cliquable associé ! ).
 
 :::: {.conseil data-latex=""}
 Il est possible de fermer automatiquement une *issue* en faisant précéder l'appel d'une *issue* par le terme `Closes`. Cela peut être fait dans un message de commit ou dans la description d'une *merge request*. Par exemple,
@@ -634,7 +597,7 @@ Enfin, il est possible d'avoir un affichage en tableau en cliquant à gauche sur
 ![](pics/03_git/milestones.png)
 
 
-### Exercice 3 : Ouvrir et organiser les *issues*
+### Exercice 4 : Ouvrir et organiser les *issues*
 
 Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
 
@@ -663,7 +626,7 @@ Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*is
 
 ### Merge requests (MR)
 
-C'est l'espace pour gérer des fusions de branches, à la suite : 
+C'est l'espace pour gérer des fusions de branches, c'est-à-dire le fait de transmettre à la branche commune des modifications en les validant. Cela peut venir à la suite : 
 
 * d'une ou plusieurs *issues* qui ont été créées et discutées
 * d'une création de branche afin de propose de l'intégrer 
@@ -676,8 +639,8 @@ On clique sur `Compare branches and continue` pour arriver sur la page permettan
 
 Une bonne pratique est de proposer les options suivantes:
 
-* `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité. 
-* `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux dans l'ancienne branche) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de *commits*.
+* `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité.
+* `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux dans l'ancienne branche) en un seul dans la branche de destination. Cela évite, sur les **gros projets**, des branches avec des milliers de *commits*. Pour les petites modifications, c'est-à-dire les branches avec peu de `commits`, on peut éviter cette option et laisser l'historique dans la branche fusionnée.
 
 ![](./pics/03_git/MR3.png)
 
@@ -696,7 +659,13 @@ Il y a deux philosophies dans le domaine:
 
 Les gros projets *open-source* fonctionnent plutôt de la première manière. Il s'agit de la pratique la plus prudente. 
 
-La capture d'écran ci-dessus correspond à la seconde. Si vous l'utilisez, n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre dépôt.
+Dans des cas rares, vous vous devez passer par la ligne de commande pour des MR. Suivez précisément les indications du `merge locally` et n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre dépôt. 
+
+La logique générale pour les étapes de `merge locally` est la suivante : 
+1. On met à jour la branche locale cible `origin` (possible aussi via les menus `RStudio` en faisant un `pull`) puis on passe sur la branche source (là où sont les changements qu'on veut transmettre).
+2. On sélectionne **à la main** les modifications dans les programmes par l'intermédiaire des `HEAD` qui sont apparus dans les codes.
+3. On applique les lignes de commande de l'étape 3 (en ligne de commande avec précaution).
+4. On transmet au dépôt partager avec un `push` (possible via les menus `RStudio`).
 
 
 :::: {.recommandation data-latex=""}
@@ -704,7 +673,6 @@ Le rôle de gestionnaire des `merge request` dans un projet collaboratif est imp
 
 ![Attention au --force: https://estl.tech/a-gentler-force-push-on-git-force-with-lease-fb15701218df](https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg)
 ::::
-
 
 
 ### Exercice 4 : Fusionner les travaux avec des `Merge Requests`
@@ -896,7 +864,7 @@ la procédure de nettoyage du conflit pour être raccord avec `master`. La perso
 ### Exercice 6 : Contribuer à un dépôt sans droits sur `master`
 
 
-A l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour garder trace de ces monuments de littérature, vous allez les 
+À l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour garder trace de ces monuments de littérature, vous allez les 
 soumettre au dépôt d'exemple. Il est tout à fait possible de soumettre des modifications à un dépôt sur lequel on n'a pas le droit d'écriture
 par l'intermédiaire d'un `fork`:
 

@@ -2,19 +2,14 @@
 
 `r colorize("Version provisoire et temporaire de la formation Insee 'Travail collaboratif avec R'","red")`
 
-La formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. Les compétences acquises au cours de cette formation sont les suivantes: 
+## Objectifs de la formation
 
-* RMarkdown;
-* Bien programmer en `R`;
-* Utiliser `Git`;
-* Développer des packages.
+Cette formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. L'objectif est d'apprendre les base du contrôle de version qui s'appuie sur le logiciel  `Git` et d'être autonome suite à cette formation. Accessoirement, cette formation donne quelques conseils pour mieux utiliser les projets RStudio qui sont devenus prédominants dans la communauté `R`. 
 
-Accessoirement, cette formation donne quelques conseils pour mieux utiliser
-les projets RStudio qui sont devenus prédominants dans la communauté `R`. 
 
 ## Environnement
 
-Dans ce cours, le parti pris est l'utilisation de `R` via `RStudio`. Il s'agit
+Dans ce cadre, le parti pris est l'utilisation de `R` via `RStudio`. Il s'agit
 d'un choix peu suprenant puisque `RStudio` propose énormément de fonctionalités
 favorisant l'utilisation de `R` en conjonction avec `Git`. 
 
@@ -22,6 +17,8 @@ favorisant l'utilisation de `R` en conjonction avec `Git`.
 Dans l'ensemble de cette formation, on va supposer qu'un projet R est mené via
 un projet RStudio. Plus d'information sur les RProjects sont disponibles 
 dans la documentation [utilitR](https://www.book.utilitr.org/). 
+
+Cette formation peut être suivie dans n'importe quel environnement disposant de `RStudio` et `Git`. Cependant, des précisions sont parfois nécessaires pour tenir compte de certaines spécificités de l'architecture interne de l'Insee (environnement AUS, forge Gitlab interne). Elles sont faites lorsque nécessaires mais réduites au minimum possible.
 
 <!--------------
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
