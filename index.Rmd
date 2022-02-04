@@ -11,7 +11,7 @@ link-citations: yes
 description: "Support associé à la formation Travail collaboratif avec R"
 ---
 
-# Introduction {-}
+# Introduction
 
 Supports associés à la formation nationale `Travail collaboratif avec R`. 
 
@@ -29,7 +29,7 @@ notamment les chapitres relatifs à la
 et [son usage via `RStudio`](https://www.book.utilitr.org/git.html) ;
 - Le [guide des bonnes pratiques utilitR](https://www.book.utilitr.org)
 
-```{r, echo = FALSE, fig.cap = "Schéma illustratif d’un processus utilisant R, Git et Gitlab"}
+```{r, echo = FALSE, fig.cap = "Schéma illustratif d’un processus utilisant R, Git et Gitlab", fig.cap = c(6,6)}
 knitr::include_graphics("https://www.book.utilitr.org/pics/git/gitlab.png")
 ```
 
