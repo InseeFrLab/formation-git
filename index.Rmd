@@ -11,7 +11,7 @@ link-citations: yes
 description: "Support associé à la formation Travail collaboratif avec R"
 ---
 
-# Introduction
+# Introduction {-}
 
 Supports associés à la formation nationale `Travail collaboratif avec R`. 
 
@@ -41,7 +41,7 @@ un [joli arbre](https://github.com/InseeFrLab/formation-git/network),
 des débats ([sur l'ancien dépôt](https://gitlab.com/linogaliana/collaboratif/-/issues))...
 
 
-## Remarque
+## Remarque {-}
 
 L'[ancien site](https://linogaliana.gitlab.io/collaboratif/git.html)
 continue à proposer plus de chapitres mais n'est plus la version de référence.
