@@ -50,7 +50,7 @@ Cet ancien support sera petit à petit transformé en site web autosuffisants.
 
 ## Contributeurs {-}
 
-Ecriture du support : 
+Écriture du support : 
 [Lino Galiana](https://linogaliana.netlify.com/) ;
 [Mathias André](https://gitlab.com/mathias.andre) ;
 [Romain Lesur](https://github.com/RLesur) ;
