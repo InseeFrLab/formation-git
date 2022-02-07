@@ -3,7 +3,7 @@
 L'objet de ce document est de présenter les différentes
 manières de participer à la mise à jour des supports.
 Il s'agit d'une adaptation du code des
-contributeurs proposé par l'équipe du `tidyverse`.
+contributeurs proposé par l'équipe du `tidyverse` sur `gitlab`. Sur `GitHub` la démarche est similaire.
 
 ### Retirer des coquilles
 
