@@ -1,8 +1,4 @@
 
-# Introduction
-
-Supports associés à la formation nationale `Travail collaboratif avec R`. 
-
 ## Objectifs et environnement
 
 Cette formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. L'objectif est d'apprendre les base du contrôle de version qui s'appuie sur le logiciel  `Git` et d'être autonome suite à cette formation. Accessoirement, cette formation donne quelques conseils pour mieux utiliser les projets RStudio qui sont devenus prédominants dans la communauté `R`. 
@@ -40,11 +36,6 @@ notamment les chapitres relatifs à la
 [Configuration de `Git`](https://www.book.utilitr.org/git-config.html)
 et [son usage via `RStudio`](https://www.book.utilitr.org/git.html) ;
 - Le [guide des bonnes pratiques utilitR](https://www.book.utilitr.org)
-
-```{r, echo = FALSE, fig.cap = "Schéma illustratif d’un processus utilisant R, Git et Gitlab", fig.dim = c(6,6)}
-knitr::include_graphics("https://www.book.utilitr.org/pics/git/gitlab.png")
-```
-
 
 L'[ancien site](https://linogaliana.gitlab.io/collaboratif/git.html)
 continue à proposer plus de chapitres mais n'est plus la version de référence.
