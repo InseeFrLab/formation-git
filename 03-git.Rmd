@@ -1,15 +1,10 @@
-# Utiliser `GIT` avec `R`
+
+# Pourquoi utiliser la gestion de version ?
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
-
-Cette formation ne nécessite pas de connaissances avancées en `R`, voire aucune car elle s'appuie uniquement sur les fonctionnalités de `RStudio`. À toute fin utile, la documentation [utilitR](www.book.utilitr.org) constitue une ressource
-qu'il peut être intéressant de consulter en complément. 
-
-
-## Pourquoi utiliser la gestion de version ?
 
 Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, le maintien de la qualité de nos chaînes de traitement nécessite un archivage détaillé et facilement accessible. 
 
@@ -39,7 +34,7 @@ En outre, ces outils fonctionnent avec tous les langages informatiques (texte, R
 
 En bref, c'est **LA** bonne manière pour partager des codes et travailler à plusieurs sur un projet statistique (études ou production).
 
-### Conserver et archiver du code
+## Conserver et archiver du code
 
 Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui correspond au projet (par exemple, le modèle Ines). C'est là où sont stockéees toutes les informations utiles au partage des codes.
 
@@ -53,7 +48,7 @@ Dans la gestion de version, tout repose dans la comparaison des changements dans
 
 Avec la gestion de version, sur son poste de travail, les dizaines (centaines ?) de programmes organisés à la main n'existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt à une date donnée, généralement la plus récente. Au sein du dépôt, tout l'historique est stocké et accessible rapidement. Si l'on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n'y a plus besoin de conserver les autres fichiers car ils sont dans l'historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d'être développée, celle de l'année dernière, etc.).
 
-### Travailler efficacement en équipe
+## Travailler efficacement en équipe
 
 Le deuxième avantage de la gestion de version représente une amélioration notable du travail en équipe sur des codes en commun. Que ce soit au sein d'un modèle cogéré (Ines, Destinie, etc.), de gros projets (Nautile) ou de chaînes de traitement récurrentes (enquête emploi, comptes trimestriels, etc.), la collaboration est courante lors des travaux statistiques. La gestion de version permet de collaborer simplement et avec méthode. De façon organisée, elle permet de:
 
@@ -77,7 +72,7 @@ Même en travaillant seul sur un projet, on collabore avec un *moi* futur (qui a
 ::::
 
 
-### Améliorer la qualité des codes
+## Améliorer la qualité des codes
 
 Le fonctionnement de la gestion de version, reposant sur l'archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. C'est pour cette raison que le contrôle de version est un outil puissant pour toute production statistique : toute personne travaillant sur des programmes, `SAS` y compris, gagne à utiliser du contrôle de version. 
 
@@ -89,7 +84,7 @@ Quand il s'agit de modèles statistiques, ou de chaînes de traitement statistiq
 
 En outre, lors de l'ouverture des modèles au format *open source* par exemple, leur diffusion publique correspond aux standards des communautés de logiciels libres et aux usages recommandés pour documenter des programmes informatiques. Cela permet aux utilisateurs ou aux agents découvrant des chaînes de traitement de mieux s'approprier les programmes.
 
-### Usage quotidien : un exemple avec le modèle Ines
+## Usage quotidien : un exemple avec le modèle Ines
 
 Le modèle Ines est co-développé par l'Insee et la Drees ainsi que la Cnaf depuis 2018. Sous licence libre, il est disponible en *open-source*. Il est organisé dans une *forge* qui regroupe le code, un wiki, une documentation, un forum et différents outils collaboratifs (ces éléments seront présentés [plus loin](#gitlab)). Les utilisateurs y ont accès via la [plateforme Adullact](https://adullact.net/projects/ines-libre). Le dépôt regroupe donc les programmes, l'historique des modifications et les archives des différentes versions ('Ines 2018' par exemple). Les chargés d'étude ont une copie locale du projet sur leur poste de travail. Les changements sont mis à jour et disponibles en temps réel. 
 
@@ -111,7 +106,7 @@ D'une manière générale, il existe plusieurs manières d'utiliser le contrôle
 
 Dans ce support, nous présentons le contrôle de version via `RStudio`, la solution que nous recommandons en raison de sa simplicité. Elle rend le recours à la ligne de commande marginal voire inutile. Elle est également plus rapide et facilement implémentable à l'Insee.
 
-### Avec ou sans gestion de versions
+## Avec ou sans gestion de versions
 
 Le tableau suivant compare les usages au temps (pré-historique ?) de la programmation sans gestion de version avec les modes de travail si on y a recours :
 
@@ -137,7 +132,7 @@ En conclusion, que ce soit au sein d'un travail collaboratif en équipe ou sur s
 La gestion de version est donc le meilleur moyen de partager du code (entre équipes internes,
 lors des changements de poste, pour l'archivage, lors de l'ouverture au libre, etc.). Ces outils viennent du développement informatique et de la création des logiciels et applications. Les traitements statistiques sont également des chaînes informatiques et sont donc pleinement adaptés pour s'appuyer sur les outils de gestion de version.
 
-## Configurer un projet `GIT` avec RStudio à l'Insee
+# Configurer un projet `GIT` avec RStudio à l'Insee
 
 Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [datalab du SSP](https://datalab.sspcloud.fr). C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet sur poste local. 
 
@@ -145,17 +140,17 @@ La seconde brique afin de pouvoir travailler sur un projet partagé est le choix
 
 Que ce soit sur les sites externes de type `gitlab.com` ou la plateforme innovation, il est d'abord nécessaire de créer son accès puis ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une et une seule fois pour un poste de travail donné, ce sont les étapes de configuration. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples et automatisées. 
 
-### La première fois
+## La première fois
 
 La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`. Cette plateforme est un outil de stockage et de gestion des projets mis en commun via `Git`. 
 
-#### Accéder au `GitLab` de l'Insee
+### Accéder au `GitLab` de l'Insee
 
 Une version interne de `GitLab` est disponible à l'Insee sur [gitlab.insee.fr](https://gitlab.insee.fr).  Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
-#### Recommandation concernant l'authentification HTTPS vs SSH
+### Recommandation concernant l'authentification HTTPS vs SSH
 
 L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
 
@@ -163,7 +158,7 @@ En dehors des infrastructures Insee, il est généralement plus simple d'utilise
 
 À l'Insee, le [wiki d'`AUSV3`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git) décrit toutes les étapes (à suivre à la lettre et pas à pas) pour configurer l'utilisation de `Git` avec AUS par l'intermédiaire `SSH`. Cette manipulation tient lieu d'installation pour pouvoir échanger avec le dépôt distant et est donc à faire une seule fois par poste (local, AUS ou personnel en dehors des projets Insee).
 
-### Au lancement de chaque projet, cloner depuis `gitlab.insee.fr`
+## Au lancement de chaque projet, cloner depuis `gitlab.insee.fr`
 
 Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé, afin de le copier dans son espace de travail (dit local). Il est disponible via le bouton `clone` du projet. 
 
@@ -186,8 +181,7 @@ Cliquer sur `Create project` copier les fichiers du dossier partagé et vous per
 Il est également possible de cloner des dépôts en externe via `https` par exemple. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git). 
 
 
-
-## Des bases de GIT <i class="fas fa-code-branch"></i>
+# Des bases de GIT <i class="fas fa-code-branch"></i>
 
 Les deux outils de gestion de version les plus répandus sont GIT et SVN (pour Subversion). L'Insee a utilisé SVN pendant un temps mais privilégie GIT maintenant en raison de plusieurs avantages, comme le travail hors ligne plus stable, une meilleure flexibilité et une plus grande vitesse (cf. infra).
 
@@ -215,7 +209,7 @@ Enfin, un des grands avantages pratiques de `GIT` est son intégration native da
 
 
 
-### Le B.A-BA
+## Le B.A-BA
 
 Les programmes s’organisent sur un répertoire distant commun
 (dépôt ou `r with_def("repository")`) et sont manipulés sur les postes indidivuels dans des
@@ -299,7 +293,7 @@ Cependant, **il existe des commandes qui peuvent définitivement endommager votr
 
 
 
-### Exercice 1: Premiers pas avec `git` en local {#gitlocal}
+## Exercice 1: Premiers pas avec `git` en local {#gitlocal}
 
 Dans le cadre de cette formation, un projet d'exemple a été créé pour vous. L'idée est de former des groupes de deux, chaque groupe représentant une équipe. Vous allez donc travailler en binôme avec votre voisin (ou avec une personne de la visio si la formation n'a pas lieu en présentiel).
 
@@ -359,7 +353,7 @@ Recommencer les mêmes opérations modifiant cette fois-ci le fichier de votre v
 
 
 
-### Les branches : principes
+## Les branches : principes
 
 C'est une des fonctionnalités les plus pratiques de la gestion de version. La création de `r with_def("branches")` dans un projet (qui devient ainsi un arbre) permet de développer en parallèle des correctifs ou une nouvelle fonctionnalité sans modifier le dépôt commun. Cela permet de séparer le nouveau développement et de faire cohabiter plusieurs versions, pouvant évoluer séparément ou pouvant être facilement rassemblées. Git est optimisé pour le travail sur les branches.
 
@@ -379,7 +373,7 @@ Dans un projet collaboratif, une branche dite **master** joue le rôle du tronc.
 
 ![](./pics/03_git/branches_tree.png){width=100%} 
 
-### Branches et lien avec `master`
+## Branches et lien avec `master`
 
 La branche `master` est la branche principale. Elle se doit d'être "propre".
 On ne pousse pas des travaux non aboutis sur `master`, c'est assez mal vu et sources de futurs problèmes.  
@@ -447,7 +441,7 @@ Placez-vous sur la branche que vous avez créée à la question `a`. Récupérer
 ::::
 
 
-### Quelques compléments de GIT 
+## Quelques compléments de GIT 
 
 L'outil `GIT` permet un grand nombre de fonctionnalités avancées. Les manipulations les plus complexes ne peuvent être effectuées qu'en ligne de commande, mode de fonctionnement privilégié des développeurs avancés. Mais pour les statisticiens, il est possible d'effectuer des commandes avancées de façon intégrée à RStudio.
 
@@ -554,7 +548,7 @@ En résumé, voilà les principaux concepts présentés et qui seront utiles pou
 * `push` : envoi de ses nouveaux commit vers le remote
 ------>
 
-## `GitLab` <i class="fab fa-gitlab"></i>, aperçu de la plateforme de partage de code {#gitlab}
+# `GitLab` <i class="fab fa-gitlab"></i>, aperçu de la plateforme de partage de code {#gitlab}
 
 `GitLab` est une plateforme facilitant l’utilisation de `Git`, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer. Les utilisateurs ont par exemple un profil qui rassemble leurs différents projets.
 
@@ -575,12 +569,12 @@ Les principales fonctionnalités sont présentes dans les onglets d'un projet so
 
 Ce sont sur les trois premiers points que reposent l'immense majorité des fonctionnalités. 
 
-### `Repository`
+## `Repository`
 
 Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier /commiter directement en ligne. Pour un fichier donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
 
 
-### `Issues`
+## `Issues`
 
 C'est l'espace de discussion du projet. Un [exemple sur le `GitHub` InseeFrLab](https://github.com/InseeFrLab/utilitR/issues). Par l'intermédiaire de différents sujets ou tickets, cet espace permet de :
 
@@ -620,7 +614,7 @@ Enfin, il est possible d'avoir un affichage en tableau en cliquant à gauche sur
 ![](pics/03_git/milestones.png)
 
 
-### Exercice 4 : Ouvrir et organiser les *issues*
+## Exercice 4 : Ouvrir et organiser les *issues*
 
 Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
 
@@ -647,7 +641,7 @@ Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*is
 
 ::::
 
-### Merge requests (MR)
+## Merge requests (MR)
 
 C'est l'espace pour gérer des fusions de branches, c'est-à-dire le fait de transmettre à la branche commune des modifications en les validant. Cela peut venir à la suite : 
 
@@ -698,7 +692,7 @@ Le rôle de gestionnaire des `merge request` dans un projet collaboratif est imp
 ::::
 
 
-### Exercice 4 : Fusionner les travaux avec des `Merge Requests`
+## Exercice 4 : Fusionner les travaux avec des `Merge Requests`
 
 Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
 
@@ -742,14 +736,14 @@ Gitlab propose deux options lors du *merge* :
 * `Delete source branch when merge request is accepted`: supprimer la branche. C'est fortement recommandé car cela évite qu'un contributeur reprenne, après plusieurs mois d'inactivité d'une branche, qui aurait accumulé du retard par rapport à `master`, une branche. 
 * `Squash commits when merge request is accepted`: Là, vous devrez faire preuve de discernement. L'habitude est de faire des `squash and merge` (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
 
-### Les groupes
+## Les groupes
 
 
 Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de dossiers:
 
 ![](./pics/03_git/page_Drees_gitlab.png){width=100%} 
 
-## Organiser le travail collaboratif {#orgagit}
+# Organiser le travail collaboratif {#orgagit}
 
 Les outils de gestion de version permettent des usages multiples afin d'organiser efficacement la collaboration. Cette section propose une synthèse des usages de `Git` dans la communauté `R`, adaptés à fois à la configuration à l'Insee et au mode de travail des statisticiens.
 
@@ -797,38 +791,38 @@ donne un exemple. Cependant, pour des changements plus profonds ou
 avec des collaborateurs moins réguliers, il est recommandé d'organiser le
  travail selon les cinq étapes suivantes.
 
-### Créer une branche
+## Créer une branche
 
 Une branche permet de développer "dans son coin" (seul ou à plusieurs) et d'expérimenter des modifications et des améliorations avant de les proposer au dépôt commun.
 
 ![](./pics/03_git/flow1_branch.png)
 
-### Modifier et valider ces changements 
+## Modifier et valider ces changements 
 
 C'est l'étape des `commits`. Le travail se fait sur la branche en veillant à bien commenter les modifications et à bien les distinguer (il vaut mieux trop de `commit` que pas assez). 
 
 ![](./pics/03_git/flow2_commit.png)
 
-### Ouvrir une demande de fusion 
+## Ouvrir une demande de fusion 
 
 Une fois la série de modifications terminée ou le temps venu de rassembler les différents travaux, c'est par l'intermédiaire de la fusion entre la branche et le `master` (`Pull Request` sur `GitHub` ou `Merge Request` sur `GitLab`). Il faut alors "demander" de fusionner et c'est très bien intégré dans l'environnement `GitLab` (cf. ci-après). Cela initie un échange sur les modifications apportées.
 
 ![](./pics/03_git/flow3_MR.png)
 
-### Échanger entre collaborateurs et vérifier le code
+## Échanger entre collaborateurs et vérifier le code
 
 Une fois la `Merge Request` ouverte, il est possible d'échanger des images, de commenter, de poser des questions et d'y répondre. Il est par exemple possible de mentionner un membre de l'équipe par l'intermédiaire de `@personne`.
 
 ![](./pics/03_git/flow4_discuss.png)
 
-### Fusionner la branche avec `master`
+## Fusionner la branche avec `master`
 
 Une fois les vérifications faites, la fusion conserve l'historique des modifications et l'ensemble des `commits`.
 
 ![](./pics/03_git/flow5_merge.png)
 
 
-### Exercice 5 : Résoudre les conflits, c'est facile.
+## Exercice 5 : Résoudre les conflits, c'est facile.
 
 Si vous adoptez les règles précédentes, `master` sera surtout modifié via des `merge requests`. Vous ne devriez donc jamais avoir de conflits sur master.
 
@@ -884,7 +878,7 @@ la procédure de nettoyage du conflit pour être raccord avec `master`. La perso
 
 
 
-### Exercice 6 : Contribuer à un dépôt sans droits sur `master`
+## Exercice 6 : Contribuer à un dépôt sans droits sur `master`
 
 
 À l'issue de cet exercice, vous devriez avoir un premier cadavre exquis. Pour garder trace de ces monuments de littérature, vous allez les 
