@@ -11,3 +11,6 @@ link-citations: yes
 description: "Support associé à la formation Travail collaboratif avec R"
 ---
 
+# Introduction
+
+Supports associés à la formation nationale `Travail collaboratif avec R`. 
