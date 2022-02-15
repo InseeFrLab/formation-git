@@ -14,6 +14,9 @@ dans la documentation [utilitR](https://www.book.utilitr.org/).
 
 Cette formation peut être suivie dans n'importe quel environnement disposant de `RStudio` et `Git`. Cependant, des précisions sont parfois nécessaires pour tenir compte de certaines spécificités de l'architecture interne de l'Insee (environnement AUS, forge Gitlab interne). Elles sont faites lorsque nécessaires mais réduites au minimum possible.
 
+Cette formation ne nécessite pas de connaissances avancées en `R`, voire aucune car elle s'appuie uniquement sur les fonctionnalités de `RStudio`. À toute fin utile, la documentation [utilitR](www.book.utilitr.org) constitue une ressource
+qu'il peut être intéressant de consulter en complément. 
+
 ## Au sujet de cette formation
 
 Le code source est disponible sur Github <i class="fab fa-github"></i> [ici](https://github.com/InseeFrLab/formation-git).
