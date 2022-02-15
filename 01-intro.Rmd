@@ -1,13 +1,13 @@
-# Objectif de la formation {#intro}
 
-## Objectifs de la formation
+# Introduction
+
+Supports associés à la formation nationale `Travail collaboratif avec R`. 
+
+## Objectifs et environnement
 
 Cette formation vise à présenter la manière dont un projet collaboratif peut être mené avec `R` et la manière dont `Rstudio` facilite ce travail. L'objectif est d'apprendre les base du contrôle de version qui s'appuie sur le logiciel  `Git` et d'être autonome suite à cette formation. Accessoirement, cette formation donne quelques conseils pour mieux utiliser les projets RStudio qui sont devenus prédominants dans la communauté `R`. 
 
-
-## Environnement
-
-Dans ce cadre, le parti pris est l'utilisation de `R` via `RStudio`. Il s'agit
+Dans ce cadre, le parti pris est l'utilisation de `RStudio`. Il s'agit
 d'un choix peu suprenant puisque `RStudio` propose énormément de fonctionalités
 favorisant l'utilisation de `R` en conjonction avec `Git`. 
 
@@ -17,6 +17,56 @@ un projet RStudio. Plus d'information sur les RProjects sont disponibles
 dans la documentation [utilitR](https://www.book.utilitr.org/). 
 
 Cette formation peut être suivie dans n'importe quel environnement disposant de `RStudio` et `Git`. Cependant, des précisions sont parfois nécessaires pour tenir compte de certaines spécificités de l'architecture interne de l'Insee (environnement AUS, forge Gitlab interne). Elles sont faites lorsque nécessaires mais réduites au minimum possible.
+
+## Au sujet de cette formation
+
+Le code source est disponible sur Github <i class="fab fa-github"></i> [ici](https://github.com/InseeFrLab/formation-git).
+Le site web est hebergé par  <https://www.netlify.com>, un fournisseur
+de nom de domaine favorisant l'_open-source_
+
+Le groupe de conception de ce support a lui-même
+suivi les recommandations de cette formation
+en proposant tous les supports en _open-source_:
+un [dépôt Github](https://github.com/InseeFrLab/formation-git),
+un [joli arbre](https://github.com/InseeFrLab/formation-git/network),
+des débats ([sur l'ancien dépôt](https://gitlab.com/linogaliana/collaboratif/-/issues))...
+
+Cette formation peut être complétée par certaines ressources 
+de la documentation collaborative [utilitR](utilitr.org/)
+que nous recommandons de consulter régulièrement :
+
+- La [documentation principale](book.utilitr.org/),
+notamment les chapitres relatifs à la
+[Configuration de `Git`](https://www.book.utilitr.org/git-config.html)
+et [son usage via `RStudio`](https://www.book.utilitr.org/git.html) ;
+- Le [guide des bonnes pratiques utilitR](https://www.book.utilitr.org)
+
+```{r, echo = FALSE, fig.cap = "Schéma illustratif d’un processus utilisant R, Git et Gitlab", fig.dim = c(6,6)}
+knitr::include_graphics("https://www.book.utilitr.org/pics/git/gitlab.png")
+```
+
+
+L'[ancien site](https://linogaliana.gitlab.io/collaboratif/git.html)
+continue à proposer plus de chapitres mais n'est plus la version de référence.
+Cet ancien support sera petit à petit transformé en site web autosuffisants.
+
+### Contributeurs {-}
+
+Écriture du support : 
+[Lino Galiana](https://linogaliana.netlify.com/) ;
+[Mathias André](https://gitlab.com/mathias.andre) ;
+[Romain Lesur](https://github.com/RLesur) ;
+[Annie Moineau](https://gitlab.com/annieMoineau) ;
+[Olivier Meslin](https://gitlab.com/oliviermeslin)
+
+Relecteurs : 
+[Lino Galiana](https://linogaliana.netlify.com/) ;
+[Mathias André](https://gitlab.com/mathias.andre) ;
+[Olivier Meslin](https://gitlab.com/oliviermeslin) ;
+Georges Pavlov
+
+Mise en forme:
+[Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
 
 <!--------------
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
