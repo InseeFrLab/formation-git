@@ -6,7 +6,8 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
-Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs. En outre, le maintien de la qualité de nos chaînes de traitement nécessite un archivage détaillé et facilement accessible. 
+Nos travaux statistiques évoluent constamment (productions annuelles, nouvelles enquêtes, etc.) et nous travaillons souvent à plusieurs.
+En outre, le maintien de la qualité de nos chaînes de traitement nécessite un archivage détaillé et facilement accessible. 
 
 Tous les statisticiens se sont déjà demandé (ou à leurs collègues) : 
 
