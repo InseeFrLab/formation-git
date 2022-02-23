@@ -13,4 +13,4 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction : utiliser `GIT` avec `R`
 
-Supports associés à la formation nationale `Travail collaboratif avec R`. 
+Support associé à la formation nationale `Travail collaboratif avec R`. 
