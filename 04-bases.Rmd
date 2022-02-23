@@ -77,9 +77,11 @@ L'un des intérêts de `git` est que le choix des modifications à soumettre est
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
 ![](./pics/03_git/trois_états_fichier.png){width=100%} 
+/* Ce serait bien d'expliquer briévement à quoi correspondent ces états (au moins pour indexé qui semble mins naturel au milieu des deux autres) */
+/* A quoi sert le point dans le titre "Copie de travail ." ? */
 
 ![](./pics/03_git/statut_fichiers.png){width=100%} 
-
+/* Ce serait bien d'expliquer briévemeent les intitulés */
 
 Lors d'un `r with_def("commit")`, le message de validation est très important:
 
@@ -144,7 +146,7 @@ Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droit
 
 **Question a.** *`clone` et modification du fichier`.gitignore`*
 
-Clôner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+Clôner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au /* A quoi sert ce au ?*/ `.html`. Penser à sauvegarder le fichier.
 
 **Question b.** *`staging`*
 
@@ -268,7 +270,7 @@ Une des commandes les plus utiles pour un travail collaboratif pour les statisti
 
 * `git ignore` : modifier le fichier permet de conserver des fichiers en privé, c'est-à-dire qu'ils n'apparaissent pas dans le dossier partagé. 
 
-Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" ou alors tous les fichiers au format xls en ajoutant "*.xls".
+Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" /*Ne serait il pas préférable d'enlever les quottes autour des noms de fichiers, puisqu'elles n'apparaissent pas dans le gitignore ?*/ ou alors tous les fichiers au format xls en ajoutant "*.xls" /*même remarque*/.
 
 Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
 
@@ -311,7 +313,7 @@ si vous supprimez un fichier sans faire exprès.
 1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
 contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
 2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
-Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
+Windows) : le fichier `modification_importante.md` /* Sûr du nom du fichier ? */ n'est plus là: cela vous inquiète-t-il ?
 3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois :
   + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
   + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
@@ -319,14 +321,14 @@ Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inq
 
 Maintenant, une manipulation plus avancée mais qui permet de rassurer :
 
-1. Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
-2. Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
-3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper
+1. /* Devraoit être le 5, non ? */ Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
+2. /* même remarque */ Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
+3. /* même remarque */ Pour cela, aller dans l'historique des commits et identifier le `SHA` /* Qu'est-ce ? */ du commit responsable. Taper
 
 ```shell
 git checkout <commit hash> -- fichier_important.md
 ```
-
+/* le SHA n'intervient pas dans l'écriture ? Si non, où sert-il alors ?*/
 :::: 
 
 D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
@@ -341,7 +343,7 @@ Le `git blame` est très pratique car il permet de filtrer sur les différences 
 D'autres commandes plus périlleuses peuvent permettre un retour en arrière dans l'historique, appelé *rebasage*. La réécriture de l'historique est un **usage non recommandé** pour une utilisation non approfondie comme un projet statistique en équipe. Si vous souhaitiez toutefois vous écarter des sentiers battus et tester ces commandes (telles que `git rebase`^[Le `r with_def("rebase")` est un type particulier de `merge` qui réécrit l'histoire d'une branche ([plus de détails](https://git-scm.com/book/fr/v2/Les-branches-avec-Git-Rebaser-Rebasing)). C'est donc une pratique dangereuse car elle risque de rendre obsolète les branches de vos collaborateurs sur lesquelles ils ont potentiellement déjà travaillr.] ou `git push --force`), appliquez le **conseil de survie** suivant avant toute manipulation : effectuez une sauvegarde manuelle de votre repository, par l'intermédiaire d'un copié-collé dans un autre dossier de votre ordinateur. Sans cela, vous risqueriez d'endommager votre repository et de perdre définitivement des informations.
 
 Pour aller plus loin, des ressources internes au SSP existent (plutôt destinées à des développeurs) :
-
+/* rajouter tchap */
 * [`GIT` au quotidien](https://romain-warnan.github.io/git-au-quotidien) par Romain Warnan  
 * des supports du SNDI sur les [bases de `GIT`](http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/)
 * la documentation AUSV3 sur [quelques manipulations courantes avec `GIT`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git)
