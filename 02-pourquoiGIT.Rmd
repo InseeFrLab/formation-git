@@ -37,7 +37,7 @@ En bref, c'est **LA** bonne manière pour partager des codes et travailler à pl
 
 ## Conserver et archiver du code
 
-Une des principales fonctionnalités de la gestion de version est conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui correspond au projet (par exemple, le modèle Ines). C'est là où sont stockéees toutes les informations utiles au partage des codes.
+Une des principales fonctionnalités de la gestion de version est de conserver l'ensemble des fichiers de façon sécurisée et de proposer un archivage structuré des codes. Les fichiers sont stockés dans un **dépôt**, qui correspond au projet (par exemple, le modèle Ines). C'est là où sont stockéees toutes les informations utiles au partage des codes.
 
 Dans la gestion de version, tout repose dans la comparaison des changements dans les programmes et la présentation de l'historique de ces modifications. Chaque modification (ajout, suppression ou changement) sur un ou plusieurs fichiers est identifiée par son auteur, sa date et un bref descriptif^[Plus précisément, chaque modification est identifiée de manière unique par un code `SHA` auquel est associé l'auteur, l'horodatage et des méta-données (par exemple le message descriptif associé)]. Chaque changement est donc unique et aisément identifiable quand ils sont classés par ordre chronologique par exemple. Les modifications transmises au dépôt commun sont appelées **commit**. Cette étape joue un rôle central et sera détaillée plus loin.
 
