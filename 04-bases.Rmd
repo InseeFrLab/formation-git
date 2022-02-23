@@ -72,7 +72,7 @@ De manière plus précise, il y a trois étapes avant d'envoyer les modification
 * `staging area` : sélection des modifications. 
 * `r with_def("commit")` :  validation des modifications sélectionnées (avec commentaire).
 
-L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: il est possible de découper les modifications d'un fichier en plusieurs morceaux cohérents. 
+L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin : il est possible de découper les modifications d'un fichier en plusieurs morceaux cohérents. 
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
@@ -81,7 +81,7 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 ![](./pics/03_git/statut_fichiers.png){width=100%} 
 
 
-Lors d'un `r with_def("commit")`, le message de validation est très important:
+Lors d'un `r with_def("commit")`, le message de validation est très important :
 
 * il décrit brièvement les modifications contenues dans le commit
 * il s'adresse aux autres et doit donc être intelligible
@@ -96,15 +96,15 @@ Lors des étapes de push et pull, des **conflits** peuvent apparaître, par exem
 
 Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications (`commit`) :
 
-* en commençant par mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet
-* en regroupant les commit par petits lots homogènes et en préférant peu de fichiers
+* en commençant par mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commence /* OU a commencé*/ à travailler sur un projet
+* en regroupant les commits par petits lots homogènes et en préférant peu de fichiers
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
 
 
 
 :::: {.recommandation data-latex=""}
 
-De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`).
+De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")`, `r with_def("fetch")` et `r with_def("merge")`).
 
 Cependant, **il existe des commandes qui peuvent définitivement endommager votre projet**, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et recommandent ces commandes "à risque". 
 
@@ -144,11 +144,11 @@ Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droit
 
 **Question a.** *`clone` et modification du fichier`.gitignore`*
 
-Clôner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+Cloner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
 
 **Question b.** *`staging`*
 
-Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
+Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais sans majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
 
 **Question c.** *`commit`*
 
@@ -311,7 +311,7 @@ si vous supprimez un fichier sans faire exprès.
 1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
 contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
 2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
-Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
+Windows) : le fichier `modification_importante.md` n'est plus là ! Cela vous inquiète-t-il ?
 3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois :
   + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
   + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
@@ -329,7 +329,7 @@ git checkout <commit hash> -- fichier_important.md
 
 :::: 
 
-D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
+D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées : 
 
 * `git tag` : sauvegarder une version figée, comme une "photographie" à un instant donné
 * `git log` : filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
