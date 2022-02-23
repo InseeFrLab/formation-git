@@ -45,6 +45,5 @@ Il suffit ensuite de remplir les trois paramètres :
 
 Cliquer sur `Create project` copier les fichiers du dossier partagé et vous permet de travailler sur `RStudio` avec l'interface `GIT` qui va être décrite dans la partie suivante.
 
-Il est également possible de cloner des dépôts en externe via `https` par exemple. Si vous rencontrez des problèmes pour configurer un dépôt, une [vidéo d'installation](http://formation-git-sndi-lille.pages.innovation.insee.eu/installation-git/ ) /*Lien erroné*/ a été produite par le SNDI ainsi qu'une [documentation de configuration](https://git.stable.innovation.insee.eu/formation-git-sndi-lille/installation-git) /*Lien erroné*/. 
 
 
