@@ -198,7 +198,7 @@ La branche `master` est la branche principale. Elle se doit d'être "propre".
 On ne pousse pas des travaux non aboutis sur `master`, c'est assez mal vu et sources de futurs problèmes.  
 
 Peut-on pousser directement sur `master` ? Oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. Il y a justement des meilleurs outils pour proposer des changements substantiels. Dans votre organisation, n'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
-(cf. [section précédente](#orgagit)), cela obligera l'équipe
+(cf. [chapitre sur l'organisation des projets collaboratifs](#orgagit)), cela obligera l'équipe
 projet à travailler avec rigueur. 
 
 Au moindre doute, créez une branche ! Les branches sont utilisées pour des travaux significatifs :
@@ -270,7 +270,7 @@ Une des commandes les plus utiles pour un travail collaboratif pour les statisti
 
 Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" ou alors tous les fichiers au format xls en ajoutant "*.xls".
 
-Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
+Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` ([fonction](https://usethis.r-lib.org/reference/use_git_ignore.html)) qui facilite énormément la gestion de projets `R` ([documentation du package](https://usethis.r-lib.org/))
 
 ```{r, eval = FALSE}
 # Taper dans la console RStudio
@@ -290,7 +290,7 @@ En particulier, il faut être **extrêmement vigilant** à **ne jamais** mettre 
 
 ::::
 
-La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://linpricnil.github.io/Guide-RGPD-du-developpeur/)).
+La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://www.cnil.fr/fr/la-cnil-publie-une-nouvelle-version-de-son-guide-rgpd-pour-les-developpeurs))
 
 :::: {.conseil data-latex=""}
 Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des modèles de fichiers `.gitignore` selon le langage utilisé. Ils peuvent servir de base à enrichir en fonction des besoins.
@@ -343,7 +343,6 @@ D'autres commandes plus périlleuses peuvent permettre un retour en arrière dan
 Pour aller plus loin, des ressources internes au SSP existent (plutôt destinées à des développeurs) :
 
 * [`GIT` au quotidien](https://romain-warnan.github.io/git-au-quotidien) par Romain Warnan  
-* des supports du SNDI sur les [bases de `GIT`](http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/)
 * la documentation AUSV3 sur [quelques manipulations courantes avec `GIT`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git)
 * utiliser `GIT` avec RStudio [par utilitR](https://www.book.utilitr.org/git.html)
 
