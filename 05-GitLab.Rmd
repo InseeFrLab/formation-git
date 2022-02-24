@@ -97,7 +97,7 @@ Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*is
 C'est l'espace pour gérer des fusions de branches, c'est-à-dire le fait de transmettre à la branche commune des modifications en les validant. Cela peut venir à la suite : 
 
 * d'une ou plusieurs *issues* qui ont été créées et discutées
-* d'une création de branche afin de propose de l'intégrer /* l' fait référence à quoi ? */
+* d'une création de branche afin de proposer d'intégrer celle-ci à la branche principale (`master`)
 
 `GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
 
