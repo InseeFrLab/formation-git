@@ -190,6 +190,6 @@ Gitlab propose deux options lors du *merge* :
 ## Les groupes
 
 
-Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de dossiers: /* Peut être faire un lien vers un endroit où s'est expliqué ? */
+Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de dossiers. La [documentation officielle](https://docs.gitlab.com/ee/user/group/) et ce [poste de blog](https://www.troispointzero.fr/le-blog/la-gestion-de-projet-avec-gitlab/) donnent quelques éléments supplémentaires
 
 ![](./pics/03_git/page_Drees_gitlab.png){width=100%} 
