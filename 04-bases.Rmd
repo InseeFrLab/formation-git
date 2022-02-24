@@ -198,7 +198,7 @@ La branche `master` est la branche principale. Elle se doit d'être "propre".
 On ne pousse pas des travaux non aboutis sur `master`, c'est assez mal vu et sources de futurs problèmes.  
 
 Peut-on pousser directement sur `master` ? Oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. Il y a justement des meilleurs outils pour proposer des changements substantiels. Dans votre organisation, n'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
-(cf. [section précédente](#orgagit)) /*renvoi au chapitre 6 et non à la section précédente*/, cela obligera l'équipe
+(cf. [chapitre sur l'organisation des projets collaboratifs](#orgagit)), cela obligera l'équipe
 projet à travailler avec rigueur. 
 
 Au moindre doute, créez une branche ! Les branches sont utilisées pour des travaux significatifs :
