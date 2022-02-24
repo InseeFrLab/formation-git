@@ -270,7 +270,7 @@ Une des commandes les plus utiles pour un travail collaboratif pour les statisti
 
 Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" ou alors tous les fichiers au format xls en ajoutant "*.xls".
 
-Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) /*le lien ne me semble pas bon*/:
+Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` ([fonction](https://usethis.r-lib.org/reference/use_git_ignore.html)) qui facilite énormément la gestion de projets `R` ([documentation du package](https://usethis.r-lib.org/))
 
 ```{r, eval = FALSE}
 # Taper dans la console RStudio
