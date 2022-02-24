@@ -290,7 +290,7 @@ En particulier, il faut être **extrêmement vigilant** à **ne jamais** mettre 
 
 ::::
 
-La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://linpricnil.github.io/Guide-RGPD-du-developpeur/)) /*lien ne fonctionne pas*/.
+La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://www.cnil.fr/fr/la-cnil-publie-une-nouvelle-version-de-son-guide-rgpd-pour-les-developpeurs))
 
 :::: {.conseil data-latex=""}
 Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des modèles de fichiers `.gitignore` selon le langage utilisé. Ils peuvent servir de base à enrichir en fonction des besoins.
