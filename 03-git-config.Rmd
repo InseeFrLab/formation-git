@@ -64,7 +64,7 @@ Le token n'apparaît qu'une fois, il faut donc le conserver quelque part ; nous 
 
 La procédure pour démarrer un projet collaboratif est très semblable à celle décrite pour le `GitLab` interne. Il y a cependant quelques différences importantes :
 - on va cloner le projet dans un service RStudio lancé à partir du SSP Cloud, et non sur le RStudio d'AUS
-- dans le champ *Repository URL*, on va inclure une URL de la forme : `https://oauth2:<PAT>@git.lab.sspcloud.fr/<user>/<project>` où :
+- dans le champ *Repository URL*, on va inclure une URL de la forme : `https://oauth2:<PAT>@git.lab.sspcloud.fr/<user>/<project>.git` où :
     - <PAT> est à remplacer par le token généré sur l'interface GitLab à l'étape précédente
     - <user> est à remplacer par votre nom d'utilisateur sur le SSP Cloud (ou le nom d'un projet le cas échéant)
     - <project> est à remplacer par le nom du projet que vous voulez cloner
