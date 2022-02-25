@@ -3,26 +3,26 @@
 
 `GitLab` est une plateforme facilitant l’utilisation de `Git`, qui permet de travailler de façon collaborative dans le développement informatique, par équipe ou non, pour un code qui évolue constamment. Elle comporte une dimension de réseau social du code qui permet de suivre un projet et y participer. Les utilisateurs ont par exemple un profil qui rassemble leurs différents projets.
 
-Un projet sous GitLab se présente de la manière suivante:
+Un projet sous GitLab se présente de la manière suivante :
 
 ![Interface GitLab](pics/03_git/readme.png)
 
 Le fichier `README.md` s'affiche automatiquement et il est mis en forme par défaut. Il présente des informations utiles pour la compréhension de l'objectif du projet, son installation, etc. On peut naviguer dans l'arborescence d'un dépôt facilement mais certains types de fichiers s'affichent mal (ex: `html` car ils n'ont pas vocation à être partagés).
 
-Les principales fonctionnalités sont présentes dans les onglets d'un projet sous GitLab: 
+Les principales fonctionnalités sont présentes dans les onglets d'un projet sous GitLab : 
 
 1. `Repository`: le dépôt, c'est le centre du contrôle de version
-2. `Issues`: espace de discussion, de suggestions ou demandes. 
+2. `Issues`: espace de discussion, de suggestions ou demandes
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
-4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet) /* Où est-elle ? */
-5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git.
+4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")`
+5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git
 6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur.
 
 Ce sont sur les trois premiers points que reposent l'immense majorité des fonctionnalités. 
 
 ## `Repository`
 
-Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier /commiter directement en ligne. Pour un fichier donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
+Le dépôt regroupe les principales fonctionnalités reliées au contrôle de version. Il indique les fichiers du projet et liste les commits par ordre chronologique. Le navigateur de fichier permet même de modifier/commiter directement en ligne. Pour un fichier donné, il permet d'afficher l'historique des modifications (en haut à droite). Il permet également de visualiser les branches et leur trajectoire et de les comparer entre elles avant de proposer une `merge request` (cf. ci-après).
 
 
 ## `Issues`
@@ -33,7 +33,7 @@ C'est l'espace de discussion du projet. Un [exemple sur le `GitHub` InseeFrLab](
 * discuter des évolutions d'un projet et proposer des changements
 * évoquer des pistes de modifications qui sont à creuser
 
-Ces échanges prennent la forme d'un forum où les sujets sont regroupés sous la forme d'*issues* (problèmes) qui peuvent être identifiées grâce à des labels. Un des avantages est de pouvoir intégrer des passages de code ou de faire des références croisées entre les issues.
+Ces échanges prennent la forme d'un forum où les sujets sont regroupés sous la forme d'*issues* (problèmes) qui peuvent être identifiées grâce à des labels. Un des avantages est de pouvoir intégrer des morceaux de code ou de faire des références croisées entre les issues.
 
 ![](pics/03_git/issues_list.png)
 
@@ -41,12 +41,12 @@ Pour ouvrir une nouvelle *issue*, par exemple pour discuter d'une modification a
 
 ![](pics/03_git/new_issue.png)
 
-Il ne faut pas hésiter à ouvrir des `issues` pour prévoir des modifications dans le futur, signaler des points à régler ou à avancer. C'est un outil efficace pour se répartir le travail et cela évite de nombreux échanges mail, avec l'avantage d'être archivé et visible par tous les contributeurs au projet (même ceux qui ne sont pas encore arrivés).
+Il ne faut pas hésiter à ouvrir des `issues` pour prévoir des modifications dans le futur, signaler des points à régler ou à avancer. C'est un outil efficace pour se répartir le travail et cela évite de nombreux échanges mail, avec l'avantage d'être archivé et visible par tous les contributeurs au projet (même ceux à venir).
 
 Un aspect très pratique est qu'il est possible de faire référence aux *issues* dans les messages de `commit` en utilisant le numéro de l'issue précédé du signe `#`, par exemple `#12`. Dans ce cas, automatiquement, `GitLab` affichera une référence au `commit` dans la page de l'*issue* (et le lien url cliquable associé ! ).
 
 :::: {.conseil data-latex=""}
-Il est possible de fermer automatiquement une *issue* en faisant précéder l'appel d'une *issue* par le terme `Closes`. Cela peut être fait dans un message de commit ou dans la description d'une *merge request*. Par exemple,
+Il est possible de fermer automatiquement une *issue* en faisant précéder l'appel d'une *issue* par le terme `Closes`. Cela peut être fait dans un message de commit ou dans la description d'une *merge request*. Par exemple :
 
 ```shell
 Le problème des données manquantes est réglé
@@ -67,7 +67,7 @@ Enfin, il est possible d'avoir un affichage en tableau en cliquant à gauche sur
 
 ## Exercice 4 : Ouvrir et organiser les *issues*
 
-Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correpondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
+Au début d'une tâche particulière ou d'un projet, il est recommandé d'ouvrir des *issues*. Prenant la forme d'un espace de discussion, elles correspondront à la fin à des nouvelles fonctionnalités (en anglais, _features_). Les *issues* permettent également de signaler des bugs constatés, de se les répartir et d'indiquer s'ils sont réglés ou s'ils ont avancés.
 
 Ces *issues* seront fermées au fur et à mesure que les fonctionnalités seront implémentées ou bien que vous aurez abandonné vos idées. Des *labels* peuvent être utilisés pour classer les *issues*. Il est possible de les affecter à une personne en particulier, fixer une date de rendu, etc.
 
@@ -99,40 +99,41 @@ C'est l'espace pour gérer des fusions de branches, c'est-à-dire le fait de tra
 * d'une ou plusieurs *issues* qui ont été créées et discutées
 * d'une création de branche afin de proposer d'intégrer celle-ci à la branche principale (`master`)
 
-`GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier)
+`GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier) :
 
 ![](./pics/03_git/MR2.png)
 
 On clique sur `Compare branches and continue` pour arriver sur la page permettant de décrire la `merge request`. On aide le(s) gestionnaire(s) du projet en faisant en sorte d'être explicite sur l'objectif de la `merge request`. On peut notamment faire référence à des *issues* comme `#19` dans l'exemple ci-dessous. On donne un titre explicite à la merge request en ajoutant le préfixe `WIP:` si celle-ci n'est pas encore finalisée (permet de mentionner précocément au gestionnaire qu'on avance sur le développement d'une branche)
 
-Une bonne pratique est de proposer les options suivantes:
+Une bonne pratique est de proposer les options suivantes :
 
-* `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité.
-* `Squash commits when merge request is accepted`: Regrouper tous les `commits` (potentiellement très nombreux dans l'ancienne branche) en un seul dans la branche de destination. Cela évite, sur les **gros projets**, des branches avec des milliers de *commits*. Pour les petites modifications, c'est-à-dire les branches avec peu de `commits`, on peut éviter cette option et laisser l'historique dans la branche fusionnée.
+* `Delete source branch when merge request is accepted`: effacer la branche sur le dépôt commun pour éviter que quelqu'un l'édite alors qu'elle n'est plus d'actualité
+* `Squash commits when merge request is accepted`: regrouper tous les `commits` (potentiellement très nombreux dans l'ancienne branche) en un seul dans la branche de destination. Cela évite, sur les **gros projets**, des branches avec des milliers de *commits*. Pour les petites modifications, c'est-à-dire les branches avec peu de `commits`, on peut éviter cette option et laisser l'historique dans la branche fusionnée.
 
 ![](./pics/03_git/MR3.png)
 
-Vous pouvez voir, en dessous, les changements induits si la MR est acceptée. Lorsque la `MR` est soumise, `GitLab` inspecte les conflits entre les fichiers. S'il n'y a pas de conflit, la `MR` peut être acceptée directement depuis `GitLab` en cliquant sur le bouton vert `Merge`:
+Vous pouvez voir, en dessous, les changements induits si la MR est acceptée. Lorsque la `MR` est soumise, `GitLab` inspecte les conflits entre les fichiers. S'il n'y a pas de conflit, la `MR` peut être acceptée directement depuis `GitLab` en cliquant sur le bouton vert `Merge` :
 
 ![](./pics/03_git/MR4.png)
 
-En cas de conflit, `GitLab` refuse le `merge` automatique et propose des commandes:
+En cas de conflit, `GitLab` refuse le `merge` automatique et propose des commandes :
 
 ![](./pics/03_git/MR5.png)
 
-Il y a deux philosophies dans le domaine:
+Il y a deux philosophies dans le domaine :
 
 * C'est à la personne qui propose la `merge request` de proposer une copie propre
 * C'est au(x) gestionnaire(s) de nettoyer et harmoniser 
 
 Les gros projets *open-source* fonctionnent plutôt de la première manière. Il s'agit de la pratique la plus prudente. 
 
-Dans des cas rares, vous vous devez passer par la ligne de commande pour des MR. Suivez précisément les indications du `merge locally` et n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique ce qui peut endommager votre dépôt. 
+Dans des cas rares, vous vous devez de passer par la ligne de commande pour des MR. Suivez précisément les indications du `merge locally` et n'oubliez surtout pas l'option `--no-ff` lors de l'étape de `merge` sans quoi vous réécrirez l'historique, ce qui peut endommager votre dépôt. 
 
-La logique générale pour les étapes de `merge locally` est la suivante : 
-1. On met à jour la branche locale cible `origin` (possible aussi via les menus `RStudio` en faisant un `pull`) puis on passe sur la branche source (là où sont les changements qu'on veut transmettre).
-2. On sélectionne **à la main** les modifications dans les programmes par l'intermédiaire des `HEAD` qui sont apparus dans les codes.
-3. On applique les lignes de commande de l'étape 3 (en ligne de commande avec précaution).
+La logique générale pour les étapes de `merge locally` est la suivante :
+
+1. On met à jour la branche locale cible `origin` (possible aussi via les menus `RStudio` en faisant un `pull`) puis on passe sur la branche source (là où sont les changements qu'on veut transmettre)
+2. On sélectionne **à la main** les modifications dans les programmes par l'intermédiaire des `HEAD` qui sont apparus dans les codes
+3. On applique les lignes de commande de l'étape 3 (en ligne de commande avec précaution)
 4. On transmet au dépôt partager avec un `push` (possible via les menus `RStudio`).
 
 
@@ -147,10 +148,10 @@ Le rôle de gestionnaire des `merge request` dans un projet collaboratif est imp
 
 Les `merge requests` (MR) sont sans doute la fonctionnalité la plus pratique. En ouvrant une MR, il est crucial de :
 
-- donner un titre explicite (comme on donne un objet à un mail);
+- donner un titre explicite (comme on donne un objet à un mail)
 - donner des détails dans le message (comme pour les `commit`).
 
-Le cas échéant, il est très pratique d'ajouter dans le corps du message `close #xx` où `xx` est le numéro de l'*issue* décrivant la fonctionnalité que la `MR` implémente. Lorsque la `MR` sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la `MR`. Cela vous permettra de comprendre, plusieurs mois ou années plus tard, comment et pourquoi telle ou telle fonctionnalité a été implémentée.
+Le cas échéant, il est très pratique d'ajouter dans le corps du message `close #xx` où `xx` est le numéro de l'*issue* décrivant la fonctionnalité que la `MR` implémente. Lorsque la `MR` sera fusionnée, l'*issue* sera automatiquement fermée et un lien sera créé entre l'*issue* et la `MR`. Ainsi, cela vous permettra de comprendre, plusieurs mois ou années plus tard, comment et pourquoi telle ou telle fonctionnalité a été implémentée.
 
 Une fois une `MR` ouverte, il est précieux de solliciter une relecture. En effet, personne ([même les meilleurs!](https://twitter.com/hadleywickham/status/589068687669243905)) n'est à l'abri d'une erreur. 
 
@@ -183,8 +184,9 @@ Usuellement, c'est la seule responsabilité spécifique des mainteneurs :
 seuls eux peuvent fusionner dans `master`. Il leur appartient de veiller à la
 bonne qualité des `merge requests`.
 
-Gitlab propose deux options lors du *merge* : 
-* `Delete source branch when merge request is accepted`: supprimer la branche. C'est fortement recommandé car cela évite qu'un contributeur reprenne, après plusieurs mois d'inactivité d'une branche, qui aurait accumulé du retard par rapport à `master`, une branche. 
+Gitlab propose deux options lors du *merge* :
+
+* `Delete source branch when merge request is accepted`: supprimer la branche. C'est fortement recommandé car cela évite qu'un contributeur reprenne, après plusieurs mois d'inactivité d'une branche, qui aurait accumulé du retard par rapport à `master`, une branche
 * `Squash commits when merge request is accepted`: Là, vous devrez faire preuve de discernement. L'habitude est de faire des `squash and merge` (pratique la plus largement répandue). Cependant, il peut y avoir des cas où vous préférerez conserver l'historique des commits (c'est plus rare). Très franchement, ce sujet n'est pas le plus important.
 
 ## Les groupes
