@@ -20,7 +20,7 @@ Voici la marche à suivre lors de la création d'un nouveau projet :
 - Chaque mainteneur a une responsabilité identique et élevée : n'accordez pas les droits de mainteneur sur votre repository à la légère, vous pourriez le regretter.
 - C'est au(x) mainteneur(s) du `r with_def("repository")` de définir les règles d'organisation du travail (ici, ce sera le `GitHub flow`).
 - Idéalement, ces règles doivent être précisément décrites dans un fichier nommé `CONTRIBUTING.md` placé à la racine du projet. Il permettra à toute personne rejoignant le projet en cours de route de comprendre les différentes modalités de contribution.
-- Il est essentiel que chaque personne qui contribue au projet se conformer à ces règles.
+- Il est essentiel que chaque personne qui contribue au projet se conforme à ces règles.
 
 
 `Git` est un outil puissant et flexible, adaptable à un grand nombre d'organisation du travail.
@@ -33,7 +33,7 @@ il est à peu près certain que vous rencontrerez des problèmes.
 Des difficultés peuvent en particulier apparaître dans une
 équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionnalités
 de `Gitlab`, toutes les contributeurs d'un projet n'ont pas besoin de connaître
-`Git`. Néanmoins, il est mieux que ceux ayant la responsabilité la plus élevés, à savoir
+`Git`. Néanmoins, il est mieux que ceux ayant la responsabilité la plus élevée, à savoir
 les droits d'écriture dans `master`, aient des connaissances en `Git` pour
 ne pas mettre en péril un projet par une manipulation hasardeuse
 (ça n'arrive pas souvent et il y a des filets de sécurité avant de le faire).
@@ -114,13 +114,13 @@ du dépôt:
 * La personne qui n'a pas fait le `merge` de sa branche se place sur sa branche. Elle doit mettre à jour
 sa branche pour tenir compte des modifications de `master`:
     + Il faut taper dans l'invite de commande `git merge master` 
-    + Un conflit doit apparaître: il se résout en éditant directement le fichier. Ne pas supprimer la phrase
+    + Un conflit doit apparaître : il se résout en éditant directement le fichier. Ne pas supprimer la phrase
 de votre camarade mais accoler votre texte à celle-ci
 
 * La personne qui a fait le `merge` retombe dans sa deuxième personnalité et se place dans sa branche `*-double`. Elle doit mettre à jour
 sa branche `*-double` pour tenir compte des modifications de `master`:
     + Il faut taper dans l'invite de commande `git merge master` 
-    + Un conflit doit apparaître: il se résout en éditant directement le fichier. Ne pas supprimer la phrase
+    + Un conflit doit apparaître : il se résout en éditant directement le fichier. Ne pas supprimer la phrase
 de votre première personnalité mais accoler votre nouveau texte à celle-ci
 
 **Question d.** Sur Gitlab, valider la *merge request* de la personne qui n'a pas eu de MR validée jusqu'à présent.
@@ -162,3 +162,5 @@ recommande de faire un `rebase`: souvenez-vous, on vous a dit que c'était mal d
 de peine (et on évite une grosse galère au mainteneur du dépôt forké) en évitant simplement de faire le
 merge depuis son propre `master`. L'astuce de le faire depuis une branche différente fonctionne très bien.
 ::::
+
+/* faute de frappe dans le dernier mot de la note de bas de page 2 (mais absente ici) : travailler et non travaillr */

@@ -14,7 +14,7 @@ Les principales fonctionnalités sont présentes dans les onglets d'un projet so
 1. `Repository`: le dépôt, c'est le centre du contrôle de version
 2. `Issues`: espace de discussion, de suggestions ou demandes
 3. `Merge Requests`: suggestion de modifications en proposant au(x) gestionnaire(s) du dépôt de fusionner des branches
-4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")` (cf. Section avancée ** sur le sujet)
+4. `CI/CD`: espace dédié à l'`r with_def("intégration continue")`
 5. `Wiki`: espace de documentation collaboratif séparé des fichiers du dépôt ([exemple](https://github.com/Rdatatable/data.table/wiki)). Cela implique que la documentation n'est pas associée à un fichier du dépôt. Il s'agit également d'un dépôt git
 6. `Snippets`: morceaux de code à conserver qui peuvent être utiles dans le futur.
 
@@ -97,7 +97,7 @@ Vérifier via un `pull` que votre voisin a corrigé son texte et clôturer l'*is
 C'est l'espace pour gérer des fusions de branches, c'est-à-dire le fait de transmettre à la branche commune des modifications en les validant. Cela peut venir à la suite : 
 
 * d'une ou plusieurs *issues* qui ont été créées et discutées
-* d'une création de branche afin de proposer de l'intégrer 
+* d'une création de branche afin de proposer d'intégrer celle-ci à la branche principale (`master`)
 
 `GitLab` facilite énormément le travail de fusion de branches (MR). Si les modifications proposées sont faites avec méthode, cela évite le passage fastidieux par la ligne de commande.  Pour créer une nouvelle *merge request*, on clique en haut à droite sur `New Merge request`. On sélectionne ensuite la branche `source` (celle où on a fait les modifications) et la branche `target` (celle qu'on veut modifier) :
 
@@ -192,6 +192,6 @@ Gitlab propose deux options lors du *merge* :
 ## Les groupes
 
 
-Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de dossiers :
+Quand un projet est important, on peut créer un groupe qui permet d'avoir une arborescence de dossiers. La [documentation officielle](https://docs.gitlab.com/ee/user/group/) et ce [poste de blog](https://www.troispointzero.fr/le-blog/la-gestion-de-projet-avec-gitlab/) donnent quelques éléments supplémentaires
 
 ![](./pics/03_git/page_Drees_gitlab.png){width=100%} 

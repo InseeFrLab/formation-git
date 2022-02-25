@@ -72,7 +72,7 @@ De manière plus précise, il y a trois étapes avant d'envoyer les modification
 * `staging area` : sélection des modifications. 
 * `r with_def("commit")` :  validation des modifications sélectionnées (avec commentaire).
 
-L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin: il est possible de découper les modifications d'un fichier en plusieurs morceaux cohérents. 
+L'un des intérêts de `git` est que le choix des modifications à soumettre est très fin : il est possible de découper les modifications d'un fichier en plusieurs morceaux cohérents. 
 
 Les deux diagrammes ci-dessous représentent ces différences étapes et les commandes qui permet de passer d'un état à l'autre.
 
@@ -81,7 +81,7 @@ Les deux diagrammes ci-dessous représentent ces différences étapes et les com
 ![](./pics/03_git/statut_fichiers.png){width=100%} 
 
 
-Lors d'un `r with_def("commit")`, le message de validation est très important:
+Lors d'un `r with_def("commit")`, le message de validation est très important :
 
 * il décrit brièvement les modifications contenues dans le commit
 * il s'adresse aux autres et doit donc être intelligible
@@ -96,15 +96,15 @@ Lors des étapes de push et pull, des **conflits** peuvent apparaître, par exem
 
 Tout d'abord, il est possible de minimiser l'apparition de conflits en amont en validant souvent les modifications (`commit`) :
 
-* en commençant par mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commencer à travailler sur un projet
-* en regroupant les commit par petits lots homogènes et en préférant peu de fichiers
+* en commençant par mettre à jour sa copie locale régulièrement via `r with_def("pull")` ou `r with_def("fetch")`, voire dès qu'on commence à travailler sur un projet
+* en regroupant les commits par petits lots homogènes et en préférant peu de fichiers
 * en communiquant avec les autres membres de l’équipe en disant sur quoi on travaille et en prévenant en cas de grosse modification
 
 
 
 :::: {.recommandation data-latex=""}
 
-De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")` et `r with_def("merge")`).
+De manière générale, **il ne faut pas avoir peur des conflits**. Les outils sont faits pour les gérer avec rigueur et méthode (voir [les exercices](#gitexo)). Avec GIT, il est très rare de faire des bêtises et on peut toujours réparer **à condition de s'en tenir aux commandes de base** (`r with_def("commit")`, `r with_def("push")`, `r with_def("pull")`, `r with_def("fetch")` et `r with_def("merge")`).
 
 Cependant, **il existe des commandes qui peuvent définitivement endommager votre projet**, la plus destructrice étant `git push --force` que vous ne devriez jamais utiliser. Faites très attention en lisant des tutoriels en ligne car certains sont à destination d'utilisateurs avancés et recommandent ces commandes "à risque". 
 
@@ -144,11 +144,11 @@ Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droit
 
 **Question a.** *`clone` et modification du fichier`.gitignore`*
 
-Clôner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+Cloner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
 
 **Question b.** *`staging`*
 
-Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
+Créer un fichier `votre_idep.md` et y écrire une phrase au format, sujet-verbe-complément mais sans majuscule ni ponctuation. Observer le statut du fichier dans l'onglet `git`.
 
 **Question c.** *`commit`*
 
@@ -198,7 +198,7 @@ La branche `master` est la branche principale. Elle se doit d'être "propre".
 On ne pousse pas des travaux non aboutis sur `master`, c'est assez mal vu et sources de futurs problèmes.  
 
 Peut-on pousser directement sur `master` ? Oui, pour des petites corrections, des modifications mineures dont vous êtes certains qu'elles vont fonctionner. Mais sachez que dans le cadre de projets sensibles, c'est strictement interdit. Il y a justement des meilleurs outils pour proposer des changements substantiels. Dans votre organisation, n'ayez pas peur de fixer comme règle l'interdiction de pousser sur `master`
-(cf. [section précédente](#orgagit)), cela obligera l'équipe
+(cf. [chapitre sur l'organisation des projets collaboratifs](#orgagit)), cela obligera l'équipe
 projet à travailler avec rigueur. 
 
 Au moindre doute, créez une branche ! Les branches sont utilisées pour des travaux significatifs :
@@ -270,7 +270,7 @@ Une des commandes les plus utiles pour un travail collaboratif pour les statisti
 
 Ainsi, **il est crucial de ne pas partager les données** et exclure les fichiers de la forme `*.csv` ainsi que tous les fichiers de sortie, notamment au format `*.html` ou `*.pdf`. Les fichiers à exclure du contrôle de version sont listées dans un fichier nommé **`.gitignore`** ( [exemple ici](https://gitlab.com/linogaliana/collaboratif/-/blob/master/.gitignore)). Il est normalement créé par défaut dans le répertoire du dépôt. Il suffit alors de le modifier en ajoutant à la ligne les fichiers que l'on souhaite ignorer, par exemple "mon_graphique.pdf" ou alors tous les fichiers au format xls en ajoutant "*.xls".
 
-Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` avec lequel vous deviendrez familier dans la [Partie Package](#package) :
+Si le dossier de travail ne comporte pas ce fichier et que vous désirez exclure un type de fichier, par exemple `csv`, pour le créer et y ajouter les fichiers `*.csv` par exemple, vous pouvez utiliser le  package `usethis` ([fonction](https://usethis.r-lib.org/reference/use_git_ignore.html)) qui facilite énormément la gestion de projets `R` ([documentation du package](https://usethis.r-lib.org/))
 
 ```{r, eval = FALSE}
 # Taper dans la console RStudio
@@ -290,7 +290,7 @@ En particulier, il faut être **extrêmement vigilant** à **ne jamais** mettre 
 
 ::::
 
-La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://linpricnil.github.io/Guide-RGPD-du-developpeur/)).
+La CNIL fournit des conseils aux développeurs pour compléter ces bonnes pratiques ([lien](https://www.cnil.fr/fr/la-cnil-publie-une-nouvelle-version-de-son-guide-rgpd-pour-les-developpeurs))
 
 :::: {.conseil data-latex=""}
 Le site [gitignore.io](https://www.toptal.com/developers/gitignore) fournit des modèles de fichiers `.gitignore` selon le langage utilisé. Ils peuvent servir de base à enrichir en fonction des besoins.
@@ -311,7 +311,7 @@ si vous supprimez un fichier sans faire exprès.
 1. Dans votre branche, ajouter deux fichiers `fichier_important.md` et `brouillon.md`
 contenant chacun une phrase. Faire un `commit` de ce fichier. Pusher.
 2. Revenir sur `master`. Regardez l'arborescence des fichiers (dans RStudio ou via
-Windows) : le fichier `modification_importante.md` n'est plus là: cela vous inquiète-t-il ?
+Windows) : le fichier `modification_importante.md` n'est plus là ! Cela vous inquiète-t-il ?
 3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois :
   + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
   + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
@@ -329,7 +329,7 @@ git checkout <commit hash> -- fichier_important.md
 
 :::: 
 
-D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées: 
+D'autres fonctionnalités plus avancées existent et pourront être mises à profit si elles sont correctement utilisées : 
 
 * `git tag` : sauvegarder une version figée, comme une "photographie" à un instant donné
 * `git log` : filtrer les contenus des différences pour rechercher le commit à l'origine d'un changement en particulier.
@@ -343,7 +343,6 @@ D'autres commandes plus périlleuses peuvent permettre un retour en arrière dan
 Pour aller plus loin, des ressources internes au SSP existent (plutôt destinées à des développeurs) :
 
 * [`GIT` au quotidien](https://romain-warnan.github.io/git-au-quotidien) par Romain Warnan  
-* des supports du SNDI sur les [bases de `GIT`](http://formation-git-sndi-lille.pages.innovation.insee.eu/cours/#/)
 * la documentation AUSV3 sur [quelques manipulations courantes avec `GIT`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git)
 * utiliser `GIT` avec RStudio [par utilitR](https://www.book.utilitr.org/git.html)
 
