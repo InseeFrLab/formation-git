@@ -1,59 +1,39 @@
 
 # Configurer un projet `GIT` avec RStudio à l'Insee
 
-Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. 
-C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. 
-Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. 
-Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [SSP Cloud](https://datalab.sspcloud.fr). 
-C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. 
-Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet ouvert sur le SSP Cloud ou sur poste local. 
+Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [SSP Cloud](https://datalab.sspcloud.fr). C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet ouvert sur le SSP Cloud ou sur poste local. 
 
-La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. 
-Le choix de la forge logicielle appropriée dépend avant tout de la destination du projet.
-Pour les projets à destination interne de l'Insee, il est recommandé de s'appuyer sur le [`GitLab` interne](https://gitlab.insee.fr). 
-Pour les projets à destination open-source, il est commun d'utiliser [GitHub](https://github.com/), forge sur laquelle l'Insee publie ses projets open-source à travers les organisations [InseeFr](https://github.com/InseeFr) et [InseeFrLab](https://github.com/InseeFrLab).
-Néanmoins, afin de rester dans le cadre de l'écosystème GitLab pour cette formation, on présentera l'utilisation de la forge [git.lab.sspcloud.fr](https://git.lab.sspcloud.fr/) comme forge pour les projets à destination open source.
+La seconde brique afin de pouvoir travailler sur un projet partagé est le choix de la plateforme où est stocké le `repository`. Le choix de la forge logicielle appropriée dépend avant tout de la destination du projet. Pour les projets à destination interne de l'Insee, il est recommandé de s'appuyer sur le [`GitLab` interne](https://gitlab.insee.fr). Pour les projets à destination open-source, il est commun d'utiliser [GitHub](https://github.com/), forge sur laquelle l'Insee publie ses projets open-source à travers les organisations [InseeFr](https://github.com/InseeFr) et [InseeFrLab](https://github.com/InseeFrLab). Néanmoins, afin de rester dans le cadre de l'écosystème GitLab pour cette formation, on présentera l'utilisation de la forge [git.lab.sspcloud.fr](https://git.lab.sspcloud.fr/) comme forge pour les projets à destination open source.
 
-Que ce soit sur les sites externes de type `gitlab.com` ou la plateforme innovation, il est d'abord nécessaire de créer son accès puis ensuite de configurer l'acccès au `GitLab`. 
-Ces manipulations sont à faire une et une seule fois pour un poste de travail donné, ce sont les étapes de configuration. 
-Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples et automatisées. 
+Que ce soit sur les sites externes de type `gitlab.com` ou la plateforme innovation, il est d'abord nécessaire de créer son accès puis ensuite de configurer l'acccès au `GitLab`. Ces manipulations sont à faire une et une seule fois pour un poste de travail donné, ce sont les étapes de configuration. Ensuite, les manipulations pour accéder à un projet déjà existant sont plus simples et automatisées. 
 
 ## Procédure de configuration avec le `GitLab` interne
 
-La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`. 
-Cette plateforme est un outil de stockage et de gestion des projets mis en commun via `Git`. 
+La section qui suit présente l'étape fondamentale pour pouvoir lire et modifier un dossier partagé sur un dépôt commun stocké sur un `GitLab`. Cette plateforme est un outil de stockage et de gestion des projets mis en commun via `Git`. 
 
 ### Accéder au `GitLab` de l'Insee
 
-Une version interne de `GitLab` est disponible à l'Insee sur [gitlab.insee.fr](https://gitlab.insee.fr). 
-Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. 
-Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
+Une version interne de `GitLab` est disponible à l'Insee sur [gitlab.insee.fr](https://gitlab.insee.fr). Pour accéder à son profil sur le  `GitLab` de l'Insee, il est nécessaire de se connecter avec son profil individuel. Pour y accéder, il suffit de cliquer sur `Sign In` en haut à droite: 
 
 ![](./pics/03_git/sign_in_gitlab.png){width=100%} 
 
 ### Recommandation concernant l'authentification HTTPS vs SSH
 
-L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). 
-Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
+L'étape suivante de configuration est de créer un lien sécurisé entre le profil utilisateur distant et le poste de travail (local ou AUS). Pour cela, il existe deux possibilités l'authentification via `HTTPS` ou via `SSH`.
 
-En dehors des infrastructures Insee, il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`, notamment lorsqu'on interagit avec `Gitlab.com` car il suffit de rentrer `login/password` lorsqu'on interagit avec un dépôt. 
-La fiche [utilitR](https://www.book.utilitr.org/git-config.html) présente avec plus de détails ces concepts et des recommandations de sécurité adaptées, par exemple sur la manière d'enregistrer un jeton `HTTPS`  pour ne pas avoir à le fournir à chaque authentification ou pour utiliser l'authentification SSH.
+En dehors des infrastructures Insee, il est généralement plus simple d'utiliser l'authentification `HTTPS` que `SSH`, notamment lorsqu'on interagit avec `Gitlab.com` car il suffit de rentrer `login/password` lorsqu'on interagit avec un dépôt. La fiche [utilitR](https://www.book.utilitr.org/git-config.html) présente avec plus de détails ces concepts et des recommandations de sécurité adaptées, par exemple sur la manière d'enregistrer un jeton `HTTPS`  pour ne pas avoir à le fournir à chaque authentification ou pour utiliser l'authentification SSH.
 
-À l'Insee, le [wiki d'`AUSV3`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git) décrit toutes les étapes (à suivre à la lettre et pas à pas) pour configurer l'utilisation de `Git` avec AUS par l'intermédiaire `SSH`. 
-Cette manipulation tient lieu d'installation pour pouvoir échanger avec le dépôt distant et est donc à faire une seule fois par poste (local, AUS ou personnel en dehors des projets Insee).
+À l'Insee, le [wiki d'`AUSV3`](https://gitlab.insee.fr/infrastructure/lss/ausv3/documentation-utilisateurs/-/wikis/Logiciels/Git) décrit toutes les étapes (à suivre à la lettre et pas à pas) pour configurer l'utilisation de `Git` avec AUS par l'intermédiaire `SSH`. Cette manipulation tient lieu d'installation pour pouvoir échanger avec le dépôt distant et est donc à faire une seule fois par poste (local, AUS ou personnel en dehors des projets Insee).
 
 ## Au lancement de chaque projet, cloner depuis `gitlab.insee.fr`
 
-Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé, afin de le copier dans son espace de travail (dit local). 
-Il est disponible via le bouton `clone` du projet. 
+Pour pouvoir récupérer un projet disponible sur un dépôt afin de le modifier en local, la première étape consister à récupérer le chemin du dossier partagé, afin de le copier dans son espace de travail (dit local). Il est disponible via le bouton `clone` du projet. 
 
-Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` sur la plateforme innovation.
- Pour récupérer (**`r with_def("clone")`** en vocabulaire `GIT`) le dossier partagé, il suffit copier l'adresse indiquée sous la boîte *Clone with SSH* avec l'icône entourée.
+Prenons l'exemple du support de cette formation, créé avec `RStudio` et `GIT` sur la plateforme innovation. Pour récupérer (**`r with_def("clone")`** en vocabulaire `GIT`) le dossier partagé, il suffit copier l'adresse indiquée sous la boîte *Clone with SSH* avec l'icône entourée.
 
 ![](./pics/03_git/clone_ssh.png)
 
-Ensuite, il est nécessaire d'indiquer à `RStudio` comment se connecter à ce dépôt distant (stocké sur le `Gitlab`). 
-Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
+Ensuite, il est nécessaire d'indiquer à `RStudio` comment se connecter à ce dépôt distant (stocké sur le `Gitlab`). Dans "File / New Project", sélectionner `Version control` puis `GIT` :  
 
 ![](./pics/03_git/Rproj.png) 
 
@@ -67,17 +47,13 @@ Cliquer sur `Create project` copier les fichiers du dossier partagé et vous per
 
 ## Procédure de configuration avec le `GitLab` du SSP Cloud
 
-La procédure décrite précédemment pour le `GitLab` interne reste en large partie valide pour l'instance `GitLab` du SSP Cloud. 
-Il y a néanmoins quelques différences importantes à avoir en tête si l'on souhaite suivre cette formation sur le SSP Cloud au lieu d'AUS.
+La procédure décrite précédemment pour le `GitLab` interne reste en large partie valide pour l'instance `GitLab` du SSP Cloud. Il y a néanmoins quelques différences importantes à avoir en tête si l'on souhaite suivre cette formation sur le SSP Cloud au lieu d'AUS.
 
 ### Recommandation concernant l’authentification HTTPS vs SSH
 
-Dans le cas du SSP Cloud, l'authentification a privilégier est la méthode HTTPS. 
-En effet, les services du SSP Cloud sont des conteneurs temporaires, qui ne peuvent donc pas garder durablement une clé SSH d'authentification.
-Il faudrait donc refaire toute la procédure à chaque ouverture de service.
+Dans le cas du SSP Cloud, l'authentification a privilégier est la méthode HTTPS. En effet, les services du SSP Cloud sont des conteneurs temporaires, qui ne peuvent donc pas garder durablement une clé SSH d'authentification. Il faudrait donc refaire toute la procédure à chaque ouverture de service.
 
-Pour éviter cela, on va utiliser un jeton d'authentification (*token*). 
-Pour le générer :
+Pour éviter cela, on va utiliser un jeton d'authentification (*token*). Pour le générer :
 - accéder à la [page de génération des jetons](https://git.lab.sspcloud.fr/-/profile/personal_access_tokens)
 - donner un nom et une date d'expiration (typiquement, 90 jours) au jeton
 - cocher `write_repository` pour lui donner les droits d'accès en écriture sur vos projets personnels
