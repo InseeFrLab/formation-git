@@ -54,18 +54,21 @@ La procédure décrite précédemment pour le `GitLab` interne reste en large pa
 Dans le cas du SSP Cloud, l'authentification a privilégier est la méthode HTTPS. En effet, les services du SSP Cloud sont des conteneurs temporaires, qui ne peuvent donc pas garder durablement une clé SSH d'authentification. Il faudrait donc refaire toute la procédure à chaque ouverture de service.
 
 Pour éviter cela, on va utiliser un jeton d'authentification (*token*). Pour le générer :
+
 * accéder à la [page de génération des jetons](https://git.lab.sspcloud.fr/-/profile/personal_access_tokens)
 * donner un nom et une date d'expiration (typiquement, 90 jours) au jeton
 * cocher `write_repository` pour lui donner les droits d'accès en écriture sur vos projets personnels
 * cliquer sur "Create personal access token" pour générer le token
+* 
 Le token n'apparaît qu'une fois, il faut donc le conserver quelque part ; nous vous conseillons de l'ajouter à un gestionnaire de mots de passe.
 
 ### Clonage d'un projet
 
 La procédure pour démarrer un projet collaboratif est très semblable à celle décrite pour le `GitLab` interne. Il y a cependant quelques différences importantes :
+
 * on va cloner le projet dans un service RStudio lancé à partir du SSP Cloud, et non sur le RStudio d'AUS
 * dans le champ *Repository URL*, on va inclure une URL de la forme : `https://oauth2:<PAT>@git.lab.sspcloud.fr/<user>/<project>.git` où :
     * <PAT> est à remplacer par le token généré sur l'interface GitLab à l'étape précédente
     * <user> est à remplacer par votre nom d'utilisateur sur le SSP Cloud (ou le nom d'un projet le cas échéant)
     * <project> est à remplacer par le nom du projet que vous voulez cloner
-* on laissera généralement le champ *Create project as subdirectory of * inchangé, dans la mesure où est par défaut dans un espace de travail au sein du service.
+* on laissera généralement le champ *Create project as subdirectory of * inchangé, dans la mesure où on est situé par défaut dans un espace de travail au sein du service.
