@@ -1,5 +1,5 @@
 
-# Configurer un projet `GIT` avec RStudio à l'Insee
+# Configurer un projet `GIT` avec RStudio
 
 Dans une configuration classique, la première étape consisterait à installer le logiciel `GIT` sur son poste. C'est par exemple le cas sur son ordinateur personnel ou sur son poste de travail local. Cependant, cette formation adopte un cadre de travail sécurisé et partagé, permettant à la fois d'utiliser la version de `RStudio` recommandée et d'avoir accès aux coffres. Elle peut se dérouler  sur le serveur de calcul AUS interne à l'Insee ou sur le [SSP Cloud](https://datalab.sspcloud.fr). C'est aussi certainement le cadre de travail classique sur des projets collaboratifs avec d'autres collègues. Ce support présente la configuration spécifique à AUS comme cadre par défaut mais fournit également des éléments pour le cas d'un projet ouvert sur le SSP Cloud ou sur poste local. 
 
