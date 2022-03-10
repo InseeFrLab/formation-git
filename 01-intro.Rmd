@@ -46,18 +46,17 @@ Cet ancien support sera petit à petit transformé en site web autosuffisants.
 
 ### Contributeurs {-}
 
-Écriture du support : 
+Écriture du support (partie GIT) : 
 [Lino Galiana](https://linogaliana.netlify.com/) ;
 [Mathias André](https://gitlab.com/mathias.andre) ;
-[Romain Lesur](https://github.com/RLesur) ;
 [Annie Moineau](https://gitlab.com/annieMoineau) ;
-[Olivier Meslin](https://gitlab.com/oliviermeslin)
 
 Relecteurs : 
 [Lino Galiana](https://linogaliana.netlify.com/) ;
 [Mathias André](https://gitlab.com/mathias.andre) ;
 [Olivier Meslin](https://gitlab.com/oliviermeslin) ;
-Georges Pavlov
+Georges Pavlov;
+[Romain Lesur](https://github.com/RLesur) ;
 
 Mise en forme:
 [Lino Galiana](https://linogaliana.netlify.com/), [Romain Lesur](https://github.com/RLesur)
