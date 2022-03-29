@@ -50,6 +50,7 @@ Cet ancien support sera petit à petit transformé en site web autosuffisants.
 [Lino Galiana](https://linogaliana.netlify.com/) ;
 [Mathias André](https://gitlab.com/mathias.andre) ;
 [Annie Moineau](https://gitlab.com/annieMoineau) ;
+[Romain Lesur](https://github.com/RLesur) ;
 
 Relecteurs : 
 [Lino Galiana](https://linogaliana.netlify.com/) ;
