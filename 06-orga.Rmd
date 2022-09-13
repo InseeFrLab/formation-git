@@ -163,4 +163,3 @@ de peine (et on évite une grosse galère au mainteneur du dépôt forké) en é
 merge depuis son propre `master`. L'astuce de le faire depuis une branche différente fonctionne très bien.
 ::::
 
-/* faute de frappe dans le dernier mot de la note de bas de page 2 (mais absente ici) : travailler et non travaillr */
