@@ -114,7 +114,7 @@ Cependant, **il existe des commandes qui peuvent définitivement endommager votr
 
 ## Exercice 1: Premiers pas avec `git` en local {#gitlocal}
 
-Dans le cadre de cette formation, un projet d'exemple a été créé pour vous. L'idée est de former des groupes de deux, chaque groupe représentant une équipe. Vous allez donc travailler en binôme avec votre voisin (ou avec une personne de la visio si la formation n'a pas lieu en présentiel).
+Dans le cadre de cette formation, un projet d'exemple a été créé pour vous. L'idée est de former des groupes de deux, chaque groupe représentant une équipe. Vous allez donc travailler en binôme avec votre voisin (ou avec une personne de la visio si la formation n'a pas lieu en présentiel). Vous avez besoin de désigner une personne référente (disons X pour la suite de l'énoncé).
 
 Dans cette partie, nous allons adopter un fil rouge en créant un document collaboratif commun et en pratiquant par des exercices les principales situations d'un statisticien qui travaille avec `R` et `GIT` via `RStudio` et `GitLab`.
 
@@ -125,17 +125,16 @@ Dans cette partie, nous allons adopter un fil rouge en créant un document colla
 donc d'éviter d'être tous en même temps sur le même projet.
 
 Pour cela, dans chaque équipe
-de 2, une personne doit faire un `r with_def("fork")` qui revient à dupliquer le projet pour chacune des équipes. Pour cela, il faut cliquer en haut à droite du projet exemple, qui sert de base à l'exercice.
+de 2, X doit faire un `r with_def("fork")` qui revient à dupliquer le projet pour chacune des équipes. Pour cela, il faut cliquer en haut à droite du projet exemple, qui sert de base à l'exercice.
 
-La personne qui a initié le `fork` (pas besoin d'être deux à le faire) doit
-ensuite donner des droits à son/sa binôme (dans `members` du menu à gauche ). Accorder le droit de `maintainer` pour commencer.
+Après avoir initié le `fork`, X doit ensuite donner des droits à son/sa binôme (dans `members` du menu à gauche). Accorder le droit de `maintainer` pour commencer (une erreur de type 403 "access denied" se produirait plus tard sinon).
 
 ::::
 
 :::: {.exo data-latex=""}
 Exercice 1 : Git en local
 
-`r emo::ji("warning")` N'oubliez pas qu'il faut avoir fait un `fork` du projet.
+`r emo::ji("warning")` N'oubliez pas qu'il faut avoir fait un `fork` du projet (un seul suffit, par la personne X désignée).
 
 
 Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droite) : 
@@ -144,7 +143,7 @@ Pour commencer, tout se passe dans l'onglet `git` de `RStudio` (en haut à droit
 
 **Question a.** *`clone` et modification du fichier`.gitignore`*
 
-Cloner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html`. Penser à sauvegarder le fichier.  
+Cloner le dossier de votre projet d'équipe avec `RStudio` via le lien `SSH` du projet sur `Gitlab`. Ensuite, X doit modifier le fichier `.gitignore` en y ajoutant les fichiers `.pdf` et au `.html` ainsi que `.Rproj`. X doit ensuite sauvegarder et pusher le `.gitignore`. Les autres personnes du groupe peuvent ensuite récupérer ces modifications via `pull`.
 
 **Question b.** *`staging`*
 
