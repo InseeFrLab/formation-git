@@ -320,7 +320,7 @@ Maintenant, une manipulation plus avancée mais qui permet de rassurer :
 
 1. Supprimez à nouveau les deux fichiers. Cependant, cette fois vous faites un `commit` (nommer le commit "je suis étourdi") et un `push`.
 2. Vous allez sur la branche de votre camarade et vous rendez compte que le fichier  `fichier_important.md` a disparu. Vous allez essayer de le rétablir.
-3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper dans le `GIT bash` :
+3. Pour cela, aller dans l'historique des commits et identifier le `SHA` du commit responsable. Taper dans le `GIT bash` (ouvert via RStudio ou bien en vérifiant qu'on est dans le bon dossier) :
 
 ```shell
 git checkout <commit hash> -- fichier_important.md
