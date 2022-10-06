@@ -314,7 +314,7 @@ Windows) : le fichier `modification_importante.md` n'est plus là ! Cela vous in
 3. Retournez sur votre branche. Vous allez faire une bêtise et supprimer les deux fichiers à la fois :
   + Avec une organisation sans `Git`, vous pouvez maintenant paniquer.
   + Grâce à `Git`, vous pouvez rester serein. En effet, vous pouvez retourner en arrière.
-4. Ouvrir le menu `commit` de `RStudio` et faites `Discard All` (fonctionne également avec `Revert`) et répondez oui à la boîte de dialogue qui s'ouvre (après l'avoir lue et comprise). Et vous retrouvez vos deux fichiers.
+4. Ouvrir le menu `commit` de `RStudio` et faites `Revert` puis répondez oui à la boîte de dialogue qui s'ouvre (après l'avoir lue et comprise). Et vous retrouvez vos deux fichiers.
 
 Maintenant, une manipulation plus avancée mais qui permet de rassurer :
 
