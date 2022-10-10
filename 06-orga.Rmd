@@ -9,7 +9,7 @@ Cette formation adopte le parti pris de suivre le `GitHub Flow` dont une rapide 
 
 En effet, des habitudes se sont imposées peu à peu dans la
 communauté R, essentiellement au travers des collaborations sur la plateforme
-`GitHub` (plateforme de gestion de code similaire à GitLab). Ces usages, semblables à des normes sociales, vous permettront d'acquérir une certaine maîtrise de `Git`. Ensuite, au fur et à mesure de l'avancée de vos projets, vous pourrez adapter plus finenement ce fonctionnement à vos besoins et exploiter les nombreuses possibilités offertes par le contrôle de version. Cela n'est absolument pas gênant, à partir du moment où vous comprenez ce que vous faites.
+`GitHub` (plateforme de gestion de code similaire à GitLab). Ces usages, semblables à des normes sociales, vous permettront d'acquérir une certaine maîtrise de `Git`. Ensuite, au fur et à mesure de l'avancée de vos projets, vous pourrez adapter plus finement ce fonctionnement à vos besoins et exploiter les nombreuses possibilités offertes par le contrôle de version. Cela n'est absolument pas gênant, à partir du moment où vous comprenez ce que vous faites.
 
 Vous devez savoir qu'il y a plusieurs méthodes de travail avec `git` (_flow_, en anglais). Vous pourrez trouvez des dizaines d'articles en ligne et d'ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (`Git flow`, `GitHub flow`, `GitLab flow`...). Ne lisez pas trop ces livres ou articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents ou les conseils pour devenir millionnaires).
 ::::
@@ -32,7 +32,7 @@ L'expérience enseigne que si vous n'avez pas réfléchi à l'organisation du tr
 il est à peu près certain que vous rencontrerez des problèmes.
 Des difficultés peuvent en particulier apparaître dans une
 équipe dont personne n'aurait d'expérience avec `Git`. Grâce aux fonctionnalités
-de `Gitlab`, toutes les contributeurs d'un projet n'ont pas besoin de connaître
+de `Gitlab`, tous les contributeurs d'un projet n'ont pas besoin de connaître
 `Git`. Néanmoins, il est mieux que ceux ayant la responsabilité la plus élevée, à savoir
 les droits d'écriture dans `master`, aient des connaissances en `Git` pour
 ne pas mettre en péril un projet par une manipulation hasardeuse
@@ -109,7 +109,7 @@ Vous ouvrez une branche. Refaire l'exercice 3
 valide sa *merge request*
 
 **Question c.** En local, vous faites tous deux un `pull` pour récupérer la modification
-du dépôt:
+du dépôt :
 
 * La personne qui n'a pas fait le `merge` de sa branche se place sur sa branche. Elle doit mettre à jour
 sa branche pour tenir compte des modifications de `master`:
