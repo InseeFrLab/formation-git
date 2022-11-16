@@ -13,4 +13,6 @@ description: "Support associé à la formation Travail collaboratif avec R"
 
 # Introduction : utiliser `GIT` avec `R`
 
-Support associé à la formation nationale `Travail collaboratif avec R`. 
+Ce site web centralise les supports associés à une formation nationale développée à l'Insee et nommée `Travail collaboratif avec R - Initiation`. Celle-ci a vocation à durer environ 1,5 jour.
+
+Une version plus synthétique, ayant vocation à durer une journée, est disponible dans une version provisoire sous un [format de slides](https://formation.pages.lab.sspcloud.fr/git/20220929-formation-git-dese/)
