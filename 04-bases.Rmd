@@ -60,7 +60,7 @@ Tous les serveurs `Git` connaissent une structure similaire :
 Les trois manipulations les plus courantes sont les suivantes et représentées sur le diagramme ci-après : 
 
 + `r with_def("pull")` : je récupère la dernière version des codes du dépôt distant
-+ `r with_def("commit")` : je valide mes modifications avec un message qui les expliquent
++ `r with_def("commit")` : je valide mes modifications avec un message qui les explique
 + `r with_def("push")` : je transmets mes modifications validées au dépôt distant
 
 
